@@ -1,6 +1,6 @@
 # BonBon: Dorayaki Bites!
 
-![Alt Text](readme-img.png))
+![Alt Text](readme-img.png)
 
 
 ## Overview
