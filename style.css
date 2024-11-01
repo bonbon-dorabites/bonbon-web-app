@@ -82,3 +82,11 @@ body {
     font-size: 25px;
     font-weight: bold;
 }
+
+.buynow a:hover {
+    background-color: var(--brown);
+}
+
+.buynow button:hover {
+    color: var(--dark-brown);
+}
