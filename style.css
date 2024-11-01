@@ -37,7 +37,7 @@ body {
 
 .dropdown-item:hover {
     background-color: var(--lightest-brown);
-    color:#48201a
+    color:var(--dark-brown);
 }
 
 .hero {
