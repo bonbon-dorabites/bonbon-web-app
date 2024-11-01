@@ -1,0 +1,10 @@
+.custom-navbar-link {
+    color: #da9747 !important;
+    font-size: 1.25rem !important; /* Adjust as needed */
+    font-weight: bold !important;
+    text-decoration: none !important; /* Removes underline */
+}
+.custom-navbar-link:hover {
+    color: #b25627 !important; /* Optional: change color on hover */
+}
+  
