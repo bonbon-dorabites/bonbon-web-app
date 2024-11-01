@@ -61,3 +61,7 @@ body {
     font-style: italic;
     font-size: 4vh;
 }
+
+.hero-icon {
+    margin-right: 2vw;
+}
