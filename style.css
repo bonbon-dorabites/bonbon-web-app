@@ -2,6 +2,7 @@
 
 :root {
     --dark-brown: #48201a;
+    --wood-color: #7e492e;
     --brown: #b25627;
     --light-brown: #da9747;
     --lightest-brown: #edb868;
@@ -94,4 +95,17 @@ body {
 
 .buynow button:hover {
     color: var(--dark-brown);
+}
+
+.promotion {
+    background-color: var(--wood-color);
+    height: 90px;
+    color: var(--lightest-brown);
+}
+
+.promotion h1 a {
+    color: var(--lightest-brown);
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bold;
 }
