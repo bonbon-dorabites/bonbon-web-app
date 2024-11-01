@@ -41,10 +41,11 @@ body {
 
 
 .hero {
-    height: 500px;
+    height: 480px;
     background-color: var(--lightest-brown);
 }
 
-.hero {
+.hero h1 {
     font-family: var(--fredoka);
+    font-size: 10vh;
 }
