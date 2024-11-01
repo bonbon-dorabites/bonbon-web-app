@@ -9,7 +9,8 @@
 }
 
 body {
-    overflow: hidden;
+    overflow: auto;
+    overflow-x: hidden;
 }
 .custom-navbar-link {
     color: var(--dark-brown) !important;
@@ -39,13 +40,18 @@ body {
     color:#48201a
 }
 
-
 .hero {
-    height: 480px;
+    height: 482px;
     background-color: var(--lightest-brown);
+}
+
+img {
+    display: flex-end;
 }
 
 .hero h1 {
     font-family: var(--fredoka);
+    font-weight: bold;
+    color: var(--dark-brown);
     font-size: 10vh;
 }
