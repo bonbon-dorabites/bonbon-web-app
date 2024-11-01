@@ -45,8 +45,9 @@ body {
     background-color: var(--lightest-brown);
 }
 
-img {
-    display: flex-end;
+.hero-img {
+    display: flex-start;
+    padding-left: 200px;
 }
 
 .hero h1 {
