@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Fredoka:wght@300..700&display=swap');
+
 :root {
     --dark-brown: #48201a;
     --brown: #b25627;
     --light-brown: #da9747;
     --lightest-brown: #edb868;
+    --fredoka: "Fredoka", sans-serif;
 }
 
+body {
+    overflow: hidden;
+}
 .custom-navbar-link {
     color: var(--dark-brown) !important;
     font-size: 1.25rem !important; /* Adjust as needed */
@@ -35,6 +41,10 @@
 
 
 .hero {
-    height: 90vh;
+    height: 500px;
     background-color: var(--lightest-brown);
+}
+
+.hero {
+    font-family: var(--fredoka);
 }
