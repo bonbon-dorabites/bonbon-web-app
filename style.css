@@ -65,3 +65,20 @@ body {
 .hero-icon {
     margin-right: 2vw;
 }
+
+.buynow {
+    display: flex;
+}
+
+.buynow a {
+    background-color: var(--dark-brown);
+    height: 50px;
+    border-radius: 20px;
+}
+
+.buynow button {
+    color: var(--lightest-brown);
+    font-family: var(--fredoka);
+    font-size: 25px;
+    font-weight: bold;
+}
