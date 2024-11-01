@@ -1,10 +1,28 @@
 .custom-navbar-link {
-    color: #da9747 !important;
+    color: #48201a !important;
     font-size: 1.25rem !important; /* Adjust as needed */
     font-weight: bold !important;
     text-decoration: none !important; /* Removes underline */
 }
+
 .custom-navbar-link:hover {
     color: #b25627 !important; /* Optional: change color on hover */
+}
+
+.dropdown-menu {
+    background-color: #48201a;
+    width: 100px !important;     /* Set a fixed width */
+    min-width: 100px !important;
+}
+
+.dropdown-item {
+    color: #da9747;
+    font-size: 1rem ; /* Adjust as needed */
+    font-weight: bold ;
+}
+
+.dropdown-item:hover {
+    background-color: #edb868;
+    color:#48201a
 }
   
