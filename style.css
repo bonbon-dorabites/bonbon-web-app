@@ -69,7 +69,7 @@ body {
 }
 
 .hero-icon:hover {
-    fill: var(--brown);
+    fill: var(--wood-color);
 }
 
 .buynow {
