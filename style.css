@@ -11,6 +11,7 @@
 body {
     overflow: auto;
     overflow-x: hidden;
+    width: 100VW;
 }
 .custom-navbar-link {
     color: var(--dark-brown) !important;
