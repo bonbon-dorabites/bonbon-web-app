@@ -1,6 +1,7 @@
 /*This is used to import google font*/
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Fredoka:wght@300..700&display=swap');
 
+/*Added css stock*/
 :root {
     --dark-brown: #48201a;
     --wood-color: #7e492e;
