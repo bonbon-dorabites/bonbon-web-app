@@ -15,6 +15,7 @@ body {
     overflow: auto;
     overflow-x: hidden;
     width: 100vw;
+    box-sizing: border-box;
 }
 
 .custom-navbar-link {
@@ -36,7 +37,7 @@ body {
 
 .dropdown-item {
     color: var(--light-brown);
-    font-size: 1rem ; /* Adjust as needed */
+    font-size: 1rem ; 
     font-weight: bold ;
 }
 
@@ -140,4 +141,42 @@ body {
     font-size: 20px;
     color: var(--dark-brown);
     font-family: var(--fredoka);
+}
+
+
+/*TESTIMONIALS*/
+.testimonials {
+    min-height: 100vh;
+    background-color: var(--light-brown);
+    color:var(--dark-brown);
+    padding: 0px 150px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.testimonials .header h2{
+    font-size: 3em;
+    
+}
+
+.testimonials .header {
+    margin: 50px;
+}
+
+
+.testimonials .header h2::after {
+    content: "";
+    display: block;
+    width: 30%; 
+    height: 4px; 
+    background-color: var(--dark-brown); 
+    margin: 10px auto 0; 
+}
+
+.wrapper {
+    min-height: 400px;
+    margin-top: 100px;
+    background-color: #E4C988;
+    border-radius: 40px;
 }
