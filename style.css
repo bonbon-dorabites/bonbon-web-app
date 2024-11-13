@@ -124,6 +124,12 @@ body {
 
 .who-img {
     position: relative; 
-    z-index: 2; 
     border-radius: 30px;
+}
+
+.who-head {
+    font-family: var(--fredoka);
+    color: var(--dark-brown);
+    font-weight: bold;
+    font-size: 30px;
 }
