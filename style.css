@@ -113,3 +113,17 @@ body {
     font-style: italic;
     font-weight: bold;
 }
+
+.shadow {
+    background-color: var(--light-brown) !important; 
+    width: 210px; 
+    height: 195px; 
+    top: 20px; 
+    border-radius: 30px;
+}
+
+.who-img {
+    position: relative; 
+    z-index: 2; 
+    border-radius: 30px;
+}
