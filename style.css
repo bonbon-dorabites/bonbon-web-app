@@ -14,8 +14,9 @@
 body {
     overflow: auto;
     overflow-x: hidden;
-    width: 100VW;
+    width: 100vw;
 }
+
 .custom-navbar-link {
     color: var(--dark-brown) !important;
     font-size: 1.25rem !important; /* Adjust as needed */
@@ -47,6 +48,7 @@ body {
 .hero {
     height: 482px;
     background-color: var(--lightest-brown);
+    width: 100%;
 }
 
 .hero-img {
