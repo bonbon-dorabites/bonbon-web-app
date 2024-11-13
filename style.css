@@ -116,8 +116,8 @@ body {
 
 .shadow {
     background-color: var(--light-brown) !important; 
-    width: 240px; 
-    height: 195px; 
+    width: 280px; 
+    height: 240px; 
     top: 20px; 
     border-radius: 30px;
 }
@@ -125,6 +125,8 @@ body {
 .who-img {
     position: relative; 
     border-radius: 30px;
+    width: 280px; 
+    height: 240px; 
 }
 
 .who-head {
