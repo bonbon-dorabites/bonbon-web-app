@@ -170,6 +170,11 @@ body {
     height: 250px;
 }
 
+.best-desc {
+    font-family: var(--fredoka);
+    color: var(--dark-brown);
+}
+
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
