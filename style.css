@@ -158,6 +158,7 @@ body {
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
+    width: 100vw;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
     padding: 0px 150px;
@@ -166,17 +167,12 @@ body {
     text-align: center;
 }
 
-.testimonials .header1 h2{
-    font-size: 3em;
-    
-}
-
-.testimonials .header1 {
+.testimonials .header {
     margin: 50px;
 }
 
 
-.testimonials .header1 h2::after {
+.testimonials .header h1::after {
     content: "";
     display: block;
     width: 30%; 
