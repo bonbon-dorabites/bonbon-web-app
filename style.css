@@ -150,6 +150,16 @@ body {
     color: var(--dark-brown);
 }
 
+.header h1::after {
+    content: "";
+    display: block;
+    width: 20%; 
+    height: 4px; 
+    background-color: var(--dark-brown); 
+    opacity: 1;
+    margin: 10px auto 0; 
+}
+
 .bestseller {
     background-color: var(--lightest-brown);
     width: 100vw;
@@ -169,16 +179,6 @@ body {
 
 .testimonials .header {
     margin: 50px;
-}
-
-
-.testimonials .header h1::after {
-    content: "";
-    display: block;
-    width: 30%; 
-    height: 4px; 
-    background-color: var(--dark-brown); 
-    margin: 10px auto 0; 
 }
 
 .wrapper {
