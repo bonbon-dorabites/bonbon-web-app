@@ -151,14 +151,14 @@ body {
 }
 
 .bestseller {
-    background-color: var(--light-brown);
+    background-color: var(--lightest-brown);
     width: 100vw;
 }
 
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
-    background-color: var(--light-brown);
+    background-color: var(--lightest-brown);
     color:var(--dark-brown);
     padding: 0px 150px;
     display: flex;
