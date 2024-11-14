@@ -165,6 +165,11 @@ body {
     width: 100vw;
 }
 
+.best-img {
+    width: 287px;
+    height: 250px;
+}
+
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
