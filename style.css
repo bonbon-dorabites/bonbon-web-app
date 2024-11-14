@@ -14,7 +14,7 @@
 body {
     overflow: auto;
     overflow-x: hidden;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -163,7 +163,7 @@ body {
 
 .bestseller {
     background-color: var(--lightest-brown);
-    width: 100vw;
+    width: 100%;
 }
 
 .best-img {
@@ -188,7 +188,7 @@ body {
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
     padding: 0px 150px;
@@ -209,13 +209,22 @@ body {
 }
 
 /*BROWSE*/
+
+.browse {
+    display: flex;
+    flex-direction: column;
+    justify-content: center ;
+    text-align: center;
+    padding: 50px 150px;
+    
+}
 .heading {
     display: flex;
     flex-direction: row;
     justify-content: center ;
     text-align: center;
     margin-top: 100px;
-
+   
 }
 
 .heading img {
@@ -224,4 +233,11 @@ body {
 
 .heading h1 {
     align-self: center;
+}
+
+.menu {
+    height: 200vh;
+    background-color: var(--wood-color);
+    margin-top: 100px;
+    border-radius: 40px;
 }
