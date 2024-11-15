@@ -224,7 +224,6 @@ body {
     width: 60vw;
     color: #fff;
     background-color: var(--dark-brown);
-    border-radius: 120px 0 0 120px;
 }
 
 .testimonial-image img {
