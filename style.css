@@ -221,10 +221,20 @@ body {
 }
 
 .wrapper {
-    width: 70vw;
+    width: 60vw;
     color: #fff;
     background-color: var(--dark-brown);
-    border-radius: 40px 0 0 40px;
+    border-radius: 120px 0 0 120px;
+}
+
+.testimonial-image img {
+    width: 290px;
+    height: 200px;
+}
+
+.quote, .name {
+    font-size: 4vh;
+    font-family: var(--fredoka);
 }
 
 /*BROWSE*/
