@@ -236,6 +236,15 @@ body {
     font-family: var(--fredoka);
 }
 
+.gallery-img {
+    width: 75%;
+    height: 75%; 
+    object-fit: cover;
+    opacity: 0.6; 
+    background-color: var(--dark-brown); 
+    mix-blend-mode: multiply; 
+}
+
 /*BROWSE*/
 
 .browse {
