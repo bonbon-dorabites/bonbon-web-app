@@ -11,6 +11,7 @@
     --fredoka: "Fredoka", sans-serif;
 }
 
+/* Added body styling*/
 body {
     overflow: auto;
     overflow-x: hidden;
