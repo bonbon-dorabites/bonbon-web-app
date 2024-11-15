@@ -207,7 +207,7 @@ body {
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
     padding: 0px 150px;
