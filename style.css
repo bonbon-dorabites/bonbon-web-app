@@ -21,18 +21,18 @@ body {
 
 .custom-navbar-link {
     color: var(--dark-brown) !important;
-    font-size: 1.25rem !important; /* Adjust as needed */
+    font-size: 1.25rem !important; 
     font-weight: bold !important;
-    text-decoration: none !important; /* Removes underline */
+    text-decoration: none !important; 
 }
 
 .custom-navbar-link:hover {
-    color: var(--brown) !important; /* Optional: change color on hover */
+    color: var(--brown) !important; 
 }
 
 .dropdown-menu {
     background-color: var(--dark-brown);
-    width: 100px !important;     /* Set a fixed width */
+    width: 100px !important;     
     min-width: 100px !important;
 }
 
