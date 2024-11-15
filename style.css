@@ -185,6 +185,22 @@ body {
     font-weight: 500;
 }
 
+.carousel-item img {
+    height: 500px;
+}
+
+/* Adjust arrow icon color for better visibility */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(1); /* Inverts color to white */
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6); /* Black with 60% opacity */
+    padding: 15px;
+    border-radius: 8px;
+    color: #fff; /* Ensures text is white */
+}
+
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
