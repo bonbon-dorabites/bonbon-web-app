@@ -245,6 +245,13 @@ body {
     mix-blend-mode: multiply; 
 }
 
+.gallery-img:hover {
+    opacity: 1;
+    width: 85%;
+    height: 85%;
+    transition: 1.5s;
+}
+
 /*BROWSE*/
 
 .browse {
