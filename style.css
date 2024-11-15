@@ -185,6 +185,10 @@ body {
     font-weight: 500;
 }
 
+.branches {
+    width: 100vw;
+}
+
 .carousel-item img {
     height: 500px;
 }
