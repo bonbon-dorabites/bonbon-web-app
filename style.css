@@ -185,10 +185,29 @@ body {
     font-weight: 500;
 }
 
+.branches {
+    width: 100vw;
+}
+
+.carousel-item img {
+    height: 500px;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(1); 
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 15px;
+    border-radius: 8px;
+    color: #fff;
+}
+
 /*TESTIMONIALS*/
 .testimonials {
     min-height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
     padding: 0px 150px;
@@ -202,10 +221,35 @@ body {
 }
 
 .wrapper {
-    min-height: 400px;
-    margin-top: 100px;
-    background-color: #E4C988;
-    border-radius: 40px;
+    width: 60vw;
+    color: #fff;
+    background-color: var(--dark-brown);
+}
+
+.testimonial-image img {
+    width: 290px;
+    height: 200px;
+}
+
+.quote, .name {
+    font-size: 4vh;
+    font-family: var(--fredoka);
+}
+
+.gallery-img {
+    width: 75%;
+    height: 75%; 
+    object-fit: cover;
+    opacity: 0.6; 
+    background-color: var(--dark-brown); 
+    mix-blend-mode: multiply; 
+}
+
+.gallery-img:hover {
+    opacity: 1;
+    width: 85%;
+    height: 85%;
+    transition: 1s;
 }
 
 /*BROWSE*/
