@@ -299,3 +299,13 @@ body {
     height: 40px;
 }
 
+.small-footer {
+    display: flex;
+    background-color: var(--dark-brown);
+    color: white;
+    margin: 0;
+    margin-top: 50px;
+    padding-top: 12px;
+    align-items: center;
+    justify-content: center;
+}
