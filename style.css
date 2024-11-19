@@ -248,8 +248,8 @@ body {
 .gallery-img:hover {
     opacity: 1;
     width: 85%;
-    height: 85%;
-    transition: 1s;
+    height: 75%;
+    transition: 1s ease-out;
 }
 
 /*BROWSE*/
