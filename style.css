@@ -252,6 +252,15 @@ body {
     transition: 1s;
 }
 
+.contact-page {
+    background-color: var(--light-brown);
+    
+}
+
+.contact-page .col {
+    padding: 20px;
+}
+
 /*BROWSE*/
 
 .browse {
@@ -280,19 +289,20 @@ body {
 }
 
 .menu {
+    display: flex;
+    flex-direction: column;
     height: 200vh;
     background-color: var(--wood-color);
     margin-top: 100px;
     border-radius: 40px;
     font-family: "Luckiest Guy", cursive;
-    font-weight: 400;
-    font-style: normal;
     color: white;
+    padding: 30px;
 }
 
 
-.row {
-    display: flex;
+.row1 {
+    margin-top: 50px;
 }
 
 .col1, 
@@ -325,7 +335,6 @@ body {
     background-color: var(--dark-brown);
     color: white;
     margin: 0;
-    margin-top: 50px;
     padding-top: 12px;
     align-items: center;
     justify-content: center;
@@ -338,3 +347,4 @@ body {
 .col .dropdown-item {
     width: 1000px;
 }
+
