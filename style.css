@@ -1,6 +1,6 @@
 /*This is used to import google font*/
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Fredoka:wght@300..700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Luckiest+Guy&display=swap');
 /*Added css stock*/
 :root {
     --dark-brown: #48201a;
@@ -11,27 +11,31 @@
     --fredoka: "Fredoka", sans-serif;
 }
 
+/* Added body styling*/
 body {
     overflow: auto;
     overflow-x: hidden;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
 }
 
 .custom-navbar-link {
     color: var(--dark-brown) !important;
-    font-size: 1.25rem !important; /* Adjust as needed */
+    font-size: 1.25rem !important; 
     font-weight: bold !important;
-    text-decoration: none !important; /* Removes underline */
+    text-decoration: none !important; 
 }
 
 .custom-navbar-link:hover {
-    color: var(--brown) !important; /* Optional: change color on hover */
+    color: var(--brown) !important; 
+}
+
+.active {
+    color: var(--brown) !important; 
 }
 
 .dropdown-menu {
     background-color: var(--dark-brown);
-    width: 100px !important;     /* Set a fixed width */
     min-width: 100px !important;
 }
 
@@ -143,31 +147,64 @@ body {
     font-family: var(--fredoka);
 }
 
-.header h1 {
+.header h1,
+.heading h1 {
     font-size: 10vh;
     font-family: var(--fredoka);
     font-weight: bold;
     color: var(--dark-brown);
 }
 
-.header h1::after {
-    content: "";
-    display: block;
-    width: 20%; 
+.line {
     height: 4px; 
-    background-color: var(--dark-brown); 
-    opacity: 1;
-    margin: 10px auto 0; 
+    background-color: 
+    var(--dark-brown); 
+    opacity: 1; 
+    margin-left: auto; 
+    margin-right: auto;
 }
 
 .bestseller {
     background-color: var(--lightest-brown);
-    width: 100vw;
+    width: 100%;
 }
 
 .best-img {
     width: 287px;
     height: 250px;
+}
+
+.best-desc {
+    font-family: var(--fredoka);
+    color: var(--dark-brown);
+}
+
+.best-btn {
+    background-color: var(--dark-brown);
+    color: #fff;
+    font-size: 20px;
+    font-family: var(--fredoka);
+    border-radius: 30px;
+    font-weight: 500;
+}
+
+.branches {
+    width: 100vw;
+}
+
+.carousel-item img {
+    height: 500px;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(1); 
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 15px;
+    border-radius: 8px;
+    color: #fff;
 }
 
 /*TESTIMONIALS*/
@@ -187,8 +224,130 @@ body {
 }
 
 .wrapper {
-    min-height: 400px;
-    margin-top: 100px;
-    background-color: #E4C988;
-    border-radius: 40px;
+    width: 60vw;
+    color: #fff;
+    background-color: var(--dark-brown);
 }
+
+.testimonial-image img {
+    width: 290px;
+    height: 200px;
+}
+
+.quote, .name {
+    font-size: 4vh;
+    font-family: var(--fredoka);
+}
+
+.gallery-img {
+    width: 75%;
+    height: 75%; 
+    object-fit: cover;
+    opacity: 0.6; 
+    background-color: var(--dark-brown); 
+    mix-blend-mode: multiply; 
+}
+
+.gallery-img:hover {
+    opacity: 1;
+    width: 85%;
+    height: 85%;
+    transition: 1s;
+}
+
+.contact-page {
+    background-color: var(--light-brown);
+    
+}
+
+.contact-page .col {
+    padding: 20px;
+}
+
+/*BROWSE*/ 
+
+.browse {
+    display: flex;
+    flex-direction: column;
+    justify-content: center ;
+    text-align: center;
+    padding: 50px 150px;
+    
+}
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center ;
+    text-align: center;
+    margin-top: 100px;
+   
+}
+
+.heading img {
+    height: 250px;
+}
+
+.heading h1 {
+    align-self: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    height: 200vh;
+    background-color: var(--wood-color);
+    margin-top: 100px;
+    border-radius: 40px;
+    font-family: "Luckiest Guy", cursive;
+    color: white;
+    padding: 30px;
+}
+
+
+.row1 {
+    margin-top: 50px;
+}
+
+.col1, 
+.col2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.col1 img {
+    height: 40px;
+}
+
+.col2 {
+    margin-top: 20px;
+}
+
+.col2 img {
+    height: 25px;
+}
+
+.col2 p {
+    align-self: center;
+    margin: 0;
+}
+
+.small-footer {
+    display: flex;
+    background-color: var(--dark-brown);
+    color: white;
+    margin: 0;
+    padding-top: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.col1 .btn {
+    background-color: #48201a;
+}
+
+.col .dropdown-item {
+    width: 1000px;
+}
+
