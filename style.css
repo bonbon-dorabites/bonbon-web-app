@@ -30,6 +30,9 @@ body {
     color: var(--brown) !important; 
 }
 
+.active {
+    color: var(--brown) !important; 
+}
 
 .dropdown-menu {
     background-color: var(--dark-brown);
