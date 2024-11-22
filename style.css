@@ -360,4 +360,12 @@ body {
     border-radius: 100px;
     border: 4px #fff solid;
   }
+    
+  .box {
+    border-radius: 100px; 
+    width: 50vw;
+    background-color: var(--dark-brown);
+    color: white;
+    font-family: var(--fredoka);
+  }
   
