@@ -271,8 +271,6 @@ body {
     flex-direction: column;
     justify-content: center ;
     text-align: center;
-    padding: 50px 150px;
-    
 }
 .heading {
     display: flex;
