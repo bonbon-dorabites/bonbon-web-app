@@ -349,7 +349,7 @@ body {
     width: 1000px;
 }
 
-.image-circle-containerr {
+.menu-img-circle {
     position: absolute;
     top: -50px; /* Adjust this to overlap as needed */
     left: 50%;
@@ -361,7 +361,7 @@ body {
     border: 4px #fff solid;
   }
     
-  .box {
+  .menu-box {
     border-radius: 100px; 
     width: 50vw;
     background-color: var(--dark-brown);
