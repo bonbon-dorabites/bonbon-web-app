@@ -349,3 +349,15 @@ body {
     width: 1000px;
 }
 
+.image-circle-containerr {
+    position: absolute;
+    top: -50px; /* Adjust this to overlap as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 100px;
+    border: 4px #fff solid;
+  }
+  
