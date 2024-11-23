@@ -351,26 +351,42 @@ body {
 
 .menu-img-circle {
     position: absolute;
-    top: -50px; /* Adjust this to overlap as needed */
+    top: -50px; 
     left: 50%;
     transform: translateX(-50%);
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     border-radius: 100px;
     border: 4px #fff solid;
-  }
-    
-.menu-img-circle img {
-    width: 100%;
-    height: 100%;
 }
 
+  
 .menu-box {
     border-radius: 100px; 
     width: 50vw;
     background-color: var(--dark-brown);
     color: white;
     font-family: var(--fredoka);
+    font-size: 1.2rem;
 }
-  
+
+.menu-box h2 {
+    margin-top: 50px;
+    
+}
+
+.menu-items {
+    margin-top: 30px;
+}
+
+.menu-img-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.bi-cart-plus-fill {
+    cursor: pointer;
+}
