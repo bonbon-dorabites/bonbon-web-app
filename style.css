@@ -391,3 +391,7 @@ body {
 .bi-cart-plus-fill {
     cursor: pointer;
 }
+
+.order-table .table {
+    width: 80vw;
+}
