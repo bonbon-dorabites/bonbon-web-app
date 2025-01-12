@@ -84,20 +84,9 @@
         }
     </style>
 </head>
-<body class="log-in">
+<body>
     <div class="vh-100 account-page">
         <div class="row h-100 division">
-            <!-- Left Panel (Logo) -->
-            <div class="panel col-md-6 d-flex justify-content-center align-items-center left">
-                <div class="intro">
-                    <div class="intro-img">
-                        <img src="img/hero-img.png" alt="">
-                    </div>
-                    <div class="intro-title mx-auto">&nbsp;&nbsp;
-                        <img src="img/logo.png" alt="">
-                    </div>
-                </div>
-            </div>
             <!-- Right Panel (Login Form) -->
             <div class="panel col-md-6 d-flex justify-content-center align-items-center right">
                 <div class="w-75">
@@ -120,7 +109,45 @@
                     <p class="redirect"> Have an account? <a href="login.html">Log-in</a> instead</p>
                 </div>
             </div>
+            <!-- Left Panel (Logo) -->
+            <div class="panel col-md-6 d-flex justify-content-center align-items-center sign-up-right" style="border-radius: 300px 0 0 300px;">
+                <div class="intro signup">
+                    <div class="intro-img">
+                        <img src="img/hero-img.png" alt="">
+                    </div>
+                    <div class="intro-title mx-auto">
+                        <img src="img/logo.png" alt="">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        // Wait for the page to fully load before applying the transition
+window.addEventListener('load', function () {
+    const rightPanel = document.querySelector('.sign-up-right'); // Get the right panel
+    rightPanel.classList.add('show'); // Add the class to trigger the transition
+    console.log("Right panel transition applied.");
+});
+
+// Add event listener to the 'Log-in' link
+document.querySelector('.redirect a').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const right = document.querySelector('.sign-up-right'); // Get the right panel
+
+    // Add the 'slide-out' class to slide the panel out to the right
+    right.classList.add('slide-out');
+
+    console.log("Sliding out the right panel...");
+
+    // Wait for the transition to complete, then navigate to login.html
+    setTimeout(() => {
+        console.log("Redirecting to login.html...");
+        window.location.href = "login.html"; // Update path if needed
+    }, 600); // Delay matches the CSS transition duration
+});
+
+    </script>
 </body>
 </html>

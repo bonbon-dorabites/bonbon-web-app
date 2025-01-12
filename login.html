@@ -84,36 +84,75 @@
         }
     </style>
 </head>
-<body class="log-in">
+<body>
     <div class="vh-100 account-page">
         <div class="row h-100 division">
             <!-- Left Panel (Logo) -->
-            <div class="panel col-md-6 d-flex justify-content-center align-items-center text-white logo">
-                <img src="logo.png" alt="Logo" class="img-fluid logo-img" style="max-width: 500px;">
+            <div class="panel left-panel col-md-6 d-flex justify-content-center align-items-center left" style="border-radius: 0 300px 300px 0;">
+                <div class="intro login">
+                    <div class="intro-img">
+                        <img src="img/hero-img.png" alt="">
+                    </div>
+                    <div class="intro-title mx-auto">
+                        <img src="img/logo.png" alt="">
+                    </div>
+                </div>
             </div>
             <!-- Right Panel (Login Form) -->
             <div class="panel col-md-6 d-flex justify-content-center align-items-center right">
                 <div class="w-75">
                     <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line">Welcome</h1>
                     <h4 class="subtitle text-weight-300 text-size-16">
-                        Please log in your account</h4> <br>
-                      <form id="loginForm" method="post" class="form-table">
+                        Please log in to your account</h4> <br>
+                    <form id="loginForm" method="post" class="form-table">
                         <div class="mb-3">
                             <label for="email" class="form-label">Username</label>
                             <input type="text" class="form-control" id="email" placeholder="Email or Phone" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Password" required>
                         </div>
                         <p class="forgotpass"><a href="">Forgot Password?</a></p>
-                        <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit">Log-in</button>                        
+                        <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit">Log-in</button>
                     </form><br><br>
-                    <p class="redirect"> Don't have an account? <a href="signup.html">Sign-up</a> instead</p>
+                    <p class="redirect">
+                        Don't have an account? 
+                        <a href="signup.html" id="signupLink">Sign-up</a> instead
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Wait for the page to fully load before applying the transition
+        window.addEventListener('load', function () {
+            const leftPanel = document.querySelector('.left'); // Get the left panel
+            leftPanel.classList.add('show'); // Add the class to trigger the transition
+            console.log("Left panel transition applied.");
+        });
+
+        // Add event listener to the 'Log-in' link
+        document.querySelector('.redirect a').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            const leftPanel = document.querySelector('.left'); // Get the left panel
+
+            // Add the 'slide-out' class to slide the panel out to the right
+            leftPanel.classList.add('slide-out');
+
+            console.log("Sliding out the left panel...");
+
+            // Wait for the transition to complete, then navigate to login.html
+            setTimeout(() => {
+                console.log("Redirecting to signup.html...");
+                window.location.href = "signup.html"; // Update path if needed
+            }, 600); // Delay matches the CSS transition duration
+        });
+
+
+    </script>
 </body>
 </html>
