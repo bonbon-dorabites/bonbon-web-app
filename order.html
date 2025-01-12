@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order: BonBon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
+            <div class="container-fluid">
+                <a href="./index.html">
+                    <img src="img/logo.png" class="navbar-brand custom-navbar-link ms-5">
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link custom-navbar-link" href="browse.html">Browse</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link custom-navbar-link active" href="order.html">Orders</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link custom-navbar-link" href="#">Coupons</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Register</a></li>
+                        <li><a class="dropdown-item" href="#">Login</a></li>
+                    </ul>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    </header>
+    <section id="order">
+        <div class="header text-center"><br><br><br><br><br><br><br>
+            <h1>What have you ordered?<hr class="line" style="width: 40%;" ></h1>
+        </div><br><br>
+        <div class="order-table text-center mx-auto">
+            <table class="table mx-auto">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Menu</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <div class="show">
+                  <tr>
+                    <td colspan="4"> You don't have anything ordered right now.</td>
+                  </tr>
+                </div>
+                <tr>
+                  <th scope="row">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="darkgreen" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+                      <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+                    </svg>
+                  </th>
+                  <td>Add Orders</td>
+                </tr>
+              </tbody>
+            </table>
+        </div><br><br>
+        <a href="" target="_blank" style="text-decoration: none;" class="d-flex justify-content-center">
+          <button class="best-btn">&nbsp;&nbsp; Checkout &nbsp;
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="29" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+              </svg>&nbsp;
+          </button>
+      </a>
+    </section><br><br><br><br>
+</body>
+</html>
