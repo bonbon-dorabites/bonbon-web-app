@@ -20,6 +20,11 @@ body {
     box-sizing: border-box;
 }
 
+.nav-logo {
+    height: 50px;
+    width: 150px;
+}
+
 .custom-navbar-link {
     color: var(--dark-brown) !important;
     font-size: 1.25rem !important; 
@@ -286,7 +291,6 @@ body {
 }
 
 .right {
-    background-color: #ccc;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -343,6 +347,28 @@ body {
 /* Form Styling */
 .form-table {
     width: 100%;
+}
+
+.intro {
+    flex-direction: column;
+}
+
+.left {
+    background-color: var(--light-brown);
+    border-radius: 0 300px 300px 0;
+}
+
+.intro-img img {
+    width: 400px;
+    height: 350px;
+}
+
+.intro-title {
+}
+
+.intro-title img {
+    width: 300px;
+    height: 70px;
 }
 
 /*BROWSE*/ 
