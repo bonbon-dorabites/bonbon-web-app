@@ -8,176 +8,110 @@
     <link rel="stylesheet" href="style.css">
     <title>Signup | BonBon</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Responsive Adjustments */
+        @media (max-width: 767px) and (min-height:569px){
+            .log-in {
+                overflow-y: auto;
+                overflow: auto;
+                overflow-x: auto;
+            }
 
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            display: flex;
-            width: 90%;
-            max-width: 1000px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background: white;
-        }
-
-        .left-panel {
-            flex: 1;
-            background-color: #d89a4f;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            border-top-right-radius: 80px;
-            border-bottom-right-radius: 80px;
-        }
-
-        .left-panel .image-row {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .left-panel img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .left-panel .title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #5c3b09;
-            margin-top: 15px;
-        }
-
-        .right-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 30px;
-        }
-
-        .right-panel h2 {
-            font-size: 1.8rem;
-            color: #5c3b09;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .right-panel form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .right-panel input {
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            outline: none;
-        }
-
-        .right-panel button {
-            padding: 10px;
-            font-size: 1rem;
-            color: white;
-            background-color: #5c3b09;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .right-panel button:hover {
-            background-color: #4b2e08;
-        }
-
-        .right-panel .social-signup {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-        }
-
-        .right-panel .social-signup img {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-
-        .right-panel .extra-options {
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
+            .division {
+                display: flex;
                 flex-direction: column;
+                height: 100vh; /* Ensure full height on small screens */
             }
 
-            .left-panel {
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-                border-bottom-left-radius: 80px;
+            .panel {
+                flex: 1; /* Make both panels take equal height */
+                padding: 0;
+                margin: 0;
             }
 
-            .left-panel .image-row {
-                flex-direction: row;
-                justify-content: center;
+            .logo {
+                max-height: 100px;
+                height: auto;
             }
 
-            .left-panel .title {
-                margin-left: 10px;
-                margin-top: 0;
+            .logo-img {
+                max-height: 100px;
+            }
+
+            .right {
+                padding: 10px;
+                margin: 0;
+                height: 50vh;
+            }
+
+            .submit {
+                width: 100%;
+            }
+        }
+
+        /* Adjustments for very small devices */
+        @media (max-width: 767px) and (max-height: 1000px) {
+            .sign-up {
+                overflow-y: auto;
+                overflow: auto;
+                overflow-x: auto;
+            }
+
+            .right {
+                padding: 10px;
+                margin-bottom: 0;
+                height: auto; /* Adjust height to fit content */
+            }
+
+            .title {
+                font-size: 50px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            .form-label {
+                padding-top: 10px;
+            }
+
+            .logo {
+                height: 100px; /* Adjust to fit content */
+            }
+
+            .logo-img {
+                max-height: 100px; /* Adjust to fit content */
             }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <!-- Left Panel -->
-        <div class="left-panel">
-            <div class="image-row">
-                <img src="cat-image.png" alt="Bonbon Cat">
-                <div class="title">BONBON</div>
+<body class="log-in">
+    <div class="vh-100 account-page">
+        <div class="row h-100 division">
+            <!-- Left Panel (Logo) -->
+            <div class="panel col-md-6 d-flex justify-content-center align-items-center text-white logo">
+                <img src="logo.png" alt="Logo" class="img-fluid logo-img" style="max-width: 500px;">
             </div>
-        </div>
-
-        <!-- Right Panel -->
-        <div class="right-panel">
-            <h2>Sign-up Here!</h2>
-            <form>
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="tel" placeholder="Phone" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Sign-up</button>
-            </form>
-            <div class="social-signup">
-                <img src="google-icon.png" alt="Google">
-                <img src="facebook-icon.png" alt="Facebook">
-                <img src="instagram-icon.png" alt="Instagram">
-            </div>
-            <div class="extra-options">
-                <input type="checkbox" id="subscribe">
-                <label for="subscribe">Subscribe for email updates</label><br>
-                Have an account? <a href="#">Log-in here.</a>
+            <!-- Right Panel (Login Form) -->
+            <div class="panel col-md-6 d-flex justify-content-center align-items-center right">
+                <div class="w-75">
+                    <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line">Welcome</h1>
+                    <h4 class="subtitle text-weight-300 text-size-16">
+                        Please create an account</h4> <br>
+                      <form id="loginForm" method="post" class="form-table">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="email" placeholder="Email or Phone" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        </div>
+                        <p class="forgotpass"><a href="">Forgot Password?</a></p>
+                        <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit">Log-in</button>                        
+                    </form><br><br>
+                    <p class="redirect"> Have an account? <a href="login.html">Log-in</a> instead</p>
+                </div>
             </div>
         </div>
     </div>

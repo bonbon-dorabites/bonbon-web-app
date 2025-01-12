@@ -1,6 +1,7 @@
 /*This is used to import google font*/
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Fredoka:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Luckiest+Guy&display=swap');
+
 /*Added css stock*/
 :root {
     --dark-brown: #48201a;
@@ -264,6 +265,86 @@ body {
     padding: 20px;
 }
 
+/* SIGNUP & LOGIN*/
+
+.account-page, .division {
+    height: 100%;
+    margin: 0;
+}
+
+.division {
+    display: flex;
+}
+
+.logo {
+    background-color: #180615dc;
+    padding: 0; /* Remove padding to avoid extra space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.right {
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in height calculation */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+/* Title and Subtitle */
+.title {
+    font-size: 48px; /* Adjust as needed */
+    margin-bottom: 16px; /* Space below title */
+    text-align: center; /* Center-align text */
+}
+
+.subtitle {
+    font-size: 20px; /* Adjust as needed */
+    margin-bottom: 15px; /* Space below subtitle */
+    text-align: center; /* Center-align text */
+}
+
+/* Forgot Password */
+.forgotpass {
+    text-align: right;
+    margin-bottom: 10px; /* Space between link and form */
+}
+
+.forgotpass a {
+    color: inherit; /* Use current text color */
+    text-decoration: none; /* Remove underline */
+    font-style: italic;
+}
+
+.forgotpass a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+
+.redirect {
+    text-align: center;
+    margin-bottom: 10px; /* Space between link and form */
+}
+
+.redirect a {
+    color: inherit; /* Use current text color */
+    text-decoration: none; /* Remove underline */
+    font-style: italic;
+}
+
+.redirect a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+
+/* Form Styling */
+.form-table {
+    width: 100%;
+}
+
 /*BROWSE*/ 
 
 .browse {
@@ -395,3 +476,4 @@ body {
 .order-table .table {
     width: 80vw;
 }
+
