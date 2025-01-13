@@ -373,14 +373,14 @@ body {
 }
 
 .menu-box h2 {
-    margin-top: 50px;
+    margin-top: 85px;
     
 }
 
 .menu-items {
     display: flex;
     flex-direction: column;
-    margin-top: 85px;
+    margin-top: 20px;
 }
 
 .accordion .sizes {
@@ -413,14 +413,20 @@ body {
     background: #fff;
     height: 0;
     overflow: hidden;
-    transition: 0.4s;
+    /*transition: 0.4s;*/
     
 }
 
 .accordion .sizes.active .flavors {
-    height: 150px;
+    min-height: 200px;
     padding: 10px;
 }
+
+.dorayaki.flavor {
+    display:flex;
+    justify-content: space-between;
+}
+
 .menu-img-circle img {
     width: 100%;
     height: 100%;
