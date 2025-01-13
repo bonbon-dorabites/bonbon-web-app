@@ -385,7 +385,7 @@ body {
 
 .accordion .sizes {
     position: relative;
-    margin: 5px;
+    margin: 8px;
 }
 .accordion .label {
     display: flex;
@@ -399,7 +399,6 @@ body {
     position: absolute;
     top: -1px;
     right: 20px;
-    
     font-size: 1.5em;
 }
 
@@ -417,8 +416,22 @@ body {
     
 }
 
+.menu-items .item{
+    display: flex;
+    justify-content: space-between;
+    background-color: #7e492e;
+    margin-bottom: 8px;
+    padding: 5px 15px;
+    align-items: center;
+}
+
+.menu-items .item p {
+    margin: 0;
+    line-height: 2.2;
+}
+
 .accordion .sizes.active .flavors {
-    min-height: 200px;
+    min-height: 190px;
     padding: 10px;
 }
 
