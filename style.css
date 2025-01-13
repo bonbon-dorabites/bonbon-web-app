@@ -378,9 +378,49 @@ body {
 }
 
 .menu-items {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 85px;
 }
 
+.accordion .sizes {
+    position: relative;
+    margin: 5px;
+}
+.accordion .label {
+    display: flex;
+    padding: 10px;
+    background-color: #7e492e;
+    cursor: pointer;
+}
+
+.accordion .sizes .label::before {
+    content: '+';
+    position: absolute;
+    top: -1px;
+    right: 20px;
+    
+    font-size: 1.5em;
+}
+
+.accordion .sizes.active .label::before {
+    content: '-';
+
+}
+
+.accordion .sizes .flavors {
+    position: relative;
+    background: #fff;
+    height: 0;
+    overflow: hidden;
+    transition: 0.4s;
+    
+}
+
+.accordion .sizes.active .flavors {
+    height: 150px;
+    padding: 10px;
+}
 .menu-img-circle img {
     width: 100%;
     height: 100%;
