@@ -374,6 +374,9 @@ body {
 
 .left {
     background-color: var(--light-brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .intro-img img {
