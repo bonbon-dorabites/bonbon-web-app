@@ -10,7 +10,7 @@
     <style>
         @media (min-width: 768px) {
             .sign-up-right {
-                border-radius: 0 300px 300px 0;
+                border-radius: 300px 0 0 300px;
             }
         }
 
@@ -24,9 +24,12 @@
                 margin-top: 0; /* Ensures no overlap or unnecessary spacing */
             }
 
-            .container {
-                display: flex;
-                flex-direction: column; /* Stacks elements vertically */
+            .signup .intro-img img {
+                margin-left: 0;
+            }
+
+            .signup .intro-title img {
+                margin-left: 0;
             }
         }
 
@@ -40,13 +43,9 @@
 
             .division {
                 display: flex;
+                flex-direction: column; /* Stack panels vertically */
                 height: 100vh; /* Full viewport height */
                 overflow: auto; /* Apply scrolling to the entire division */
-            }
-
-            .panel {
-                display: flex;
-                flex-direction: column-reverse;
             }
 
             .sign-up-right {
@@ -62,6 +61,8 @@
                 padding: 10px;
                 margin: 0;
                 background-color: #ffffff; /* Example background */
+                display: flex;
+                flex-direction: column; /* Stack content vertically */
                 justify-content: center; /* Center content vertically */
                 align-items: center; /* Center content horizontally */
             }
@@ -69,8 +70,8 @@
             .intro {
                 display: flex;
                 flex-direction: row; /* Content side by side */
-                justify-content: center;
-                align-items: center;
+                justify-content: flex-start;
+                align-items: flex-start;
             }
 
             .intro-img img {
@@ -91,13 +92,16 @@
         @media (max-width: 767px) and (max-height: 1000px) {
             .division {
                 display: flex;
-                height: 100vh; 
+                height: 100vh; /* Full viewport height */
                 overflow: auto;
             }
 
-            .panel {
+            .sign-up-right {
+                height: 100px; /* Fixed height for left panel */
+                background-color: var(--light-brown); /* Example background */
                 display: flex;
-                flex-direction: column-reverse;
+                justify-content: center;
+                align-items: center;
             }
 
             .right {
@@ -115,8 +119,8 @@
             .intro {
                 display: flex;
                 flex-direction: row; /* Content side by side */
-                justify-content: center;
-                align-items: center;
+                justify-content: start;
+                align-items: start;
             }
 
             .title {
@@ -220,12 +224,12 @@
                 </div>
             </div>
             <!-- Left Panel (Logo) -->
-            <div class="panel col-md-6 d-flex justify-content-center align-items-center sign-up-right" style="border-radius: 300px 0 0 300px;">
+            <div class="panel col-md-6 sign-up-right">
                 <div class="intro signup">
                     <div class="intro-img">
                         <img src="img/hero-img.png" alt="">
                     </div>
-                    <div class="intro-title mx-auto">
+                    <div class="intro-title">
                         <img src="img/logo.png" alt="">
                     </div>
                 </div>
