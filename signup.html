@@ -8,9 +8,31 @@
     <link rel="stylesheet" href="style.css">
     <title>Signup | BonBon</title>
     <style>
-        /* Responsive Adjustments */
-        @media (max-width: 767px) and (min-height:569px){
-            .log-in {
+        @media (min-width: 768px) {
+            .sign-up-right {
+                border-radius: 0 300px 300px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sign-up-right {
+                order: -1; /* Moves the .sign-up-right to the top */
+                margin-bottom: 20px; /* Adds spacing below it */
+            }
+
+            .right {
+                margin-top: 0; /* Ensures no overlap or unnecessary spacing */
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column; /* Stacks elements vertically */
+            }
+        }
+
+
+        @media (max-width: 767px) and (min-height: 569px) {
+            body {
                 overflow-y: auto;
                 overflow: auto;
                 overflow-x: auto;
@@ -18,29 +40,46 @@
 
             .division {
                 display: flex;
-                flex-direction: column;
-                height: 100vh; /* Ensure full height on small screens */
+                height: 100vh; /* Full viewport height */
+                overflow: auto; /* Apply scrolling to the entire division */
             }
 
             .panel {
-                flex: 1; /* Make both panels take equal height */
-                padding: 0;
-                margin: 0;
+                display: flex;
+                flex-direction: column-reverse;
             }
 
-            .logo {
-                max-height: 100px;
-                height: auto;
-            }
-
-            .logo-img {
-                max-height: 100px;
+            .sign-up-right {
+                height: 100px; /* Fixed height for left panel */
+                background-color: var(--light-brown); /* Example background */
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .right {
+                flex: 1; /* Take up remaining height */
                 padding: 10px;
                 margin: 0;
-                height: 50vh;
+                background-color: #ffffff; /* Example background */
+                justify-content: center; /* Center content vertically */
+                align-items: center; /* Center content horizontally */
+            }
+
+            .intro {
+                display: flex;
+                flex-direction: row; /* Content side by side */
+                justify-content: center;
+                align-items: center;
+            }
+
+            .intro-img img {
+                max-height: 100px;
+                max-width: 75px;
+            }
+
+            .intro-title img {
+                width: 30px;
             }
 
             .submit {
@@ -48,40 +87,68 @@
             }
         }
 
-        /* Adjustments for very small devices */
+
         @media (max-width: 767px) and (max-height: 1000px) {
-            .sign-up {
-                overflow-y: auto;
+            .division {
+                display: flex;
+                height: 100vh; 
                 overflow: auto;
-                overflow-x: auto;
+            }
+
+            .panel {
+                display: flex;
+                flex-direction: column-reverse;
             }
 
             .right {
+                flex: 1; /* Take up remaining height */
                 padding: 10px;
-                margin-bottom: 0;
-                height: auto; /* Adjust height to fit content */
+                margin: 0;
+                background-color: #ffffff; /* Example background */
+                display: flex;
+                flex-direction: column; /* Stack content vertically */
+                justify-content: center; /* Center content vertically */
+                align-items: center; /* Center content horizontally */
+                overflow-y: auto; /* Allow vertical scrolling if needed */
+            }
+
+            .intro {
+                display: flex;
+                flex-direction: row; /* Content side by side */
+                justify-content: center;
+                align-items: center;
             }
 
             .title {
-                font-size: 50px;
+                font-size: 40px; /* Adjust font size for smaller screens */
+                text-align: center;
             }
 
             .subtitle {
-                font-size: 20px;
+                font-size: 18px; /* Adjust font size for smaller screens */
+                text-align: center;
             }
 
             .form-label {
                 padding-top: 10px;
+                font-size: 14px; /* Adjust label size */
             }
 
             .logo {
-                height: 100px; /* Adjust to fit content */
+                height: 80px; /* Adjust logo height */
             }
 
-            .logo-img {
-                max-height: 100px; /* Adjust to fit content */
+            .intro-img img {
+                max-height: 80px;
+                max-width: 75px;
+            }
+
+            .intro-title img {
+                width: 120px; /* Adjust width for smaller screens */
             }
         }
+
+        
     </style>
 </head>
 <body>
@@ -90,23 +157,66 @@
             <!-- Right Panel (Login Form) -->
             <div class="panel col-md-6 d-flex justify-content-center align-items-center right">
                 <div class="w-75">
-                    <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line">Welcome</h1>
-                    <h4 class="subtitle text-weight-300 text-size-16">
-                        Please create an account</h4> <br>
-                      <form id="loginForm" method="post" class="form-table">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email or Phone" required>
+                    <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line" style="color: var(--dark-brown);">Sign-up here!</h1>
+                    <br>
+                    <form id="loginForm" method="post" class="form-table"> 
+                        <div class="mb-3" style="position: relative;">
+                            <label for="email" class="form-label visually-hidden">Username</label>
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                                  </svg>
+                            </span>
+                            <input type="text" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        </div>
+
+                        <div class="mb-3" style="position: relative;">
+                            <label for="email" class="form-label visually-hidden">Username</label>
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                                  </svg>
+                            </span>
+                            <input type="text" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        </div>
+
+                        <div class="mb-3" style="position: relative;">
+                            <label for="email" class="form-label visually-hidden">Username</label>
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                                  </svg>
+                            </span>
+                            <input type="text" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        </div>
+                    
+                        <div class="mb-3" style="position: relative;">
+                            <label for="password" class="form-label visually-hidden">Password</label>
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="var(--dark-brown)" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+                                  </svg>
+                            </span>
+                            <input type="password" class="form-control" id="password" placeholder="Password" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <div style="text-align: center;">
+                            <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit" style="background-color: #5C2918; color: white; border-radius: 20px; border: none;">Log-in</button>
                         </div>
-                        <p class="forgotpass"><a href="">Forgot Password?</a></p>
-                        <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit">Log-in</button>                        
-                    </form><br><br>
-                    <p class="redirect"> Have an account? <a href="login.html">Log-in</a> instead</p>
+                        
+                        <hr style="border: 1px solid #5C2918; width: 80%; margin: 20px auto;">
+                        
+                        <div style="text-align: center;">
+                            <button type="button" style="background-color: white; border: 2px solid var(--dark-brown); border-radius: 20px; padding: 10px 20px; font-size: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="height: 20px; margin-right: 10px;"> Sign in with Google
+                            </button>
+                        </div>
+                        
+                        <p class="redirect" style="text-align: center; margin-top: 20px;">
+                            Don't have an account? 
+                            <a href="signup.html" id="signupLink" style="color: #5C2918; text-decoration: none;">Sign-up here</a>
+                        </p>
+                    </form>
                 </div>
             </div>
             <!-- Left Panel (Logo) -->
@@ -124,29 +234,29 @@
     </div>
     <script>
         // Wait for the page to fully load before applying the transition
-window.addEventListener('load', function () {
-    const rightPanel = document.querySelector('.sign-up-right'); // Get the right panel
-    rightPanel.classList.add('show'); // Add the class to trigger the transition
-    console.log("Right panel transition applied.");
-});
+        window.addEventListener('load', function () {
+            const rightPanel = document.querySelector('.sign-up-right'); // Get the right panel
+            rightPanel.classList.add('show'); // Add the class to trigger the transition
+            console.log("Right panel transition applied.");
+        });
 
-// Add event listener to the 'Log-in' link
-document.querySelector('.redirect a').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent default link behavior
+        // Add event listener to the 'Log-in' link
+        document.querySelector('.redirect a').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default link behavior
 
-    const right = document.querySelector('.sign-up-right'); // Get the right panel
+            const right = document.querySelector('.sign-up-right'); // Get the right panel
 
-    // Add the 'slide-out' class to slide the panel out to the right
-    right.classList.add('slide-out');
+            // Add the 'slide-out' class to slide the panel out to the right
+            right.classList.add('slide-out');
 
-    console.log("Sliding out the right panel...");
+            console.log("Sliding out the right panel...");
 
-    // Wait for the transition to complete, then navigate to login.html
-    setTimeout(() => {
-        console.log("Redirecting to login.html...");
-        window.location.href = "login.html"; // Update path if needed
-    }, 600); // Delay matches the CSS transition duration
-});
+            // Wait for the transition to complete, then navigate to login.html
+            setTimeout(() => {
+                console.log("Redirecting to login.html...");
+                window.location.href = "login.html"; // Update path if needed
+            }, 600); // Delay matches the CSS transition duration
+        });
 
     </script>
 </body>
