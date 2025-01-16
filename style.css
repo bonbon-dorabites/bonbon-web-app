@@ -306,13 +306,6 @@ body {
     margin-top: 50px;
 }
 
-.col1, 
-.col2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 .col1 img {
     height: 40px;
@@ -396,41 +389,12 @@ body {
 
 /*STAFF-DASHBOARD*/ 
 
-/* === Navbar Styling === */
-.custom-navbar-link {
-    color: var(--dark-brown) !important;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.custom-navbar-link:hover {
-    color: var(--brown) !important;
-}
 .col1, 
 .col2{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-}
-.dropdown-menu {
-    background-color: var(--dark-brown);
-    border-radius: 5px;
-    padding: 5px 0;
-    width: 200px; /* Ensures consistent width */
-}
-
-.dropdown-item {
-    color: var(--lightest-brown);
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 15px;
-}
-
-.dropdown-item:hover {
-    background-color: var(--light-brown);
-    color: var(--dark-brown);
 }
 
 /* Align the entire main container */
@@ -445,7 +409,7 @@ h1.dashboard-title {
     font-weight: bold;
     color: var(--dark-brown);
     text-align: left;
-    margin: 50px 0 20px 100px; /* Adjust spacing */
+    margin: 50px 0 20px 340px; /* Adjust spacing */
     display: inline-block; /* Avoid overlap */
 }
 
@@ -467,23 +431,12 @@ h3 {
 }
 
 /* Specific Styling for the First Horizontal Line */
-hr.first-line {
+.first-line {
     width: 800px; /* Fixed width to match the other lines */
-    height: 3px; /* Thickness of the line */
+    height: 5px; /* Thickness of the line */
     background-color: var(--dark-brown);
-    border: none;
     margin: 20px auto; /* Center the line */
 }
-
-/* Horizontal Line Styling */
-hr.brown-line {
-    width: 100%; /* Adjusted width to match other lines */
-    height: 3px; /* Line thickness */
-    background-color: var(--dark-brown);
-    border: none;
-    margin: 20px auto; /* Center the line */
-}
-
 
 /* === Dropdown Styling === */
 .branch-btn {
@@ -518,7 +471,7 @@ hr.brown-line {
     text-align: left;
 }
 
-.stock-list {
+.stock-update .stock-list {
     list-style-type: disc;
     padding-left: 60px;
     margin: 0;
@@ -560,10 +513,9 @@ ul.stock-list li .badge.bg-danger {
 }
 
 .accordion-item {
-    background-color: var(--light-brown);
+    
     border: none;
     margin-bottom: 10px;
-    border-radius: 10px;
 }
 
 .accordion-header {
@@ -577,7 +529,8 @@ ul.stock-list li .badge.bg-danger {
     color: white;
     font-size: 1.1rem;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .accordion-button:not(.collapsed) {
@@ -642,4 +595,13 @@ ul.stock-list li .badge.bg-danger {
 
 .ms-4 {
     margin-left: 1.5rem !important;
+}
+
+.stock-update h3 {
+    margin-left: 20px;
+}
+
+.dash-buttons {
+    display: flex;
+    gap: 50px;
 }
