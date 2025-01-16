@@ -485,3 +485,31 @@ body {
     padding: 50px 70px;
     color: var(--dark-brown);
 }
+
+
+.checkout-container {
+    display: flex;
+    justify-content: center;
+}
+.col-200 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds spacing between elements */
+  }
+
+.checkout {
+    width: 70%;
+}
+
+.col-name {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.col-name1, .col-name2 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
