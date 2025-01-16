@@ -11,7 +11,9 @@ for(i = 0; i < accordion.length; i++) {
 // Checkout
 document.getElementById("checkoutBtn").addEventListener("click", function() {
     const orderSection = document.getElementById("order");
+    const checkoutSect = document.getElementById("checkout-form");
     if (orderSection) {
         orderSection.style.display = "none";
+        checkoutSect.style.display = "block";
     }
 });
