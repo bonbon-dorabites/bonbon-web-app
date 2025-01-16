@@ -8,12 +8,21 @@ for(i = 0; i < accordion.length; i++) {
     })
 }
 
-// Checkout
-document.getElementById("checkoutBtn").addEventListener("click", function() {
+document.addEventListener("DOMContentLoaded", () => {
+    const checkoutForm = document.getElementById("checkout-form");
     const orderSection = document.getElementById("order");
-    const checkoutSect = document.getElementById("checkout-form");
-    if (orderSection) {
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    const backBtn = document.getElementById("backBtn");
+
+    // Show checkout form, hide order section
+    checkoutBtn.addEventListener("click", () => {
         orderSection.style.display = "none";
-        checkoutSect.style.display = "block";
-    }
+        checkoutForm.style.display = "block";
+    });
+
+    // Show order section, hide checkout form
+    backBtn.addEventListener("click", () => {
+        checkoutForm.style.display = "none";
+        orderSection.style.display = "block";
+    });
 });
