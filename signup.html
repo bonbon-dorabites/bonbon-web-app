@@ -91,29 +91,50 @@
                 padding-top: 10px;
                 font-size: 14px; /* Adjust label size */
             }
-        }
-        
 
-        
+            .name-row {
+                flex-direction: column; 
+                gap: 15px;
+            }
+
+            .first-name,
+            .last-name {
+                flex: none; 
+                width: 100%; 
+            }
+        }
     </style>
 </head>
 <body>
     <div class="vh-100 account-page">
         <div class="row h-100 division">
-            <!-- Right Panel (Login Form) -->
             <div class="panel col-md-6 d-flex justify-content-center align-items-center right">
                 <div class="w-75">
                     <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line" style="color: var(--dark-brown);">Sign-up here!</h1>
                     <br>
                     <form id="loginForm" method="post" class="form-table"> 
-                        <div class="mb-3" style="position: relative;">
-                            <label for="email" class="form-label visually-hidden">Username</label>
-                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
-                                  </svg>
-                            </span>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        <div class="row">
+                            <div class="mb-3 col-12 col-md-6" style="position: relative;">
+                                <label for="firstName" class="form-label visually-hidden">First Name</label>
+                                <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="25" fill="var(--dark-brown)" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                      </svg>
+                                </span>
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                            </div>
+                            
+                            <div class="mb-3 col-12 col-md-6" style="position: relative;">
+                                <label for="lastName" class="form-label visually-hidden">Last Name</label>
+                                <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="var(--dark-brown)" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                          </svg>
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" id="lastName" placeholder="Last Name" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                            </div>
                         </div>
 
                         <div class="mb-3" style="position: relative;">
@@ -123,17 +144,17 @@
                                     <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
                                   </svg>
                             </span>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                            <input type="email" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                         </div>
 
                         <div class="mb-3" style="position: relative;">
-                            <label for="email" class="form-label visually-hidden">Username</label>
+                            <label for="email" class="form-label visually-hidden">Phone</label>
                             <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="var(--dark-brown)" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
                                   </svg>
                             </span>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                            <input type="text" class="form-control" id="phone" placeholder="Phone" required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                         </div>
                     
                         <div class="mb-3" style="position: relative;">
@@ -147,7 +168,7 @@
                         </div>
                         
                         <div style="text-align: center;">
-                            <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit" style="background-color: #5C2918; color: white; border-radius: 20px; border: none;">Log-in</button>
+                            <button id="login" onclick="handleLogin()" type="button" class="btn btn-primary w-50 submit" style="background-color: #5C2918; color: white; border-radius: 20px; border: none;">Sign-up</button>
                         </div>
                         
                         <hr style="border: 1px solid #5C2918; width: 80%; margin: 20px auto;">

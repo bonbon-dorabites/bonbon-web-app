@@ -401,6 +401,20 @@ body {
     height: 70px;
 }
 
+.name-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+}
+
+.first-name {
+    flex: 6; 
+}
+
+.last-name {
+    flex: 4; 
+}
+
 /*BROWSE*/ 
 
 .browse {
