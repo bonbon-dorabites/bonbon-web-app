@@ -301,7 +301,6 @@ body {
     padding: 30px;
 }
 
-
 .row1 {
     margin-top: 50px;
 }
@@ -571,17 +570,6 @@ ul.stock-list li .badge.bg-danger {
 .accordion-body .btn-success:hover {
     background-color: #218838;
     color: white;
-}
-
-/* === Footer Styling === */
-.small-footer {
-    display: flex;
-    background-color: var(--dark-brown);
-    color: white;
-    margin: 0;
-    padding: 12px 0;
-    align-items: center;
-    justify-content: center;
 }
 
 /* Spacing Adjustments */
