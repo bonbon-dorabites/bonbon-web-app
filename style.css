@@ -489,7 +489,7 @@ body {
 /* CHECKOUT FORM */
 #checkout-form {
     display: none;
-    padding: 50px 70px;
+    padding: 20px 70px;
     color: var(--dark-brown);
 }
 
@@ -516,6 +516,23 @@ body {
     justify-content: space-between;
 }
 
+.btn-back {
+    background-color: #c71e1e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: darkred;
+}
+
+
+  
 /* Coupon Section */
 .coupon-section {
     margin-top: 20px;
