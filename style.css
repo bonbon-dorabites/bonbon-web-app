@@ -494,12 +494,60 @@ body {
 }
 
 .checkout-container {
-    margin-top: 40px;
+    margin-top: 35px;
     display: flex;
-    gap: 200px;
+    gap: 100px;
     font-family: var(--fredoka);
 }
 
+.checkout, .cart-part {
+    background-color: #f2f2f2;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+.cart-part {
+    flex: 25%;
+}
+
+.container h4 {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Coupon Section */
+.coupon-section {
+    margin-top: 20px;
+  }
+  
+  .coupon-section h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .coupon-section input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .coupon-section button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .coupon-section button:hover {
+    background-color: #45a049;
+  }
+  
 .checkout-header {
     font-family: var(--fredoka);
 }

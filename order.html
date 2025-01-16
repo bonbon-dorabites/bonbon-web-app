@@ -103,24 +103,6 @@
       </div>
 
       <div class="checkout-container">
-
-          <div class="cart-part">
-            <div class="col-25">
-              <div class="container">
-                <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-                <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                <p><a href="#">Product 4</a> <span class="price">$2</span></p>
-                <hr>
-                <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
-              </div>
-            </div>
-          </div>
-  
-        
-        
-
         <form action="#" class="checkout">
           <div class="row">
             <div class="col-200">
@@ -159,7 +141,7 @@
              
 
             </div>
-            
+
             <div class="checkout-btn">
               <button type="submit" class="btn-checkout">
                 <i class="fa fa-shopping-cart"></i> Checkout
@@ -169,6 +151,34 @@
             
           </div>
         </form>
+
+        <div class="cart-part">
+          <div class="col-25">
+            <div class="container">
+              <h4>Summary <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+              <p><a href="#">Product 1</a> <span class="price">$15</span></p>
+              <p><a href="#">Product 2</a> <span class="price">$5</span></p>
+              <p><a href="#">Product 3</a> <span class="price">$8</span></p>
+              <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+
+              <div class="coupon-section">
+                <h4>Coupon</h4>
+                <input
+                  type="text"
+                  id="coupon-code"
+                  placeholder="Enter coupon code"
+                />
+                <button id="apply-coupon">
+                  Apply
+                </button>
+              </div>
+              <hr>
+              <p>Total: <span class="price" ><b>$30</b></span></p>
+            </div>
+          </div>
+
+          
+        </div>
       </div>
     </section>
 
