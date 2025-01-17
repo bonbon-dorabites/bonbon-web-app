@@ -517,10 +517,11 @@ body {
 }
 
 .btn-back {
+    font-family: var(--fredoka);
     background-color: #c71e1e;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 15px;
     cursor: pointer;
     border-radius: 5px;
     font-size: 16px;
@@ -538,20 +539,20 @@ body {
     margin-top: 20px;
   }
   
-  .coupon-section h4 {
+.coupon-section h4 {
     font-size: 18px;
     margin-bottom: 10px;
-  }
+}
   
-  .coupon-section input {
+.coupon-section input {
     width: 70%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-  }
+}
   
-  .coupon-section button {
+.coupon-section button {
     padding: 8px 12px;
     background-color: #4CAF50;
     color: white;
@@ -559,11 +560,11 @@ body {
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-  }
+}
   
-  .coupon-section button:hover {
+.coupon-section button:hover {
     background-color: #45a049;
-  }
+}
   
 .checkout-header {
     font-family: var(--fredoka);
@@ -604,9 +605,9 @@ body {
     align-items: center;
     gap: 10px;
     margin-top: 30px;
-  }
+}
   
-  .btn-checkout:hover {
+.btn-checkout:hover {
     background-color: #45a049; 
-  }
+}
   
