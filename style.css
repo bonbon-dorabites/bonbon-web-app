@@ -161,6 +161,13 @@ body {
     color: var(--dark-brown);
 }
 
+.header h2 {
+    font-size: 6vh;
+    font-family: var(--fredoka);
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
 .line {
     height: 4px; 
     background-color: 
@@ -183,6 +190,11 @@ body {
 .best-desc {
     font-family: var(--fredoka);
     color: var(--dark-brown);
+}
+
+.checkout-btn {
+    display: flex;
+    justify-content: center;
 }
 
 .best-btn {
@@ -423,17 +435,30 @@ body {
     justify-content: center ;
     text-align: center;
 }
-.heading {
+
+.upper {
+    margin-top: 80px;
+    position: relative;
+}
+
+.browse .heading {
     display: flex;
     flex-direction: row;
     justify-content: center ;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 20px;
    
 }
 
+.browse .heading h1 {
+    font-size: 5vh;
+    font-family: var(--fredoka);
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
 .heading img {
-    height: 250px;
+    height: 150px;
 }
 
 .heading h1 {
@@ -454,7 +479,12 @@ body {
 
 
 .row1 {
-    margin-top: 50px;
+    margin-top: 20px;
+    display: flex;
+    margin-left: 30px;
+    top: 0;
+    right: 50px;
+
 }
 
 .col1, 
@@ -466,15 +496,16 @@ body {
 }
 
 .col1 img {
-    height: 40px;
+    height: 30px;
 }
 
 .col2 {
-    margin-top: 20px;
+    margin-top: 10px;
+    font-size: 0.8em;
 }
 
 .col2 img {
-    height: 25px;
+    height: 20px;
 }
 
 .col2 p {
@@ -524,12 +555,71 @@ body {
 }
 
 .menu-box h2 {
-    margin-top: 50px;
+    margin-top: 85px;
     
 }
 
 .menu-items {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.accordion .sizes {
+    position: relative;
+    margin: 8px;
+}
+.accordion .label {
+    display: flex;
+    padding: 10px;
+    background-color: #7e492e;
+    cursor: pointer;
+}
+
+.accordion .sizes .label::before {
+    content: '+';
+    position: absolute;
+    top: -1px;
+    right: 20px;
+    font-size: 1.5em;
+}
+
+.accordion .sizes.active .label::before {
+    content: '-';
+
+}
+
+.accordion .sizes .flavors {
+    position: relative;
+    background: #fff;
+    height: 0;
+    overflow: hidden;
+    /*transition: 0.4s;*/
+    
+}
+
+.menu-items .item{
+    display: flex;
+    justify-content: space-between;
+    background-color: #7e492e;
+    margin-bottom: 8px;
+    padding: 5px 15px;
+    align-items: center;
+}
+
+.menu-items .item p {
+    margin: 0;
+    line-height: 2.2;
+}
+
+.accordion .sizes.active .flavors {
+    min-height: 190px;
+    padding: 10px;
+}
+
+.dorayaki.flavor {
+    display:flex;
+    justify-content: space-between;
 }
 
 .menu-img-circle img {
@@ -547,3 +637,130 @@ body {
     width: 80vw;
 }
 
+
+
+/* CHECKOUT FORM */
+#checkout-form {
+    display: none;
+    padding: 20px 70px;
+    color: var(--dark-brown);
+}
+
+.checkout-container {
+    margin-top: 35px;
+    display: flex;
+    gap: 100px;
+    font-family: var(--fredoka);
+}
+
+.checkout, .cart-part {
+    background-color: #f2f2f2;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+.cart-part {
+    flex: 25%;
+}
+
+.container h4 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-back {
+    font-family: var(--fredoka);
+    background-color: #c71e1e;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: darkred;
+}
+
+
+  
+/* Coupon Section */
+.coupon-section {
+    margin-top: 20px;
+  }
+  
+.coupon-section h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+  
+.coupon-section input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+  
+.coupon-section button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+  
+.coupon-section button:hover {
+    background-color: #45a049;
+}
+  
+.checkout-header {
+    font-family: var(--fredoka);
+}
+
+.col-200 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.checkout {
+    width: 70%;
+}
+
+.col-checkout {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.col-c1 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-checkout {
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+  
+.btn-checkout:hover {
+    background-color: #45a049; 
+}
+  
