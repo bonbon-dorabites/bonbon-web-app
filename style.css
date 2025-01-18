@@ -477,7 +477,6 @@ body {
     padding: 30px;
 }
 
-
 .row1 {
     margin-top: 20px;
     display: flex;
@@ -487,13 +486,6 @@ body {
 
 }
 
-.col1, 
-.col2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 .col1 img {
     height: 30px;
@@ -513,15 +505,17 @@ body {
     margin: 0;
 }
 
+/* === Footer Styling === */
 .small-footer {
     display: flex;
     background-color: var(--dark-brown);
     color: white;
     margin: 0;
-    padding-top: 12px;
+    padding: 12px 0;
     align-items: center;
     justify-content: center;
 }
+
 
 .col1 .btn {
     background-color: #48201a;
@@ -633,8 +627,212 @@ body {
     cursor: pointer;
 }
 
-.order-table .table {
-    width: 80vw;
+/*STAFF-DASHBOARD*/ 
+
+.col1, 
+.col2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Align the entire main container */
+.main-container {
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Dashboard Title */
+h1.dashboard-title {
+    font-size: 4rem; /* Adjust size as needed */
+    font-weight: bold;
+    color: var(--dark-brown);
+    text-align: left;
+    margin: 50px 0 20px 340px; /* Adjust spacing */
+    display: inline-block; /* Avoid overlap */
+}
+
+/* Section Headers */
+h2 {
+    font-size: 2.2rem; /* Larger size for h2 */
+    color: var(--brown);
+    font-weight: bold;
+    margin-left: 0;
+    text-align: left;
+}
+
+h3 {
+    font-size: 1.8rem; /* Smaller size for h3 */
+    color: var(--brown);
+    font-weight: bold;
+    margin-left: 0;
+    text-align: left;
+}
+
+/* Specific Styling for the First Horizontal Line */
+.first-line {
+    width: 800px; /* Fixed width to match the other lines */
+    height: 5px; /* Thickness of the line */
+    background-color: var(--dark-brown);
+    margin: 20px auto; /* Center the line */
+}
+
+/* === Dropdown Styling === */
+.branch-btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: var(--lightest-brown);
+    color: var(--dark-brown);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.branch-btn:hover {
+    background-color: var(--brown);
+    color: white;
+}
+
+.branch-alert {
+    font-size: 1.3rem;
+    color: #ffc107; /* Bootstrap's yellow color */
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+/* === Stock Update Section === */
+.stock-update {
+    font-size: 4rem; /* Adjust size as needed */
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.stock-update .stock-list {
+    list-style-type: disc;
+    padding-left: 60px;
+    margin: 0;
+}
+
+.stock-list li {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stock-list li span.badge {
+    font-size: 1rem;
+    padding: 5px 15px;
+    margin-left: 10px;
+    border-radius: 30px;
+}
+
+/* Badge Styling */
+ul.stock-list li .badge.bg-success {
+    background-color: var(--light-brown);
+    color: white;
+}
+
+ul.stock-list li .badge.bg-danger {
+    background-color: var(--brown);
+    color: white;
+}
+
+/* Accordion Section */
+.pending-orders,
+.finished-orders {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.accordion-item {
+    
+    border: none;
+    margin-bottom: 10px;
+}
+
+.accordion-header {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: var(--dark-brown);
+}
+
+.accordion-button {
+    background-color: var(--brown);
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--lightest-brown);
+    color: var(--dark-brown);
+}
+
+.accordion-body {
+    background-color: var(--wood-color);
+    color: whitesmoke;
+    font-size: 1rem;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.accordion-body p {
+    margin-bottom: 10px;
+}
+
+/* Buttons in Accordion */
+.accordion-body .btn-success {
+    align-self: flex-end;
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion-body .btn-success:hover {
+    background-color: #218838;
+    color: white;
+}
+
+/* Spacing Adjustments */
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.ms-4 {
+    margin-left: 1.5rem !important;
+}
+
+.stock-update h3 {
+    margin-left: 20px;
+}
+
+.dash-buttons {
+    display: flex;
+    gap: 50px;
 }
 
 
