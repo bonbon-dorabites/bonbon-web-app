@@ -551,7 +551,7 @@ body {
 /* Coupon Section */
 .coupon-section {
     margin-top: 20px;
-  }
+}
   
 .coupon-section h4 {
     font-size: 18px;
@@ -624,4 +624,12 @@ body {
 .btn-checkout:hover {
     background-color: #45a049; 
 }
-  
+
+.cart-part span.price {
+    float: right;
+    color: grey;
+}
+
+.cart-part .price {
+    font-size: 20px;
+}
