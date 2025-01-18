@@ -295,19 +295,19 @@ body {
     flex-direction: row;
     justify-content: center ;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
    
 }
 
 .browse .heading h1 {
-    font-size: 5vh;
+    font-size: 4vh;
     font-family: var(--fredoka);
     font-weight: bold;
     color: var(--dark-brown);
 }
 
 .heading img {
-    height: 150px;
+    height: 100px;
 }
 
 .heading h1 {
@@ -417,6 +417,7 @@ body {
 .accordion .sizes {
     position: relative;
     margin: 8px;
+
 }
 .accordion .label {
     display: flex;
@@ -445,6 +446,7 @@ body {
     overflow: hidden;
     /*transition: 0.4s;*/
     
+    
 }
 
 .menu-items .item{
@@ -469,6 +471,7 @@ body {
 .dorayaki.flavor {
     display:flex;
     justify-content: space-between;
+    
 }
 
 .menu-img-circle img {
