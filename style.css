@@ -286,6 +286,8 @@ body {
 }
 
 .upper {
+    /*display: flex;
+    justify-content: center;**/
     margin-top: 80px;
     position: relative;
 }
@@ -328,13 +330,15 @@ body {
 
 
 .row1 {
+    position: absolute;
     margin-top: 20px;
     display: flex;
     margin-left: 30px;
-    top: 0;
-    right: 50px;
+    top: 15px;
+    right: 300px;
 
 }
+
 
 .col1, 
 .col2{
