@@ -8,6 +8,7 @@
     --brown: #b25627;
     --light-brown: #da9747;
     --lightest-brown: #edb868;
+    --beige: #ffd89c;
     --fredoka: "Fredoka", sans-serif;
 }
 
@@ -31,7 +32,7 @@ body {
 }
 
 .active {
-    color: var(--brown) !important; 
+    color: var(--brown); 
 }
 
 .dropdown-menu {
@@ -339,7 +340,6 @@ body {
 
 }
 
-
 .col1, 
 .col2{
     display: flex;
@@ -425,6 +425,7 @@ body {
 }
 .accordion .label {
     display: flex;
+    gap: 430px;
     padding: 10px;
     background-color: #7e492e;
     cursor: pointer;
@@ -445,12 +446,15 @@ body {
 
 .accordion .sizes .flavors {
     position: relative;
-    background: #fff;
+    background: var(--beige);
     height: 0;
     overflow: hidden;
-    /*transition: 0.4s;*/
-    
-    
+    transition: 0.4s ease-in-out;
+}
+
+.menu-items .right-side {
+    display: flex;
+    gap: 20px;
 }
 
 .menu-items .item{
@@ -470,6 +474,11 @@ body {
 .accordion .sizes.active .flavors {
     min-height: 190px;
     padding: 10px;
+    
+}
+
+.label.active {
+    color: var(--lightest-brown); /* Active color */
 }
 
 .dorayaki.flavor {
@@ -538,8 +547,6 @@ body {
 .btn-back:hover {
     background-color: darkred;
 }
-
-
   
 /* Coupon Section */
 .coupon-section {
