@@ -283,150 +283,6 @@ body {
     padding: 20px;
 }
 
-/* SIGNUP & LOGIN*/
-
-.account-page, .division {
-    height: 100%;
-    margin: 0;
-}
-
-.division {
-    display: flex;
-    transition: transform 0.6s ease-in-out;
-}
-
-.sign-up-right {
-    transform: translateX(100%);
-    transition: transform 0.6s ease-in-out;
-    background-color: var(--light-brown);
-}
-
-.left {
-    transform: translateX(-100%);
-    transition: transform 0.6s ease-in-out;
-}
-
-.sign-up-right.show {
-    transform: translateX(0); /* Move the panel into view */
-}
-
-.left.show {
-    transform: translateX(0); /* Move the panel into view */
-}
-
-.sign-up-right.slide-out {
-    transform: translateX(100%); /* Move the panel off the screen to the right */
-}
-
-.left.slide-out {
-    transform: translateX(-100%); /* Move the panel off the screen to the right */
-}
-
-.right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box; /* Include padding in height calculation */
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-}
-
-/* Title and Subtitle */
-.title {
-    font-size: 48px; /* Adjust as needed */
-    margin-bottom: 16px; /* Space below title */
-    text-align: center; /* Center-align text */
-}
-
-.subtitle {
-    font-size: 20px; /* Adjust as needed */
-    margin-bottom: 15px; /* Space below subtitle */
-    text-align: center; /* Center-align text */
-}
-
-/* Forgot Password */
-.forgotpass {
-    text-align: right;
-    margin-bottom: 10px; /* Space between link and form */
-}
-
-.forgotpass a {
-    color: inherit; /* Use current text color */
-    text-decoration: none; /* Remove underline */
-    font-style: italic;
-}
-
-.forgotpass a:hover {
-    text-decoration: underline; /* Optional: add underline on hover */
-}
-
-.redirect {
-    text-align: center;
-    margin-bottom: 10px; /* Space between link and form */
-}
-
-.redirect a {
-    color: inherit; /* Use current text color */
-    text-decoration: none; /* Remove underline */
-    font-style: italic;
-}
-
-.redirect a:hover {
-    text-decoration: underline; /* Optional: add underline on hover */
-}
-
-/* Form Styling */
-.form-table {
-    width: 100%;
-}
-
-.intro {
-    flex-direction: column;
-}
-
-.left, .sign-up-right {
-    background-color: var(--light-brown);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.intro-img img {
-    width: 400px;
-    height: 350px;
-}
-
-.login .intro-img img {
-    margin-right: 0px;
-}
-
-.signup .intro-img img {
-    margin-left: 120px;
-}
-
-.signup .intro-title img {
-    margin-left: 130px;
-}
-
-.intro-title img {
-    width: 300px;
-    height: 70px;
-}
-
-.name-row {
-    display: flex;
-    flex-direction: row;
-    gap: 10px; 
-}
-
-.first-name {
-    flex: 6; 
-}
-
-.last-name {
-    flex: 4; 
-}
 
 /*BROWSE*/ 
 
@@ -490,6 +346,13 @@ body {
 
 }
 
+.col1, 
+.col2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
 .col1 img {
     height: 30px;
@@ -623,7 +486,7 @@ body {
 }
 
 .label.active {
-    color: var(--lightest-brown); /* Active color */
+    color: var(--lightest-brown); 
 }
 
 .dorayaki.flavor {
@@ -638,220 +501,13 @@ body {
     object-fit: cover;
 }
 
-
 .bi-cart-plus-fill {
     cursor: pointer;
 }
 
-/*STAFF-DASHBOARD*/ 
-
-.col1, 
-.col2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+.order-table .table {
+    width: 80vw;
 }
-
-/* Align the entire main container */
-.main-container {
-    margin: 0 auto;
-    padding: 0 30px;
-}
-
-/* Dashboard Title */
-h1.dashboard-title {
-    font-size: 4rem; /* Adjust size as needed */
-    font-weight: bold;
-    color: var(--dark-brown);
-    text-align: left;
-    margin: 50px 0 20px 340px; /* Adjust spacing */
-    display: inline-block; /* Avoid overlap */
-}
-
-/* Section Headers */
-h2 {
-    font-size: 2.2rem; /* Larger size for h2 */
-    color: var(--brown);
-    font-weight: bold;
-    margin-left: 0;
-    text-align: left;
-}
-
-h3 {
-    font-size: 1.8rem; /* Smaller size for h3 */
-    color: var(--brown);
-    font-weight: bold;
-    margin-left: 0;
-    text-align: left;
-}
-
-/* Specific Styling for the First Horizontal Line */
-.first-line {
-    width: 800px; /* Fixed width to match the other lines */
-    height: 5px; /* Thickness of the line */
-    background-color: var(--dark-brown);
-    margin: 20px auto; /* Center the line */
-}
-
-/* === Dropdown Styling === */
-.branch-btn {
-    font-size: 1.2rem;
-    font-weight: bold;
-    background-color: var(--lightest-brown);
-    color: var(--dark-brown);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-}
-
-.branch-btn:hover {
-    background-color: var(--brown);
-    color: white;
-}
-
-.branch-alert {
-    font-size: 1.3rem;
-    color: #ffc107; /* Bootstrap's yellow color */
-    margin-top: 10px;
-    text-align: center;
-}
-
-
-/* === Stock Update Section === */
-.stock-update {
-    font-size: 4rem; /* Adjust size as needed */
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.stock-update .stock-list {
-    list-style-type: disc;
-    padding-left: 60px;
-    margin: 0;
-}
-
-.stock-list li {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.stock-list li span.badge {
-    font-size: 1rem;
-    padding: 5px 15px;
-    margin-left: 10px;
-    border-radius: 30px;
-}
-
-/* Badge Styling */
-ul.stock-list li .badge.bg-success {
-    background-color: var(--light-brown);
-    color: white;
-}
-
-ul.stock-list li .badge.bg-danger {
-    background-color: var(--brown);
-    color: white;
-}
-
-/* Accordion Section */
-.pending-orders,
-.finished-orders {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.accordion-item {
-    
-    border: none;
-    margin-bottom: 10px;
-}
-
-.accordion-header {
-    font-size: 1.2rem;
-    font-weight: normal;
-    color: var(--dark-brown);
-}
-
-.accordion-button {
-    background-color: var(--brown);
-    color: white;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-
-.accordion-button:not(.collapsed) {
-    background-color: var(--lightest-brown);
-    color: var(--dark-brown);
-}
-
-.accordion-body {
-    background-color: var(--wood-color);
-    color: whitesmoke;
-    font-size: 1rem;
-    padding: 15px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.accordion-body p {
-    margin-bottom: 10px;
-}
-
-/* Buttons in Accordion */
-.accordion-body .btn-success {
-    align-self: flex-end;
-    margin-top: 10px;
-    background-color: #28a745;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: none;
-    transition: all 0.3s ease-in-out;
-}
-
-.accordion-body .btn-success:hover {
-    background-color: #218838;
-    color: white;
-}
-
-/* Spacing Adjustments */
-.mt-4 {
-    margin-top: 1.5rem !important;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem !important;
-}
-
-.ms-4 {
-    margin-left: 1.5rem !important;
-}
-
-.stock-update h3 {
-    margin-left: 20px;
-}
-
-.dash-buttons {
-    display: flex;
-    gap: 50px;
-}
-
-
 
 /* CHECKOUT FORM */
 #checkout-form {
