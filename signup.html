@@ -210,7 +210,24 @@
                 </div>
             </div>
         </div>
-        
+
+        <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Processing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Please wait...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     <script>
         // Wait for the page to fully load before applying the transition
@@ -220,23 +237,30 @@
             console.log("Right panel transition applied.");
         });
 
-        // Add event listener to the 'Log-in' link
-        document.querySelector('.redirect a').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default link behavior
+        function handleSignUp() {
+        // Get the checkbox
+        const checkbox = document.getElementById('agreeTerms');
+        const modalMessage = document.getElementById('modalMessage');
+        const modal = new bootstrap.Modal(document.getElementById('loadingModal'));
 
-            const right = document.querySelector('.sign-up-right'); // Get the right panel
+        // Show modal
+        modal.show();
 
-            // Add the 'slide-out' class to slide the panel out to the right
-            right.classList.add('slide-out');
+        // Check if checkbox is checked
+        if (!checkbox.checked) {
+            // Update modal message
+            modalMessage.textContent = 'You must agree to the Terms of Use and Privacy Policy before signing up.';
+        } else {
+            // Update modal message
+            modalMessage.textContent = 'Signup successful! Redirecting to login...';
 
-            console.log("Sliding out the right panel...");
-
-            // Wait for the transition to complete, then navigate to login.html
+            // Simulate a delay and redirect
             setTimeout(() => {
-                console.log("Redirecting to login.html...");
-                window.location.href = "login.html"; // Update path if needed
-            }, 600); // Delay matches the CSS transition duration
-        });
+                modal.hide();
+                window.location.href = 'login.html'; // Redirect to login page
+            }, 2000); // Adjust delay as needed
+        }
+    }
 
     </script>
 </body>
