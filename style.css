@@ -244,18 +244,33 @@ body {
 
 .carousel-item img {
     height: 500px;
+    width: 1000px;
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
-    filter: invert(1); 
+    filter: invert(1);
 }
 
 .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 15px;
     border-radius: 8px;
     color: #fff;
+    display: block;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--light-brown) !important;  /* Set your desired color */
+    filter: none !important;  /* Remove the inversion effect */
+}
+
+/* Optional: Change the color when hovering */
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    background-color: var(--dark-brown) !important; /* Hover color */
+}
+
 
 /*TESTIMONIALS*/
 .testimonials {

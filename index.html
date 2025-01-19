@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="style.css">
     <title>Bonbon: Dorayaki Bites</title>
     <style>
+        @media (max-width: 1078px) {
+            .carousel-item img {
+                height: 500px;
+                width: 900px;
+            }
+        }
+
+        @media (max-width: 963px) {
+            .carousel-item img {
+                height: 500px;
+                width: 800px;
+            }
+        }
+
+        @media (max-width: 852px) {
+            .carousel-item img {
+                height: 480px;
+                width: 750px;
+            }
+        }
+
         @media (max-width: 918px) {
             .hero {
                 height: 420px;
@@ -94,7 +115,37 @@
             .card2 {
                 margin-top: 30px;
             }
+
+            .carousel-item img {
+                height: 400px; 
+                width: 650px;
+            }
+
+            .carousel-caption {
+                font-size: 14px; /* Adjust text size for smaller screens */
+                padding: 10px; /* Reduce padding */
+                background-color: rgba(0, 0, 0, 0.8); /* Darker background for better visibility */
+                display: block !important; /* Force captions to show */
+            }
+
+            .carousel-caption h2 {
+                font-size: 16px; /* Smaller heading size */
+                margin-bottom: 5px;
+            }
+
+            .carousel-caption h6 {
+                font-size: 12px; /* Smaller subheading size */
+            }
+
+            .carousel-inner {
+                align-items: center; /* Ensure proper alignment */
+            }
+
+            .carousel-caption.d-none {
+                display: block !important; /* Override Bootstrap's default hiding behavior */
+            }
         }
+
         @media (max-width: 350px) {
             .nav-logo {
                 margin-left: 0;
@@ -128,6 +179,11 @@
             .who-img {
                 width: 260px; 
                 height: 220px; 
+            }
+
+            .carousel-item img {
+                height: 350px; 
+                width: 650px;
             }
         }
     </style>
@@ -305,21 +361,21 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active d-flex justify-content-center align-items-center">
-                            <img src="img/Branch2.jpg"class="d-block w-75" alt="First slide">
+                            <img src="img/Branch2.jpg"class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">SM VALENZUELA</h2>
                                 <h6>SM City Valenzuela, SM Foodcourt located at Third Level</h6>
                             </div>
                         </div>
                         <div class="carousel-item d-flex justify-content-center align-items-center">
-                            <img src="img/Branch1.jpg" class="d-block w-75" alt="First slide">
+                            <img src="img/Branch1.jpg" class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">SM NORTH EDSA</h2>
                                 <h6>M24J+M8V, Bago Bantay, Quezon City, Metro Manila</h6>
                             </div>
                         </div>
                         <div class="carousel-item d-flex justify-content-center align-items-center">
-                            <img src="img/Branch3.jpg" class="d-block w-75" alt="First slide">
+                            <img src="img/Branch3.jpg" class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">ONE MALL VALENZUELA</h2>
                                 <h6>Level 2, One Mall Valenzuela Brgy, Gen. T. de Leon, Street, Valenzuela, 1442</h6>
