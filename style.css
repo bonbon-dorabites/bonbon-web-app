@@ -283,6 +283,122 @@ body {
     padding: 20px;
 }
 
+/* SIGNUP & LOGIN*/
+.account-page, .division {
+    height: 100%;
+    margin: 0;
+}
+.division {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+.sign-up-right {
+    transform: translateX(100%);
+    transition: transform 0.6s ease-in-out;
+    background-color: var(--light-brown);
+}
+.left {
+    transform: translateX(-100%);
+    transition: transform 0.6s ease-in-out;
+}
+.sign-up-right.show {
+    transform: translateX(0); /* Move the panel into view */
+}
+.left.show {
+    transform: translateX(0); /* Move the panel into view */
+}
+.sign-up-right.slide-out {
+    transform: translateX(100%); /* Move the panel off the screen to the right */
+}
+.left.slide-out {
+    transform: translateX(-100%); /* Move the panel off the screen to the right */
+}
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in height calculation */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+/* Title and Subtitle */
+.title {
+    font-size: 48px; /* Adjust as needed */
+    margin-bottom: 16px; /* Space below title */
+    text-align: center; /* Center-align text */
+}
+.subtitle {
+    font-size: 20px; /* Adjust as needed */
+    margin-bottom: 15px; /* Space below subtitle */
+    text-align: center; /* Center-align text */
+}
+/* Forgot Password */
+.forgotpass {
+    text-align: right;
+    margin-bottom: 10px; /* Space between link and form */
+}
+.forgotpass a {
+    color: inherit; /* Use current text color */
+    text-decoration: none; /* Remove underline */
+    font-style: italic;
+}
+.forgotpass a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+.redirect {
+    text-align: center;
+    margin-bottom: 10px; /* Space between link and form */
+}
+.redirect a {
+    color: inherit; /* Use current text color */
+    text-decoration: none; /* Remove underline */
+    font-style: italic;
+}
+.redirect a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+/* Form Styling */
+.form-table {
+    width: 100%;
+}
+.intro {
+    flex-direction: column;
+}
+.left, .sign-up-right {
+    background-color: var(--light-brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.intro-img img {
+    width: 400px;
+    height: 350px;
+}
+.login .intro-img img {
+    margin-right: 0px;
+}
+.signup .intro-img img {
+    margin-left: 120px;
+}
+.signup .intro-title img {
+    margin-left: 130px;
+}
+.intro-title img {
+    width: 300px;
+    height: 70px;
+}
+.name-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+}
+.first-name {
+    flex: 6; 
+}
+.last-name {
+    flex: 4; 
+}
 
 /*BROWSE*/ 
 
