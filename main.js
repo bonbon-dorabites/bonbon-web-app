@@ -26,3 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
         orderSection.style.display = "block";
     });
 });
+
+document.querySelectorAll('.label').forEach(label => {
+    label.addEventListener('click', function () {
+      // Remove active class from all labels
+      document.querySelectorAll('.label').forEach(l => l.classList.remove('active'));
+      
+      // Add active class to the clicked label
+      this.classList.add('active');
+    });
+  });
+  
