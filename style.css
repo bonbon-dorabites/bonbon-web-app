@@ -24,6 +24,7 @@ body {
 .nav-logo {
     height: 50px;
     width: 179px;
+    margin-left: 30px;
 }
 
 .custom-navbar-link {
@@ -58,38 +59,68 @@ body {
 }
 
 .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 482px;
     background-color: var(--lightest-brown);
     width: 100%;
 }
 
+.break-spacer {
+    height: 72px; /* Adjust spacing as needed */
+}
+
+.hero-text {
+    justify-content: center;
+}
+
 .hero-img {
-    display: flex-start;
-    padding-left: 200px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 60px;
+} 
+
+.hero-img img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Ensures the image maintains its aspect ratio */
 }
 
 .hero h1 {
     font-family: var(--fredoka);
     font-weight: bold;
     color: var(--dark-brown);
-    font-size: 10vh;
+    font-size: 70px; /* Resize the font size with viewport width */
+    margin: 0;
 }
 
-.hero p {
+.subtext {
+    font-family: var(--fredoka);
+    font-weight: normal;
+    color: var(--dark-brown);
+    font-size: 35px;
+}
+
+.subtext1 {
     font-style: italic;
-    font-size: 4vh;
+    font-size: 20px;
 }
 
 .hero-icon {
-    margin-right: 2vw;
+    margin-right: 15px;
 }
 
-.hero-icon:hover {
+.hero-icon:hover, .hero-last:hover {
     fill: var(--wood-color);
 }
 
 .buynow {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .buynow a {
