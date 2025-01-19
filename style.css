@@ -498,7 +498,7 @@ body {
     padding: 30px;
 }
 
-.row1 {
+.row12 {
     position: absolute;
     margin-top: 20px;
     display: flex;
@@ -787,8 +787,6 @@ ul.stock-list li .badge.bg-danger {
     color: white;
     font-size: 1.1rem;
     padding: 10px 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
 }
 .accordion-button:not(.collapsed) {
     background-color: var(--lightest-brown);
