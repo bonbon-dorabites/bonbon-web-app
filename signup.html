@@ -262,6 +262,24 @@
         }
     }
 
+    // Add event listener to the 'Log-in' link
+    document.querySelector('.redirect a').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            const right = document.querySelector('.sign-up-right'); // Get the right panel
+
+            // Add the 'slide-out' class to slide the panel out to the right
+            right.classList.add('slide-out');
+
+            console.log("Sliding out the right panel...");
+
+            // Wait for the transition to complete, then navigate to login.html
+            setTimeout(() => {
+                console.log("Redirecting to login.html...");
+                window.location.href = "login.html"; // Update path if needed
+            }, 600); // Delay matches the CSS transition duration
+        });
+
     </script>
 </body>
 </html>
