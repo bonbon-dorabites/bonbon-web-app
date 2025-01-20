@@ -591,6 +591,119 @@ ul.stock-list li .badge.bg-danger {
     gap: 50px;
 }
 
+/* Media Queries */
+
+/* Mobile Phones (max-width: 576px) */
+@media (max-width: 576px) {
+    .stock-list li {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start;
+        gap: 10px; /* Adjust spacing */
+    }
+
+    .stock-list li span.badge {
+        font-size: 0.9rem; /* Smaller badge text */
+        padding: 5px 10px; /* Adjust padding */
+    }
+
+    h1.dashboard-title {
+        font-size: 2rem; /* Smaller font size */
+        margin: 20px auto;
+        text-align: center; /* Center-align the title */
+    }
+
+    h2, h3 {
+        font-size: 1.5rem; /* Reduce font sizes */
+    }
+
+    .first-line {
+        width: 90%; /* Adjust line width */
+        margin: 10px auto;
+    }
+
+    .accordion-body {
+        font-size: 0.9rem; /* Adjust accordion content size */
+        padding: 10px;
+    }
+
+    .accordion-button {
+        font-size: 1rem; /* Smaller button size */
+        padding: 8px 15px;
+    }
+}
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    .stock-list li {
+        flex-wrap: wrap; /* Allow wrapping for better spacing */
+        gap: 15px;
+    }
+
+    .stock-list li span.badge {
+        font-size: 1rem;
+        padding: 8px 15px; /* Adjust padding */
+    }
+
+    h1.dashboard-title {
+        font-size: 2.5rem;
+        margin: 30px auto;
+        text-align: center;
+    }
+
+    h2, h3 {
+        font-size: 1.8rem;
+    }
+
+    .first-line {
+        width: 95%;
+    }
+
+    .accordion-body {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .accordion-button {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+    }
+}
+
+/* Small Laptops (max-width: 992px) */
+@media (max-width: 992px) {
+    .stock-list li {
+        gap: 20px; /* Adjust spacing */
+    }
+
+    .stock-list li span.badge {
+        font-size: 1rem;
+        padding: 10px 20px; /* Larger padding for readability */
+    }
+
+    h1.dashboard-title {
+        font-size: 3rem; /* Slightly larger title for laptops */
+        margin: 40px auto;
+        text-align: left;
+    }
+
+    h2, h3 {
+        font-size: 2rem;
+    }
+
+    .first-line {
+        width: 90%;
+    }
+
+    .accordion-body {
+        font-size: 1rem;
+    }
+
+    .accordion-button {
+        font-size: 1.1rem;
+    }
+}
+
+
 /*CUSTOMER*/
 textarea.form-control {
     border: 2px solid #cc7722;
@@ -622,4 +735,86 @@ p {
     font-family: var(--fredoka); /* Use your custom font */
     font-weight: bold;
     color: var(--dark-brown);
+}
+
+.small-footerr {
+    display: flex;
+    position: absolute; /* Changed from fixed to absolute */
+    bottom: 0;
+    width: 100%;
+    background-color: var(--dark-brown);
+    color: white;
+    padding-top: 12px;
+    padding-bottom: 12px; /* Added consistent bottom padding */
+    align-items: center;
+    justify-content: center;
+}
+/* MEDIA QUERIES */
+
+/* For small phones (max-width: 576px) */
+@media (max-width: 576px) {
+    .dashboard-header {
+        margin-top: 70px; /* Reduce margin for small phones */
+        margin-bottom: 20px; /* Reduce space below heading */
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.5rem; /* Smaller font for small phones */
+    }
+
+    textarea.form-control {
+        font-size: 0.8rem; /* Smaller text for textarea */
+        padding: 8px; /* Reduce padding */
+    }
+}
+
+/* For medium phones (max-width: 768px) */
+@media (max-width: 768px) {
+    .dashboard-header {
+        margin-top: 80px; /* Slightly larger margin for medium phones */
+        margin-bottom: 25px; /* Adjust space below heading */
+    }
+
+    .dashboard-header h1 {
+        font-size: 3rem; /* Medium font size */
+    }
+
+    textarea.form-control {
+        font-size: 0.9rem; /* Adjust textarea font size */
+        padding: 9px; /* Adjust padding */
+    }
+}
+
+/* For tablets and smaller laptops (max-width: 992px) */
+@media (max-width: 992px) {
+    .dashboard-header {
+        margin-top: 90px; /* Adjust margin for tablets */
+        margin-bottom: 30px; /* Keep some space below heading */
+    }
+
+    .dashboard-header h1 {
+        font-size: 3.5rem; /* Slightly larger font for tablets */
+    }
+
+    textarea.form-control {
+        font-size: 1rem; /* Restore default font size */
+        padding: 10px; /* Restore padding */
+    }
+}
+
+/* For large laptops (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .dashboard-header {
+        margin-top: 100px;
+        margin-bottom: 30px; /* Default space for laptops */
+    }
+
+    .dashboard-header h1 {
+        font-size: 4rem; /* Slightly smaller than the largest size */
+    }
+
+    textarea.form-control {
+        font-size: 1rem; /* Maintain default for larger screens */
+        padding: 10px;
+    }
 }
