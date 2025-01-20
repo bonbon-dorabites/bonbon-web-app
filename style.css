@@ -592,3 +592,35 @@ ul.stock-list li .badge.bg-danger {
     gap: 50px;
 }
 
+/*STAFF*/
+textarea.form-control {
+    border: 2px solid #cc7722;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    color: #48201a;
+    resize: none; /* Prevent resizing */
+    width: 100%; /* Full width */
+}
+
+textarea.form-control:focus {
+    outline: none;
+    border-color: #48201a;
+    box-shadow: 0 0 5px rgba(72, 32, 26, 0.5);
+}
+
+p {
+    margin: 0; /* Remove unnecessary margins around paragraphs */
+}
+.dashboard-header {
+    margin-top: 100px; /* Adjust space between navbar and heading */
+    margin-bottom: 30px; /* Space below the heading */
+    text-align: center;
+}
+
+.dashboard-header h1 {
+    font-size: 4.3rem; /* Adjust font size as needed */
+    font-family: var(--fredoka); /* Use your custom font */
+    font-weight: bold;
+    color: var(--dark-brown);
+}

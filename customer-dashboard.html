@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>Staff Dashboard</title>
+    <title>Customer Dashboard</title>
 </head>
 <body>
     <header>
@@ -50,12 +50,20 @@
         </nav>
     </header><br><br>
 
-    <h1 class="dashboard-title">Customer Dashboard</h1>
+    
+    <section id="order">
+        <div class="dashboard-header text-center">
+            <h1>Customer Dashboard</h1>
+        </div>
+    </section>
+    
     <div class="first-line"></div>
 
-    <!-- Pending Orders Section -->
-<section class="pending-orders mt-4">
-    <h2>Pending Orders</h2>
+   <!-- Pending Orders Section -->
+    <section class="pending-orders mt-4">
+        <h2>Pending Orders</h2>
+    <br> <!-- Space above accordion -->
+
     <div class="accordion" id="pendingOrdersAccordion">
         <!-- Order 1 -->
         <div class="accordion-item">
@@ -73,10 +81,12 @@
                     <p><b>Coupons:</b> Availed</p>
                     <p><b>Final Price:</b> P64.00</p>
                     <p><b>Status:</b> Not yet Paid</p>
+                    <br> <!-- Add space below content -->
                     <button class="btn btn-success">Finish Order</button>
                 </div>
             </div>
         </div>
+        <br> <!-- Space between accordion items -->
 
         <!-- Order 2 -->
         <div class="accordion-item">
@@ -94,6 +104,7 @@
                     <p><b>Coupons:</b> None</p>
                     <p><b>Final Price:</b> P128.00</p>
                     <p><b>Status:</b> Not yet Paid</p>
+                    <br> <!-- Add space below content -->
                     <button class="btn btn-success">Finish Order</button>
                 </div>
             </div>
@@ -102,12 +113,12 @@
     <div class="first-line"></div>
 </section>
 
-
 <!-- Finished Orders Section -->
 <section class="finished-orders mt-4">
     <h2>Finished Orders</h2>
-    <div class="accordion" id="finishedOrdersAccordion">
+    <br> <!-- Space above accordion -->
 
+    <div class="accordion" id="finishedOrdersAccordion">
         <!-- First Finished Order -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -118,10 +129,12 @@
             <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
                 <div class="accordion-body">
                     <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."</p>
+                    <p><b>Feedback:</b></p>
+                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
                 </div>
             </div>
         </div>
+        <br> <!-- Space between accordion items -->
 
         <!-- Second Finished Order -->
         <div class="accordion-item">
@@ -133,33 +146,35 @@
             <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
                 <div class="accordion-body">
                     <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Great service, fast delivery, and delicious food!"</p>
+                    <p><b>Feedback:</b></p>
+                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
                 </div>
             </div>
         </div>
-        
+        <br> <!-- Space between accordion items -->
+
         <!-- Third Finished Order -->
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
-                    ORDER ID: 67901
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
+                    ORDER ID: 67902
                 </button>
             </h2>
-            <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+            <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
                 <div class="accordion-body">
                     <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Great service, fast delivery, and delicious food!"</p>
+                    <p><b>Feedback:</b></p>
+                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
                 </div>
             </div>
         </div>
-
     </div>
+    <br><br> <!-- Space below section -->
 </section>
 
-
 <!-- Footer -->
-<footer class="small-footer mt-5">
+<footer class="small-footer">
     <p>In Partial Fulfillment for subject Web Development</p>
-</footer>
+  </footer>
 </body>
 </html>

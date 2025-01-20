@@ -50,8 +50,12 @@
         </nav>
     </header><br><br>
 
-    <h1 class="dashboard-title">Staff Dashboard</h1>
-    
+
+<section id="order">
+    <div class="header text-center"><br><br><br><br><br><br><br>
+        <h1>Staff Dashboard</h1>
+    </div><br><br>
+   
         <!-- Dropdown Section -->
         <div class="row1">
             <div class="col1">
@@ -209,6 +213,8 @@
 <section class="pending-orders mt-4">
     <h2>Pending Orders</h2>
     <div class="accordion" id="pendingOrdersAccordion">
+        <br> <!-- Add spacing above accordion items -->
+
         <!-- Order 1 -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -229,6 +235,8 @@
                 </div>
             </div>
         </div>
+
+        <br> <!-- Spacing between accordion items -->
 
         <!-- Order 2 -->
         <div class="accordion-item">
@@ -254,11 +262,11 @@
     <div class="first-line"></div>
 </section>
 
-
 <!-- Finished Orders Section -->
 <section class="finished-orders mt-4">
     <h2>Finished Orders</h2>
     <div class="accordion" id="finishedOrdersAccordion">
+        <br> <!-- Add spacing above accordion items -->
 
         <!-- First Finished Order -->
         <div class="accordion-item">
@@ -268,12 +276,14 @@
                 </button>
             </h2>
             <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
+                <div class="accordion-body feedback-status">
                     <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."</p>
+                    <p><b>Feedback:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
                 </div>
             </div>
         </div>
+
+        <br> <!-- Spacing between accordion items -->
 
         <!-- Second Finished Order -->
         <div class="accordion-item">
@@ -283,35 +293,35 @@
                 </button>
             </h2>
             <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
+                <div class="accordion-body feedback-status">
                     <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Great service, fast delivery, and delicious food!"</p>
+                    <p><b>Feedback:</b> Great service, fast delivery, and delicious food!</p>
                 </div>
             </div>
         </div>
-        
+
+        <br> <!-- Spacing between accordion items -->
+
         <!-- Third Finished Order -->
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
-                    ORDER ID: 67901
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
+                    ORDER ID: 67902
                 </button>
             </h2>
-            <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
+            <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                <div class="accordion-body feedback-status">
                     <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Great service, fast delivery, and delicious food!"</p>
+                    <p><b>Feedback:</b> The food was excellent, and I appreciate the quick delivery!</p>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 
-
 <!-- Footer -->
-<footer class="small-footer mt-5">
+<footer class="small-footer">
     <p>In Partial Fulfillment for subject Web Development</p>
-</footer>
+  </footer>
 </body>
 </html>
