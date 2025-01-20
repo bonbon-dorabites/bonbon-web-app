@@ -309,25 +309,42 @@ body {
     margin: 0 20px 0 20px;
 }
 
-.gallery-img {
-    width: 75%;
-    height: 75%; 
-    object-fit: cover;
-    opacity: 0.6; 
-    background-color: var(--dark-brown); 
-    mix-blend-mode: multiply; 
+#galleryy {
+    display: flex; /* Use flexbox to center-align the gallery */
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; /* Adjust padding for responsiveness */
 }
 
-.gallery-img:hover {
-    opacity: 1;
-    width: 85%;
-    height: 85%;
-    transition: 1s;
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Default: 6 images per row */
+    gap: 1.5rem; 
+}
+
+.gallery-item {
+    overflow: hidden;
+}
+
+.border {
+    border: 0.7rem solid white;
+}
+
+.gallery-item img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    transition: all 0.4s;
+    opacity: 75%;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+    opacity: 100%;
 }
 
 .contact-page {
     background-color: var(--light-brown);
-    
 }
 
 .contact-page .col {
