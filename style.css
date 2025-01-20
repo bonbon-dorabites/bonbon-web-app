@@ -274,34 +274,39 @@ body {
 
 /*TESTIMONIALS*/
 .testimonials {
-    min-height: 100vh;
-    width: 100vw;
+    height: auto;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
-    padding: 0px 150px;
+    margin: 0 auto 0 auto;
     display: flex;
     justify-content: center;
     text-align: center;
-}
-
-.testimonials .header {
-    margin: 50px;
+    padding: 0; border: 0;
 }
 
 .wrapper {
-    width: 60vw;
+    width: 1000px;
     color: #fff;
     background-color: var(--dark-brown);
+    margin: 0 auto 0 auto; padding: 0; border: 0;
 }
 
 .testimonial-image img {
-    width: 290px;
+    width: 200px;
     height: 200px;
+    margin-left: 20px;
+}
+
+.testimonial-image2 img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
 }
 
 .quote, .name {
-    font-size: 4vh;
+    font-size: 20px;
     font-family: var(--fredoka);
+    margin: 0 20px 0 20px;
 }
 
 .gallery-img {

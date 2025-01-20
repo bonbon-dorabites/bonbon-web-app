@@ -8,6 +8,52 @@
     <link rel="stylesheet" href="style.css">
     <title>Bonbon: Dorayaki Bites</title>
     <style>
+        @media (max-width: 1139px){
+            .wrapper {
+                width: 900px;
+            }
+
+            .testimonial-image img {
+                width: 150px;
+                height: 150px;
+                margin-left: 15px;
+            }
+
+            .testimonial-image2 img {
+                width: 150px;
+                height: 150px;
+                margin-right: 15px;
+            }
+
+            .quote, .name {
+                font-size: 18px;
+                margin: 0 15px 0 15px;
+            }
+        }
+
+        @media (max-width: 955px){
+            .wrapper {
+                width: 700px;
+            }
+
+            .testimonial-image img {
+                width: 120px;
+                height: 120px;
+                margin-left: 15px;
+            }
+
+            .testimonial-image2 img {
+                width: 120px;
+                height: 120px;
+                margin-right: 20px;
+            }
+
+            .quote, .name {
+                font-size: 15px;
+                margin: 0 15px 0 15px;
+            }
+        }
+
         @media (max-width: 1078px) {
             .carousel-item img {
                 height: 500px;
@@ -144,6 +190,57 @@
             .carousel-caption.d-none {
                 display: block !important; /* Override Bootstrap's default hiding behavior */
             }
+
+            .wrapper {
+                width: 500px;
+            }
+
+            .testimonial-image img {
+                width: 100px;
+                height: 100px;
+                margin-left: 15px;
+            }
+
+            .testimonial-image2  {
+                margin-right: 15px;
+            }
+
+            .testimonial-image2 img {
+                width: 100px;
+                height: 100px;
+                margin-right: 20px;
+            }
+
+            .quote, .name {
+                font-size: 15px;
+                margin: 0 15px 0 15px;
+            }
+        }
+
+        @media(max-width: 500px) {
+            .wrapper {
+                width: 350px;
+            }
+
+            .testimonial-image img {
+                width: 90px;
+                height: 70px;
+                margin-left: 10px;
+            }
+
+            .testimonial-image2  {
+                margin-right: 10px;
+            }
+
+            .testimonial-image2 img {
+                width: 80px;
+                height: 70px;
+            }
+
+            .quote, .name {
+                font-size: 12px;
+                margin: 0 15px 0 15px;
+            }
         }
 
         @media (max-width: 350px) {
@@ -184,6 +281,30 @@
             .carousel-item img {
                 height: 350px; 
                 width: 650px;
+            }
+
+            .wrapper {
+                width: 300px;
+            }
+
+            .testimonial-image img {
+                width: 70px;
+                height: 50px;
+                margin-left: 10px;
+            }
+
+            .testimonial-image2  {
+                margin-right: 10px;
+            }
+
+            .testimonial-image2 img {
+                width: 70px;
+                height: 50px;
+            }
+
+            .quote, .name {
+                font-size: 10px;
+                margin: 0 15px 0 15px;
             }
         }
     </style>
@@ -399,11 +520,11 @@
     <!-- TESTIMONIALS -->
      <br><br><br><br>
     <section class="testimonials">
-        <div class="container-fluid">
+        <div class="container-fluid"><br>
             <div class="header">
                 <h1>testimonials<hr class="line" style="width: 20%;" ></h1>
-            </div>
-            <div class="row d-flex justify-content-center">
+            </div><br>
+            <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 120px 0 0 120px;">
                     <div class="testimonial-image"><br>
                         <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
@@ -414,18 +535,18 @@
                     </div>
                 </div>
             </div><br><br>
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 0 120px 120px 0;">
                     <div class="testimonial-text"><br>
                         <blockquote class="quote text-center">"This is an amazing service! Highly recommend it to everyone looking for quality foods."</blockquote>
                         <p class="name text-start"><em>Janna Doe</em></p>
                     </div>
-                    <div class="testimonial-image"><br>
+                    <div class="testimonial-image2"><br>
                         <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
                     </div>
                 </div>
             </div><br><br>
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 120px 0 0 120px;">
                     <div class="testimonial-image"><br>
                         <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
