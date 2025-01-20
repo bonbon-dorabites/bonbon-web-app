@@ -797,20 +797,30 @@ ul.stock-list li .badge.bg-danger {
     gap: 50px;
 }
 
-
 /* CHECKOUT FORM */
 #checkout-form {
     display: none;
     padding: 20px 70px;
     color: var(--dark-brown);
+    margin-top: 35px;
+}
+
+#checkout-form .line {
+    width: 20%;
 }
 
 .checkout-container {
     margin-top: 35px;
     display: flex;
-    gap: 100px;
+    gap: 50px;
     font-family: var(--fredoka);
 }
+
+.checkout-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .checkout, .cart-part {
     background-color: #f2f2f2;
@@ -828,53 +838,6 @@ ul.stock-list li .badge.bg-danger {
     justify-content: space-between;
 }
 
-.btn-back {
-    font-family: var(--fredoka);
-    background-color: #c71e1e;
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-back:hover {
-    background-color: darkred;
-}
-  
-/* Coupon Section */
-.coupon-section {
-    margin-top: 20px;
-}
-  
-.coupon-section h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-  
-.coupon-section input {
-    width: 70%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-  
-.coupon-section button {
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-}
-  
-.coupon-section button:hover {
-    background-color: #45a049;
-}
   
 .checkout-header {
     font-family: var(--fredoka);
@@ -903,6 +866,69 @@ ul.stock-list li .badge.bg-danger {
     gap: 15px;
 }
 
+
+.btn-back {
+    font-family: var(--fredoka);
+    background-color: #c71e1e;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: darkred;
+}
+
+.btn-back.smaller {
+    display: none;
+}
+
+
+.btn-back.bigger {
+    display: block;
+}
+  
+/* Coupon Section */
+.coupon-section {
+    margin-top: 20px;
+}
+
+.coupon-wrap {
+    display: flex;
+    width: 100%;
+}
+
+.coupon-section h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+  
+.coupon-section input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+  
+.coupon-section button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+  
+.coupon-section button:hover {
+    background-color: #45a049;
+}
+
 .btn-checkout {
     background-color: #4CAF50; 
     color: white; 
@@ -929,3 +955,79 @@ ul.stock-list li .badge.bg-danger {
 .cart-part .price {
     font-size: 20px;
 }
+
+@media (max-width: 820px) {
+    .checkout-container {
+      flex-direction: column-reverse;
+    }
+    .checkout {
+        width: 100%;
+    }
+}
+
+@media (min-width: 825px) and (max-width: 980px){
+      .checkout {
+          width: 60%;
+      }
+}
+
+  @media (max-width: 630px) {
+    .checkout-container {
+      flex-direction: column-reverse;
+    }
+    .checkout {
+        width: 100%;
+    }
+
+    .btn-back.smaller {
+        display: block;
+    }
+
+    .btn-back.bigger {
+        display: none;
+    }
+
+    #checkout-form {
+        padding: 20px 30px;
+        margin-top: 15px;
+    }
+    
+    #checkout-form .line {
+        width: 40%;
+    }
+  }
+
+  @media (max-width: 475px) {
+    .checkout-container {
+        flex-direction: column-reverse;
+      }
+      .checkout {
+          width: 100%;
+      }
+  
+      .btn-back.smaller {
+          display: block;
+      }
+  
+      .btn-back.bigger {
+          display: none;
+      }
+  
+      #checkout-form {
+          padding: 20px 30px;
+          margin-top: 15px;
+      }
+      
+      #checkout-form .line {
+          width: 40%;
+      }
+
+      .col-checkout {
+        flex-direction: column;
+    }
+
+    .col-c1 {
+        width: 100%;
+    }
+
+  }
