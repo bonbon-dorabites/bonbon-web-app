@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <title>Bonbon: Dorayaki Bites</title>
     <style>
         @media (max-width: 1139px){
@@ -350,8 +350,8 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
             <div class="container-fluid">
-                <a href="./index.html">
-                    <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
+                <a href="../index.html">
+                    <img src="../img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
                 </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -369,18 +369,18 @@
                   </li>
                 </ul>
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="signup.html">Register</a></li>
-                        <li><a class="dropdown-item" href="login.html">Login</a></li>
-                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../auth/signup.php">Register</a></li>
+                            <li><a class="dropdown-item" href="../auth/login.php">Login</a></li>
+                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        </ul>
                     </li>
                 </ul>
               </div>
@@ -392,7 +392,7 @@
             <div class="row">
                 <div class="col-md-6 hero-img-div">
                     <div class="break-spacer"></div>
-                    <img src="img/hero-img.png" alt="BonBon Image" class="hero-img" id="hero-img">
+                    <img src="../../img/hero-img.png" alt="BonBon Image" class="hero-img" id="hero-img">
                 </div>
                 <div class="col-md-6 hero-text">
                     <br><br><br>
@@ -442,7 +442,7 @@
                         <div class="position-absolute mx-5 shadow">
                         </div>
                         
-                        <img src="img/who-we-are.jpg" class="who-img" alt="">
+                        <img src="../../img/who-we-are.jpg" class="who-img" alt="">
                         <br><br><br><h3 class="who-head">Who We Are</h3>
                         <br><p class="who-desc">A business established on 2022. <br> With 3 branches nationwide. <br> Adheres to safety food protocols.</p><br><br>
                     </div>                      
@@ -452,7 +452,7 @@
                         <div class="position-absolute mx-5 shadow">
                         </div>
                         
-                        <img src="img/what-we-do.jpg" class="who-img" alt="">
+                        <img src="../../img/what-we-do.jpg" class="who-img" alt="">
                         <br><br><br><h3 class="who-head">What We Do</h3>
                         <br><p class="who-desc">We offer great service and <br>  amazingly delicious dorayaki bites  <br>that won't break your wallet.</p> <br><br>
                     </div>                      
@@ -470,7 +470,7 @@
                 <div class="row">
                     <div class="col-md-6 d-flex justify-content-center align-items-center">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top best-img" src="img/walnutella.jpg" alt="Card image cap">
+                            <img class="card-img-top best-img" src="../../img/walnutella.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h3 class="card-text best-desc text-center">WALNUTELLA</h3>
                                 <p class="card-text best-desc text-center">Amazing chocolatey taste.</p>
@@ -486,7 +486,7 @@
                     </div>
                     <div class="col-md-6 d-flex justify-content-center align-items-center">
                         <div class="card card2" style="width: 18rem;">
-                            <img class="card-img-top best-img" src="img/cheese.jpg" alt="Card image cap">
+                            <img class="card-img-top best-img" src="../img/cheese.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h3 class="card-text best-desc text-center">CHEEEESE</h3>
                                 <p class="card-text best-desc text-center">Cheeeeziness Overload!</p>
@@ -519,21 +519,21 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active d-flex justify-content-center align-items-center">
-                            <img src="img/Branch2.jpg"class="d-block" alt="First slide">
+                            <img src="../img/Branch2.jpg"class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">SM VALENZUELA</h2>
                                 <h6>SM City Valenzuela, SM Foodcourt located at Third Level</h6>
                             </div>
                         </div>
                         <div class="carousel-item d-flex justify-content-center align-items-center">
-                            <img src="img/Branch1.jpg" class="d-block" alt="First slide">
+                            <img src="../img/Branch1.jpg" class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">SM NORTH EDSA</h2>
                                 <h6>M24J+M8V, Bago Bantay, Quezon City, Metro Manila</h6>
                             </div>
                         </div>
                         <div class="carousel-item d-flex justify-content-center align-items-center">
-                            <img src="img/Branch3.jpg" class="d-block" alt="First slide">
+                            <img src="../img/Branch3.jpg" class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">ONE MALL VALENZUELA</h2>
                                 <h6>Level 2, One Mall Valenzuela Brgy, Gen. T. de Leon, Street, Valenzuela, 1442</h6>
@@ -564,7 +564,7 @@
             <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 120px 0 0 120px;">
                     <div class="testimonial-image"><br>
-                        <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
+                        <img src="../img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
                     </div>
                     <div class="testimonial-text"><br>
                         <blockquote class="quote text-center">"This is an amazing service! Highly recommend it to everyone looking for quality foods."</blockquote>
@@ -579,14 +579,14 @@
                         <p class="name text-start"><em>Janna Doe</em></p>
                     </div>
                     <div class="testimonial-image2"><br>
-                        <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
+                        <img src="../img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
                     </div>
                 </div>
             </div><br><br>
             <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 120px 0 0 120px;">
                     <div class="testimonial-image"><br>
-                        <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
+                        <img src="../img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
                     </div>
                     <div class="testimonial-text"><br>
                         <blockquote class="quote text-center">"This is an amazing service! Highly recommend it to everyone looking for quality foods."</blockquote>
@@ -601,84 +601,84 @@
         <div class="gallery">
             <figure class="gallery-item border">
                 <img
-                  src="img/1.jpg"
+                  src="../img/1.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/2.jpg"
+                  src="../img/2.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/3.jpg"
+                  src="../img/3.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/4.jpg"
+                  src="../img/4.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/5.jpg"
+                  src="../img/5.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/6.jpg"
+                  src="../img/6.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/7.jpg"
+                  src="../img/7.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/8.jpg"
+                  src="../img/8.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/9.jpg"
+                  src="../img/9.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/10.jpg"
+                  src="../img/10.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/11.jpg"
+                  src="../img/11.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
               </figure>
               <figure class="gallery-item border">
                 <img
-                  src="img/12.jpg"
+                  src="../img/12.jpg"
                   alt="Photo of beautifully
                 arranged food"
                 />
@@ -691,7 +691,7 @@
             
            <div class="row cont">
                 <div class="col conts justify-content-center align-items-top top-col left-row"><br>
-                    <img src="./img/logo.png" class="nav-logo contact-logo" alt="Bonbon Dorayaki Bites logo" style="margin-left: 0 !important;">
+                    <img src=".././img/logo.png" class="nav-logo contact-logo" alt="Bonbon Dorayaki Bites logo" style="margin-left: 0 !important;">
                     <p class="logo-desc w-100">Copyright © 2025. <br>All rights reserved.<hr></p>
                     <a class="navbar-brand" href="https://www.facebook.com/jethrojamesaguilar.svt.skz/" target="_blank">
                         <svg class="foo" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
