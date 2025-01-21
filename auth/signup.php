@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="auth/auth.js" defer></script>
+    <link rel="stylesheet" href="../style.css">
+    <script type="module" src="../auth/auth.js" defer></script>
     <title>Signup | BonBon</title>
     <style>
         @media (min-width: 768px) {
@@ -193,8 +193,8 @@
                         
                         <p class="redirect" style="text-align: center; margin-top: 20px;">
                             Have an account? 
-                            <a href="signup.html" id="signupLink" style="color: #5C2918; text-decoration: none;">Log-in here</a>
-                        </p>
+                            <a href="../auth/login.php" id="loginLink" style="color: #5C2918; text-decoration: none;">Log-in here</a>
+                            </p>
                     </form>
                 </div>
             </div>
@@ -202,10 +202,10 @@
             <div class="panel col-md-6 sign-up-right">
                 <div class="intro signup">
                     <div class="intro-img">
-                        <img src="img/hero-img.png" alt="">
+                        <img src="../img/hero-img.png" alt="">
                     </div>
                     <div class="intro-title">
-                        <img src="img/logo.png" alt="">
+                        <img src="../img/logo.png" alt="">
                     </div>
                 </div>
             </div>
@@ -257,7 +257,7 @@
             // Simulate a delay and redirect
             setTimeout(() => {
                 modal.hide();
-                window.location.href = 'login.html'; // Redirect to login page
+                window.location.href = '../auth/login.php'; // Redirect to login page
             }, 2000); // Adjust delay as needed
         }
     }
@@ -273,10 +273,10 @@
 
             console.log("Sliding out the right panel...");
 
-            // Wait for the transition to complete, then navigate to login.html
+            // Wait for the transition to complete, then navigate to ../auth/login.php
             setTimeout(() => {
-                console.log("Redirecting to login.html...");
-                window.location.href = "login.html"; // Update path if needed
+                console.log("Redirecting to ../auth/login.php...");
+                window.location.href = "../auth/login.php"; // Update path if needed
             }, 600); // Delay matches the CSS transition duration
         });
 

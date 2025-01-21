@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="auth/auth.js" defer></script>
-    <title>Signup | BonBon</title>
+    <link rel="stylesheet" href="../style.css">
+    <script type="module" src="../auth/auth.js" defer></script>
+    <title>Login | BonBon</title>
     <style>
         @media (min-width: 768px) {
             .left {
@@ -96,10 +96,10 @@
             <div class="panel left-panel col-md-6 left">
                 <div class="intro login">
                     <div class="intro-img">
-                        <img src="img/hero-img.png" alt="">
+                        <img src="../img/hero-img.png" alt="">
                     </div>
                     <div class="intro-title">
-                        <img src="img/logo.png" alt="">
+                        <img src="../img/logo.png" alt="">
                     </div>
                 </div>
             </div>
@@ -137,8 +137,8 @@
                         
                         <p class="redirect" style="text-align: center; margin-top: 20px;">
                             Don't have an account? 
-                            <a href="signup.html" id="signupLink" style="color: #5C2918; text-decoration: none;">Sign-up here</a>
-                        </p>
+                            <a href="../auth/signup.php" id="signupLink" style="color: #5C2918; text-decoration: none;">Signup here</a>
+                            </p>
                     </form>
                     
                 </div>
@@ -167,8 +167,8 @@
 
             // Wait for the transition to complete, then navigate to login.html
             setTimeout(() => {
-                console.log("Redirecting to signup.html...");
-                window.location.href = "signup.html"; // Update path if needed
+                console.log("Redirecting to ../auth/signup.php...");
+                window.location.href = "../auth/signup.php"; // Update path if needed
             }, 600); // Delay matches the CSS transition duration
         });
 
