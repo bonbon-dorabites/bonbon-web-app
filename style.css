@@ -242,9 +242,6 @@ body {
     width: 100vw;
 }
 
-<<<<<<< HEAD
-/*TESTIMONIAL*/
-=======
 .carousel-item img {
     height: 500px;
     width: 1000px;
@@ -276,7 +273,6 @@ body {
 
 
 /*TESTIMONIALS*/
->>>>>>> 264da179849464ae3662a816fc734fb34fe7b6c0
 .testimonials {
     height: auto;
     background-color: var(--lightest-brown);
