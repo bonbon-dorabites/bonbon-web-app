@@ -95,7 +95,9 @@
 
 
     <section id="checkout-form">
-      <div class="back">
+
+      <!--
+            <div class="back">
         <button id="backBtn" class="btn-back bigger btn-secondary">
             <i class="fa fa-arrow-left"></i> Back
         </button>
@@ -108,6 +110,21 @@
       <div class="header text-center">
             <h2>Checkout Form<hr class="line"></h2>
       </div>
+
+      -->
+
+      <div class="checkout-header-container">
+        <button id="backBtn" class="btn-back bigger btn-secondary">
+            <i class="fa fa-arrow-left"></i> Back
+        </button>
+
+        <button id="backBtn" class="btn-back smaller btn-secondary">
+          <i class="fa fa-arrow-left"></i>
+        </button>
+
+        <h1 class="checkout-header">Checkout Form</h1>
+      </div>
+      <div class="line"></div>
 
       <div class="checkout-container">
         <form action="#" class="checkout">
@@ -148,6 +165,7 @@
                 <i class="fa fa-shopping-cart"></i> Checkout
               </button>
             </div>
+            
         </form>
 
         <div class="cart-part">
@@ -158,16 +176,10 @@
               <p><a href="#">Product 2</a> <span class="price">P5</span></p>
               <p><a href="#">Product 3</a> <span class="price">P8</span></p>
               <p><a href="#">Product 4</a> <span class="price">P2</span></p>
-
               <div class="coupon-section">
                 <h4>Coupon</h4>
-
                 <div class="coupon-wrap">
-                  <input
-                  type="text"
-                  id="coupon-code"
-                  placeholder="Enter coupon code"
-                  />
+                  <input type="text" id="coupon-code" placeholder="Enter coupon code"/>
                   <button id="apply-coupon">
                     Apply
                   </button>
@@ -183,8 +195,6 @@
               <p><b>Total:</b> <span class="price"><b>P35.00</b></span></p>
             </div>
           </div>
-
-          
         </div>
       </div>
     </section>
