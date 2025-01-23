@@ -113,7 +113,7 @@
                 <div class="w-75">
                     <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line" style="color: var(--dark-brown);">Sign-up here!</h1>
                     <br>
-                    <form id="loginForm" method="post" class="form-table"> 
+                    <form id="signupForm" method="post" class="form-table"> 
                         <div class="row">
                             <div class="mb-3 col-12 col-md-6" style="position: relative;">
                                 <label for="firstName" class="form-label visually-hidden">First Name</label>
@@ -258,7 +258,7 @@
             setTimeout(() => {
                 modal.hide();
                 window.location.href = '../auth/login.html'; // Redirect to login page
-            }, 2000); // Adjust delay as needed
+            }, 10000); // Adjust delay as needed
         }
     }
 
@@ -277,7 +277,7 @@
             setTimeout(() => {
                 console.log("Redirecting to ../auth/login.html...");
                 window.location.href = "../auth/login.html"; // Update path if needed
-            }, 600); // Delay matches the CSS transition duration
+            }, 10000); // Delay matches the CSS transition duration
         });
 
     </script>
