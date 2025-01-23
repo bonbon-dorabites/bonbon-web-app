@@ -626,20 +626,6 @@ p {
     color: var(--dark-brown);
 }
 
-.small-footerr {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: var(--dark-brown);
-    color: white;
-    margin: 0;
-    padding-top: 12px;
-    align-items: center;
-    justify-content: center;
-}
-
-
 /* Mobile Phones (max-width: 576px) */
 @media (max-width: 576px) {
     /* Stock List */
