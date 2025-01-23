@@ -193,7 +193,7 @@
                         
                         <p class="redirect" style="text-align: center; margin-top: 20px;">
                             Have an account? 
-                            <a href="../auth/login.php" id="loginLink" style="color: #5C2918; text-decoration: none;">Log-in here</a>
+                            <a href="../auth/login.html" id="loginLink" style="color: #5C2918; text-decoration: none;">Log-in here</a>
                             </p>
                     </form>
                 </div>
@@ -257,7 +257,7 @@
             // Simulate a delay and redirect
             setTimeout(() => {
                 modal.hide();
-                window.location.href = '../auth/login.php'; // Redirect to login page
+                window.location.href = '../auth/login.html'; // Redirect to login page
             }, 2000); // Adjust delay as needed
         }
     }
@@ -273,10 +273,10 @@
 
             console.log("Sliding out the right panel...");
 
-            // Wait for the transition to complete, then navigate to ../auth/login.php
+            // Wait for the transition to complete, then navigate to ../auth/login.html
             setTimeout(() => {
-                console.log("Redirecting to ../auth/login.php...");
-                window.location.href = "../auth/login.php"; // Update path if needed
+                console.log("Redirecting to ../auth/login.html...");
+                window.location.href = "../auth/login.html"; // Update path if needed
             }, 600); // Delay matches the CSS transition duration
         });
 
