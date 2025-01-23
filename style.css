@@ -822,7 +822,7 @@ ul.stock-list li .badge.bg-danger {
     padding: 15px 20px 15px 20px;
     border: 1px solid lightgrey;
     border-radius: 3px;
-    max-height: 490px;
+    
 }
 
 
@@ -1022,7 +1022,17 @@ ul.stock-list li .badge.bg-danger {
     .checkout {
         width: 60%;
     }
+    .checkout-header-container {
+        margin-bottom: 0px;
+    }
 
+    #checkout-form {
+        margin-top: 10px;
+    }
+
+    .total {
+        margin-bottom: 0px;
+    }
 
 }
 
@@ -1032,7 +1042,7 @@ ul.stock-list li .badge.bg-danger {
       }
 }
 
-  @media (max-width: 630px) {
+  @media (max-width: 1145px) {
     .checkout-container {
       flex-direction: column-reverse;
     }
@@ -1058,7 +1068,7 @@ ul.stock-list li .badge.bg-danger {
     }
   }
 
-  @media (max-width: 475px) {
+  @media (max-width: 490px) {
     .checkout-container {
         flex-direction: column-reverse;
       }
@@ -1089,6 +1099,20 @@ ul.stock-list li .badge.bg-danger {
 
     .col-c1 {
         width: 100%;
+    }
+
+    body, 
+    section#checkout-form, 
+    section#checkout-form * {
+      font-size: 0.98em;
+    }
+    
+    #checkout-form .checkout-header {
+        font-size: 3vh;
+    }
+
+    .checkout-header-container {
+        margin-bottom: 0px;
     }
 
   }
