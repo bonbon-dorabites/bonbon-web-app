@@ -9,28 +9,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
-            <div class="container-fluid">
-                <a href="./index.html">
-                    <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link ms-5">
-                </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
-                  <li class="nav-item">
-                    <a class="nav-link custom-navbar-link active" href="browse.html">Browse</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link custom-navbar-link" href="order.html">Orders</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link custom-navbar-link" href="coupons.html">Coupons</a>
-                  </li>
-                </ul>
-                <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
+  <header>
+    <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
+        <div class="container-fluid">
+            <a href="./index.html">
+                <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+              <li class="nav-item">
+                <a class="nav-link custom-navbar-link" href="browse.html">Browse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link custom-navbar-link" href="order.html">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link custom-navbar-link" href="#">Coupons</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -39,16 +39,37 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="signup.html">Register</a></li>
-                      <li><a class="dropdown-item" href="login.html">Login</a></li>
-                      <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <span id="user-menu">
+                            <li><p></p><hr class="line" style="color: white;"></li>
+                        </span>
+                        <span id="signup-menu">
+                            <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
+                        </span>
+                        <span id="login-menu">
+                            <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
+                        </span>
+                        <span id="edit-menu">
+                            <li><a class="dropdown-item" href="/user-details.html">Edit Details</a></li>
+                        </span>
+                        <span id="logout-menu">
+                            <li><a class="dropdown-item">Log-out</a></li>
+                        </span>
+                        <span id="owner-menu">
+                            <li><a class="dropdown-item" href="/owner-dashboard.html">Dashboard</a></li>
+                        </span>
+                        <span id="staff-menu">
+                            <li><a class="dropdown-item" href="/admin-dashboard.html">Dashboard</a></li>
+                        </span>
+                        <span id="customer-menu">
+                            <li><a class="dropdown-item" href="/customer-dashboard.html">Dashboard</a></li>
+                        </span>
                     </ul>
-                    </li>
-                </ul>
-              </div>
-            </div>
-        </nav>
-    </header>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+  </header><br><br>
 
     <div class="browse" id="browse-container">
       <div class="upper">
@@ -341,6 +362,25 @@
       <p>In Partial Fulfillment for subject Web Development</p>
     </footer>
 
+    <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Processing</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <p id="modalMessage">Please wait...</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
     <script src="./main.js"></script>
+    <script type="module" src="../auth/auth.js" defer></script>
 </body>
 </html>
