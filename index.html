@@ -7,13 +7,351 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Bonbon: Dorayaki Bites</title>
+    <style>
+        @media (max-width: 1139px){
+            .wrapper {
+                width: 900px;
+            }
+
+            .testimonial-image img {
+                width: 150px;
+                height: 150px;
+                margin-left: 15px;
+            }
+
+            .testimonial-image2 img {
+                width: 150px;
+                height: 150px;
+                margin-right: 15px;
+            }
+
+            .quote, .name {
+                font-size: 18px;
+                margin: 0 15px 0 15px;
+            }
+        }
+
+        @media (max-width: 955px){
+            .wrapper {
+                width: 700px;
+            }
+
+            .testimonial-image img {
+                width: 120px;
+                height: 120px;
+                margin-left: 15px;
+            }
+
+            .testimonial-image2 img {
+                width: 120px;
+                height: 120px;
+                margin-right: 20px;
+            }
+
+            .quote, .name {
+                font-size: 15px;
+                margin: 0 15px 0 15px;
+            }
+        }
+
+        @media (max-width: 1078px) {
+            .carousel-item img {
+                height: 500px;
+                width: 900px;
+            }
+        }
+
+        @media (max-width: 963px) {
+            .carousel-item img {
+                height: 500px;
+                width: 800px;
+            }
+        }
+
+        @media (max-width: 852px) {
+            .carousel-item img {
+                height: 480px;
+                width: 750px;
+            }
+        }
+
+        @media (max-width: 918px) {
+            .hero {
+                height: 420px;
+            }
+            .hero-img {
+                width: 420px; height: 350px;
+            }
+            .break-spacer {
+                height: 70px;
+            }
+            .hero h1 {
+                font-size: 50px; 
+            }
+
+            .subtext {
+                font-size: 30px; 
+            }
+
+            .subtext1 {
+                font-size: 20px; 
+            }
+            .hero svg {
+                height: 25px; width: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .break-spacer {
+                display: none; 
+            }
+
+            .contact-logo {
+                width: 140px;
+                height: 40px;
+            }
+
+            .hero-img-div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 20px auto 0 auto; border: 0; padding: 0;
+                height: 200px; width: 200px;
+            }
+
+            .hero-img-div img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                content: url('img/resized-hero-img.png'); 
+                height: 100%; width: 100%;
+                margin: 30px 0 0 0; border: 0; padding: 0;
+            }   
+
+            .hero {
+                flex-direction: column;
+                height: auto; 
+                padding: 0 0 20px 0;
+                margin: 0; border: 0; 
+            }
+
+            .hero-img {
+                padding-right: 0;
+                padding-bottom: 20px; 
+            }
+
+            .hero-text {
+                text-align: center;
+                padding-left: 0;
+            }
+
+            .hero h1 {
+                font-size: 50px; 
+            }
+
+            .subtext {
+                font-size: 30px; 
+            }
+
+            .subtext1 {
+                font-size: 20px; 
+            }
+
+            .buynow {  
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card2 {
+                margin-top: 30px;
+            }
+
+            .carousel-item img {
+                height: 400px; 
+                width: 650px;
+            }
+
+            .carousel-caption {
+                font-size: 14px; /* Adjust text size for smaller screens */
+                padding: 10px; /* Reduce padding */
+                background-color: rgba(0, 0, 0, 0.8); /* Darker background for better visibility */
+                display: block !important; /* Force captions to show */
+            }
+
+            .carousel-caption h2 {
+                font-size: 16px; /* Smaller heading size */
+                margin-bottom: 5px;
+            }
+
+            .carousel-caption h6 {
+                font-size: 12px; /* Smaller subheading size */
+            }
+
+            .carousel-inner {
+                align-items: center; /* Ensure proper alignment */
+            }
+
+            .carousel-caption.d-none {
+                display: block !important; /* Override Bootstrap's default hiding behavior */
+            }
+
+            .wrapper {
+                width: 500px;
+            }
+
+            .testimonial-image img {
+                width: 100px;
+                height: 100px;
+                margin-left: 15px;
+            }
+
+            .testimonial-image2  {
+                margin-right: 15px;
+            }
+
+            .testimonial-image2 img {
+                width: 100px;
+                height: 100px;
+                margin-right: 20px;
+            }
+
+            .quote, .name {
+                font-size: 15px;
+                margin: 0 15px 0 15px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(4, 1fr); 
+            }
+        }
+
+        @media(max-width: 500px) {
+            .wrapper {
+                width: 350px;
+            }
+
+            .header h1 {
+                font-size: 50px;
+            }
+
+            .testimonial-image img {
+                width: 90px;
+                height: 70px;
+                margin-left: 10px;
+            }
+
+            .testimonial-image2  {
+                margin-right: 10px;
+            }
+
+            .testimonial-image2 img {
+                width: 80px;
+                height: 70px;
+            }
+
+            .quote, .name {
+                font-size: 12px;
+                margin: 0 15px 0 15px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(3, 1fr); 
+            }
+
+            .hidden-br1 {
+                display: block !important;
+            }
+        }
+
+        @media(max-width: 370px){
+            .small-footer p {
+                font-size: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .nav-logo {
+                margin-left: 0;
+            }
+
+            .contact-logo {
+                width: 120px;
+                height: 30px;
+            }
+
+            .logo-desc {
+                font-size: 14px;
+            }
+
+            .hero-img-div img {
+                content: url('img/resized-hero-img.png'); 
+                margin: 0; border: 0; padding: 0;
+            }  
+
+            .hero h1 {
+                font-size: 45px; 
+            }
+
+            .subtext {
+                font-size: 25px; 
+            }
+
+            .subtext1 {
+                font-size: 18px; 
+            }
+            .hero svg {
+                height: 25px; width: 25px;
+            }
+
+            .shadow {
+                width: 240px; 
+                height: 220px; 
+            }
+
+            .who-img {
+                width: 260px; 
+                height: 220px; 
+            }
+
+            .carousel-item img {
+                height: 350px; 
+                width: 650px;
+            }
+
+            .wrapper {
+                width: 300px;
+            }
+
+            .testimonial-image img {
+                width: 70px;
+                height: 50px;
+                margin-left: 10px;
+            }
+
+            .testimonial-image2  {
+                margin-right: 10px;
+            }
+
+            .testimonial-image2 img {
+                width: 70px;
+                height: 50px;
+            }
+
+            .quote, .name {
+                font-size: 10px;
+                margin: 0 15px 0 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
             <div class="container-fluid">
                 <a href="./index.html">
-                    <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link ms-5">
+                    <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
                 </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,28 +359,49 @@
               <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
                   <li class="nav-item">
-                    <a class="nav-link custom-navbar-link" href="browse.html">Browse</a>
+                    <a class="nav-link custom-navbar-link" href="/browse.html">Browse</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link custom-navbar-link" href="order.html">Orders</a>
+                    <a class="nav-link custom-navbar-link" href="/order.html">Orders</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link custom-navbar-link" href="coupons.html">Coupons</a>
+                    <a class="nav-link custom-navbar-link" href="/coupons.html">Coupons</a>
                   </li>
                 </ul>
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="signup.html">Register</a></li>
-                        <li><a class="dropdown-item" href="login.html">Login</a></li>
-                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <span id="user-menu">
+                                <li><p></p><hr class="line" style="color: white;"></li>
+                            </span>
+                            <span id="signup-menu">
+                                <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
+                            </span>
+                            <span id="login-menu">
+                                <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
+                            </span>
+                            <span id="edit-menu">
+                                <li><a class="dropdown-item" href="/user-details.html">Edit Details</a></li>
+                            </span>
+                            <span id="logout-menu">
+                                <li><a class="dropdown-item">Log-out</a></li>
+                            </span>
+                            <span id="owner-menu">
+                                <li><a class="dropdown-item" href="/owner.html">Dashboard</a></li>
+                            </span>
+                            <span id="staff-menu">
+                                <li><a class="dropdown-item" href="/staff.html">Dashboard</a></li>
+                            </span>
+                            <span id="customer-menu">
+                                <li><a class="dropdown-item" href="/customer.html">Dashboard</a></li>
+                            </span>
+                        </ul>
                     </li>
                 </ul>
               </div>
@@ -52,14 +411,15 @@
     <section>
         <div class="hero"><br>
             <div class="row">
-                <div class="col-md-6"><br><br>
-                    <img src="img/hero-img.png" alt="BonBon Image" class="hero-img">
+                <div class="col-md-6 hero-img-div">
+                    <div class="break-spacer"></div>
+                    <img src="img/hero-img.png" alt="BonBon Image" class="hero-img" id="hero-img">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 hero-text">
                     <br><br><br>
                     <h1>Dorayummy</h1> <br>
-                    <h2>We offer amazingly <br> delicious dorayaki bites!</h2>
-                    <p> 300,000 products+ sold.</p>
+                    <p class="subtext">We offer amazingly <br> delicious dorayaki bites!</p>
+                    <p class="subtext1"> 300,000 products+ sold.</p><br>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="var(--dark-brown)" class="bi bi-facebook hero-icon" viewBox="0 0 16 16">
                         <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
                     </svg>
@@ -75,7 +435,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" fill="var(--dark-brown)" class="bi bi-envelope-fill hero-icon" viewBox="0 0 16 16">
                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="var(--dark-brown)" class="bi bi-telephone-fill hero-icon" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="var(--dark-brown)" class="bi bi-telephone-fill hero-last" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
                     </svg><br><br>
                     <div class="buynow">
@@ -89,7 +449,7 @@
     </section><br><br>
     <section>
         <div class="promotion">
-            <br><h1 class="text-center"><span><a href="login.html">LOG-IN</a></span> TO CLAIM COUPONS WHEN ORDERING</h1>
+            <br><h1 class="text-center"><span><a href="/auth/login.html">LOG-IN</a></span> TO CLAIM COUPONS</h1>
         </div>
     </section><br><br><br><br>
     <section>
@@ -146,7 +506,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-center align-items-center">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card card2" style="width: 18rem;">
                             <img class="card-img-top best-img" src="img/cheese.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h3 class="card-text best-desc text-center">CHEEEESE</h3>
@@ -180,21 +540,21 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active d-flex justify-content-center align-items-center">
-                            <img src="img/Branch2.jpg"class="d-block w-75" alt="First slide">
+                            <img src="img/Branch2.jpg"class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">SM VALENZUELA</h2>
                                 <h6>SM City Valenzuela, SM Foodcourt located at Third Level</h6>
                             </div>
                         </div>
                         <div class="carousel-item d-flex justify-content-center align-items-center">
-                            <img src="img/Branch1.jpg" class="d-block w-75" alt="First slide">
+                            <img src="img/Branch1.jpg" class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">SM NORTH EDSA</h2>
                                 <h6>M24J+M8V, Bago Bantay, Quezon City, Metro Manila</h6>
                             </div>
                         </div>
                         <div class="carousel-item d-flex justify-content-center align-items-center">
-                            <img src="img/Branch3.jpg" class="d-block w-75" alt="First slide">
+                            <img src="img/Branch3.jpg" class="d-block" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h2 class="text-white text-bold">ONE MALL VALENZUELA</h2>
                                 <h6>Level 2, One Mall Valenzuela Brgy, Gen. T. de Leon, Street, Valenzuela, 1442</h6>
@@ -218,11 +578,11 @@
     <!-- TESTIMONIALS -->
      <br><br><br><br>
     <section class="testimonials">
-        <div class="container-fluid">
+        <div class="container-fluid"><br>
             <div class="header">
                 <h1>testimonials<hr class="line" style="width: 20%;" ></h1>
-            </div>
-            <div class="row d-flex justify-content-center">
+            </div><br>
+            <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 120px 0 0 120px;">
                     <div class="testimonial-image"><br>
                         <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
@@ -233,18 +593,18 @@
                     </div>
                 </div>
             </div><br><br>
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 0 120px 120px 0;">
                     <div class="testimonial-text"><br>
                         <blockquote class="quote text-center">"This is an amazing service! Highly recommend it to everyone looking for quality foods."</blockquote>
                         <p class="name text-start"><em>Janna Doe</em></p>
                     </div>
-                    <div class="testimonial-image"><br>
+                    <div class="testimonial-image2"><br>
                         <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
                     </div>
                 </div>
             </div><br><br>
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center test-div">
                 <div class="col-12 col-md-8 wrapper d-flex justify-content-center align-items-center" style="border-radius: 120px 0 0 120px;">
                     <div class="testimonial-image"><br>
                         <img src="img/testimony1.jpg" alt="Person" class="img-fluid rounded-circle"><br>&nbsp;
@@ -258,50 +618,92 @@
             <br><br><br>
         </div>
     </section><br><br><br><br>
-    <section id="gallery">
-        <div class="container-fluid d-flex justify-content-center align-items-center">
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/1.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/2.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/3.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/4.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/5.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/6.jpg" class="gallery-img" alt="">
-                </div>
-            </div>
-        </div><br><br>
-        <div class="container-fluid d-flex justify-content-center align-items-center">
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/7.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/8.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/9.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/10.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/11.jpg" class="gallery-img" alt="">
-                </div>
-                <div class="col-2 mx-0 px-0 gap-0 d-flex justify-content-center align-items-center">
-                    <img src="img/12.jpg" class="gallery-img" alt="">
-                </div>
-            </div>
+    <section id="galleryy">
+        <div class="gallery">
+            <figure class="gallery-item border">
+                <img
+                  src="img/1.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/2.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/3.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/4.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/5.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/6.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/7.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/8.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/9.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/10.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/11.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
+              <figure class="gallery-item border">
+                <img
+                  src="img/12.jpg"
+                  alt="Photo of beautifully
+                arranged food"
+                />
+              </figure>
         </div>
     </section><br><br><br><br>
 
@@ -310,7 +712,7 @@
             
            <div class="row cont">
                 <div class="col conts justify-content-center align-items-top top-col left-row"><br>
-                    <img src="./img/logo.png" class="contact-logo" alt="Bonbon Dorayaki Bites logo">
+                    <img src="./img/logo.png" class="nav-logo contact-logo" alt="Bonbon Dorayaki Bites logo" style="margin-left: 0 !important;">
                     <p class="logo-desc w-100">Copyright © 2025. <br>All rights reserved.<hr></p>
                     <a class="navbar-brand" href="https://www.facebook.com/jethrojamesaguilar.svt.skz/" target="_blank">
                         <svg class="foo" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -335,7 +737,7 @@
                 </div>
                 <div class="col justify-content-center align-items-top logo-col top-col">
                     <h7 class="align-items-top">Reach us out</h7><br><br>
-                    <p class="logo-desc">SM Valenzuela<br><br>415-201-637 <br><br>bonbondorayaki@gmail.com</p> 
+                    <p class="logo-desc">SM Valenzuela<br><br>415-201-637 <br><br>bonbondorayaki<span class="hidden-br1" style="display: none;"><br></span>@gmail.com</p> 
                 </div>
                 
                 <div class="col justify-content-center align-items-top logo-col bot-col">
@@ -356,5 +758,24 @@
     <footer class="small-footer">
         <p>In Partial Fulfillment for subject Web Development</p>
       </footer>
+    <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Processing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Please wait...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="module" src="../auth/auth.js" defer></script>
 </body>
 </html>

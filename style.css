@@ -19,11 +19,13 @@ body {
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
+    font-family: var(--fredoka);
 }
 
 .nav-logo {
     height: 50px;
     width: 179px;
+    margin-left: 30px;
 }
 
 .custom-navbar-link {
@@ -43,13 +45,13 @@ body {
 
 .dropdown-menu {
     background-color: var(--dark-brown);
-    min-width: 100px !important;
+    min-width: 120px !important;
 }
 
 .dropdown-item {
     color: var(--light-brown);
     font-size: 1rem ; 
-    font-weight: bold ;
+    text-align: start;
 }
 
 .dropdown-item:hover {
@@ -57,39 +59,79 @@ body {
     color:var(--dark-brown);
 }
 
+#user-menu, #edit-menu, #logout-menu, #owner-menu, #staff-menu, #customer-menu {
+    display: none;
+}
+
+#user-menu li p {
+    padding-left: 16px;
+    color: var(--light-brown);
+    font-weight: 500;
+}
+
 .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 482px;
     background-color: var(--lightest-brown);
     width: 100%;
 }
 
+.break-spacer {
+    height: 72px; /* Adjust spacing as needed */
+}
+
+.hero-text {
+    justify-content: center;
+}
+
 .hero-img {
-    display: flex-start;
-    padding-left: 200px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 60px;
+} 
+
+.hero-img img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Ensures the image maintains its aspect ratio */
 }
 
 .hero h1 {
     font-family: var(--fredoka);
     font-weight: bold;
     color: var(--dark-brown);
-    font-size: 10vh;
+    font-size: 70px; /* Resize the font size with viewport width */
+    margin: 0;
 }
 
-.hero p {
+.subtext {
+    font-family: var(--fredoka);
+    font-weight: normal;
+    color: var(--dark-brown);
+    font-size: 35px;
+}
+
+.subtext1 {
     font-style: italic;
-    font-size: 4vh;
+    font-size: 20px;
 }
 
 .hero-icon {
-    margin-right: 2vw;
+    margin-right: 15px;
 }
 
-.hero-icon:hover {
+.hero-icon:hover, .hero-last:hover {
     fill: var(--wood-color);
 }
 
 .buynow {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .buynow a {
@@ -128,7 +170,7 @@ body {
 
 .shadow {
     background-color: var(--light-brown) !important; 
-    width: 280px; 
+    width: 260px; 
     height: 240px; 
     top: 20px; 
     border-radius: 30px;
@@ -157,6 +199,13 @@ body {
 .header h1,
 .heading h1 {
     font-size: 10vh;
+    font-family: var(--fredoka);
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
+.header h2 {
+    font-size: 6vh;
     font-family: var(--fredoka);
     font-weight: bold;
     color: var(--dark-brown);
@@ -206,70 +255,107 @@ body {
 
 .carousel-item img {
     height: 500px;
+    width: 1000px;
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
-    filter: invert(1); 
+    filter: invert(1);
 }
 
 .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 15px;
     border-radius: 8px;
     color: #fff;
+    display: block;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--light-brown) !important;  /* Set your desired color */
+    filter: none !important;  /* Remove the inversion effect */
+}
+
+/* Optional: Change the color when hovering */
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    background-color: var(--dark-brown) !important; /* Hover color */
+}
+
 
 /*TESTIMONIALS*/
 .testimonials {
-    min-height: 100vh;
-    width: 100vw;
+    height: auto;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
-    padding: 0px 150px;
+    margin: 0 auto 0 auto;
     display: flex;
     justify-content: center;
     text-align: center;
-}
-
-.testimonials .header {
-    margin: 50px;
+    padding: 0; border: 0;
 }
 
 .wrapper {
-    width: 60vw;
+    width: 1000px;
     color: #fff;
     background-color: var(--dark-brown);
+    margin: 0 auto 0 auto; padding: 0; border: 0;
 }
 
 .testimonial-image img {
-    width: 290px;
+    width: 200px;
     height: 200px;
+    margin-left: 20px;
+}
+
+.testimonial-image2 img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
 }
 
 .quote, .name {
-    font-size: 4vh;
+    font-size: 20px;
     font-family: var(--fredoka);
+    margin: 0 20px 0 20px;
 }
 
-.gallery-img {
-    width: 75%;
-    height: 75%; 
-    object-fit: cover;
-    opacity: 0.6; 
-    background-color: var(--dark-brown); 
-    mix-blend-mode: multiply; 
+#galleryy {
+    display: flex; /* Use flexbox to center-align the gallery */
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; /* Adjust padding for responsiveness */
 }
 
-.gallery-img:hover {
-    opacity: 1;
-    width: 85%;
-    height: 85%;
-    transition: 1s;
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Default: 6 images per row */
+    gap: 1.5rem; 
+}
+
+.gallery-item {
+    overflow: hidden;
+}
+
+.border {
+    border: 0.7rem solid white;
+}
+
+.gallery-item img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    transition: all 0.4s;
+    opacity: 75%;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+    opacity: 100%;
 }
 
 .contact-page {
     background-color: var(--light-brown);
-    
 }
 
 .contact-page .col {
@@ -457,7 +543,7 @@ body {
 
 }
 
-.row {
+.browse .row {
     margin-top: 30px;
 }
 
@@ -759,7 +845,7 @@ ul.stock-list li .badge.bg-danger {
     justify-content: flex-start;
 }
 .accordion-body p {
-    margin-bottom: 10px;
+    margin: 0;
 }
 /* Buttons in Accordion */
 .accordion-body .btn-success {
