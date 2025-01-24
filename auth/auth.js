@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, getDoc, where, getDocs, query } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -178,3 +178,124 @@ async function handleLogin(event) {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Define the menu elements
+    const signupMenu = document.getElementById("signup-menu");
+    const loginMenu = document.getElementById("login-menu");
+    const userMenu = document.getElementById("user-menu");
+    const editMenu = document.getElementById("edit-menu");
+    const logoutMenu = document.getElementById("logout-menu");
+    const ownerMenu = document.getElementById("owner-menu");
+    const staffMenu = document.getElementById("staff-menu");
+    const customerMenu = document.getElementById("customer-menu");
+  
+    // Initialize Firebase authentication
+    const auth = getAuth(); // Ensure you're getting the auth instance correctly
+  
+    // Function to reset all menus to their default state
+    const resetMenus = () => {
+      console.log("Resetting menus to default...");
+      signupMenu.style.display = "block";  // Show signup and login by default
+      loginMenu.style.display = "block";
+      userMenu.style.display = "none";  // Hide user menu when logged out
+      editMenu.style.display = "none";
+      logoutMenu.style.display = "none";
+      ownerMenu.style.display = "none";
+      staffMenu.style.display = "none";
+      customerMenu.style.display = "none";
+    };
+  
+    // This function updates the UI when a user is logged in
+    const updateUIForLoggedInUser = (user) => {
+      console.log("User logged in: ", user.email);
+  
+      // Query Firestore for the user data based on email
+      const usersCollection = collection(db, "users");
+      const q = query(usersCollection, where("email", "==", user.email));
+  
+      getDocs(q).then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            const userData = doc.data();
+            const firstName = userData.firstName;
+            const email = user.email;
+  
+            console.log("User data fetched: ", userData);
+  
+            // Show user-specific menus
+            signupMenu.style.display = "none";
+            loginMenu.style.display = "none";
+            userMenu.style.display = "block";
+            editMenu.style.display = "block";
+            logoutMenu.style.display = "block";
+  
+            // Show greeting with first name
+            const userMenuText = userMenu.querySelector("p");
+            if (userMenuText) {
+              userMenuText.textContent = `Hi, ${firstName}`;
+            }
+  
+            // Show specific menus based on email
+            if (email === "jayjay.otaku@gmail.com") {
+              ownerMenu.style.display = "block";  // Owner menu
+              console.log("Owner menu displayed.");
+            } else if (email === "jayjayangadok21@gmail.com") {
+              staffMenu.style.display = "block";  // Staff menu
+              console.log("Staff menu displayed.");
+            } else {
+              customerMenu.style.display = "block";  // Customer menu
+              console.log("Customer menu displayed.");
+            }
+          });
+        } else {
+          console.error("No user document found.");
+        }
+      }).catch((error) => {
+        console.error("Error fetching user document:", error);
+      });
+    };
+  
+    // Listen for the logout button click
+    logoutMenu.addEventListener("click", async () => {
+      console.log("Logout clicked...");
+      try {
+        // Sign out from Firebase
+        await signOut(auth);
+  
+        // Reset the menus to show signup/login
+        resetMenus();
+      } catch (error) {
+        console.error("Error signing out:", error);
+      }
+    });
+  
+    // Check if the user is logged in and update the UI accordingly
+    const checkIfLoggedIn = () => {
+      const user = auth.currentUser;  // Get the current user from Firebase
+      console.log("Checking if user is logged in...");
+      
+      if (user) {
+        console.log("User is logged in: ", user.email);
+        updateUIForLoggedInUser(user);  // Update the UI for the logged-in user
+      } else {
+        console.log("No user logged in.");
+        resetMenus();  // If no user is logged in, reset the menus
+      }
+    };
+  
+    // Listen for changes to authentication state (login/logout)
+    onAuthStateChanged(auth, (user) => {
+      console.log("Auth state changed...");
+      if (user) {
+        console.log("User is logged in: ", user.email);
+        updateUIForLoggedInUser(user);  // Update UI when user logs in
+      } else {
+        console.log("No user logged in.");
+        resetMenus();  // Reset the UI to show login/signup
+      }
+    });
+  
+    // Check login status when the page loads
+    checkIfLoggedIn();
+  });
+  
