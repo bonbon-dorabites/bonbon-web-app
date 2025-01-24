@@ -995,3 +995,315 @@ ul.stock-list li .badge.bg-danger {
 .cart-part .price {
     font-size: 20px;
 }
+
+
+/* Owner Dashboard Styles */
+.owner-dashboard-container {
+    margin: 80px auto;
+    max-width: 900px;
+    font-family: var(--fredoka);
+    text-align: left; /* Align all text to the left */
+}
+
+.owner-dashboard-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--dark-brown);
+    margin-bottom: 10px;
+    text-align: left; /* Align to left */
+    font-family: 'Fredoka', sans-serif; /* Ensure correct font */
+}
+
+.owner-dashboard-line {
+    height: 5px; /* Make the line thicker */
+    background-color: #4B2008; /* Dark brown color */
+    width: 100%; /* Match the width of the table */
+    margin: 10px 0 20px; /* Adjust spacing as needed */
+    border: none; /* Ensure no borders */
+}
+
+.owner-dashboard-section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DA9747;
+    margin-bottom: 20px;
+    text-align: left; /* Align to left */
+}
+
+.owner-dashboard-dropdown-container {
+    margin-bottom: 30px;
+    text-align: left; /* Align to left */
+    display: inline-block; /* Ensures dropdown stays in flow */
+}
+
+.dropdown-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-brown);
+    margin-right: 10px;
+}
+
+.owner-dashboard-dropdown {
+    background-color: #CB7208;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px; /* Adds spacing after label */
+}
+
+.owner-dashboard-dropdown:hover {
+    background-color: var(--brown);
+    color: white;
+}
+
+.owner-dashboard-table {
+    margin: 20px auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.owner-dashboard-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.owner-dashboard-table th, 
+.owner-dashboard-table td {
+    border: 2px solid var(--dark-brown);
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--dark-brown);
+}
+
+.owner-dashboard-table th {
+    background-color: #CB7208; /* Updated Table Header Color */
+    color: white;
+    font-weight: bold;
+}
+
+.owner-dashboard-caption {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--dark-brown);
+    margin-top: 10px;
+    text-align: left; /* Align caption text to left */
+}
+
+/* Sales Illustration Section */
+.sales-illustration-container {
+    margin: 50px auto;
+    max-width: 900px;
+    font-family: var(--fredoka);
+    text-align: left; /* Align all text to the left */
+}
+
+.sales-illustration-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DA9747;
+    margin-top: -40px;
+    margin-bottom: 10px;
+    text-align: left; 
+}
+
+.sales-illustration-line {
+    height: 5px; 
+    background-color: #4B2008; 
+    width: 100%; 
+    margin: 10px 0 20px; 
+    border: none; 
+}
+
+.sales-illustration-image {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 20px auto; 
+}
+
+/* Sales Illustration Image */
+.sales-illustration-image img {
+    width: 80%; 
+    max-width: 1000px; 
+    border: 2px solid var(--dark-brown); 
+    border-radius: 8px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.sales-illustration-caption {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--dark-brown);
+    margin-top: 10px;
+    text-align: left; 
+}
+
+/* Staff Management Section */
+.staff-management-container {
+    margin: 50px auto;
+    max-width: 900px;
+    font-family: var(--fredoka);
+    text-align: left; 
+}
+
+.staff-management-line {
+    height: 5px; 
+    background-color: #4B2008; 
+    width: 100%; 
+    margin: 10px 0 20px; 
+    border: none; 
+}
+
+.staff-management-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DA9747;
+    margin-bottom: 20px;
+    text-align: left; 
+}
+
+.staff-management-table {
+    margin: 20px auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.staff-management-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-management-table th,
+.staff-management-table td {
+    border: 2px solid var(--dark-brown);
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--dark-brown);
+}
+
+.staff-management-table th {
+    background-color: #CB7208; 
+    color: white;
+    font-weight: bold;
+}
+
+
+/* Coupons Page Styles */
+.coupon-page-container {
+    margin-top: 100px; /* To account for the fixed navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Larger gap between cards */
+    padding: 20px;
+    font-family: var(--fredoka);
+    background-color: #fff;
+}
+
+.coupon-section-title {
+    font-size: 2.0rem;
+    font-weight: bold;
+    color: var(--dark-brown);
+    margin-bottom: 20px;
+    text-align: left;  /* Align the text to the left */
+}
+
+/* Active Coupons Styles */
+.coupon-page-card {
+    background-color: var(--lightest-brown); /* Lighter brown for the cards */
+    border-radius: 30px; /* More rounded corners */
+    padding: 20px 30px; /* Increased padding for more spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Slightly larger shadow */
+}
+
+.coupon-page-card-text {
+    font-size: 1.2rem; /* Larger text */
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
+/* Coupon Code Styling (for claimed coupons) */
+.coupon-code {
+    font-size: 0.9rem;  /* Smaller text for the code */
+    color: #333;
+    margin-top: 5px;  /* Space between coupon text and code */
+    font-weight: normal;
+}
+
+.coupon-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Button styling remains the same */
+.coupon-page-card-btn {
+    font-size: 1.2rem; /* Larger button text */
+    font-weight: bold;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent; /* No background color */
+}
+
+.coupon-page-card-btn.claim-btn {
+    color: red;
+}
+
+.coupon-page-card-btn.claim-btn:hover {
+    color: var(--brown); /* Darker hover effect */
+}
+
+.coupon-page-card-btn.get-btn {
+    color: blue;
+}
+
+.coupon-page-card-btn.get-btn:hover {
+    color: var(--brown); /* Darker hover effect */
+}
+
+/* Claimed Coupons Styles */
+.claimed-coupon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.claimed {
+    background-color: #d3d3d3; /* Light gray for claimed coupons */
+    color: #707070; /* Gray text */
+    display: flex;
+    justify-content: space-between; /* Aligns text and "Claimed" button */
+    align-items: center; /* Vertically aligns items */
+}
+
+.claimed-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: red;
+    display: inline-block;
+    text-align: center;
+    padding-left: 20px; /* Adds space from the coupon title */
+}
+
+
+
+
+
+
