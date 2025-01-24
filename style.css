@@ -815,7 +815,7 @@ textarea.form-control:focus {
     box-shadow: 0 0 5px rgba(72, 32, 26, 0.5);
 }
 
-p {
+.accordion-body p {
     margin: 0; /* Remove unnecessary margins around paragraphs */
 }
 .dashboard-header {
