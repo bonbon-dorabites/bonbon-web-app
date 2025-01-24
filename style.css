@@ -1487,7 +1487,7 @@ textarea.form-control:focus {
     }
 }
 
-@media (max-height: 700px) {
+@media (min-width: 850px) and (max-height: 700px)  {
     body, 
   section#checkout-form, 
   section#checkout-form * {
@@ -1526,7 +1526,7 @@ textarea.form-control:focus {
 
 }
 
-@media (min-width: 825px) and (max-width: 980px){
+@media (min-width: 850px) and (max-width: 980px){
       .checkout {
           width: 60%;
       }
