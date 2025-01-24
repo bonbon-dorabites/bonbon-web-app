@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const orderSection = document.getElementById("order");
     const checkoutBtn = document.getElementById("checkoutBtn");
     const backBtn = document.getElementById("backBtn");
+    const backBtn2 = document.getElementById("backBtn2");
 
     // Show checkout form, hide order section
     checkoutBtn.addEventListener("click", () => {
@@ -20,8 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
         checkoutForm.style.display = "block";
     });
 
+
     // Show order section, hide checkout form
     backBtn.addEventListener("click", () => {
+        checkoutForm.style.display = "none";
+        orderSection.style.display = "block";
+    });
+
+    backBtn2.addEventListener("click", () => {
         checkoutForm.style.display = "none";
         orderSection.style.display = "block";
     });
