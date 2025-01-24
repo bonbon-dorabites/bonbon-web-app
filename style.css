@@ -64,6 +64,7 @@ body {
 }
 
 #user-menu li p {
+    padding-left: 16px;
     color: var(--light-brown);
     font-weight: 500;
 }
