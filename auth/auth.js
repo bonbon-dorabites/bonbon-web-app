@@ -257,17 +257,29 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Listen for the logout button click
     logoutMenu.addEventListener("click", async () => {
-      console.log("Logout clicked...");
-      try {
-        // Sign out from Firebase
-        await signOut(auth);
-  
-        // Reset the menus to show signup/login
-        resetMenus();
-      } catch (error) {
-        console.error("Error signing out:", error);
-      }
-    });
+        console.log("Logout clicked...");
+        try {
+          // Sign out from Firebase
+          await signOut(auth);
+      
+          // Reset the menus to show signup/login
+          resetMenus();
+      
+          // Show the logout confirmation modal
+          console.log("Showing modal before redirect...");
+          showModal("You have logged out. Redirecting to login page.", true);
+      
+          // Wait for the modal to display before redirecting
+          setTimeout(() => {
+            console.log("test");
+            hideModal();
+            console.log("Redirecting to login...");
+            window.location.href = "/auth/login.html";
+          }, 600);  // Adjusted timeout to give enough time for the modal to appear
+        } catch (error) {
+          console.error("Error signing out:", error);
+        }
+      });      
   
     // Check if the user is logged in and update the UI accordingly
     const checkIfLoggedIn = () => {
