@@ -6,7 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
-    <script type="module" src="../auth/auth.js" defer></script>
     <title>Signup | BonBon</title>
     <style>
         @media (min-width: 768px) {
@@ -186,7 +185,7 @@
                         </div>                        
                         
                         <div style="text-align: center;">
-                            <button id="signup" onclick="handleSignUp()" type="button" class="btn btn-primary w-50 submit" style="background-color: #5C2918; color: white; border-radius: 20px; border: none;">Sign-up</button>
+                            <button id="signup" type="button" class="btn btn-primary w-50 submit" style="background-color: #5C2918; color: white; border-radius: 20px; border: none;">Sign-up</button>
                         </div>
                         
                         <hr style="border: 1px solid #5C2918; width: 80%; margin: 20px auto;">
@@ -212,22 +211,22 @@
         </div>
 
         <!-- Modal HTML -->
-    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Processing</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="modalMessage">Please wait...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Processing</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMessage">Please wait...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script>
         // Wait for the page to fully load before applying the transition
@@ -237,49 +236,24 @@
             console.log("Right panel transition applied.");
         });
 
-        function handleSignUp() {
-        // Get the checkbox
-        const checkbox = document.getElementById('agreeTerms');
-        const modalMessage = document.getElementById('modalMessage');
-        const modal = new bootstrap.Modal(document.getElementById('loadingModal'));
+        // Add event listener to the 'Log-in' link
+        document.querySelector('.redirect a').addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default link behavior
 
-        // Show modal
-        modal.show();
+                const right = document.querySelector('.sign-up-right'); // Get the right panel
 
-        // Check if checkbox is checked
-        if (!checkbox.checked) {
-            // Update modal message
-            modalMessage.textContent = 'You must agree to the Terms of Use and Privacy Policy before signing up.';
-        } else {
-            // Update modal message
-            modalMessage.textContent = 'Signup successful! Redirecting to login...';
+                // Add the 'slide-out' class to slide the panel out to the right
+                right.classList.add('slide-out');
 
-            // Simulate a delay and redirect
-            setTimeout(() => {
-                modal.hide();
-                window.location.href = '../auth/login.html'; // Redirect to login page
-            }, 200); // Adjust delay as needed
-        }
-    }
+                console.log("Sliding out the right panel...");
 
-    // Add event listener to the 'Log-in' link
-    document.querySelector('.redirect a').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default link behavior
-
-            const right = document.querySelector('.sign-up-right'); // Get the right panel
-
-            // Add the 'slide-out' class to slide the panel out to the right
-            right.classList.add('slide-out');
-
-            console.log("Sliding out the right panel...");
-
-            // Wait for the transition to complete, then navigate to ../auth/login.html
-            setTimeout(() => {
-                console.log("Redirecting to ../auth/login.html...");
-                window.location.href = "../auth/login.html"; // Update path if needed
-            }, 600); // Delay matches the CSS transition duration
-        });
-
+                // Wait for the transition to complete, then navigate to ../auth/login.html
+                setTimeout(() => {
+                    console.log("Redirecting to ../auth/login.html...");
+                    window.location.href = "../auth/login.html"; // Update path if needed
+                }, 600); // Delay matches the CSS transition duration
+            });
     </script>
+    <script type="module" src="../auth/auth.js" defer></script>
 </body>
 </html>
