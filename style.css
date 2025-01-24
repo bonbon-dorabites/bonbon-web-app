@@ -1005,6 +1005,14 @@ ul.stock-list li .badge.bg-danger {
     .checkout {
         width: 100%;
     }
+
+    .btn-back.smaller {
+        display: block;
+    }
+
+    .btn-back.bigger {
+        display: none;
+    }
 }
 
 @media (max-height: 700px) {
@@ -1023,7 +1031,7 @@ ul.stock-list li .badge.bg-danger {
 
   #checkout-form .checkout-header {
     font-size: 4vh;
-}
+  }
 
     h1.checkout-header {
         margin: 0;
