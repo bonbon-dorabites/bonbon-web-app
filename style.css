@@ -19,6 +19,7 @@ body {
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
+    font-family: var(--fredoka);
 }
 
 .nav-logo {
@@ -44,18 +45,27 @@ body {
 
 .dropdown-menu {
     background-color: var(--dark-brown);
-    min-width: 100px !important;
+    min-width: 120px !important;
 }
 
 .dropdown-item {
     color: var(--light-brown);
     font-size: 1rem ; 
-    font-weight: bold ;
+    text-align: start;
 }
 
 .dropdown-item:hover {
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
+}
+
+#user-menu, #edit-menu, #logout-menu, #owner-menu, #staff-menu, #customer-menu {
+    display: none;
+}
+
+#user-menu li p {
+    color: var(--light-brown);
+    font-weight: 500;
 }
 
 .hero {
