@@ -28,7 +28,7 @@
                     <a class="nav-link custom-navbar-link active" href="order.html">Orders</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link custom-navbar-link" href="#">Coupons</a>
+                    <a class="nav-link custom-navbar-link" href="coupons.html">Coupons</a>
                   </li>
                 </ul>
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
@@ -91,23 +91,26 @@
         </div>
 
 
-    </section><br><br><br><br>
+    </section><br><br>
 
 
     <section id="checkout-form">
-      <div class="back">
-        <button id="backBtn" class="btn-back btn-secondary">
+
+      <div class="checkout-header-container">
+        <button id="backBtn" class="btn-back bigger btn-secondary">
             <i class="fa fa-arrow-left"></i> Back
         </button>
-      </div>
 
-      <div class="header text-center">
-            <h2>Checkout Form<hr class="line" style="width: 20%;" ></h2>
+        <button id="backBtn" class="btn-back smaller btn-secondary">
+          <i class="fa fa-arrow-left"></i>
+        </button>
+
+        <h1 class="checkout-header">Checkout Form</h1>
       </div>
+      <div class="line"></div>
 
       <div class="checkout-container">
         <form action="#" class="checkout">
-          <div class="row">
             <div class="col-200">
               <h3>Billing Address</h3>
               <div class="col-checkout">
@@ -121,11 +124,9 @@
                 </div>
               </div>
 
-              
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
               <input type="email" id="email" name="email" placeholder="john@example.com" required>
-              
-              
+                          
               <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
               <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
 
@@ -139,10 +140,7 @@
                   <label for="phone"><i class="fa fa-phone"></i> Phone</label>
                   <input type="tel" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
                 </div>
-               
               </div>
-             
-
             </div>
 
             <div class="checkout-btn">
@@ -150,9 +148,7 @@
                 <i class="fa fa-shopping-cart"></i> Checkout
               </button>
             </div>
-
             
-          </div>
         </form>
 
         <div class="cart-part">
@@ -163,17 +159,15 @@
               <p><a href="#">Product 2</a> <span class="price">P5</span></p>
               <p><a href="#">Product 3</a> <span class="price">P8</span></p>
               <p><a href="#">Product 4</a> <span class="price">P2</span></p>
-
               <div class="coupon-section">
                 <h4>Coupon</h4>
-                <input
-                  type="text"
-                  id="coupon-code"
-                  placeholder="Enter coupon code"
-                />
-                <button id="apply-coupon">
-                  Apply
-                </button>
+                <div class="coupon-wrap">
+                  <input type="text" id="coupon-code" placeholder="Enter coupon code"/>
+                  <button id="apply-coupon">
+                    Apply
+                  </button>
+                </div>
+
               </div>
               <hr>
 
@@ -181,15 +175,14 @@
               <p>Subtotal: <span class="price">P30</span></p>
               <p>Delivery: <span class="price">P5.00</span></p>
               <hr>
-              <p><b>Total:</b> <span class="price"><b>P35.00</b></span></p>
+              <p class="total"><b>Total:</b> <span class="price"><b>P35.00</b></span></p>
             </div>
           </div>
-
-          
         </div>
       </div>
     </section>
 
     <script src="./main.js"></script>
+    
 </body>
 </html>
