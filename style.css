@@ -796,9 +796,175 @@ ul.stock-list li .badge.bg-danger {
     gap: 50px;
 }
 
+
+
+/*CUSTOMER*/
+textarea.form-control {
+    border: 2px solid #cc7722;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    color: #48201a;
+    resize: none; /* Prevent resizing */
+    width: 100%; /* Full width */
+}
+
+textarea.form-control:focus {
+    outline: none;
+    border-color: #48201a;
+    box-shadow: 0 0 5px rgba(72, 32, 26, 0.5);
+}
+
+p {
+    margin: 0; /* Remove unnecessary margins around paragraphs */
+}
+.dashboard-header {
+    margin-top: 100px; /* Adjust space between navbar and heading */
+    margin-bottom: 30px; /* Space below the heading */
+    text-align: center;
+}
+
+.dashboard-header h1 {
+    font-size: 4.3rem; /* Adjust font size as needed */
+    font-family: var(--fredoka); /* Use your custom font */
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
+/* Mobile Phones (max-width: 576px) */
+@media (max-width: 576px) {
+    /* Stock List */
+    .stock-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .stock-list li span.badge {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+        margin-top: 70px;
+        margin-bottom: 20px;
+    }
+    .dashboard-header h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    /* Accordion */
+    .accordion-body {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+    .accordion-button {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    /* Textarea */
+    textarea.form-control {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+
+}
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Stock List */
+    .stock-list li {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .stock-list li span.badge {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+        margin-top: 80px;
+        margin-bottom: 25px;
+    }
+    .dashboard-header h1 {
+        font-size: 3rem;
+    }
+
+    /* Accordion */
+    .accordion-body {
+        font-size: 1rem;
+        padding: 12px;
+    }
+    .accordion-button {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+    }
+
+    /* Textarea */
+    textarea.form-control {
+        font-size: 0.9rem;
+        padding: 9px;
+    }
+}
+
+/* Small Laptops (max-width: 992px) */
+@media (max-width: 992px) {
+    /* Stock List */
+    .stock-list li {
+        gap: 20px;
+    }
+    .stock-list li span.badge {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+        margin-top: 90px;
+        margin-bottom: 30px;
+    }
+    .dashboard-header h1 {
+        font-size: 3.5rem;
+    }
+
+    /* Accordion */
+    .accordion-body {
+        font-size: 1rem;
+    }
+    .accordion-button {
+        font-size: 1.1rem;
+    }
+
+    /* Textarea */
+    textarea.form-control {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
+/* Large Laptops (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .dashboard-header {
+        margin-top: 100px;
+        margin-bottom: 30px;
+    }
+    .dashboard-header h1 {
+        font-size: 4rem;
+    }
+    textarea.form-control {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
 #order {
     min-height: 684px;
 }
+
 /* CHECKOUT FORM */
 #checkout-form {
     display: none;
