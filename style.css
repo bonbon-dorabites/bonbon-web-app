@@ -543,7 +543,7 @@ body {
 
 }
 
-.row {
+.browse .row {
     margin-top: 30px;
 }
 
@@ -845,7 +845,7 @@ ul.stock-list li .badge.bg-danger {
     justify-content: flex-start;
 }
 .accordion-body p {
-    margin-bottom: 10px;
+    margin: 0;
 }
 /* Buttons in Accordion */
 .accordion-body .btn-success {
@@ -901,9 +901,6 @@ textarea.form-control:focus {
     box-shadow: 0 0 5px rgba(72, 32, 26, 0.5);
 }
 
-p {
-    margin: 0; /* Remove unnecessary margins around paragraphs */
-}
 .dashboard-header {
     margin-top: 100px; /* Adjust space between navbar and heading */
     margin-bottom: 30px; /* Space below the heading */
