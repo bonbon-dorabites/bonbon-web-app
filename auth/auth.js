@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
@@ -17,7 +16,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 auth.languageCode = 'en';
@@ -33,6 +31,31 @@ document.addEventListener("DOMContentLoaded", () => {
     signupButton.addEventListener("click", handleSignup);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const signupButton = document.getElementById("login");
+    signupButton.addEventListener("click", handleLogin);
+});
+
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+
+    modalMessage.textContent = message;
+
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+
+    loadingModal.show();
+}
+
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
 
 // Handle signup
 async function handleSignup(event) {
@@ -84,7 +107,7 @@ async function handleSignup(event) {
         showModal("Creating account. Please wait...", true);
         setTimeout(() => {
             window.location.href = "/auth/login.html";
-        }, 2000);
+        }, 600);
     } catch (error) {
         console.error("Signup error: ", error.code, error.message);
 
@@ -104,23 +127,54 @@ async function handleSignup(event) {
     }
 }
 
-function showModal(message, isSuccess) {
-    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
-    const modalMessage = document.getElementById('modalMessage');
+async function handleLogin(event) {
+    event.preventDefault();
 
-    modalMessage.textContent = message;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    // Change color based on success or error
-    if (isSuccess) {
-        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
-    } else {
-        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    // Basic validation
+    if (!email || !password) {
+        showModal("Please fill in all required fields.", false);
+        return;
     }
 
-    loadingModal.show();
+    // Check if email format is valid
+    if (!isValidEmail(email)) {
+        showModal("Please enter a valid email address.", false);
+        return;
+    }
+
+    try {
+        // Log the email and password for debugging
+        console.log("Attempting login with:", email);
+
+        // Try to sign in the user
+        await signInWithEmailAndPassword(auth, email, password);
+
+        // Show success message and redirect
+        showModal("Redirecting to your diary booklet...", true);
+        setTimeout(() => {
+            window.location.href = "/index.html";
+        }, 600);
+
+    } catch (error) {
+        // Log the error details for debugging
+        console.error("Login error:", error.code, error.message);
+
+        // Handle specific errors
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if (errorCode === 'auth/user-not-found') {
+            showModal("No account found with this email. Please sign up or check your email.", false);
+        } else if (errorCode === 'auth/wrong-password') {
+            showModal("Incorrect password. Please try again.", false);
+        } else if (errorCode === 'auth/invalid-email') {
+            showModal("Invalid email format.", false);
+        } else {
+            showModal(errorMessage, false);
+        }
+    }
 }
 
-function hideModal() {
-    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
-    loadingModal.hide();
-}
