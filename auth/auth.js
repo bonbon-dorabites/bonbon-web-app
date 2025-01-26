@@ -242,6 +242,12 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (email === "jayjayangadok21@gmail.com") {
               staffMenu.style.display = "block";  // Staff menu
               console.log("Staff menu displayed.");
+            } else if (email === "dehonorcharryl@gmail.com") {
+              staffMenu.style.display = "block";  // Staff menu
+              console.log("Staff menu displayed.");
+            } else if (email === "shaynebondoc28@gmail.com") {
+              staffMenu.style.display = "block";  // Staff menu
+              console.log("Staff menu displayed.");
             } else {
               customerMenu.style.display = "block";  // Customer menu
               console.log("Customer menu displayed.");
