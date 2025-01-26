@@ -619,6 +619,69 @@ body {
     margin-top: 20px;
 }
 
+
+.accordion {
+    background-color: transparent;
+
+}
+
+.accordion .sizes {
+    margin: 8px;
+}
+
+.accordion .accordion-header {
+    background-color: var(--wood-color);
+    color: var(--beige);
+    font-size: 18px;
+    padding: 10px 15px;
+    text-align: left;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .accordion .flavors {
+    display: none;
+    padding: 10px 15px;
+    background-color: var(--beige);
+    color: var(--wood-color);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .accordion .dorayaki {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+  }
+
+  .cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 18px;
+    
+  }
+
+/*
 .accordion .sizes {
     position: relative;
     margin: 8px;
@@ -651,7 +714,7 @@ body {
     height: 0;
     overflow: hidden;
     transition: 0.4s ease-in-out;
-}
+}*/
 
 .menu-items .right-side {
     display: flex;
