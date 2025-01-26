@@ -670,9 +670,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0;
+    padding: 15px 20px;
+    margin: -10px -15px;
   }
 
+  .dorayaki p {
+    margin-bottom: 0;
+    
+  }
+  
   .cart-btn {
     background: none;
     border: none;
@@ -681,40 +687,9 @@ body {
     
   }
 
-/*
-.accordion .sizes {
-    position: relative;
-    margin: 8px;
-
-}
-.accordion .label {
-    display: flex;
-    gap: 430px;
-    padding: 10px;
-    background-color: #7e492e;
-    cursor: pointer;
-}
-
-.accordion .sizes .label::before {
-    content: '+';
-    position: absolute;
-    top: -1px;
-    right: 20px;
-    font-size: 1.5em;
-}
-
-.accordion .sizes.active .label::before {
-    content: '-';
-
-}
-
-.accordion .sizes .flavors {
-    position: relative;
-    background: var(--beige);
-    height: 0;
-    overflow: hidden;
-    transition: 0.4s ease-in-out;
-}*/
+  .flavor:hover {
+    background-color: #fbcd88;
+  }
 
 .menu-items .right-side {
     display: flex;
@@ -735,6 +710,7 @@ body {
     line-height: 2.2;
 }
 
+/*
 .accordion .sizes.active .flavors {
     min-height: 190px;
     padding: 10px;
@@ -743,7 +719,7 @@ body {
 
 .label.active {
     color: var(--lightest-brown); 
-}
+}*/
 
 .dorayaki.flavor {
     display:flex;
