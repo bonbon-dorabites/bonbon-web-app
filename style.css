@@ -136,15 +136,17 @@ body {
 
 .buynow a {
     background-color: var(--dark-brown);
-    height: 50px;
+    height: 40px;
     border-radius: 20px;
 }
 
 .buynow button {
     color: var(--lightest-brown);
     font-family: var(--fredoka);
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 20px;
+    align-items: start;
+    font-weight: 600;
+    bottom: 0;
 }
 
 .buynow a:hover {
