@@ -14,11 +14,43 @@
             }
         }
 
+        @media (max-width: 1040px) {
+            .signup .intro-img img {
+                margin-left: 70px;
+                width: 360px;
+                height: 300px;
+            }
+            .signup .intro-title img {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 993px) {
+            .hidden-br1 {
+                display: inline !important;
+            }
+        }
+
+        @media (max-width: 878px) {
+            .signup .intro-img img {
+                margin-left: 45px;
+                width: 335px;
+                height: 275px;
+            }
+            .signup .intro-title img {
+                margin-left: 45px;
+            }
+        }
+
         @media (max-width: 767px) {
             body {
                 overflow-y: auto;
                 overflow: auto;
                 overflow-x: auto;
+            }
+
+            .hidden-br1 {
+                display: none !important;
             }
 
             .division {
@@ -50,18 +82,12 @@
 
             .signup .intro-img img {
                 margin-left: 0;
-            }
-
-            .signup .intro-title img {
-                margin-left: 0;
-            }
-
-            .intro-img img {
                 height: 60px;
                 width: 75px;
             }
 
-            .intro-title img {
+            .signup .intro-title img {
+                margin-left: 0;
                 width: 120px;
                 height: 30px;
             }
@@ -205,7 +231,7 @@
                         <div class="mb-3" style="position: relative;">
                             <input type="checkbox" id="agreeTerms" style="margin-right: 10px;" />
                             <label for="agreeTerms">
-                                I agree to the <a href="terms.html" target="_blank">Terms of Use</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.
+                                I agree to the <a href="terms.html" target="_blank">Terms of Use</a> and <span class="hidden-br1" style="display: none;"><br></span> <a href="privacy.html" target="_blank">Privacy Policy</a>.
                             </label>
                         </div>                        
                         
