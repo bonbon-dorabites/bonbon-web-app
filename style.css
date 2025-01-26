@@ -678,7 +678,7 @@ body {
     margin-bottom: 0;
     
   }
-  
+
   .cart-btn {
     background: none;
     border: none;
@@ -699,10 +699,19 @@ body {
 .menu-items .item{
     display: flex;
     justify-content: space-between;
-    background-color: #7e492e;
+    background-color: var(--wood-color);
     margin-bottom: 8px;
     padding: 5px 15px;
+    font-size: 18px;
     align-items: center;
+}
+
+.menu-items .item:hover {
+    background-color: #7c3c1c;
+}
+
+.cart-btn svg:hover {
+    fill: #b25627;
 }
 
 .menu-items .item p {
