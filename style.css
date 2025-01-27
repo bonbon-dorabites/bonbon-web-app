@@ -1441,7 +1441,7 @@ textarea.form-control:focus {
 }
 
 /* Staff Management Section */
-.staff-management-container {
+.staff-management-container{
     margin: 50px auto;
     max-width: 1200px;
     font-family: var(--fredoka);
@@ -1616,14 +1616,37 @@ textarea.form-control:focus {
     margin: 20px auto;
    
 }
-        
+
+.modal-content .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-content button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-content .save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
 .column {
     display: flex;
     width: 100%;
     gap: 10px;
 }
 
-.column input {
+.column input, .column select {
     width: 50%;
 }
 
