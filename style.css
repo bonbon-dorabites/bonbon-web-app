@@ -721,6 +721,21 @@ body {
     line-height: 2.2;
 }
 
+.flavor .choco-instock, .flavor .dulce-instock, 
+.flavor .cheese-instock, .flavor .walnut-instock,
+#bc-nut-instock, #bc-ham-instock, #bc-mozza-instock, #bc-oreo-instock,
+#chocold-instock, #hotcof-instock, #icedcof-instock {
+    display: block;
+}
+
+.flavor .choco-soldout, .flavor .dulce-soldout, 
+.flavor .cheese-soldout, .flavor .walnut-soldout,
+#bc-nut-sold, #bc-ham-sold, #bc-mozza-sold, #bc-oreo-sold,
+#chocold-sold, #hotcof-sold, #icedcof-sold {
+    display: none;
+}
+
+
 /*
 .accordion .sizes.active .flavors {
     min-height: 190px;
