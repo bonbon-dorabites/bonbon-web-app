@@ -17,6 +17,28 @@ headers.forEach(header => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const checkoutForm = document.getElementById("checkout-form");
+  const orderSection = document.getElementById("order");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  const backBtn = document.getElementById("backBtn");
+  const backBtn2 = document.getElementById("backBtn2");
+  // Show checkout form, hide order section
+  checkoutBtn.addEventListener("click", () => {
+      orderSection.style.display = "none";
+      checkoutForm.style.display = "block";
+  });
+  // Show order section, hide checkout form
+  backBtn.addEventListener("click", () => {
+      checkoutForm.style.display = "none";
+      orderSection.style.display = "block";
+  });
+  backBtn2.addEventListener("click", () => {
+      checkoutForm.style.display = "none";
+      orderSection.style.display = "block";
+  });
+});
+
 document.querySelectorAll('.label').forEach(label => {
     label.addEventListener('click', function () {
       // Remove active class from all labels
