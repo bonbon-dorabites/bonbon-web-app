@@ -621,39 +621,77 @@ body {
     margin-top: 20px;
 }
 
+
+.accordion {
+    background-color: transparent;
+
+}
+
 .accordion .sizes {
-    position: relative;
     margin: 8px;
-
 }
-.accordion .label {
-    display: flex;
-    gap: 430px;
-    padding: 10px;
-    background-color: #7e492e;
+
+.accordion .accordion-header {
+    background-color: var(--wood-color);
+    color: var(--beige);
+    font-size: 18px;
+    padding: 10px 15px;
+    text-align: left;
+    width: 100%;
+    border: none;
+    outline: none;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.accordion .sizes .label::before {
-    content: '+';
-    position: absolute;
-    top: -1px;
-    right: 20px;
-    font-size: 1.5em;
-}
+.toggle-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease-in-out;
+  }
 
-.accordion .sizes.active .label::before {
-    content: '-';
+  .accordion .flavors {
+    display: none;
+    padding: 10px 15px;
+    background-color: var(--beige);
+    color: var(--wood-color);
+    animation: fadeIn 0.3s ease-in-out;
+  }
 
-}
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-.accordion .sizes .flavors {
-    position: relative;
-    background: var(--beige);
-    height: 0;
-    overflow: hidden;
-    transition: 0.4s ease-in-out;
-}
+  .accordion .dorayaki {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin: -10px -15px;
+  }
+
+  .dorayaki p {
+    margin-bottom: 0;
+    
+  }
+
+  .cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 18px;
+    
+  }
+
+  .flavor:hover {
+    background-color: #fbcd88;
+  }
 
 .menu-items .right-side {
     display: flex;
@@ -663,10 +701,19 @@ body {
 .menu-items .item{
     display: flex;
     justify-content: space-between;
-    background-color: #7e492e;
+    background-color: var(--wood-color);
     margin-bottom: 8px;
     padding: 5px 15px;
+    font-size: 18px;
     align-items: center;
+}
+
+.menu-items .item:hover {
+    background-color: #7c3c1c;
+}
+
+.cart-btn svg:hover {
+    fill: #b25627;
 }
 
 .menu-items .item p {
@@ -674,6 +721,7 @@ body {
     line-height: 2.2;
 }
 
+/*
 .accordion .sizes.active .flavors {
     min-height: 190px;
     padding: 10px;
@@ -682,7 +730,7 @@ body {
 
 .label.active {
     color: var(--lightest-brown); 
-}
+}*/
 
 .dorayaki.flavor {
     display:flex;
@@ -903,6 +951,9 @@ textarea.form-control:focus {
     box-shadow: 0 0 5px rgba(72, 32, 26, 0.5);
 }
 
+.accordion-body p {
+    margin: 0; /* Remove unnecessary margins around paragraphs */
+}
 .dashboard-header {
     margin-top: 100px; /* Adjust space between navbar and heading */
     margin-bottom: 30px; /* Space below the heading */
@@ -1572,7 +1623,7 @@ textarea.form-control:focus {
     }
 }
 
-@media (max-height: 700px) {
+@media (min-width: 850px) and (max-height: 700px)  {
     body, 
   section#checkout-form, 
   section#checkout-form * {
@@ -1611,7 +1662,7 @@ textarea.form-control:focus {
 
 }
 
-@media (min-width: 825px) and (max-width: 980px){
+@media (min-width: 850px) and (max-width: 980px){
       .checkout {
           width: 60%;
       }
