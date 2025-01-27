@@ -1,6 +1,7 @@
 /*This is used to import google font*/
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Fredoka:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Luckiest+Guy&display=swap');
+
 /*Added css stock*/
 :root {
     --dark-brown: #48201a;
@@ -8,6 +9,7 @@
     --brown: #b25627;
     --light-brown: #da9747;
     --lightest-brown: #edb868;
+    --beige: #ffd89c;
     --fredoka: "Fredoka", sans-serif;
 }
 
@@ -17,6 +19,13 @@ body {
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
+    font-family: var(--fredoka);
+}
+
+.nav-logo {
+    height: 50px;
+    width: 179px;
+    margin-left: 30px;
 }
 
 .custom-navbar-link {
@@ -31,18 +40,18 @@ body {
 }
 
 .active {
-    color: var(--brown) !important; 
+    color: var(--brown); 
 }
 
 .dropdown-menu {
     background-color: var(--dark-brown);
-    min-width: 100px !important;
+    min-width: 120px !important;
 }
 
 .dropdown-item {
     color: var(--light-brown);
     font-size: 1rem ; 
-    font-weight: bold ;
+    text-align: start;
 }
 
 .dropdown-item:hover {
@@ -50,52 +59,94 @@ body {
     color:var(--dark-brown);
 }
 
+#user-menu, #edit-menu, #logout-menu, #owner-menu, #staff-menu, #customer-menu {
+    display: none;
+}
+
+#user-menu li p {
+    padding-left: 16px;
+    color: var(--light-brown);
+    font-weight: 500;
+}
+
 .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 482px;
     background-color: var(--lightest-brown);
     width: 100%;
 }
 
+.break-spacer {
+    height: 72px; /* Adjust spacing as needed */
+}
+
+.hero-text {
+    justify-content: center;
+}
+
 .hero-img {
-    display: flex-start;
-    padding-left: 200px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 60px;
+} 
+
+.hero-img img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Ensures the image maintains its aspect ratio */
 }
 
 .hero h1 {
     font-family: var(--fredoka);
     font-weight: bold;
     color: var(--dark-brown);
-    font-size: 10vh;
+    font-size: 70px; /* Resize the font size with viewport width */
+    margin: 0;
 }
 
-.hero p {
+.subtext {
+    font-family: var(--fredoka);
+    font-weight: normal;
+    color: var(--dark-brown);
+    font-size: 35px;
+}
+
+.subtext1 {
     font-style: italic;
-    font-size: 4vh;
+    font-size: 20px;
 }
 
 .hero-icon {
-    margin-right: 2vw;
+    margin-right: 15px;
 }
 
-.hero-icon:hover {
+.hero-icon:hover, .hero-last:hover {
     fill: var(--wood-color);
 }
 
 .buynow {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .buynow a {
     background-color: var(--dark-brown);
-    height: 50px;
+    height: 40px;
     border-radius: 20px;
 }
 
 .buynow button {
     color: var(--lightest-brown);
     font-family: var(--fredoka);
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 20px;
+    align-items: start;
+    font-weight: 600;
+    bottom: 0;
 }
 
 .buynow a:hover {
@@ -121,7 +172,7 @@ body {
 
 .shadow {
     background-color: var(--light-brown) !important; 
-    width: 280px; 
+    width: 260px; 
     height: 240px; 
     top: 20px; 
     border-radius: 30px;
@@ -155,6 +206,13 @@ body {
     color: var(--dark-brown);
 }
 
+.header h2 {
+    font-size: 6vh;
+    font-family: var(--fredoka);
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
 .line {
     height: 4px; 
     background-color: 
@@ -179,6 +237,11 @@ body {
     color: var(--dark-brown);
 }
 
+.checkout-btn {
+    display: flex;
+    justify-content: center;
+}
+
 .best-btn {
     background-color: var(--dark-brown);
     color: #fff;
@@ -194,74 +257,228 @@ body {
 
 .carousel-item img {
     height: 500px;
+    width: 1000px;
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
-    filter: invert(1); 
+    filter: invert(1);
 }
 
 .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 15px;
     border-radius: 8px;
     color: #fff;
+    display: block;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--light-brown) !important;  /* Set your desired color */
+    filter: none !important;  /* Remove the inversion effect */
+}
+
+/* Optional: Change the color when hovering */
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    background-color: var(--dark-brown) !important; /* Hover color */
+}
+
 
 /*TESTIMONIALS*/
 .testimonials {
-    min-height: 100vh;
-    width: 100vw;
+    height: auto;
     background-color: var(--lightest-brown);
     color:var(--dark-brown);
-    padding: 0px 150px;
+    margin: 0 auto 0 auto;
     display: flex;
     justify-content: center;
     text-align: center;
-}
-
-.testimonials .header {
-    margin: 50px;
+    padding: 0; border: 0;
 }
 
 .wrapper {
-    width: 60vw;
+    width: 1000px;
     color: #fff;
     background-color: var(--dark-brown);
+    margin: 0 auto 0 auto; padding: 0; border: 0;
 }
 
 .testimonial-image img {
-    width: 290px;
+    width: 200px;
     height: 200px;
+    margin-left: 20px;
+}
+
+.testimonial-image2 img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
 }
 
 .quote, .name {
-    font-size: 4vh;
+    font-size: 20px;
     font-family: var(--fredoka);
+    margin: 0 20px 0 20px;
 }
 
-.gallery-img {
-    width: 75%;
-    height: 75%; 
-    object-fit: cover;
-    opacity: 0.6; 
-    background-color: var(--dark-brown); 
-    mix-blend-mode: multiply; 
+#galleryy {
+    display: flex; /* Use flexbox to center-align the gallery */
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; /* Adjust padding for responsiveness */
 }
 
-.gallery-img:hover {
-    opacity: 1;
-    width: 85%;
-    height: 85%;
-    transition: 1s;
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Default: 6 images per row */
+    gap: 1.5rem; 
+}
+
+.gallery-item {
+    overflow: hidden;
+}
+
+.border {
+    border: 0.7rem solid white;
+}
+
+.gallery-item img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    transition: all 0.4s;
+    opacity: 75%;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+    opacity: 100%;
 }
 
 .contact-page {
     background-color: var(--light-brown);
-    
 }
 
 .contact-page .col {
     padding: 20px;
+}
+
+/* SIGNUP & LOGIN*/
+.account-page, .division {
+    height: 100%;
+    margin: 0;
+}
+.division {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+.sign-up-right {
+    transform: translateX(100%);
+    transition: transform 0.6s ease-in-out;
+    background-color: var(--light-brown);
+}
+.left {
+    transform: translateX(-100%);
+    transition: transform 0.6s ease-in-out;
+}
+.sign-up-right.show {
+    transform: translateX(0); /* Move the panel into view */
+}
+.left.show {
+    transform: translateX(0); /* Move the panel into view */
+}
+.sign-up-right.slide-out {
+    transform: translateX(100%); /* Move the panel off the screen to the right */
+}
+.left.slide-out {
+    transform: translateX(-100%); /* Move the panel off the screen to the right */
+}
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in height calculation */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+/* Title and Subtitle */
+.title {
+    font-size: 48px; /* Adjust as needed */
+    margin-bottom: 16px; /* Space below title */
+    text-align: center; /* Center-align text */
+}
+.subtitle {
+    font-size: 20px; /* Adjust as needed */
+    margin-bottom: 15px; /* Space below subtitle */
+    text-align: center; /* Center-align text */
+}
+/* Forgot Password */
+.forgotpass {
+    text-align: right;
+    margin-bottom: 10px; /* Space between link and form */
+}
+.forgotpass a {
+    color: inherit; /* Use current text color */
+    text-decoration: none; /* Remove underline */
+    font-style: italic;
+}
+.forgotpass a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+.redirect {
+    text-align: center;
+    margin-bottom: 10px; /* Space between link and form */
+}
+.redirect a {
+    color: inherit; /* Use current text color */
+    text-decoration: none; /* Remove underline */
+    font-style: italic;
+}
+.redirect a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+/* Form Styling */
+.form-table {
+    width: 100%;
+}
+.intro {
+    flex-direction: column;
+}
+.left, .sign-up-right {
+    background-color: var(--light-brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.intro-img img {
+    width: 400px;
+    height: 350px;
+}
+.login .intro-img img {
+    margin-right: 0px;
+}
+.signup .intro-img img {
+    margin-left: 120px;
+}
+.signup .intro-title img {
+    margin-left: 130px;
+}
+.intro-title img {
+    width: 300px;
+    height: 70px;
+}
+.name-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+}
+.first-name {
+    flex: 6; 
+}
+.last-name {
+    flex: 4; 
 }
 
 /*BROWSE*/ 
@@ -272,17 +489,34 @@ body {
     justify-content: center ;
     text-align: center;
 }
-.heading {
+
+.upper {
     display: flex;
-    flex-direction: row;
-    justify-content: center ;
-    text-align: center;
-    margin-top: 100px;
+    justify-content: center;
+    margin-top: 80px;
+    /*position: relative;*/
+}
+
+.browse .p5 {
+    padding: 3rem;
+}
+
+.browse .heading {
+    display: flex;
+
+    margin-top: 10px;
    
 }
 
+.browse .heading h1 {
+    font-size: 4vh;
+    font-family: var(--fredoka);
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
 .heading img {
-    height: 250px;
+    height: 100px;
 }
 
 .heading h1 {
@@ -302,20 +536,30 @@ body {
 }
 
 .row1 {
-    margin-top: 50px;
+    /*position: absolute;*/
+    margin-top: 20px;
+    display: flex;
+    margin-left: 30px;
+    top: 15px;
+    right: 300px;
+
 }
 
+.browse .row {
+    margin-top: 30px;
+}
 
 .col1 img {
-    height: 40px;
+    height: 30px;
 }
 
 .col2 {
-    margin-top: 20px;
+    margin-top: 10px;
+    font-size: 0.8em;
 }
 
 .col2 img {
-    height: 25px;
+    height: 20px;
 }
 
 .col2 p {
@@ -329,11 +573,10 @@ body {
     background-color: var(--dark-brown);
     color: white;
     margin: 0;
-    padding: 12px 0;
+    padding-top: 12px;
     align-items: center;
     justify-content: center;
 }
-
 
 .col1 .btn {
     background-color: #48201a;
@@ -364,15 +607,87 @@ body {
     font-family: var(--fredoka);
     font-size: 1.2rem;
     margin-bottom: 100px;
+    
 }
 
 .menu-box h2 {
-    margin-top: 50px;
+    margin-top: 85px;
     
 }
 
 .menu-items {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.accordion .sizes {
+    position: relative;
+    margin: 8px;
+
+}
+.accordion .label {
+    display: flex;
+    gap: 430px;
+    padding: 10px;
+    background-color: #7e492e;
+    cursor: pointer;
+}
+
+.accordion .sizes .label::before {
+    content: '+';
+    position: absolute;
+    top: -1px;
+    right: 20px;
+    font-size: 1.5em;
+}
+
+.accordion .sizes.active .label::before {
+    content: '-';
+
+}
+
+.accordion .sizes .flavors {
+    position: relative;
+    background: var(--beige);
+    height: 0;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+}
+
+.menu-items .right-side {
+    display: flex;
+    gap: 20px;
+}
+
+.menu-items .item{
+    display: flex;
+    justify-content: space-between;
+    background-color: #7e492e;
+    margin-bottom: 8px;
+    padding: 5px 15px;
+    align-items: center;
+}
+
+.menu-items .item p {
+    margin: 0;
+    line-height: 2.2;
+}
+
+.accordion .sizes.active .flavors {
+    min-height: 190px;
+    padding: 10px;
+    
+}
+
+.label.active {
+    color: var(--lightest-brown); 
+}
+
+.dorayaki.flavor {
+    display:flex;
+    justify-content: space-between;
+    
 }
 
 .menu-img-circle img {
@@ -381,11 +696,17 @@ body {
     object-fit: cover;
 }
 
-
 .bi-cart-plus-fill {
     cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+.order-table .table {
+    width: 80vw;
+}
+
+>>>>>>> branch1
 /*STAFF-DASHBOARD*/ 
 .col1, 
 .col2{
@@ -394,7 +715,6 @@ body {
     align-items: center;
     gap: 10px;
 }
-
 /* Align the entire main container */
 .main-container {
     margin: 0 auto;
@@ -412,22 +732,20 @@ h1.dashboard-title {
 }
 
 /* Section Headers */
-h2 {
+.mt-4 h2 {
     font-size: 2.2rem; /* Larger size for h2 */
     color: var(--brown);
     font-weight: bold;
     margin-left: 0;
     text-align: left;
 }
-
-h3 {
+.mt-4 h3 {
     font-size: 1.8rem; /* Smaller size for h3 */
     color: var(--brown);
     font-weight: bold;
     margin-left: 0;
     text-align: left;
 }
-
 /* Specific Styling for the First Horizontal Line */
 .first-line {
     width: 800px; /* Fixed width to match the other lines */
@@ -435,7 +753,6 @@ h3 {
     background-color: var(--dark-brown);
     margin: 20px auto; /* Center the line */
 }
-
 /* === Dropdown Styling === */
 .branch-btn {
     font-size: 1.2rem;
@@ -447,20 +764,16 @@ h3 {
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
-
 .branch-btn:hover {
     background-color: var(--brown);
     color: white;
 }
-
 .branch-alert {
     font-size: 1.3rem;
     color: #ffc107; /* Bootstrap's yellow color */
     margin-top: 10px;
     text-align: center;
 }
-
-
 /* === Stock Update Section === */
 .stock-update {
     font-size: 4rem; /* Adjust size as needed */
@@ -468,13 +781,11 @@ h3 {
     margin: 0 auto;
     text-align: left;
 }
-
 .stock-update .stock-list {
     list-style-type: disc;
     padding-left: 60px;
     margin: 0;
 }
-
 .stock-list li {
     font-size: 1.2rem;
     font-weight: normal;
@@ -483,25 +794,21 @@ h3 {
     align-items: center;
     justify-content: space-between;
 }
-
 .stock-list li span.badge {
     font-size: 1rem;
     padding: 5px 15px;
     margin-left: 10px;
     border-radius: 30px;
 }
-
 /* Badge Styling */
 ul.stock-list li .badge.bg-success {
     background-color: var(--light-brown);
     color: white;
 }
-
 ul.stock-list li .badge.bg-danger {
     background-color: var(--brown);
     color: white;
 }
-
 /* Accordion Section */
 .pending-orders,
 .finished-orders {
@@ -509,31 +816,26 @@ ul.stock-list li .badge.bg-danger {
     margin: 0 auto;
     text-align: center;
 }
-
 .accordion-item {
     
     border: none;
     margin-bottom: 10px;
 }
-
 .accordion-header {
     font-size: 1.2rem;
     font-weight: normal;
     color: var(--dark-brown);
 }
-
 .accordion-button {
     background-color: var(--brown);
     color: white;
     font-size: 1.1rem;
     padding: 10px 20px;
 }
-
 .accordion-button:not(.collapsed) {
     background-color: var(--lightest-brown);
     color: var(--dark-brown);
 }
-
 .accordion-body {
     background-color: var(--wood-color);
     color: whitesmoke;
@@ -545,11 +847,9 @@ ul.stock-list li .badge.bg-danger {
     align-items: flex-start;
     justify-content: flex-start;
 }
-
 .accordion-body p {
-    margin-bottom: 10px;
+    margin: 0;
 }
-
 /* Buttons in Accordion */
 .accordion-body .btn-success {
     align-self: flex-end;
@@ -563,29 +863,23 @@ ul.stock-list li .badge.bg-danger {
     border: none;
     transition: all 0.3s ease-in-out;
 }
-
 .accordion-body .btn-success:hover {
     background-color: #218838;
     color: white;
 }
-
 /* Spacing Adjustments */
 .mt-4 {
     margin-top: 1.5rem !important;
 }
-
 .mb-4 {
     margin-bottom: 1.5rem !important;
 }
-
 .ms-4 {
     margin-left: 1.5rem !important;
 }
-
 .stock-update h3 {
     margin-left: 20px;
 }
-
 .dash-buttons {
     display: flex;
     gap: 50px;
@@ -610,9 +904,12 @@ textarea.form-control:focus {
     box-shadow: 0 0 5px rgba(72, 32, 26, 0.5);
 }
 
+<<<<<<< HEAD
 p {
     margin: 0; /* Remove unnecessary margins around paragraphs */
 }
+=======
+>>>>>>> branch1
 .dashboard-header {
     margin-top: 100px; /* Adjust space between navbar and heading */
     margin-bottom: 30px; /* Space below the heading */
@@ -664,6 +961,11 @@ p {
         font-size: 0.8rem;
         padding: 8px;
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> branch1
 }
 
 /* Tablets (max-width: 768px) */
@@ -753,3 +1055,798 @@ p {
         padding: 10px;
     }
 }
+<<<<<<< HEAD
+=======
+
+#order {
+    min-height: 684px;
+}
+
+/* CHECKOUT FORM */
+#checkout-form {
+    display: none;
+    padding: 20px 70px;
+    color: var(--dark-brown);
+    margin-top: 35px;
+}
+
+
+#checkout-form .line {
+    width: 20%;
+}
+
+
+.checkout-container {
+    margin-top: 35px;
+    display: flex;
+    gap: 50px;
+    font-family: var(--fredoka);
+}
+
+/*
+.checkout-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+*/
+
+.checkout {
+    background-color: #f2f2f2;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    
+}
+
+
+.cart-part {
+    background-color: #f2f2f2;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+.cart-part {
+    flex: 25%;
+}
+
+.container h4 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-header {
+    font-family: var(--fredoka);
+}
+
+.col-200 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.checkout {
+    width: 70%;
+}
+
+.col-checkout {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.col-c1 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkout-header-container {
+    position: relative;
+    display: flex;
+    justify-content: center; /* Centers the heading */
+    align-items: center;
+    margin: 20px 0;
+    
+}
+
+.btn-back {
+    position: absolute; /* Positions the back button without affecting heading */
+    left: 20px; /* Adjust the distance from the left */
+    font-family: var(--fredoka);
+    background-color: #c71e1e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: darkred;
+}
+
+.checkout-header {
+    font-size: 6vh;
+    font-weight: bold;
+    text-align: center;
+}
+
+#checkout-form .line {
+    width: 20%;
+    height: 4px;
+    background-color: var(--dark-brown);
+    margin: 5px auto; /* Centers the line */
+}
+
+
+.btn-back.smaller {
+    display: none;
+}
+
+
+.btn-back.bigger {
+    display: block;
+}
+  
+/* Coupon Section */
+
+.coupon-section {
+    margin-top: 20px;
+}
+
+.coupon-wrap {
+    display: flex;
+    width: 100%;
+}
+
+.coupon-section h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+  
+.coupon-section input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+  
+.coupon-section button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+  
+.coupon-section button:hover {
+    background-color: #45a049;
+}
+
+.btn-checkout {
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+  
+.btn-checkout:hover {
+    background-color: #45a049; 
+}
+
+.cart-part span.price {
+    float: right;
+    color: grey;
+}
+
+.cart-part .price {
+    font-size: 20px;
+}
+
+
+/* Owner Dashboard Styles */
+.owner-dashboard-container {
+    margin: 80px auto;
+    max-width: 900px;
+    font-family: var(--fredoka);
+    text-align: left; /* Align all text to the left */
+}
+
+.owner-dashboard-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--dark-brown);
+    margin-bottom: 10px;
+    text-align: left; /* Align to left */
+    font-family: 'Fredoka', sans-serif; /* Ensure correct font */
+}
+
+.owner-dashboard-line {
+    height: 5px; /* Make the line thicker */
+    background-color: #4B2008; /* Dark brown color */
+    width: 100%; /* Match the width of the table */
+    margin: 10px 0 20px; /* Adjust spacing as needed */
+    border: none; /* Ensure no borders */
+}
+
+.owner-dashboard-section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DA9747;
+    margin-bottom: 20px;
+    text-align: left; /* Align to left */
+}
+
+.owner-dashboard-dropdown-container {
+    margin-bottom: 30px;
+    text-align: left; /* Align to left */
+    display: inline-block; /* Ensures dropdown stays in flow */
+}
+
+.dropdown-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-brown);
+    margin-right: 10px;
+}
+
+.owner-dashboard-dropdown {
+    background-color: #CB7208;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px; /* Adds spacing after label */
+}
+
+.owner-dashboard-dropdown:hover {
+    background-color: var(--brown);
+    color: white;
+}
+
+.owner-dashboard-table {
+    margin: 20px auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.owner-dashboard-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.owner-dashboard-table th, 
+.owner-dashboard-table td {
+    border: 2px solid var(--dark-brown);
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--dark-brown);
+}
+
+.owner-dashboard-table th {
+    background-color: #CB7208; /* Updated Table Header Color */
+    color: white;
+    font-weight: bold;
+}
+
+.owner-dashboard-caption {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--dark-brown);
+    margin-top: 10px;
+    text-align: left; /* Align caption text to left */
+}
+
+/* Sales Illustration Section */
+.sales-illustration-container {
+    margin: 50px auto;
+    max-width: 900px;
+    font-family: var(--fredoka);
+    text-align: left; /* Align all text to the left */
+}
+
+.sales-illustration-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DA9747;
+    margin-top: -40px;
+    margin-bottom: 10px;
+    text-align: left; 
+}
+
+.sales-illustration-line {
+    height: 5px; 
+    background-color: #4B2008; 
+    width: 100%; 
+    margin: 10px 0 20px; 
+    border: none; 
+}
+
+.sales-illustration-image {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 20px auto; 
+}
+
+/* Sales Illustration Image */
+.sales-illustration-image img {
+    width: 80%; 
+    max-width: 1000px; 
+    border: 2px solid var(--dark-brown); 
+    border-radius: 8px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.sales-illustration-caption {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--dark-brown);
+    margin-top: 10px;
+    text-align: left; 
+}
+
+/* Staff Management Section */
+.staff-management-container {
+    margin: 50px auto;
+    max-width: 900px;
+    font-family: var(--fredoka);
+    text-align: left; 
+}
+
+.staff-management-line {
+    height: 5px; 
+    background-color: #4B2008; 
+    width: 100%; 
+    margin: 10px 0 20px; 
+    border: none; 
+}
+
+.staff-management-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DA9747;
+    margin-bottom: 20px;
+    text-align: left; 
+}
+
+.staff-management-table {
+    margin: 20px auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.staff-management-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-management-table th,
+.staff-management-table td {
+    border: 2px solid var(--dark-brown);
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--dark-brown);
+}
+
+.staff-management-table th {
+    background-color: #CB7208; 
+    color: white;
+    font-weight: bold;
+}
+
+
+/* Coupons Page Styles */
+.coupon-page-container {
+    margin-top: 100px; /* To account for the fixed navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Larger gap between cards */
+    padding: 20px;
+    font-family: var(--fredoka);
+    background-color: #fff;
+}
+
+.coupon-section-title {
+    font-size: 2.0rem;
+    font-weight: bold;
+    color: var(--dark-brown);
+    margin-bottom: 20px;
+    text-align: left;  /* Align the text to the left */
+}
+
+/* Active Coupons Styles */
+.coupon-page-card {
+    background-color: var(--lightest-brown); /* Lighter brown for the cards */
+    border-radius: 30px; /* More rounded corners */
+    padding: 20px 30px; /* Increased padding for more spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Slightly larger shadow */
+}
+
+.coupon-page-card-text {
+    font-size: 1.2rem; /* Larger text */
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
+/* Coupon Code Styling (for claimed coupons) */
+.coupon-code {
+    font-size: 0.9rem;  /* Smaller text for the code */
+    color: #333;
+    margin-top: 5px;  /* Space between coupon text and code */
+    font-weight: normal;
+}
+
+.coupon-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Button styling remains the same */
+.coupon-page-card-btn {
+    font-size: 1.2rem; /* Larger button text */
+    font-weight: bold;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent; /* No background color */
+}
+
+.coupon-page-card-btn.claim-btn {
+    color: red;
+}
+
+.coupon-page-card-btn.claim-btn:hover {
+    color: var(--brown); /* Darker hover effect */
+}
+
+.coupon-page-card-btn.get-btn {
+    color: blue;
+}
+
+.coupon-page-card-btn.get-btn:hover {
+    color: var(--brown); /* Darker hover effect */
+}
+
+/* Claimed Coupons Styles */
+.claimed-coupon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.claimed {
+    background-color: #d3d3d3; /* Light gray for claimed coupons */
+    color: #707070; /* Gray text */
+    display: flex;
+    justify-content: space-between; /* Aligns text and "Claimed" button */
+    align-items: center; /* Vertically aligns items */
+}
+
+.claimed-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: red;
+    display: inline-block;
+    text-align: center;
+    padding-left: 20px; /* Adds space from the coupon title */
+}
+
+/* Check out responsiveness */
+@media (max-width: 820px) {
+    .checkout-container {
+      flex-direction: column-reverse;
+    }
+    .checkout {
+        width: 100%;
+    }
+
+    .btn-back.smaller {
+        display: block;
+    }
+
+    .btn-back.bigger {
+        display: none;
+    }
+}
+
+@media (max-height: 700px) {
+    body, 
+  section#checkout-form, 
+  section#checkout-form * {
+    font-size: 0.98em;
+  }
+  .col-200 {
+    gap: 10px;
+  }  
+
+  .col-c1 {
+    gap: 10px;
+  }
+
+  #checkout-form .checkout-header {
+    font-size: 4vh;
+  }
+
+    h1.checkout-header {
+        margin: 0;
+    }
+
+    .checkout {
+        width: 60%;
+    }
+    .checkout-header-container {
+        margin-bottom: 0px;
+    }
+
+    #checkout-form {
+        margin-top: 10px;
+    }
+
+    .total {
+        margin-bottom: 0px;
+    }
+
+}
+
+@media (min-width: 825px) and (max-width: 980px){
+      .checkout {
+          width: 60%;
+      }
+}
+
+  @media (max-width: 630px) {
+    .checkout-container {
+      flex-direction: column-reverse;
+    }
+    .checkout {
+        width: 100%;
+    }
+
+    .btn-back.smaller {
+        display: block;
+    }
+
+    .btn-back.bigger {
+        display: none;
+    }
+
+    #checkout-form {
+        padding: 20px 30px;
+        margin-top: 15px;
+    }
+    
+    #checkout-form .line {
+        width: 40%;
+    }
+  }
+
+  @media (max-width: 490px) {
+    .checkout-container {
+        flex-direction: column-reverse;
+      }
+      .checkout {
+          width: 100%;
+      }
+  
+      .btn-back.smaller {
+          display: block;
+      }
+  
+      .btn-back.bigger {
+          display: none;
+      }
+  
+      #checkout-form {
+          padding: 20px 30px;
+          margin-top: 15px;
+      }
+      
+      #checkout-form .line {
+          width: 40%;
+      }
+
+      .col-checkout {
+        flex-direction: column;
+    }
+
+    .col-c1 {
+        width: 100%;
+    }
+
+    body, 
+    section#checkout-form, 
+    section#checkout-form * {
+      font-size: 0.98em;
+    }
+    
+    #checkout-form .checkout-header {
+        font-size: 3vh;
+    }
+
+    .checkout-header-container {
+        margin-bottom: 0px;
+    }
+
+  }
+
+  /* Browse Responsiveness*/ 
+  @media (max-width: 1040px) {
+    .menu-box {
+        width: 70vw;
+    }
+
+    .menu-box {
+        font-size: 0.98em;
+    }
+
+    .menu-box h2{
+        font-size: 1.5em;
+        margin-top: 50px;
+    }
+
+    .menu-box h3{
+        font-size: 1.5em;
+    }
+
+    .menu-img-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+  }
+
+  @media (max-width: 555px) {
+    .upper {
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .upper .heading h1 {
+        font-size: 1.3em;
+    }
+
+    .upper .heading img {
+        height: 80px;
+    }
+
+    .upper .col1 .btn {
+        background-color: #48201a;
+        font-size: 0.7em;
+    }
+
+    .col1 img {
+        height: 25px;
+    }
+
+    .menu-box {
+        font-size: 0.9em;
+    }
+
+    .menu-box h2{
+        font-size: 1.5em;
+        margin-top: 50px;
+    }
+
+    .menu-box h3{
+        font-size: 1.5em;
+    }
+
+    .menu-box {
+        width: 80vw;
+    }
+  }
+
+  @media (max-width: 420px) {
+
+    .menu-box {
+        width: 90vw;
+    }
+    .browse .p5 {
+        padding: 3rem 2rem;
+    }
+
+    .menu-img-circle {
+        width: 140px;
+        height: 140px;
+    }
+    .menu-box h2{
+        margin-top: 40px;
+    }
+
+  }
+
+  @media (max-height: 685px) and (min-width: 575px) {
+    .menu-box {
+        font-size: 0.9em;
+    }
+
+    .menu-box h2{
+        font-size: 1.3em;
+        margin-top: 40px;
+    }
+
+    .menu-box h3{
+        font-size: 1em;
+    }
+
+    .menu-img-circle {
+        width: 140px;
+        height: 140px;
+    }
+
+    .browse .p5 {
+        padding: 3rem 2rem;
+    }
+    
+    .upper .heading h1 {
+        font-size: 1.3em;
+    }
+
+    .upper .heading img {
+        height: 80px;
+    }
+
+    .upper .col1 .btn {
+        background-color: #48201a;
+        font-size: 0.7em;
+    }
+
+    .col1 img {
+        height: 25px;
+    }
+
+    .row {
+        margin-top: 0px;
+    }
+  }
+
+  /* Oder Responsiveness */
+
+  @media (max-width: 875px) {
+    #order .header h1 {
+        font-size: 8vh;
+    }
+  }
+  
+  @media (max-width: 655px) {
+    #order .header h1 {
+        font-size: 6vh;
+    }
+  }
+>>>>>>> branch1
