@@ -107,12 +107,10 @@
                     <tr>
                         <th>Name</th>
                         <th>Branch</th>
-                        <th>Status</th>
                         <th>Permission</th>
                         <th>Position</th>
                         <th>Contact Number</th>
                         <th>Email</th>
-                        <th>Date Joined</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -121,29 +119,39 @@
                     <tr>
                         <td>John Doe</td>
                         <td>SM Valenzuela</td>
-                        <td>Active</td>
-                        <td>Admin</td>
+                        <td>
+                            <label>
+                                <input type="radio" name="permission-1" value="Allowed" disabled> Allowed
+                            </label>
+                            <label>
+                                <input type="radio" name="permission-1" value="Declined" disabled> Declined
+                            </label>
+                        </td>
                         <td>Manager</td>
                         <td>+63 912 345 6789</td>
                         <td>johndoe@example.com</td>
-                        <td>2023-01-15</td>
                         <td>
-                            <button class="action-btn edit">Edit</button>
-                            <button class="action-btn delete">Delete</button>
+                            <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>Jane Smith</td>
                         <td>One Mall Valenzuela</td>
-                        <td>Inactive</td>
-                        <td>Employee</td>
+                        <td>
+                            <label>
+                                <input type="radio" name="permission-1" value="Allowed" disabled> Allowed
+                            </label>
+                            <label>
+                                <input type="radio" name="permission-1" value="Declined" disabled> Declined
+                            </label>
+                        </td>
                         <td>Cashier</td>
                         <td>+63 912 987 6543</td>
                         <td>janesmith@example.com</td>
-                        <td>2022-08-10</td>
                         <td>
-                            <button class="action-btn edit">Edit</button>
-                            <button class="action-btn delete">Delete</button>
+                            <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -153,13 +161,16 @@
     <!-- Modal for Adding Employee -->
     <div id="employeeModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
             <h3>Add Employee</h3>
             <form id="addEmployeeForm">
                 <input type="text" id="name" placeholder="Name" required>
 
                 <div class="column">
-                    <input type="text" id="branch" placeholder="Branch" required>
+                    <select id="employee-branch">
+                        <option value="SM Valenzuela">SM Valenzuela</option>
+                        <option value="Waltermart">Waltermart</option>
+                        <option value="SM Mall of Asia">SM Mall of Asia</option>
+                    </select>
                     <input type="text" id="position" placeholder="Position" required>
                 </div>
 
@@ -168,8 +179,18 @@
                     <input type="email" id="email" placeholder="Email" required>
                 </div>
 
-                <input type="date" id="dateJoined" required>
-                <button class="addEmployee" type="submit">Add Employee</button>
+                <label>Permission</label>
+                <label>
+                    <input type="radio" name="permission" value="Allowed"> Allowed
+                </label>
+                <label>
+                    <input type="radio" name="permission" value="Declined"> Declined
+                </label>
+
+                <div class="modal-buttons">
+                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button class="save-btn" onclick="saveEmployee()">Save</button>
+                </div>
             </form>
         </div>
     </div>
