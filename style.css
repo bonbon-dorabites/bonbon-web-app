@@ -1301,7 +1301,7 @@ textarea.form-control:focus {
 /* Owner Dashboard Styles */
 .owner-dashboard-container {
     margin: 80px auto;
-    max-width: 900px;
+    max-width: 1200px;
     font-family: var(--fredoka);
     text-align: left; /* Align all text to the left */
 }
@@ -1330,31 +1330,26 @@ textarea.form-control:focus {
     margin-bottom: 20px;
     text-align: left; /* Align to left */
 }
-
-.owner-dashboard-dropdown-container {
-    margin-bottom: 30px;
-    text-align: left; /* Align to left */
-    display: inline-block; /* Ensures dropdown stays in flow */
-}
-
-.dropdown-label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--dark-brown);
-    margin-right: 10px;
-}
-
 .owner-dashboard-dropdown {
     background-color: #CB7208;
     color: white;
     font-size: 1.2rem;
     font-weight: bold;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 20px; /* Controls padding inside the dropdown */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-left: 10px; /* Adds spacing after label */
+    margin-left: 10px; /* Adds spacing between dropdowns */
+
+    appearance: none;
+    -webkit-appearance: none; 
+
+    /* Arrow adjustments */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M7.41 8.42L12 13l4.59-4.58L18 10l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 5px) center; 
+    background-size: 16px; 
 }
 
 .owner-dashboard-dropdown:hover {
@@ -1448,7 +1443,7 @@ textarea.form-control:focus {
 /* Staff Management Section */
 .staff-management-container {
     margin: 50px auto;
-    max-width: 900px;
+    max-width: 1200px;
     font-family: var(--fredoka);
     text-align: left; 
 }
@@ -1461,6 +1456,34 @@ textarea.form-control:focus {
     border: none; 
 }
 
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.header-row input {
+    width: 200px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+    font-size: 1rem;
+}
+
+.header-row button, .addEmployee {
+    padding: 8px 15px;
+    background-color: var(--brown);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.header-row button:hover {
+    background-color: #A65A06;
+}
+
 .staff-management-title {
     font-size: 1.8rem;
     font-weight: bold;
@@ -1469,12 +1492,149 @@ textarea.form-control:focus {
     text-align: left; 
 }
 
-.staff-management-table {
-    margin: 20px auto;
+ /* Table styling */
+ .staff-management-table {
     width: 100%;
-    overflow-x: auto;
+    margin: 20px auto;
+    border-collapse: collapse;
+    
+    font-size: 1rem;
 }
 
+/* Header row styling */
+.staff-management-table th {
+    background-color: var(--brown);
+    color: white;
+    padding: 10px;
+    border: 1px solid var(--dark-brown);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Body row styling */
+.staff-management-table td {
+    padding: 10px;
+    border: 1px solid var(--dark-brown);
+    color: #333;
+}
+
+/* Alternate row colors */
+.staff-management-table tbody tr:nth-child(even) {
+    background-color: #f9f3e8;
+}
+
+.staff-management-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Action buttons */
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+.action-btn.edit {
+    background-color: #28a745;
+    color: white;
+}
+
+.action-btn.edit:hover {
+    background-color: #218838;
+}
+
+.action-btn.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.action-btn.delete:hover {
+    background-color: #c82333;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.modal-content h3 {
+    margin-bottom: 30px;
+}
+
+.close {
+    display: flex;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    justify-content: flex-end;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Modal form */
+.modal form {
+    display: grid;
+    gap: 15px;
+}
+
+.modal input, .modal select {
+    padding: 10px;
+    border: 1px solid var(--brown);
+    border-radius: 5px;
+}
+
+.addEmployee {
+    width: 150px;
+    margin: 20px auto;
+   
+}
+        
+.column {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.column input {
+    width: 50%;
+}
+
+/*
+.staff-management-table {
+    
+    width: 100%;
+    overflow-x: auto;
+}*/
+
+/*
 .staff-management-table table {
     width: 100%;
     border-collapse: collapse;
