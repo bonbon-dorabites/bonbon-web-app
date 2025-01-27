@@ -49,3 +49,13 @@ document.querySelectorAll('.label').forEach(label => {
     });
   });
   
+
+  // Open Modal
+  function openModal() {
+    document.getElementById('employeeModal').style.display = "block";
+}
+
+// Close Modal
+function closeModal() {
+    document.getElementById('employeeModal').style.display = "none";
+}
