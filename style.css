@@ -913,139 +913,9 @@ textarea.form-control:focus {
     color: var(--dark-brown);
 }
 
-/* Mobile Phones (max-width: 576px) */
-@media (max-width: 576px) {
-    /* Stock List */
-    .stock-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .stock-list li span.badge {
-        font-size: 0.9rem;
-        padding: 5px 10px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        margin-top: 70px;
-        margin-bottom: 20px;
-    }
-    .dashboard-header h1 {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-
-    /* Accordion */
-    .accordion-body {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-    .accordion-button {
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    /* Textarea */
-    textarea.form-control {
-        font-size: 0.8rem;
-        padding: 8px;
-    }
+/* Media Queries for Responsive Design */
 
 
-}
-
-/* Tablets (max-width: 768px) */
-@media (max-width: 768px) {
-    /* Stock List */
-    .stock-list li {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    .stock-list li span.badge {
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        margin-top: 80px;
-        margin-bottom: 25px;
-    }
-    .dashboard-header h1 {
-        font-size: 3rem;
-    }
-
-    /* Accordion */
-    .accordion-body {
-        font-size: 1rem;
-        padding: 12px;
-    }
-    .accordion-button {
-        font-size: 1.1rem;
-        padding: 10px 20px;
-    }
-
-    /* Textarea */
-    textarea.form-control {
-        font-size: 0.9rem;
-        padding: 9px;
-    }
-}
-
-/* Small Laptops (max-width: 992px) */
-@media (max-width: 992px) {
-    /* Stock List */
-    .stock-list li {
-        gap: 20px;
-    }
-    .stock-list li span.badge {
-        font-size: 1rem;
-        padding: 10px 20px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        margin-top: 90px;
-        margin-bottom: 30px;
-    }
-    .dashboard-header h1 {
-        font-size: 3.5rem;
-    }
-
-    /* Accordion */
-    .accordion-body {
-        font-size: 1rem;
-    }
-    .accordion-button {
-        font-size: 1.1rem;
-    }
-
-    /* Textarea */
-    textarea.form-control {
-        font-size: 1rem;
-        padding: 10px;
-    }
-}
-
-/* Large Laptops (max-width: 1200px) */
-@media (max-width: 1200px) {
-    .dashboard-header {
-        margin-top: 100px;
-        margin-bottom: 30px;
-    }
-    .dashboard-header h1 {
-        font-size: 4rem;
-    }
-    textarea.form-control {
-        font-size: 1rem;
-        padding: 10px;
-    }
-}
-
-#order {
-    min-height: 684px;
-}
 
 /* CHECKOUT FORM */
 #checkout-form {
@@ -1394,14 +1264,16 @@ textarea.form-control:focus {
 }
 
 /* Staff Management Section */
-.staff-management-container {
+.staff-management-container, 
+.coupons-management-container {
     margin: 50px auto;
-    max-width: 900px;
+    max-width: 1200px;
     font-family: var(--fredoka);
     text-align: left; 
 }
 
-.staff-management-line {
+.staff-management-line,
+.coupons-management-line {
     height: 5px; 
     background-color: #4B2008; 
     width: 100%; 
@@ -1409,7 +1281,36 @@ textarea.form-control:focus {
     border: none; 
 }
 
-.staff-management-title {
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.header-row input {
+    width: 200px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+    font-size: 1rem;
+}
+
+.header-row button, .addEmployee {
+    padding: 8px 15px;
+    background-color: var(--brown);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.header-row button:hover {
+    background-color: #A65A06;
+}
+
+.staff-management-title,
+.coupons-management-title {
     font-size: 1.8rem;
     font-weight: bold;
     color: #DA9747;
@@ -1417,31 +1318,144 @@ textarea.form-control:focus {
     text-align: left; 
 }
 
-.staff-management-table {
+ /* Table styling */
+ .staff-management-table,
+ .coupons-management-table {
+    width: 100%;
     margin: 20px auto;
-    width: 100%;
-    overflow-x: auto;
-}
-
-.staff-management-table table {
-    width: 100%;
     border-collapse: collapse;
-}
-
-.staff-management-table th,
-.staff-management-table td {
-    border: 2px solid var(--dark-brown);
-    text-align: center;
-    padding: 10px;
+    
     font-size: 1rem;
-    color: var(--dark-brown);
 }
 
-.staff-management-table th {
-    background-color: #CB7208; 
+/* Header row styling */
+.staff-management-table th,
+.coupons-management-table th {
+    background-color: var(--brown);
     color: white;
+    padding: 10px;
+    border: 1px solid var(--dark-brown);
     font-weight: bold;
+    text-transform: uppercase;
 }
+
+/* Body row styling */
+.staff-management-table td,
+.coupons-management-table td {
+    padding: 10px;
+    border: 1px solid var(--dark-brown);
+    color: #333;
+}
+
+/* Alternate row colors */
+.staff-management-table tbody tr:nth-child(even){
+    background-color: #f9f3e8;
+}
+
+.staff-management-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Action buttons */
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+.action-btn.edit {
+    background-color: #28a745;
+    color: white;
+}
+
+.action-btn.edit:hover {
+    background-color: #218838;
+}
+
+.action-btn.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.action-btn.delete:hover {
+    background-color: #c82333;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.modal-content h3 {
+    margin-bottom: 30px;
+}
+
+.close {
+    display: flex;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    justify-content: flex-end;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Modal form */
+.modal form {
+    display: grid;
+    gap: 15px;
+}
+
+.modal input, .modal select {
+    padding: 10px;
+    border: 1px solid var(--brown);
+    border-radius: 5px;
+}
+
+.addEmployee {
+    width: 150px;
+    margin: 20px auto;
+   
+}
+        
+.column {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.column input {
+    width: 50%;
+}
+
 
 
 /* Coupons Page Styles */
@@ -1551,4 +1565,4 @@ textarea.form-control:focus {
     padding-left: 20px; /* Adds space from the coupon title */
 }
 
-/* MANAGER DASHBOARD */
+/* MANAGER-DASHBOARD */
