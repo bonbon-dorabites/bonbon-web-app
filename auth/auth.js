@@ -186,6 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editMenu = document.getElementById("edit-menu");
     const logoutMenu = document.getElementById("logout-menu");
     const ownerMenu = document.getElementById("owner-menu");
+    const managerMenu = document.getElementById("manager-menu");
     const staffMenu = document.getElementById("staff-menu");
     const customerMenu = document.getElementById("customer-menu");
   
@@ -201,14 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
       editMenu.style.display = "none";
       logoutMenu.style.display = "none";
       ownerMenu.style.display = "none";
+      managerMenu.style.display = "none";
       staffMenu.style.display = "none";
       customerMenu.style.display = "none";
     };
-    /** 
+    
     let managerEmails = [
       "jethrojamesaguilar.18@gmail.com"
     ];
-    */
+    
     let staffEmails = [
       "jayjayangadok21@gmail.com",
       "dehonorcharryl@gmail.com",
@@ -246,6 +248,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (user.email === "jayjay.otaku@gmail.com") {
               ownerMenu.style.display = "block"; // Owner menu
               console.log("Owner menu displayed.");
+            } else if (managerEmails.includes(user.email)) {
+              managerMenu.style.display = "block"; // Staff menu
+              console.log("Manager menu displayed.");
             } else if (staffEmails.includes(user.email)) {
               staffMenu.style.display = "block"; // Staff menu
               console.log("Staff menu displayed.");
@@ -260,7 +265,28 @@ document.addEventListener("DOMContentLoaded", () => {
       }).catch((error) => {
         console.error("Error fetching user document:", error);
       });
-    };   
+    };
+    
+    // Add staff
+    function addManagerEmail(email) {
+      if (!staffEmails.includes(email)) {
+        managerEmails.push(email);
+        console.log(`Added ${email} to manager.`);
+      } else {
+        console.log(`${email} is already a manager.`);
+      }
+    }
+
+    // Remove staff
+    function removeManagerEmail(email) {
+      const index = managerEmails.indexOf(email);
+      if (index !== -1) {
+        managerEmails.splice(index, 1);
+        console.log(`Removed ${email} from manager.`);
+      } else {
+        console.log(`${email} is not a manager.`);
+      }
+    }
     
     // Add staff
     function addStaffEmail(email) {
