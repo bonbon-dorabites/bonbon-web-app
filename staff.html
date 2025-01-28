@@ -13,8 +13,9 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
             <div class="container-fluid">
-
-                <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link ms-5">
+                <a href="./index.html">
+                    <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
+                </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -31,18 +32,42 @@
                   </li>
                 </ul>
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="signup.html">Register</a></li>
-                        <li><a class="dropdown-item" href="login.html">Login</a></li>
-                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <span id="user-menu">
+                                <li><p></p><hr class="line" style="color: white;"></li>
+                            </span>
+                            <span id="signup-menu">
+                                <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
+                            </span>
+                            <span id="login-menu">
+                                <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
+                            </span>
+                            <span id="edit-menu">
+                                <li><a class="dropdown-item" href="/user-details.html">Edit Details</a></li>
+                            </span>
+                            <span id="logout-menu">
+                                <li><a class="dropdown-item">Log-out</a></li>
+                            </span>
+                            <span id="owner-menu">
+                                <li><a class="dropdown-item" href="/owner.html">Dashboard</a></li>
+                            </span>
+                            <span id="manager-menu">
+                                <li><a class="dropdown-item" href="/manager.html">Dashboard</a></li>
+                            </span>
+                            <span id="staff-menu">
+                                <li><a class="dropdown-item" href="/staff.html">Dashboard</a></li>
+                            </span>
+                            <span id="customer-menu">
+                                <li><a class="dropdown-item" href="/customer.html">Dashboard</a></li>
+                            </span>
+                        </ul>
                     </li>
                 </ul>
               </div>
@@ -50,167 +75,165 @@
         </nav>
     </header><br><br>
 
-
-        <div class="dashboard-header text-center">
-            <h1>Staff Dashboard</h1>
-        </div>
-
+    <div class="dashboard-header text-center">
+        <h1>Staff Dashboard</h1>
+    </div>
     
-        <!-- Dropdown Section -->
-        <div class="row12">
-            <div class="col1">
-                <img src="./img/shopping-bag-icon.png" alt="">
-                <div class="dropdown">
-                    <button class="btn btn-secondary" type="button">
-                      SM NORTH EDSA
-                </div>
-            </div>
-
-            <div class="col2">
-                <img src="./img/reminder-icon.png" alt="">
-                <p class="branch-alert">
-                    You are the admin of <b>THIS branch</b>. You cannot choose other branches.
-                </p>
+    <!-- Dropdown Section -->
+    <div class="row12">
+        <div class="col1">
+            <img src="./img/shopping-bag-icon.png" alt="">
+            <div class="dropdown">
+                <button class="btn btn-secondary" type="button">
+                    SM NORTH EDSA
             </div>
         </div>
 
-        <!-- First Horizontal Line -->
+        <div class="col2">
+            <img src="./img/reminder-icon.png" alt="">
+            <p class="branch-alert">
+                You are the admin of <b>THIS branch</b>. You cannot choose other branches.
+            </p>
+        </div>
+    </div>
+
+    <!-- First Horizontal Line -->
+    <div class="first-line"></div>
+
+    <!-- Stock Update Section -->
+    <section class="stock-update mt-4">
+        <h2>Stock Update</h2>
+        <h3>Sizes (Dorayaki Bites & Walnutella)</h3>
+        <ul class="stock-list">
+            <li>
+                Oishi (8pcs)
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>
+                </div>
+
+            </li>
+            <li>
+                Sugoi (12pcs)
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>
+                </div>
+            </li>
+            <li>
+                Bonbon Box (16pcs)
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>
+                </div>
+
+            </li>
+        </ul>
+    
+        <h3>Flavors (Dorayaki Bites)</h3>
+        <ul class="stock-list">
+            <li>
+                Classic Choco
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+            <li>
+                Dulce De Leche
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+            <li>
+                Cheese
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+            <li>
+                Walnutella
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                      
+                </div>
+
+            </li>
+        </ul>
+    
+        <h3>Drinks</h3>
+        <ul class="stock-list">
+            <li>
+                Choco (12oz)
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+            <li>
+                Hot Coffee (12oz)
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                       
+                </div>
+
+            </li>
+            <li>
+                Iced Coffee (12oz)
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+        </ul>
+    
+        <h3>Flavors (Boncoin)</h3>
+        <ul class="stock-list">
+            <li>
+                Nutella
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+            <li>
+                Oreo Cream Cheese
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                        
+                </div>
+
+            </li>
+            <li>
+                Ham & Creamcheese
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                       
+                </div>
+
+            </li>
+            <li>
+                Mozarella
+                <div class="dash-buttons">
+                    <button class="btn btn-success">Available</button>
+                    <button class="btn btn-danger">Sold-Out</button>                       
+                </div>
+
+            </li>
+        </ul>
         <div class="first-line"></div>
-
-        <!-- Stock Update Section -->
-        <section class="stock-update mt-4">
-            <h2>Stock Update</h2>
-            <h3>Sizes (Dorayaki Bites & Walnutella)</h3>
-            <ul class="stock-list">
-                <li>
-                    Oishi (8pcs)
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>
-                    </div>
-
-                </li>
-                <li>
-                    Sugoi (12pcs)
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>
-                    </div>
-                </li>
-                <li>
-                    Bonbon Box (16pcs)
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>
-                    </div>
-
-                </li>
-            </ul>
-        
-            <h3>Flavors (Dorayaki Bites)</h3>
-            <ul class="stock-list">
-                <li>
-                    Classic Choco
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-                <li>
-                    Dulce De Leche
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-                <li>
-                    Cheese
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-                <li>
-                    Walnutella
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                      
-                    </div>
-
-                </li>
-            </ul>
-        
-            <h3>Drinks</h3>
-            <ul class="stock-list">
-                <li>
-                    Choco (12oz)
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-                <li>
-                    Hot Coffee (12oz)
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                       
-                    </div>
-
-                </li>
-                <li>
-                    Iced Coffee (12oz)
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-            </ul>
-        
-            <h3>Flavors (Boncoin)</h3>
-            <ul class="stock-list">
-                <li>
-                    Nutella
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-                <li>
-                    Oreo Cream Cheese
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                        
-                    </div>
-
-                </li>
-                <li>
-                    Ham & Creamcheese
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                       
-                    </div>
-
-                </li>
-                <li>
-                    Mozarella
-                    <div class="dash-buttons">
-                        <button class="btn btn-success">Available</button>
-                        <button class="btn btn-danger">Sold-Out</button>                       
-                    </div>
-
-                </li>
-            </ul>
-            <div class="first-line"></div>
-        </section>
+    </section>
          
-<!-- Pending Orders Section -->
-<section class="pending-orders mt-4">
+    <!-- Pending Orders Section -->
+    <section class="pending-orders mt-4">
         <h2>Pending Orders</h2>
         <div class="accordion" id="pendingOrdersAccordion">
             <div class="accordion-item">
@@ -236,48 +259,65 @@
         <div class="first-line"></div>
     </section>
 
-<!-- Finished Orders Section -->
-<section class="finished-orders mt-4">
-    <h2>Finished Orders</h2>
-    <div class="accordion" id="finishedOrdersAccordion">
-
-        <!-- First Finished Order -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
-                    ORDER ID: 67890
-                </button>
-            </h2>
-            <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."</p>
+    <!-- Finished Orders Section -->
+    <section class="finished-orders mt-4">
+        <h2>Finished Orders</h2>
+        <div class="accordion" id="finishedOrdersAccordion">
+            <!-- First Finished Order -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
+                        ORDER ID: 67890
+                    </button>
+                </h2>
+                <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Status:</b> Paid</p>
+                        <p><b>Feedback:</b> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Second Finished Order -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
+                        ORDER ID: 67901
+                    </button>
+                </h2>
+                <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Status:</b> Paid</p>
+                        <p><b>Feedback:</b> "Great service, fast delivery, and delicious food!"</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Second Finished Order -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
-                    ORDER ID: 67901
-                </button>
-            </h2>
-            <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b> "Great service, fast delivery, and delicious food!"</p>
+    <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Processing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Please wait...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-
     </div>
-</section>
 
+    <!-- Footer -->
+    <footer class="small-footer">
+        <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
 
-<!-- Footer -->
-<footer class="small-footer mt-5">
-    <p>In Partial Fulfillment for subject Web Development</p>
-</footer>
+    <script src="./main.js"></script>
+    <script type="module" src="../auth/auth.js" defer></script>
 </body>
 </html>

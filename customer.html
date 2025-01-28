@@ -13,8 +13,9 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
             <div class="container-fluid">
-
-                <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link ms-5">
+                <a href="./index.html">
+                    <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
+                </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -31,18 +32,42 @@
                   </li>
                 </ul>
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="signup.html">Register</a></li>
-                        <li><a class="dropdown-item" href="login.html">Login</a></li>
-                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <span id="user-menu">
+                                <li><p></p><hr class="line" style="color: white;"></li>
+                            </span>
+                            <span id="signup-menu">
+                                <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
+                            </span>
+                            <span id="login-menu">
+                                <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
+                            </span>
+                            <span id="edit-menu">
+                                <li><a class="dropdown-item" href="/user-details.html">Edit Details</a></li>
+                            </span>
+                            <span id="logout-menu">
+                                <li><a class="dropdown-item">Log-out</a></li>
+                            </span>
+                            <span id="owner-menu">
+                                <li><a class="dropdown-item" href="/owner.html">Dashboard</a></li>
+                            </span>
+                            <span id="manager-menu">
+                                <li><a class="dropdown-item" href="/manager.html">Dashboard</a></li>
+                            </span>
+                            <span id="staff-menu">
+                                <li><a class="dropdown-item" href="/staff.html">Dashboard</a></li>
+                            </span>
+                            <span id="customer-menu">
+                                <li><a class="dropdown-item" href="/customer.html">Dashboard</a></li>
+                            </span>
+                        </ul>
                     </li>
                 </ul>
               </div>
@@ -55,129 +80,144 @@
         <div class="dashboard-header text-center">
             <h1>Customer Dashboard</h1>
         </div>
-    
-    
-    <div class="first-line"></div>
+        <div class="first-line"></div>
 
-   <!-- Pending Orders Section -->
-    <section class="pending-orders mt-4">
-        <h2>Pending Orders</h2>
-    <br> <!-- Space above accordion -->
+        <!-- Pending Orders Section -->
+        <section class="pending-orders mt-4">
+            <h2>Pending Orders</h2><br> 
 
-    <div class="accordion" id="pendingOrdersAccordion">
-        <!-- Order 1 -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder1" aria-expanded="false" aria-controls="pendingOrder1">
-                    ORDER ID: 54321
-                </button>
-            </h2>
-            <div id="pendingOrder1" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Name:</b> John Doe</p>
-                    <p><b>Email:</b> example@gmail.com</p>
-                    <p><b>Phone:</b> +63 912 345 6789</p>
-                    <p><b>Menu:</b> ORIGINAL OISHI (x1)</p>
-                    <p><b>Coupons:</b> Availed</p>
-                    <p><b>Final Price:</b> P64.00</p>
-                    <p><b>Status:</b> Not yet Paid</p>
-                    <br> <!-- Add space below content -->
-                    <button class="btn btn-success">Finish Order</button>
+        <div class="accordion" id="pendingOrdersAccordion">
+            <!-- Order 1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder1" aria-expanded="false" aria-controls="pendingOrder1">
+                        ORDER ID: 54321
+                    </button>
+                </h2>
+                <div id="pendingOrder1" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Name:</b> John Doe</p>
+                        <p><b>Email:</b> example@gmail.com</p>
+                        <p><b>Phone:</b> +63 912 345 6789</p>
+                        <p><b>Menu:</b> ORIGINAL OISHI (x1)</p>
+                        <p><b>Coupons:</b> Availed</p>
+                        <p><b>Final Price:</b> P64.00</p>
+                        <p><b>Status:</b> Not yet Paid</p>
+                        <br> <!-- Add space below content -->
+                        <button class="btn btn-success">Finish Order</button>
+                    </div>
+                </div>
+            </div> <br> 
+
+            <!-- Order 2 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder2" aria-expanded="false" aria-controls="pendingOrder2">
+                        ORDER ID: 67898
+                    </button>
+                </h2>
+                <div id="pendingOrder2" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Name:</b> Jane Smith</p>
+                        <p><b>Email:</b> jane.smith@gmail.com</p>
+                        <p><b>Phone:</b> +63 917 654 3210</p>
+                        <p><b>Menu:</b> CHOCO DELIGHT (x2)</p>
+                        <p><b>Coupons:</b> None</p>
+                        <p><b>Final Price:</b> P128.00</p>
+                        <p><b>Status:</b> Not yet Paid</p>
+                        <br> <!-- Add space below content -->
+                        <button class="btn btn-success">Finish Order</button>
+                    </div>
+                </div>
+            </div>
+        </div><br> 
+        <div class="first-line"></div>
+    </section>
+
+    <!-- Finished Orders Section -->
+    <section class="finished-orders mt-4">
+        <h2>Finished Orders</h2>
+        <br> <!-- Space above accordion -->
+
+        <div class="accordion" id="finishedOrdersAccordion">
+            <!-- First Finished Order -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
+                        ORDER ID: 67890
+                    </button>
+                </h2>
+                <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Status:</b> Paid</p>
+                        <p><b>Feedback:</b></p>
+                        <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <br> 
+
+            <!-- Second Finished Order -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
+                        ORDER ID: 67901
+                    </button>
+                </h2>
+                <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Status:</b> Paid</p>
+                        <p><b>Feedback:</b></p>
+                        <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <br> 
+
+            <!-- Third Finished Order -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
+                        ORDER ID: 67902
+                    </button>
+                </h2>
+                <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                    <div class="accordion-body">
+                        <p><b>Status:</b> Paid</p>
+                        <p><b>Feedback:</b></p>
+                        <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
-        <br> <!-- Space between accordion items -->
+        <br><br> 
+    </section>
 
-        <!-- Order 2 -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder2" aria-expanded="false" aria-controls="pendingOrder2">
-                    ORDER ID: 67898
-                </button>
-            </h2>
-            <div id="pendingOrder2" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Name:</b> Jane Smith</p>
-                    <p><b>Email:</b> jane.smith@gmail.com</p>
-                    <p><b>Phone:</b> +63 917 654 3210</p>
-                    <p><b>Menu:</b> CHOCO DELIGHT (x2)</p>
-                    <p><b>Coupons:</b> None</p>
-                    <p><b>Final Price:</b> P128.00</p>
-                    <p><b>Status:</b> Not yet Paid</p>
-                    <br> <!-- Add space below content -->
-                    <button class="btn btn-success">Finish Order</button>
+    <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Processing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Please wait...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    <br> <!-- Spacing between accordion items -->
-    <div class="first-line"></div>
-</section>
 
-<!-- Finished Orders Section -->
-<section class="finished-orders mt-4">
-    <h2>Finished Orders</h2>
-    <br> <!-- Space above accordion -->
+    <!-- Footer -->
+    <footer class="small-footer">
+        <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
 
-    <div class="accordion" id="finishedOrdersAccordion">
-        <!-- First Finished Order -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
-                    ORDER ID: 67890
-                </button>
-            </h2>
-            <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b></p>
-                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-        <br> <!-- Space between accordion items -->
-
-        <!-- Second Finished Order -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
-                    ORDER ID: 67901
-                </button>
-            </h2>
-            <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b></p>
-                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-        <br> <!-- Space between accordion items -->
-
-        <!-- Third Finished Order -->
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
-                    ORDER ID: 67902
-                </button>
-            </h2>
-            <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                <div class="accordion-body">
-                    <p><b>Status:</b> Paid</p>
-                    <p><b>Feedback:</b></p>
-                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br><br> <!-- Space below section -->
-</section>
-</section>
-
-<!-- Footer -->
-<footer class="small-footer">
-    <p>In Partial Fulfillment for subject Web Development</p>
-  </footer>
+    <script src="./main.js"></script>
+    <script type="module" src="../auth/auth.js" defer></script>
 </body>
 </html>
 

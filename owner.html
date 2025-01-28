@@ -32,18 +32,42 @@
                   </li>
                 </ul>
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="signup.html">Register</a></li>
-                      <li><a class="dropdown-item" href="login.html">Login</a></li>
-                      <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <span id="user-menu">
+                                <li><p></p><hr class="line" style="color: white;"></li>
+                            </span>
+                            <span id="signup-menu">
+                                <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
+                            </span>
+                            <span id="login-menu">
+                                <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
+                            </span>
+                            <span id="edit-menu">
+                                <li><a class="dropdown-item" href="/user-details.html">Edit Details</a></li>
+                            </span>
+                            <span id="logout-menu">
+                                <li><a class="dropdown-item">Log-out</a></li>
+                            </span>
+                            <span id="owner-menu">
+                                <li><a class="dropdown-item" href="/owner.html">Dashboard</a></li>
+                            </span>
+                            <span id="manager-menu">
+                                <li><a class="dropdown-item" href="/manager.html">Dashboard</a></li>
+                            </span>
+                            <span id="staff-menu">
+                                <li><a class="dropdown-item" href="/staff.html">Dashboard</a></li>
+                            </span>
+                            <span id="customer-menu">
+                                <li><a class="dropdown-item" href="/customer.html">Dashboard</a></li>
+                            </span>
+                        </ul>
                     </li>
                 </ul>
               </div>
@@ -81,18 +105,18 @@
             </select>
         </div>
         
-    <div class="sales-illustration-container">
-        <div class="sales-illustration-image">
-            <img src="img/sales-illustration.png" alt="Sales Illustration Chart">
+        <div class="sales-illustration-container">
+            <div class="sales-illustration-image">
+                <img src="img/sales-illustration.png" alt="Sales Illustration Chart">
+            </div>
+            <p class="sales-illustration-caption">Fig2. Shows sales table</p>
+            <div class="staff-management-line"></div> <!-- Separator Line -->
         </div>
-        <p class="sales-illustration-caption">Fig2. Shows sales table</p>
-        <div class="staff-management-line"></div> <!-- Separator Line -->
-    </div>
 
-
-    <div class="coupon-managament-container">
-        <h2 class="staff-management-title">Coupon Management</h2>
-        <div class="staff-management-line"></div> <!-- Separator Line -->
+        <div class="coupon-managament-container">
+            <h2 class="staff-management-title">Coupon Management</h2>
+            <div class="staff-management-line"></div> <!-- Separator Line -->
+        </div>
     </div>
 
     <div class="staff-management-container">
@@ -120,10 +144,30 @@
         </div>
     </div>
 
+    <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Processing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Please wait...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Footer -->
-<footer class="small-footer">
-    <p>In Partial Fulfillment for subject Web Development</p>
-</footer>
+    <!-- Footer -->
+    <footer class="small-footer">
+        <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
+
+    <script src="./main.js"></script>
+    <script type="module" src="../auth/auth.js" defer></script>
 </body>
 </html>
