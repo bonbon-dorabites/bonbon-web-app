@@ -1300,10 +1300,12 @@ textarea.form-control:focus {
 
 /* Owner Dashboard Styles */
 .owner-dashboard-container {
-    margin: 80px auto;
+    margin: 0px auto;
+    margin-top: 80px;
     max-width: 1200px;
     font-family: var(--fredoka);
     text-align: left; /* Align all text to the left */
+    padding: 0px 50px;
 }
 
 .owner-dashboard-title {

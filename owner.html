@@ -9,6 +9,78 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        @media (max-width: 830px) {
+            table {
+                display: none;
+            }
+
+            .details {
+                display: block;
+            }
+
+            
+        }
+
+        .actions button {
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .actions .view {
+      background-color: #28a745;
+    }
+
+    .actions .delete {
+      background-color: #dc3545;
+    }
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .progress-bar progress {
+      width: 100%;
+    }
+
+    .details {
+      background: #f9f9f9;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .details.active {
+      display: block;
+    }
+
+    .details-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .details-card .initials {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    </style>
 </head>
 <body>
     <header>
@@ -82,117 +154,152 @@
             </select>
         </div>
         
-    <div class="sales-illustration-container">
-        <div class="sales-illustration-image">
-            <img src="img/sales-illustration.png" alt="Sales Illustration Chart">
-        </div>
-        <p class="sales-illustration-caption">Fig2. Shows sales table</p>
+        <div class="sales-illustration-container">
+            <div class="sales-illustration-image">
+                <img src="img/sales-illustration.png" alt="Sales Illustration Chart">
+            </div>
+            <p class="sales-illustration-caption">Fig2. Shows sales table</p>
         
-    </div>
-    <div class="staff-management-line"></div> <!-- Separator Line -->
+        </div>
+        <div class="staff-management-line"></div> <!-- Separator Line -->
 
-    <div class="staff-management-container">
-        <h2 class="staff-management-title">Staff Management</h2>
-        <div class="header-row">
+        <div class="staff-management-container">
+            <h2 class="staff-management-title">Staff Management</h2>
+            <div class="header-row">
 
-            <button onclick="openModal()">Add Employee</button>
-            <div class="search">
-                <input type="text" id="search" placeholder="Search staff...">
-                <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
+                <button onclick="openModal()">Add Employee</button>
+                <div class="search">
+                    <input type="text" id="search" placeholder="Search staff...">
+                    <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
+                </div>
+            </div>
+
+                <table class="staff-management-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Permission</th>
+                            <th>Position</th>
+                            <th>Contact Number</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staff-table-body">
+                        <!-- Example row -->
+                        <tr>
+                            <td>John Doe</td>
+                            <td>SM Valenzuela</td>
+                            <td>
+                                <label>
+                                    <input type="radio" name="permission-1" value="Allowed" disabled> Allowed
+                                </label>
+                                <label>
+                                    <input type="radio" name="permission-1" value="Declined" disabled> Declined
+                                </label>
+                            </td>
+                            <td>Manager</td>
+                            <td>+63 912 345 6789</td>
+                            <td>johndoe@example.com</td>
+                            <td>
+                                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>One Mall Valenzuela</td>
+                            <td>
+                                <label>
+                                    <input type="radio" name="permission-2" value="Allowed" disabled> Allowed
+                                </label>
+                                <label>
+                                    <input type="radio" name="permission-2" value="Declined" disabled> Declined
+                                </label>
+                            </td>
+                            <td>Cashier</td>
+                            <td>+63 912 987 6543</td>
+                            <td>janesmith@example.com</td>
+                            <td>
+                                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+
+        <!-- Modal for Adding Employee -->
+        <div id="employeeModal" class="modal">
+            <div class="modal-content">
+                <h3>Add Employee</h3>
+                <form id="addEmployeeForm">
+                    <input type="text" id="name" placeholder="Name" required>
+
+                    <div class="column">
+                        <select id="employee-branch">
+                            <option value="SM Valenzuela">SM Valenzuela</option>
+                            <option value="Waltermart">Waltermart</option>
+                            <option value="SM Mall of Asia">SM Mall of Asia</option>
+                        </select>
+                        <input type="text" id="position" placeholder="Position" required>
+                    </div>
+
+                    <div class="column">
+                        <input type="text" id="contact" placeholder="Contact Number" required>
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+
+                    <label>Permission</label>
+                    <label>
+                        <input type="radio" name="permission" value="Allowed"> Allowed
+                    </label>
+                    <label>
+                        <input type="radio" name="permission" value="Declined"> Declined
+                    </label>
+
+                    <div class="modal-buttons">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveEmployee()">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
 
-            <table class="staff-management-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Branch</th>
-                        <th>Permission</th>
-                        <th>Position</th>
-                        <th>Contact Number</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="staff-table-body">
-                    <!-- Example row -->
-                    <tr>
-                        <td>John Doe</td>
-                        <td>SM Valenzuela</td>
-                        <td>
-                            <label>
-                                <input type="radio" name="permission-1" value="Allowed" disabled> Allowed
-                            </label>
-                            <label>
-                                <input type="radio" name="permission-1" value="Declined" disabled> Declined
-                            </label>
-                        </td>
-                        <td>Manager</td>
-                        <td>+63 912 345 6789</td>
-                        <td>johndoe@example.com</td>
-                        <td>
-                            <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>One Mall Valenzuela</td>
-                        <td>
-                            <label>
-                                <input type="radio" name="permission-1" value="Allowed" disabled> Allowed
-                            </label>
-                            <label>
-                                <input type="radio" name="permission-1" value="Declined" disabled> Declined
-                            </label>
-                        </td>
-                        <td>Cashier</td>
-                        <td>+63 912 987 6543</td>
-                        <td>janesmith@example.com</td>
-                        <td>
-                            <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-    </div>
+        <!-- Details Section -->
 
-    <!-- Modal for Adding Employee -->
-    <div id="employeeModal" class="modal">
-        <div class="modal-content">
-            <h3>Add Employee</h3>
-            <form id="addEmployeeForm">
-                <input type="text" id="name" placeholder="Name" required>
-
-                <div class="column">
-                    <select id="employee-branch">
-                        <option value="SM Valenzuela">SM Valenzuela</option>
-                        <option value="Waltermart">Waltermart</option>
-                        <option value="SM Mall of Asia">SM Mall of Asia</option>
-                    </select>
-                    <input type="text" id="position" placeholder="Position" required>
-                </div>
-
-                <div class="column">
-                    <input type="text" id="contact" placeholder="Contact Number" required>
-                    <input type="email" id="email" placeholder="Email" required>
-                </div>
-
-                <label>Permission</label>
-                <label>
-                    <input type="radio" name="permission" value="Allowed"> Allowed
-                </label>
-                <label>
-                    <input type="radio" name="permission" value="Declined"> Declined
-                </label>
-
-                <div class="modal-buttons">
-                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                    <button class="save-btn" onclick="saveEmployee()">Save</button>
-                </div>
-            </form>
+    <section id="details-section">
+        <div class="details" id="details-0">
+            <div class="details-card">
+              <div class="initials" style="background-color: #ff4757;">RB</div>
+              <p><strong>Name:</strong> Rebecca Bauch</p>
+              <p><strong>Company:</strong> Daugherty-Daniel</p>
+              <p><strong>City:</strong> South Cory</p>
+              <p><strong>Created:</strong> Oct 25, 2020</p>
+              <div class="actions">
+                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
+    
+          <div class="details" id="details-1">
+            <div class="details-card">
+              <div class="initials" style="background-color: #ffa502;">FY</div>
+              <p><strong>Name:</strong> Felicita Yundt</p>
+              <p><strong>Company:</strong> Johns-Weissnat</p>
+              <p><strong>City:</strong> East Ariel</p>
+              <p><strong>Created:</strong> Oct 25, 2020</p>
+              <div class="actions">
+                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
         </div>
+    </section>
+      
     </div>
 
 
