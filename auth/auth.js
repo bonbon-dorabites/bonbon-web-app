@@ -204,52 +204,53 @@ document.addEventListener("DOMContentLoaded", () => {
       staffMenu.style.display = "none";
       customerMenu.style.display = "none";
     };
-  
+    /** 
+    let managerEmails = [
+      "jethrojamesaguilar.18@gmail.com"
+    ];
+    */
+    let staffEmails = [
+      "jayjayangadok21@gmail.com",
+      "dehonorcharryl@gmail.com",
+      "shaynebondoc28@gmail.com"
+    ];
+    
     // This function updates the UI when a user is logged in
     const updateUIForLoggedInUser = (user) => {
       console.log("User logged in: ", user.email);
-  
-      // Query Firestore for the user data based on email
+    
       const usersCollection = collection(db, "users");
       const q = query(usersCollection, where("email", "==", user.email));
-  
+    
       getDocs(q).then((querySnapshot) => {
         if (!querySnapshot.empty) {
           querySnapshot.forEach((doc) => {
             const userData = doc.data();
             const firstName = userData.firstName;
-            const email = user.email;
-  
+    
             console.log("User data fetched: ", userData);
-  
+    
             // Show user-specific menus
             signupMenu.style.display = "none";
             loginMenu.style.display = "none";
             userMenu.style.display = "block";
             editMenu.style.display = "block";
             logoutMenu.style.display = "block";
-  
-            // Show greeting with first name
+    
             const userMenuText = userMenu.querySelector("p");
             if (userMenuText) {
               userMenuText.textContent = `Hi, ${firstName}`;
             }
-  
-            // Show specific menus based on email
-            if (email === "jayjay.otaku@gmail.com") {
-              ownerMenu.style.display = "block";  // Owner menu
+    
+            // Check roles
+            if (user.email === "jayjay.otaku@gmail.com") {
+              ownerMenu.style.display = "block"; // Owner menu
               console.log("Owner menu displayed.");
-            } else if (email === "jayjayangadok21@gmail.com") {
-              staffMenu.style.display = "block";  // Staff menu
-              console.log("Staff menu displayed.");
-            } else if (email === "dehonorcharryl@gmail.com") {
-              staffMenu.style.display = "block";  // Staff menu
-              console.log("Staff menu displayed.");
-            } else if (email === "shaynebondoc28@gmail.com") {
-              staffMenu.style.display = "block";  // Staff menu
+            } else if (staffEmails.includes(user.email)) {
+              staffMenu.style.display = "block"; // Staff menu
               console.log("Staff menu displayed.");
             } else {
-              customerMenu.style.display = "block";  // Customer menu
+              customerMenu.style.display = "block"; // Customer menu
               console.log("Customer menu displayed.");
             }
           });
@@ -259,7 +260,28 @@ document.addEventListener("DOMContentLoaded", () => {
       }).catch((error) => {
         console.error("Error fetching user document:", error);
       });
-    };
+    };   
+    
+    // Add staff
+    function addStaffEmail(email) {
+      if (!staffEmails.includes(email)) {
+        staffEmails.push(email);
+        console.log(`Added ${email} to staff.`);
+      } else {
+        console.log(`${email} is already a staff member.`);
+      }
+    }
+
+    // Remove staff
+    function removeStaffEmail(email) {
+      const index = staffEmails.indexOf(email);
+      if (index !== -1) {
+        staffEmails.splice(index, 1);
+        console.log(`Removed ${email} from staff.`);
+      } else {
+        console.log(`${email} is not a staff member.`);
+      }
+    }
   
     // Listen for the logout button click
     logoutMenu.addEventListener("click", async () => {
