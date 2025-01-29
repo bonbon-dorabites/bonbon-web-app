@@ -1309,7 +1309,7 @@ textarea.form-control:focus {
 }
 
 .owner-dashboard-title {
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-weight: bold;
     color: var(--dark-brown);
     margin-bottom: 10px;
@@ -1450,7 +1450,7 @@ textarea.form-control:focus {
     text-align: left; 
 }
 
-.staff-management-line {
+.dashboard-line {
     height: 5px; 
     background-color: #4B2008; 
     width: 100%; 
@@ -1559,7 +1559,7 @@ textarea.form-control:focus {
 }
 
 /* Modal Styling */
-.modal {
+.addEmployee-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -1572,7 +1572,7 @@ textarea.form-control:focus {
     
 }
 
-.modal-content {
+.addEmployee-content {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;

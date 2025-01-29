@@ -61,17 +61,17 @@ function closeModal() {
 }
 
 // Get modal and form elements
-const modal = document.getElementById("employeeModal");
+const employeeModal = document.getElementById("employeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 
 // Open modal function
 function openModal() {
-  modal.style.display = "block";
+  employeeModal.style.display = "block";
 }
 
 // Close modal function
 function closeModal() {
-  modal.style.display = "none";
+  employeeModal.style.display = "none";
 }
 
 // Save employee details (placeholder function)
