@@ -1240,7 +1240,7 @@ textarea.form-control:focus {
 .owner-dashboard-dropdown {
     background-color: #CB7208;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     border: none;
     padding: 10px 20px; /* Controls padding inside the dropdown */
