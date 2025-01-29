@@ -61,17 +61,17 @@ function closeModal() {
 }
 
 // Get modal and form elements
-const modal = document.getElementById("employeeModal");
+const employeeModal = document.getElementById("employeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 
 // Open modal function
 function openModal() {
-  modal.style.display = "block";
+  employeeModal.style.display = "block";
 }
 
 // Close modal function
 function closeModal() {
-  modal.style.display = "none";
+  employeeModal.style.display = "none";
 }
 
 // Save employee details (placeholder function)
@@ -113,11 +113,44 @@ function saveEmployee() {
   `;
   tableBody.appendChild(newRow);
 
-  // Close the modal
-  closeModal();
+  
+   // Generate initials
+   const initials = name
+   .split(" ")
+   .map((n) => n[0])
+   .join("")
+   .toUpperCase();
 
-  // Reset the form
-  addEmployeeForm.reset();
+ // Generate a random color for the initials
+ const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
+ // Append a new details card
+ const detailsContainer = document.createElement("div");
+ detailsContainer.className = "details";
+ detailsContainer.innerHTML = `
+   <div class="details-card">
+     <div class="initials" style="background-color: ${randomColor};">${initials}</div>
+     <p><strong>Name:</strong> ${name}</p>
+     <p><strong>Branch:</strong> ${branch}</p>
+     <p><strong>Permission:</strong> ${permission}</p>
+     <p><strong>Position:</strong> ${position}</p>
+     <p><strong>Contact:</strong> ${contact}</p>
+     <p><strong>Email:</strong> ${email}</p>
+     <div class="actions">
+       <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+       <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+     </div>
+   </div>
+ `;
+
+ const detailsSection = document.getElementById("details-section"); // Add this ID to your parent container for details
+ detailsSection.appendChild(detailsContainer);
+
+ // Close the modal
+ closeModal();
+
+ // Reset the form
+ addEmployeeForm.reset();
 }
 
 // Close the modal when clicking outside of it

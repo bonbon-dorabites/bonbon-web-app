@@ -278,12 +278,10 @@ body {
     filter: none !important;  /* Remove the inversion effect */
 }
 
-/* Optional: Change the color when hovering */
 .carousel-control-prev:hover .carousel-control-prev-icon,
 .carousel-control-next:hover .carousel-control-next-icon {
     background-color: var(--dark-brown) !important; /* Hover color */
 }
-
 
 /*TESTIMONIALS*/
 .testimonials {
@@ -631,7 +629,7 @@ body {
     margin: 8px;
 }
 
-.accordion .accordion-header {
+.menu-items .accordion .accordion-header {
     background-color: var(--wood-color);
     color: var(--beige);
     font-size: 18px;
@@ -767,6 +765,7 @@ body {
     width: 80vw;
 }
 
+
 /*STAFF-DASHBOARD*/ 
 .col1, 
 .col2{
@@ -779,16 +778,6 @@ body {
 .main-container {
     margin: 0 auto;
     padding: 0 30px;
-}
-
-/* Dashboard Title */
-h1.dashboard-title {
-    font-size: 4rem; /* Adjust size as needed */
-    font-weight: bold;
-    color: var(--dark-brown);
-    text-align: left;
-    margin: 50px 0 20px 340px; /* Adjust spacing */
-    display: inline-block; /* Avoid overlap */
 }
 
 /* Section Headers */
@@ -806,13 +795,7 @@ h1.dashboard-title {
     margin-left: 0;
     text-align: left;
 }
-/* Specific Styling for the First Horizontal Line */
-.first-line {
-    width: 800px; /* Fixed width to match the other lines */
-    height: 5px; /* Thickness of the line */
-    background-color: var(--dark-brown);
-    margin: 20px auto; /* Center the line */
-}
+
 /* === Dropdown Styling === */
 .branch-btn {
     font-size: 1.2rem;
@@ -843,32 +826,10 @@ h1.dashboard-title {
 }
 .stock-update .stock-list {
     list-style-type: disc;
-    padding-left: 60px;
     margin: 0;
 }
-.stock-list li {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.stock-list li span.badge {
-    font-size: 1rem;
-    padding: 5px 15px;
-    margin-left: 10px;
-    border-radius: 30px;
-}
-/* Badge Styling */
-ul.stock-list li .badge.bg-success {
-    background-color: var(--light-brown);
-    color: white;
-}
-ul.stock-list li .badge.bg-danger {
-    background-color: var(--brown);
-    color: white;
-}
+
+
 /* Accordion Section */
 .pending-orders,
 .finished-orders {
@@ -877,7 +838,6 @@ ul.stock-list li .badge.bg-danger {
     text-align: center;
 }
 .accordion-item {
-    
     border: none;
     margin-bottom: 10px;
 }
@@ -891,8 +851,6 @@ ul.stock-list li .badge.bg-danger {
     color: white;
     font-size: 1.1rem;
     padding: 10px 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
 }
 .accordion-button:not(.collapsed) {
     background-color: var(--lightest-brown);
@@ -942,12 +900,90 @@ ul.stock-list li .badge.bg-danger {
 .stock-update h3 {
     margin-left: 20px;
 }
-.dash-buttons {
+
+
+/*added*/
+/* Stock Update Title */
+.stock-update h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--brown);
+    margin: 20px 0; /* Adds space above and below */
+}
+
+/* Stock List */
+.stock-list {
+    list-style-type: none; /* Removes default bullet points */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 90vw; /* Constrains the width */
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    gap: 15px; /* Adds space between items */
+    
 }
 
 
+/* Individual List Item */
+.stock-list li {
+    display: flex;
+    justify-content: space-between; /* Aligns name and buttons on opposite sides */
+    align-items: center;
+    padding: 15px;
+    background-color: #edb868;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+/* Product Name */
+.stock-list li span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Buttons Container */
+.dash-buttons {
+    display: flex;
+    gap: 50px; /* Adds space between buttons */
+}
+
+/* Button Styling */
+.dash-buttons .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.staff-dashboard {
+    padding: 85px 30px;
+    max-width: 1000px;
+    margin: 0px auto;
+    
+}
 
 /*CUSTOMER*/
 textarea.form-control {
@@ -982,136 +1018,6 @@ textarea.form-control:focus {
     color: var(--dark-brown);
 }
 
-/* Mobile Phones (max-width: 576px) */
-@media (max-width: 576px) {
-    /* Stock List */
-    .stock-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .stock-list li span.badge {
-        font-size: 0.9rem;
-        padding: 5px 10px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        margin-top: 70px;
-        margin-bottom: 20px;
-    }
-    .dashboard-header h1 {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-
-    /* Accordion */
-    .accordion-body {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-    .accordion-button {
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    /* Textarea */
-    textarea.form-control {
-        font-size: 0.8rem;
-        padding: 8px;
-    }
-
-
-}
-
-/* Tablets (max-width: 768px) */
-@media (max-width: 768px) {
-    /* Stock List */
-    .stock-list li {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    .stock-list li span.badge {
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        margin-top: 80px;
-        margin-bottom: 25px;
-    }
-    .dashboard-header h1 {
-        font-size: 3rem;
-    }
-
-    /* Accordion */
-    .accordion-body {
-        font-size: 1rem;
-        padding: 12px;
-    }
-    .accordion-button {
-        font-size: 1.1rem;
-        padding: 10px 20px;
-    }
-
-    /* Textarea */
-    textarea.form-control {
-        font-size: 0.9rem;
-        padding: 9px;
-    }
-}
-
-/* Small Laptops (max-width: 992px) */
-@media (max-width: 992px) {
-    /* Stock List */
-    .stock-list li {
-        gap: 20px;
-    }
-    .stock-list li span.badge {
-        font-size: 1rem;
-        padding: 10px 20px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        margin-top: 90px;
-        margin-bottom: 30px;
-    }
-    .dashboard-header h1 {
-        font-size: 3.5rem;
-    }
-
-    /* Accordion */
-    .accordion-body {
-        font-size: 1rem;
-    }
-    .accordion-button {
-        font-size: 1.1rem;
-    }
-
-    /* Textarea */
-    textarea.form-control {
-        font-size: 1rem;
-        padding: 10px;
-    }
-}
-
-/* Large Laptops (max-width: 1200px) */
-@media (max-width: 1200px) {
-    .dashboard-header {
-        margin-top: 100px;
-        margin-bottom: 30px;
-    }
-    .dashboard-header h1 {
-        font-size: 4rem;
-    }
-    textarea.form-control {
-        font-size: 1rem;
-        padding: 10px;
-    }
-}
-
 #order {
     min-height: 684px;
 }
@@ -1128,7 +1034,6 @@ textarea.form-control:focus {
 #checkout-form .line {
     width: 20%;
 }
-
 
 .checkout-container {
     margin-top: 35px;
@@ -1317,14 +1222,16 @@ textarea.form-control:focus {
 
 /* Owner Dashboard Styles */
 .owner-dashboard-container {
-    margin: 80px auto;
+    margin: 0px auto;
+    margin-top: 80px;
     max-width: 1200px;
     font-family: var(--fredoka);
     text-align: left; /* Align all text to the left */
+    padding: 0px 50px;
 }
 
 .owner-dashboard-title {
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-weight: bold;
     color: var(--dark-brown);
     margin-bottom: 10px;
@@ -1350,7 +1257,7 @@ textarea.form-control:focus {
 .owner-dashboard-dropdown {
     background-color: #CB7208;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     border: none;
     padding: 10px 20px; /* Controls padding inside the dropdown */
@@ -1465,7 +1372,7 @@ textarea.form-control:focus {
     text-align: left; 
 }
 
-.staff-management-line {
+.dashboard-line {
     height: 5px; 
     background-color: #4B2008; 
     width: 100%; 
@@ -1574,7 +1481,7 @@ textarea.form-control:focus {
 }
 
 /* Modal Styling */
-.modal {
+.addEmployee-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -1587,7 +1494,7 @@ textarea.form-control:focus {
     
 }
 
-.modal-content {
+.addEmployee-content {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
