@@ -750,6 +750,7 @@ body {
     width: 80vw;
 }
 
+
 /*STAFF-DASHBOARD*/ 
 .col1, 
 .col2{
@@ -762,16 +763,6 @@ body {
 .main-container {
     margin: 0 auto;
     padding: 0 30px;
-}
-
-/* Dashboard Title */
-h1.dashboard-title {
-    font-size: 4rem; /* Adjust size as needed */
-    font-weight: bold;
-    color: var(--dark-brown);
-    text-align: left;
-    margin: 50px 0 20px 340px; /* Adjust spacing */
-    display: inline-block; /* Avoid overlap */
 }
 
 /* Section Headers */
@@ -789,13 +780,7 @@ h1.dashboard-title {
     margin-left: 0;
     text-align: left;
 }
-/* Specific Styling for the First Horizontal Line */
-.first-line {
-    width: 800px; /* Fixed width to match the other lines */
-    height: 5px; /* Thickness of the line */
-    background-color: var(--dark-brown);
-    margin: 20px auto; /* Center the line */
-}
+
 /* === Dropdown Styling === */
 .branch-btn {
     font-size: 1.2rem;
@@ -826,32 +811,10 @@ h1.dashboard-title {
 }
 .stock-update .stock-list {
     list-style-type: disc;
-    padding-left: 60px;
     margin: 0;
 }
-.stock-list li {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.stock-list li span.badge {
-    font-size: 1rem;
-    padding: 5px 15px;
-    margin-left: 10px;
-    border-radius: 30px;
-}
-/* Badge Styling */
-ul.stock-list li .badge.bg-success {
-    background-color: var(--light-brown);
-    color: white;
-}
-ul.stock-list li .badge.bg-danger {
-    background-color: var(--brown);
-    color: white;
-}
+
+
 /* Accordion Section */
 .pending-orders,
 .finished-orders {
@@ -860,7 +823,6 @@ ul.stock-list li .badge.bg-danger {
     text-align: center;
 }
 .accordion-item {
-    
     border: none;
     margin-bottom: 10px;
 }
@@ -874,8 +836,6 @@ ul.stock-list li .badge.bg-danger {
     color: white;
     font-size: 1.1rem;
     padding: 10px 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
 }
 .accordion-button:not(.collapsed) {
     background-color: var(--lightest-brown);
@@ -925,12 +885,90 @@ ul.stock-list li .badge.bg-danger {
 .stock-update h3 {
     margin-left: 20px;
 }
-.dash-buttons {
+
+
+/*added*/
+/* Stock Update Title */
+.stock-update h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--brown);
+    margin: 20px 0; /* Adds space above and below */
+}
+
+/* Stock List */
+.stock-list {
+    list-style-type: none; /* Removes default bullet points */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 90vw; /* Constrains the width */
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    gap: 15px; /* Adds space between items */
+    
 }
 
 
+/* Individual List Item */
+.stock-list li {
+    display: flex;
+    justify-content: space-between; /* Aligns name and buttons on opposite sides */
+    align-items: center;
+    padding: 15px;
+    background-color: #edb868;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+/* Product Name */
+.stock-list li span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Buttons Container */
+.dash-buttons {
+    display: flex;
+    gap: 50px; /* Adds space between buttons */
+}
+
+/* Button Styling */
+.dash-buttons .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.staff-dashboard {
+    padding: 85px 30px;
+    max-width: 1000px;
+    margin: 0px auto;
+    
+}
 
 /*CUSTOMER*/
 textarea.form-control {
