@@ -719,14 +719,18 @@ body {
     line-height: 2.2;
 }
 
-.flavor .choco-instock, .flavor .dulce-instock, .flavor .cheese-instock, 
+#choco-oishi-instock, #dulce-oishi-instock, #cheese-oishi-instock,
+#choco-sugoi-instock, #dulce-sugoi-instock, #cheese-sugoi-instock,
+#choco-box-instock, #dulce-box-instock, #cheese-box-instock,
 #wnut-oishi-instock, #wnut-sugoi-instock, #wnut-box-instock,
 #bc-nut-instock, #bc-ham-instock, #bc-mozza-instock, #bc-oreo-instock,
 #chocold-instock, #hotcof-instock, #icedcof-instock {
     display: block;
 }
 
-.flavor .choco-soldout, .flavor .dulce-soldout, .flavor .cheese-soldout, 
+#choco-oishi-sold, #dulce-oishi-sold, #cheese-oishi-sold,
+#choco-sugoi-sold, #dulce-sugoi-sold, #cheese-sugoi-sold,
+#choco-box-sold, #dulce-box-sold, #cheese-box-sold,
 #wnut-oishi-sold, #wnut-sugoi-sold, #wnut-box-sold,
 #bc-nut-sold, #bc-ham-sold, #bc-mozza-sold, #bc-oreo-sold,
 #chocold-sold, #hotcof-sold, #icedcof-sold {

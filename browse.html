@@ -114,11 +114,11 @@
                         <span class="toggle-icon">+</span>
                       </button>
                       
-                      <div class="flavors">
+                      <div id="oishi-flavors-show" class="flavors" style="display: none;">
 
                         <div id="classic-choco-oishi" class="dorayaki flavor">
                          <p>Classic Choco</p>
-                         <div class="choco-instock right-side">
+                         <div id="choco-oishi-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn" >
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -126,7 +126,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="choco-soldout right-side">
+                          <div id="choco-oishi-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn" >
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -136,7 +136,7 @@
 
                         <div id="dulce-deleche-oishi" class="dorayaki flavor">
                          <p>Dulce de Leche</p>
-                         <div class="dulce-instock right-side">
+                         <div id="dulce-oishi-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -144,7 +144,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="dulce-soldout right-side">
+                          <div id="dulce-oishi-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn">
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -154,7 +154,7 @@
 
                         <div id="cheese-oishi" class="dorayaki flavor">
                           <p>Cheese</p>
-                          <div class="cheese-instock right-side">
+                          <div id="cheese-oishi-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -162,7 +162,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="cheese-soldout right-side">
+                          <div id="cheese-oishi-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn">
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -200,7 +200,7 @@
 
                         <div id="classic-choco-sugoi" class="dorayaki flavor">
                          <p>Classic Choco</p>
-                         <div class="choco-instock right-side">
+                         <div id="choco-sugoi-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn" >
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -208,7 +208,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="choco-soldout right-side">
+                          <div id="choco-sugoi-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn" >
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -218,7 +218,7 @@
 
                         <div id="dulce-deleche-sugoi" class="dorayaki flavor">
                          <p>Dulce de Leche</p>
-                         <div class="dulce-instock right-side">
+                         <div id="dulce-sugoi-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -226,7 +226,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="dulce-soldout right-side">
+                          <div id="dulce-sugoi-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn">
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -236,7 +236,7 @@
 
                         <div id="cheese-sugoi" class="dorayaki flavor">
                           <p>Cheese</p>
-                          <div class="cheese-instock right-side">
+                          <div id="cheese-sugoi-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -244,7 +244,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="cheese-soldout right-side">
+                          <div id="cheese-sugoi-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn">
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -282,7 +282,7 @@
 
                         <div id="classic-choco-box" class="dorayaki flavor">
                          <p>Classic Choco</p>
-                         <div class="choco-instock right-side">
+                         <div id="choco-box-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn" >
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -290,7 +290,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="choco-soldout right-side">
+                          <div id="choco-box-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn" >
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -300,7 +300,7 @@
 
                         <div id="dulce-deleche-box" class="dorayaki flavor">
                          <p>Dulce de Leche</p>
-                         <div class="dulce-instock right-side">
+                         <div id="dulce-box-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -308,7 +308,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="dulce-soldout right-side">
+                          <div id="dulce-box-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn">
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
@@ -318,7 +318,7 @@
 
                         <div id="cheese-box" class="dorayaki flavor">
                           <p>Cheese</p>
-                          <div class="cheese-instock right-side">
+                          <div id="cheese-box-instock" class="right-side">
                             <span class="price">P50</span>
                             <button class="cart-btn">
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -326,7 +326,7 @@
                               </svg>
                             </button>
                           </div>
-                          <div class="cheese-soldout right-side">
+                          <div id="cheese-box-sold" class="right-side">
                             <span class="price"><br>P50</span>
                             <button class="cart-btn">
                               <img src="/img/out-of-stock.png" height="60" width="80" alt="">
