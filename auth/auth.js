@@ -462,6 +462,16 @@ function listenToMenuItems() {
           switch (docId) {
               case "dorabite_oishi":
                   setTextContent("#oishi-title", data.item_name);
+                  // Create the <span> element for the toggle icon
+                  const toggleIcon = document.createElement("span");
+                  toggleIcon.classList.add("toggle-icon");
+                  toggleIcon.textContent = "+"; // Add the text inside the span
+
+                  // Append the toggle icon after the item name (or wherever you want)
+                  const oishiTitleElement = document.querySelector("#oishi-title");
+                  if (oishiTitleElement) {
+                      oishiTitleElement.appendChild(toggleIcon);
+                  }
                   break;
 
               case "dorabite_oishi_choco":
@@ -486,6 +496,16 @@ function listenToMenuItems() {
 
               case "dorabite_sugoi":
                   setTextContent("#sugoi-title", data.item_name);
+                  // Create the <span> element for the toggle icon
+                  const toggleIconSugoi = document.createElement("span");
+                  toggleIconSugoi.classList.add("toggle-icon");
+                  toggleIconSugoi.textContent = "+"; // Add the text inside the span
+
+                  // Append the toggle icon after the item name (or wherever you want)
+                  const sugoiTitleElement = document.querySelector("#sugoi-title");
+                  if (sugoiTitleElement) {
+                      sugoiTitleElement.appendChild(toggleIconSugoi);
+                  }
                   break;
 
               case "dorabite_sugoi_choco":
@@ -510,6 +530,16 @@ function listenToMenuItems() {
 
               case "dorabite_bonbon":
                   setTextContent("#bonbox-title", data.item_name);
+                  // Create the <span> element for the toggle icon
+                  const toggleIconBonbon = document.createElement("span");
+                  toggleIconBonbon.classList.add("toggle-icon");
+                  toggleIconBonbon.textContent = "+"; // Add the text inside the span
+
+                  // Append the toggle icon after the item name (or wherever you want)
+                  const bonbonTitleElement = document.querySelector("#bonbox-title");
+                  if (bonbonTitleElement) {
+                      bonbonTitleElement.appendChild(toggleIconBonbon);
+                  }
                   break;
 
               case "dorabite_bonbon_choco":
