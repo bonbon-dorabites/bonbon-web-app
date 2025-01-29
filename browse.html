@@ -109,8 +109,7 @@
                 <div class="menu-items">
                   <div class="accordion">
                     <div class="sizes"> 
-                      <button class="accordion-header">
-                        OISHI (8pcs)
+                      <button id="oishi-title" class="accordion-header">
                         <span class="toggle-icon">+</span>
                       </button>
 
@@ -122,9 +121,9 @@
                         <div id="oishi-flavors-show">
 
                           <div id="classic-choco-oishi" class="dorayaki flavor">
-                          <p>Classic Choco</p>
+                          <p class="flavor-choco"></p>
                           <div id="choco-oishi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="choco-oishi-price" class="price"></span>
                               <button class="cart-btn" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -132,7 +131,6 @@
                               </button>
                             </div>
                             <div id="choco-oishi-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn" >
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -140,9 +138,9 @@
                           </div>
 
                           <div id="dulce-deleche-oishi" class="dorayaki flavor">
-                          <p>Dulce de Leche</p>
+                          <p class="flavor-dulce"></p>
                           <div id="dulce-oishi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="dulce-oishi-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -150,7 +148,6 @@
                               </button>
                             </div>
                             <div id="dulce-oishi-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -158,9 +155,9 @@
                           </div>
 
                           <div id="cheese-oishi" class="dorayaki flavor">
-                            <p>Cheese</p>
+                            <p class="flavor-cheese"></p>
                             <div id="cheese-oishi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="cheese-oishi-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -168,7 +165,6 @@
                               </button>
                             </div>
                             <div id="cheese-oishi-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -176,9 +172,9 @@
                           </div>
 
                           <div id="walnutella-oishi" class="dorayaki flavor">
-                            <p>Walnutella</p>
+                            <p class="flavor-walnutella"></p>
                             <div id="wnut-oishi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="wnut-oishi-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -186,7 +182,6 @@
                               </button>
                             </div>
                             <div id="wnut-oishi-sold" class="right-side">
-                              <span class="price">P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -197,8 +192,8 @@
                     </div>
 
                     <div class="sizes">
-                      <button class="accordion-header">
-                        SUGOI (12pcs)
+                      <button id="sugoi-title" class="accordion-header">
+                        
                         <span class="toggle-icon">+</span>
                       </button>
 
@@ -210,9 +205,9 @@
                         <div id="sugoi-flavors-show">
 
                           <div id="classic-choco-sugoi" class="dorayaki flavor">
-                           <p>Classic Choco</p>
+                           <p class="flavor-choco"></p>
                            <div id="choco-sugoi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="choco-sugoi-price" class="price"></span>
                               <button class="cart-btn" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -220,7 +215,6 @@
                               </button>
                             </div>
                             <div id="choco-sugoi-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn" >
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -228,9 +222,9 @@
                           </div>
   
                           <div id="dulce-deleche-sugoi" class="dorayaki flavor">
-                           <p>Dulce de Leche</p>
+                           <p class="flavor-dulce"></p>
                            <div id="dulce-sugoi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="dulce-sugoi-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -238,7 +232,6 @@
                               </button>
                             </div>
                             <div id="dulce-sugoi-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -246,9 +239,9 @@
                           </div>
   
                           <div id="cheese-sugoi" class="dorayaki flavor">
-                            <p>Cheese</p>
+                            <p class="flavor-cheese"></p>
                             <div id="cheese-sugoi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="cheese-sugoi-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -256,7 +249,6 @@
                               </button>
                             </div>
                             <div id="cheese-sugoi-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -264,9 +256,9 @@
                           </div>
   
                           <div id="walnutella-sugoi" class="dorayaki flavor">
-                            <p>Walnutella</p>
+                            <p class="flavor-walnutella"></p>
                             <div id="wnut-sugoi-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="wnut-sugoi-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -274,7 +266,6 @@
                               </button>
                             </div>
                             <div id="wnut-sugoi-sold" class="right-side">
-                              <span class="price">P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -285,8 +276,8 @@
                     </div>
 
                     <div class="sizes">
-                      <button class="accordion-header">
-                        BONBON BOX (16pcs)
+                      <button id="bonbox-title" class="accordion-header">
+                        
                         <span class="toggle-icon">+</span>
                       </button>
 
@@ -298,9 +289,9 @@
                         <div id="box-flavors-show">
   
                           <div id="classic-choco-box" class="dorayaki flavor">
-                           <p>Classic Choco</p>
+                           <p class="flavor-choco"></p>
                            <div id="choco-box-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="choco-bonbox-price" class="price"></span>
                               <button class="cart-btn" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -308,7 +299,6 @@
                               </button>
                             </div>
                             <div id="choco-box-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn" >
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -316,9 +306,9 @@
                           </div>
   
                           <div id="dulce-deleche-box" class="dorayaki flavor">
-                           <p>Dulce de Leche</p>
+                           <p class="flavor-dulce"></p>
                            <div id="dulce-box-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="dulce-bonbox-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -326,7 +316,6 @@
                               </button>
                             </div>
                             <div id="dulce-box-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -334,9 +323,9 @@
                           </div>
   
                           <div id="cheese-box" class="dorayaki flavor">
-                            <p>Cheese</p>
+                            <p class="flavor-cheese"></p>
                             <div id="cheese-box-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="cheese-bonbox-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -344,7 +333,6 @@
                               </button>
                             </div>
                             <div id="cheese-box-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -352,9 +340,9 @@
                           </div>
   
                           <div id="walnutella-box" class="dorayaki flavor">
-                            <p>Walnutella</p>
+                            <p class="flavor-walnutella"></p>
                             <div id="wnut-box-instock" class="right-side">
-                              <span class="price">P50</span>
+                              <span id="wnut-bonbox-price" class="price"></span>
                               <button class="cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -362,7 +350,6 @@
                               </button>
                             </div>
                             <div id="wnut-box-sold" class="right-side">
-                              <span class="price"><br>P50</span>
                               <button class="cart-btn">
                                 <img src="/img/out-of-stock.png" height="60" width="80" alt="">
                               </button>
@@ -387,9 +374,9 @@
                 
                 <div class="menu-items">
                     <div id="boncoin-nutella" class="boncoin flavor item">
-                      <p>Nutella</p>
+                      <p id="nutella-title"></p>
                       <div id="bc-nut-instock" class="right-side">
-                        <span class="price">P50</span>
+                        <span id="bc-nut-price" class="price"></span>
                         <button class="cart-btn">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -398,7 +385,6 @@
                       </div>
                       <div id="bc-nut-sold" class="right-side">
                         <div class="d-flex justify-content-center align-items-center">
-                          <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                           <button class="cart-btn">
                             <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                           </button>
@@ -407,9 +393,9 @@
                     </div>
 
                     <div id="boncoin-hamCheese" class="boncoin flavor item">
-                      <p>Ham & Cheese</p>
+                      <p id="hamcheese-title"></p>
                       <div id="bc-ham-instock" class="right-side">
-                        <span class="price">P50</span>
+                        <span id="bc-ham-price" class="price"></span>
                         <button class="cart-btn">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -418,7 +404,6 @@
                       </div>
                       <div id="bc-ham-sold" class="right-side">
                         <div class="d-flex justify-content-center align-items-center">
-                          <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                           <button class="cart-btn">
                             <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                           </button>
@@ -427,9 +412,9 @@
                     </div>
 
                     <div id="boncoin-mozarella" class="boncoin flavor item">
-                      <p>Mozarella</p>
+                      <p id="mozza-title"></p>
                       <div id="bc-mozza-instock" class="right-side">
-                        <span class="price">P50</span>
+                        <span id="bc-mozza-price" class="price"></span>
                         <button class="cart-btn">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -438,7 +423,6 @@
                       </div>
                       <div id="bc-mozza-sold" class="right-side">
                         <div class="d-flex justify-content-center align-items-center">
-                          <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                           <button class="cart-btn">
                             <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                           </button>
@@ -447,9 +431,9 @@
                     </div>
 
                     <div id="boncoin-oreoCheese" class="boncoin flavor item">
-                      <p>Oreo Cream Cheese</p>
+                      <p id="oreocream-title"></p>
                       <div id="bc-oreo-instock" class="right-side">
-                        <span class="price">P50</span>
+                        <span id="bc-oreo-price" class="price"></span>
                         <button class="cart-btn">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -458,7 +442,6 @@
                       </div>
                       <div id="bc-oreo-sold" class="right-side">
                         <div class="d-flex justify-content-center align-items-center">
-                          <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                           <button class="cart-btn">
                             <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                           </button>
@@ -466,7 +449,6 @@
                       </div>
                     </div>                 
                 </div>
-                
               </div>
             </div>
           </div>
@@ -481,9 +463,9 @@
                 
                 <div class="menu-items">
                   <div id="chocold" class="drink item">
-                    <p>Chocold (12oz)</p>
+                    <p id="chocold-title"></p>
                     <div id="chocold-instock" class="right-side">
-                      <span class="price">P50</span>
+                      <span id="chocold-price" class="price"></span>
                       <button class="cart-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                           <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -492,7 +474,6 @@
                     </div>
                     <div id="chocold-sold" class="right-side">
                       <div class="d-flex justify-content-center align-items-center">
-                        <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                         <button class="cart-btn">
                           <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
@@ -501,9 +482,9 @@
                   </div>
                   
                   <div id="hot-coffee" class="drink item">
-                    <p>Hot Coffee (12oz)</p>
+                    <p id="hotcof-title"></p>
                     <div id="hotcof-instock" class="right-side">
-                      <span class="price">P50</span>
+                      <span id="hotcof-price" class="price"></span>
                       <button class="cart-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                           <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -512,7 +493,6 @@
                     </div>
                     <div id="hotcof-sold" class="right-side">
                       <div class="d-flex justify-content-center align-items-center">
-                        <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                         <button class="cart-btn">
                           <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
@@ -521,9 +501,9 @@
                   </div>
 
                   <div id="iced-coffee" class="drink item">
-                    <p>Iced Coffee (12oz)</p>
+                    <p id="icedcof-title"></p>
                     <div id="icedcof-instock" class="right-side">
-                      <span class="price">P50</span>
+                      <span id="icedcof-price" class="price"></span>
                       <button class="cart-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                           <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
@@ -532,7 +512,6 @@
                     </div>
                     <div id="icedcof-sold" class="right-side">
                       <div class="d-flex justify-content-center align-items-center">
-                        <span class="price">P50 </span>&nbsp;&nbsp;&nbsp;  
                         <button class="cart-btn">
                           <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
