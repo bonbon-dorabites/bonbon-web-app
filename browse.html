@@ -82,16 +82,12 @@
         <div class="row1">
           <div class="col1">
               <img src="./img/shopping-bag-icon.png" alt="">
-              <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Choose Branch
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">SM Valenzuela</a></li>
-                    <li><a class="dropdown-item" href="#">SM North Edsa</a></li>
-                    <li><a class="dropdown-item" href="#">One Mall Valenzuala</a></li>
-                  </ul>
-              </div>
+              <select id="branch-selector" class="owner-dashboard-dropdown">
+                <option value="" disabled selected>Select a branch</option>
+                <option value="smVal">SM Valenzuela</option>
+                <option value="smNorth">SM North Edsa</option>
+                <option value="oneMallVal">One Mall Valenzuala</option>
+            </select>
           </div>
         </div>
       </div><br><br>
