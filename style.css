@@ -647,49 +647,61 @@ body {
 .toggle-icon {
     font-size: 18px;
     transition: transform 0.3s ease-in-out;
-  }
+}
 
-  .accordion .flavors {
+.accordion .flavors {
     display: none;
     padding: 10px 15px;
     background-color: var(--beige);
     color: var(--wood-color);
     animation: fadeIn 0.3s ease-in-out;
-  }
+}
 
-  @keyframes fadeIn {
+@keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
     to {
-      opacity: 1;
+        opacity: 1;
     }
-  }
+}
 
-  .accordion .dorayaki {
+.accordion .dorayaki {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
     margin: -10px -15px;
-  }
+}
 
-  .dorayaki p {
+.dorayaki p {
     margin-bottom: 0;
-    
-  }
 
-  .cart-btn {
+}
+
+.cart-btn {
     background: none;
     border: none;
     cursor: pointer;
     line-height: 18px;
-    
-  }
+}
 
-  .flavor:hover {
+.flavor:hover {
     background-color: #fbcd88;
-  }
+}
+
+.flavor-none {
+    background-color: var(--beige); 
+    color: var(--dark-brown); 
+    display: block; 
+    height: 60px;
+}
+
+@media (max-width:852px) {
+    .flavor-none { 
+        height: 80px;
+    }
+}
 
 .menu-items .right-side {
     display: flex;
@@ -719,6 +731,7 @@ body {
     line-height: 2.2;
 }
 
+#oishi-flavors-show, #sugoi-flavors-show, #box-flavors-show, 
 #choco-oishi-instock, #dulce-oishi-instock, #cheese-oishi-instock,
 #choco-sugoi-instock, #dulce-sugoi-instock, #cheese-sugoi-instock,
 #choco-box-instock, #dulce-box-instock, #cheese-box-instock,
@@ -728,6 +741,7 @@ body {
     display: block;
 }
 
+#oishi-flavors-none, #sugoi-flavors-none, #box-flavors-none, 
 #choco-oishi-sold, #dulce-oishi-sold, #cheese-oishi-sold,
 #choco-sugoi-sold, #dulce-sugoi-sold, #cheese-sugoi-sold,
 #choco-box-sold, #dulce-box-sold, #cheese-box-sold,
