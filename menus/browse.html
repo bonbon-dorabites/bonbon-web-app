@@ -6,355 +6,354 @@
     <title>Browse: BonBon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <header>
     <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
-        <div class="container-fluid">
-            <a href="./index.html">
-                <img src="img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
-            </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
-              <li class="nav-item">
-                <a class="nav-link custom-navbar-link" href="/browse.html">Browse</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link custom-navbar-link" href="/order.html">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link custom-navbar-link" href="/coupons.html">Coupons</a>
-              </li>
-            </ul>
-            <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <span id="user-menu">
-                            <li><p></p><hr class="line" style="color: white;"></li>
-                        </span>
-                        <span id="signup-menu">
-                            <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
-                        </span>
-                        <span id="login-menu">
-                            <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
-                        </span>
-                        <span id="edit-menu">
-                            <li><a class="dropdown-item" href="/user-details.html">Edit Details</a></li>
-                        </span>
-                        <span id="logout-menu">
-                            <li><a class="dropdown-item">Log-out</a></li>
-                        </span>
-                        <span id="owner-menu">
-                            <li><a class="dropdown-item" href="/owner.html">Dashboard</a></li>
-                        </span>
-                        <span id="manager-menu">
-                            <li><a class="dropdown-item" href="/manager.html">Dashboard</a></li>
-                        </span>
-                        <span id="staff-menu">
-                            <li><a class="dropdown-item" href="/staff.html">Dashboard</a></li>
-                        </span>
-                        <span id="customer-menu">
-                            <li><a class="dropdown-item" href="/customer.html">Dashboard</a></li>
-                        </span>
-                    </ul>
-                </li>
+      <div class="container-fluid">
+          <a href="/index.html">
+              <img src="/img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
+          </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+            <li class="nav-item">
+              <a class="nav-link custom-navbar-link" href="/menus/browse.html">Browse</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-navbar-link" href="/menus/order.html">Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-navbar-link" href="/menus/coupons.html">Coupons</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                  </svg>
+              </a>
+              <ul class="dropdown-menu">
+                  <span id="user-menu">
+                      <li><p></p><hr class="line" style="color: white;"></li>
+                  </span>
+                  <span id="signup-menu">
+                      <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
+                  </span>
+                  <span id="login-menu">
+                      <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
+                  </span>
+                  <span id="edit-menu">
+                      <li><a class="dropdown-item" href="/menus/user-details.html">Edit Details</a></li>
+                  </span>
+                  <span id="logout-menu">
+                      <li><a class="dropdown-item">Log-out</a></li>
+                  </span>
+                  <span id="owner-menu">
+                      <li><a class="dropdown-item" href="/menus/dashboards/owner.html">Dashboard</a></li>
+                  </span>
+                  <span id="manager-menu">
+                      <li><a class="dropdown-item" href="/menus/dashboards/manager.html">Dashboard</a></li>
+                  </span>
+                  <span id="staff-menu">
+                      <li><a class="dropdown-item" href="/menus/dashboards/staff.html">Dashboard</a></li>
+                  </span>
+                  <span id="customer-menu">
+                      <li><a class="dropdown-item" href="/menus/dashboards/customer.html">Dashboard</a></li>
+                  </span>
               </ul>
-            </div>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
   </header>
 
-    <div class="browse" id="browse-container">
-      <div class="upper">
-        <div class="heading">
-          <img src="./img/browse-hero-img.png" alt="Bonbon Mascot">
+  <div class="browse" id="browse-container">
+    <div class="upper">
+      <div class="heading">
+        <img src="/img/browse-hero-img.png" alt="Bonbon Mascot">
 
-          <h1>AMAZINGLY<br>DELICIOUS</h1>
+        <h1>AMAZINGLY<br>DELICIOUS</h1>
 
+      </div>
+      <div class="row1">
+        <div class="col1">
+            <img src="/img/shopping-bag-icon.png" alt="">
+            <select id="branch-selector" class="owner-dashboard-dropdown">
+              <option value="" disabled selected>Select a branch</option>
+              <option value="oneMallVal">One Mall Valenzuala</option>
+              <option value="smVal">SM Valenzuela</option>
+              <option value="smNorth">SM North Edsa</option>
+            </select>
         </div>
-        <div class="row1">
-          <div class="col1">
-              <img src="./img/shopping-bag-icon.png" alt="">
-              <select id="branch-selector" class="owner-dashboard-dropdown">
-                <option value="" disabled selected>Select a branch</option>
-                <option value="oneMallVal">One Mall Valenzuala</option>
-                <option value="smVal">SM Valenzuela</option>
-                <option value="smNorth">SM North Edsa</option>
-              </select>
-          </div>
-        </div>
-      </div><br><br>
+      </div>
+    </div><br><br>
 
-      <div class="browse-show">
-        <div class="menu-container">
-        
-          <div class="row justify-content-center">
-            <div class="col-12 text-center position-relative">
-              <div class="menu-img-circle">
-                <img src="img/menu-img1.jpg " alt="Circle Image" class="img-fluid rounded-circle">
-              </div>
-              <div class="menu-box p5 mx-auto"><br>
-                <h2>DORAYAKI BITES</h2>
-                <em><h3>ORIGINAL</h3></em>
-  
-                <div class="menu-items">
-                  <div class="accordion">
-                    <div class="sizes"> 
-                      <button id="oishi-title" class="accordion-header">
-                        <span class="toggle-icon">+</span>
-                      </button>
-  
-                      <div class="flavors">
-                        <div id="oishi-flavors-none" class="justify-content-center align-items-center flavor-none">
-                          <br>Oops sorry, no stocks for Oishi Dorayaki Bites container available at this time! 
+    <div class="browse-show">
+      <div class="menu-container">
+      
+        <div class="row justify-content-center">
+          <div class="col-12 text-center position-relative">
+            <div class="menu-img-circle">
+              <img src="/img/menu-img1.jpg " alt="Circle Image" class="img-fluid rounded-circle">
+            </div>
+            <div class="menu-box p5 mx-auto"><br>
+              <h2>DORAYAKI BITES</h2>
+              <em><h3>ORIGINAL</h3></em>
+
+              <div class="menu-items">
+                <div class="accordion">
+                  <div class="sizes"> 
+                    <button id="oishi-title" class="accordion-header">
+                      <span class="toggle-icon">+</span>
+                    </button>
+
+                    <div class="flavors">
+                      <div id="oishi-flavors-none" class="justify-content-center align-items-center flavor-none">
+                        <br>Oops sorry, no stocks for Oishi Dorayaki Bites container available at this time! 
+                      </div>
+                      
+                      <div id="oishi-flavors-show">
+
+                        <div id="classic-choco-oishi" class="dorayaki flavor">
+                        <p class="flavor-choco"></p>
+                        <div id="choco-oishi-instock" class="right-side">
+                            <span id="choco-oishi-price" class="price"></span>
+                            <button class="cart-btn" >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="choco-oishi-sold" class="right-side">
+                            <button class="cart-btn" >
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
                         </div>
-                        
-                        <div id="oishi-flavors-show">
-  
-                          <div id="classic-choco-oishi" class="dorayaki flavor">
+
+                        <div id="dulce-deleche-oishi" class="dorayaki flavor">
+                        <p class="flavor-dulce"></p>
+                        <div id="dulce-oishi-instock" class="right-side">
+                            <span id="dulce-oishi-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="dulce-oishi-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
+                        </div>
+
+                        <div id="cheese-oishi" class="dorayaki flavor">
+                          <p class="flavor-cheese"></p>
+                          <div id="cheese-oishi-instock" class="right-side">
+                            <span id="cheese-oishi-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="cheese-oishi-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
+                        </div>
+
+                        <div id="walnutella-oishi" class="dorayaki flavor">
+                          <p class="flavor-walnutella"></p>
+                          <div id="wnut-oishi-instock" class="right-side">
+                            <span id="wnut-oishi-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="wnut-oishi-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sizes">
+                    <button id="sugoi-title" class="accordion-header">
+                      
+                      <span class="toggle-icon">+</span>
+                    </button>
+
+                    <div class="flavors">
+                      <div id="sugoi-flavors-none" class="justify-content-center align-items-center flavor-none">
+                        <br>Oops sorry, no stocks for Sugoi Dorayaki Bites container available at this time!
+                      </div>
+                      
+                      <div id="sugoi-flavors-show">
+
+                        <div id="classic-choco-sugoi" class="dorayaki flavor">
                           <p class="flavor-choco"></p>
-                          <div id="choco-oishi-instock" class="right-side">
-                              <span id="choco-oishi-price" class="price"></span>
-                              <button class="cart-btn" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="choco-oishi-sold" class="right-side">
-                              <button class="cart-btn" >
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                          <div id="choco-sugoi-instock" class="right-side">
+                            <span id="choco-sugoi-price" class="price"></span>
+                            <button class="cart-btn" >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
                           </div>
-  
-                          <div id="dulce-deleche-oishi" class="dorayaki flavor">
+                          <div id="choco-sugoi-sold" class="right-side">
+                            <button class="cart-btn" >
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
+                        </div>
+
+                        <div id="dulce-deleche-sugoi" class="dorayaki flavor">
                           <p class="flavor-dulce"></p>
-                          <div id="dulce-oishi-instock" class="right-side">
-                              <span id="dulce-oishi-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="dulce-oishi-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                          <div id="dulce-sugoi-instock" class="right-side">
+                            <span id="dulce-sugoi-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
                           </div>
-  
-                          <div id="cheese-oishi" class="dorayaki flavor">
-                            <p class="flavor-cheese"></p>
-                            <div id="cheese-oishi-instock" class="right-side">
-                              <span id="cheese-oishi-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="cheese-oishi-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                          <div id="dulce-sugoi-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
                           </div>
-  
-                          <div id="walnutella-oishi" class="dorayaki flavor">
-                            <p class="flavor-walnutella"></p>
-                            <div id="wnut-oishi-instock" class="right-side">
-                              <span id="wnut-oishi-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="wnut-oishi-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                        </div>
+
+                        <div id="cheese-sugoi" class="dorayaki flavor">
+                          <p class="flavor-cheese"></p>
+                          <div id="cheese-sugoi-instock" class="right-side">
+                            <span id="cheese-sugoi-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="cheese-sugoi-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
+                        </div>
+
+                        <div id="walnutella-sugoi" class="dorayaki flavor">
+                          <p class="flavor-walnutella"></p>
+                          <div id="wnut-sugoi-instock" class="right-side">
+                            <span id="wnut-sugoi-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="wnut-sugoi-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-  
-                    <div class="sizes">
-                      <button id="sugoi-title" class="accordion-header">
-                        
-                        <span class="toggle-icon">+</span>
-                      </button>
-  
-                      <div class="flavors">
-                        <div id="sugoi-flavors-none" class="justify-content-center align-items-center flavor-none">
-                          <br>Oops sorry, no stocks for Sugoi Dorayaki Bites container available at this time!
-                        </div>
-                        
-                        <div id="sugoi-flavors-show">
-  
-                          <div id="classic-choco-sugoi" class="dorayaki flavor">
-                            <p class="flavor-choco"></p>
-                            <div id="choco-sugoi-instock" class="right-side">
-                              <span id="choco-sugoi-price" class="price"></span>
-                              <button class="cart-btn" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="choco-sugoi-sold" class="right-side">
-                              <button class="cart-btn" >
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
-                          </div>
-  
-                          <div id="dulce-deleche-sugoi" class="dorayaki flavor">
-                            <p class="flavor-dulce"></p>
-                            <div id="dulce-sugoi-instock" class="right-side">
-                              <span id="dulce-sugoi-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="dulce-sugoi-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
-                          </div>
-  
-                          <div id="cheese-sugoi" class="dorayaki flavor">
-                            <p class="flavor-cheese"></p>
-                            <div id="cheese-sugoi-instock" class="right-side">
-                              <span id="cheese-sugoi-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="cheese-sugoi-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
-                          </div>
-  
-                          <div id="walnutella-sugoi" class="dorayaki flavor">
-                            <p class="flavor-walnutella"></p>
-                            <div id="wnut-sugoi-instock" class="right-side">
-                              <span id="wnut-sugoi-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="wnut-sugoi-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
-                          </div>
-                        </div>
+                  </div>
+
+                  <div class="sizes">
+                    <button id="bonbox-title" class="accordion-header">
+                      
+                      <span class="toggle-icon">+</span>
+                    </button>
+
+                    <div class="flavors">
+                      <div id="box-flavors-none" class="justify-content-center align-items-center flavor-none">
+                        <br>Oops sorry, no stocks for Bonbon Box Dorayaki Bites container available at this time!
                       </div>
-                    </div>
-  
-                    <div class="sizes">
-                      <button id="bonbox-title" class="accordion-header">
-                        
-                        <span class="toggle-icon">+</span>
-                      </button>
-  
-                      <div class="flavors">
-                        <div id="box-flavors-none" class="justify-content-center align-items-center flavor-none">
-                          <br>Oops sorry, no stocks for Bonbon Box Dorayaki Bites container available at this time!
+                      
+                      <div id="box-flavors-show">
+
+                        <div id="classic-choco-box" class="dorayaki flavor">
+                          <p class="flavor-choco"></p>
+                          <div id="choco-box-instock" class="right-side">
+                            <span id="choco-bonbox-price" class="price"></span>
+                            <button class="cart-btn" >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="choco-box-sold" class="right-side">
+                            <button class="cart-btn" >
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
                         </div>
-                        
-                        <div id="box-flavors-show">
-  
-                          <div id="classic-choco-box" class="dorayaki flavor">
-                            <p class="flavor-choco"></p>
-                            <div id="choco-box-instock" class="right-side">
-                              <span id="choco-bonbox-price" class="price"></span>
-                              <button class="cart-btn" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="choco-box-sold" class="right-side">
-                              <button class="cart-btn" >
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+
+                        <div id="dulce-deleche-box" class="dorayaki flavor">
+                          <p class="flavor-dulce"></p>
+                          <div id="dulce-box-instock" class="right-side">
+                            <span id="dulce-bonbox-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
                           </div>
-  
-                          <div id="dulce-deleche-box" class="dorayaki flavor">
-                            <p class="flavor-dulce"></p>
-                            <div id="dulce-box-instock" class="right-side">
-                              <span id="dulce-bonbox-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="dulce-box-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                          <div id="dulce-box-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
                           </div>
-  
-                          <div id="cheese-box" class="dorayaki flavor">
-                            <p class="flavor-cheese"></p>
-                            <div id="cheese-box-instock" class="right-side">
-                              <span id="cheese-bonbox-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="cheese-box-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                        </div>
+
+                        <div id="cheese-box" class="dorayaki flavor">
+                          <p class="flavor-cheese"></p>
+                          <div id="cheese-box-instock" class="right-side">
+                            <span id="cheese-bonbox-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
                           </div>
-  
-                          <div id="walnutella-box" class="dorayaki flavor">
-                            <p class="flavor-walnutella"></p>
-                            <div id="wnut-box-instock" class="right-side">
-                              <span id="wnut-bonbox-price" class="price"></span>
-                              <button class="cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                              </button>
-                            </div>
-                            <div id="wnut-box-sold" class="right-side">
-                              <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="60" width="80" alt="">
-                              </button>
-                            </div>
+                          <div id="cheese-box-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
+                          </div>
+                        </div>
+
+                        <div id="walnutella-box" class="dorayaki flavor">
+                          <p class="flavor-walnutella"></p>
+                          <div id="wnut-box-instock" class="right-side">
+                            <span id="wnut-bonbox-price" class="price"></span>
+                            <button class="cart-btn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7e492e" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="wnut-box-sold" class="right-side">
+                            <button class="cart-btn">
+                              <img src="/img/out-of-stock.png" height="60" width="80" alt="">
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -364,206 +363,208 @@
               </div>
             </div>
           </div>
-  
-          <div class="row justify-content-center">
-            <div class="col-12 text-center position-relative">
-              <div class="menu-img-circle">
-                <img src="img/boncoin2.png" alt="Circle Image" class="img-fluid rounded-circle">
-              </div>
-              <div class="menu-box p5 mx-auto"><br>
-                <h2>BONCOIN</h2>
-                
-                <div class="menu-items">
-                    <div id="boncoin-nutella" class="boncoin flavor item">
-                      <p id="nutella-title"></p>
-                      <div id="bc-nut-instock" class="right-side">
-                        <span id="bc-nut-price" class="price"></span>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-12 text-center position-relative">
+            <div class="menu-img-circle">
+              <img src="/img/boncoin2.png" alt="Circle Image" class="img-fluid rounded-circle">
+            </div>
+            <div class="menu-box p5 mx-auto"><br>
+              <h2>BONCOIN</h2>
+              
+              <div class="menu-items">
+                  <div id="boncoin-nutella" class="boncoin flavor item">
+                    <p id="nutella-title"></p>
+                    <div id="bc-nut-instock" class="right-side">
+                      <span id="bc-nut-price" class="price"></span>
+                      <button class="cart-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div id="bc-nut-sold" class="right-side">
+                      <div class="d-flex justify-content-center align-items-center">
                         <button class="cart-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                          </svg>
+                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
-                      </div>
-                      <div id="bc-nut-sold" class="right-side">
-                        <div class="d-flex justify-content-center align-items-center">
-                          <button class="cart-btn">
-                            <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                          </button>
-                        </div>
                       </div>
                     </div>
-  
-                    <div id="boncoin-hamCheese" class="boncoin flavor item">
-                      <p id="hamcheese-title"></p>
-                      <div id="bc-ham-instock" class="right-side">
-                        <span id="bc-ham-price" class="price"></span>
+                  </div>
+
+                  <div id="boncoin-hamCheese" class="boncoin flavor item">
+                    <p id="hamcheese-title"></p>
+                    <div id="bc-ham-instock" class="right-side">
+                      <span id="bc-ham-price" class="price"></span>
+                      <button class="cart-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div id="bc-ham-sold" class="right-side">
+                      <div class="d-flex justify-content-center align-items-center">
                         <button class="cart-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                          </svg>
+                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
-                      </div>
-                      <div id="bc-ham-sold" class="right-side">
-                        <div class="d-flex justify-content-center align-items-center">
-                          <button class="cart-btn">
-                            <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                          </button>
-                        </div>
                       </div>
                     </div>
-  
-                    <div id="boncoin-mozarella" class="boncoin flavor item">
-                      <p id="mozza-title"></p>
-                      <div id="bc-mozza-instock" class="right-side">
-                        <span id="bc-mozza-price" class="price"></span>
+                  </div>
+
+                  <div id="boncoin-mozarella" class="boncoin flavor item">
+                    <p id="mozza-title"></p>
+                    <div id="bc-mozza-instock" class="right-side">
+                      <span id="bc-mozza-price" class="price"></span>
+                      <button class="cart-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div id="bc-mozza-sold" class="right-side">
+                      <div class="d-flex justify-content-center align-items-center">
                         <button class="cart-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                          </svg>
+                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
-                      </div>
-                      <div id="bc-mozza-sold" class="right-side">
-                        <div class="d-flex justify-content-center align-items-center">
-                          <button class="cart-btn">
-                            <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                          </button>
-                        </div>
                       </div>
                     </div>
-  
-                    <div id="boncoin-oreoCheese" class="boncoin flavor item">
-                      <p id="oreocream-title"></p>
-                      <div id="bc-oreo-instock" class="right-side">
-                        <span id="bc-oreo-price" class="price"></span>
+                  </div>
+
+                  <div id="boncoin-oreoCheese" class="boncoin flavor item">
+                    <p id="oreocream-title"></p>
+                    <div id="bc-oreo-instock" class="right-side">
+                      <span id="bc-oreo-price" class="price"></span>
+                      <button class="cart-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div id="bc-oreo-sold" class="right-side">
+                      <div class="d-flex justify-content-center align-items-center">
                         <button class="cart-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                          </svg>
+                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                         </button>
                       </div>
-                      <div id="bc-oreo-sold" class="right-side">
-                        <div class="d-flex justify-content-center align-items-center">
-                          <button class="cart-btn">
-                            <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                          </button>
-                        </div>
-                      </div>
-                    </div>                 
-                </div>
+                    </div>
+                  </div>                 
               </div>
             </div>
           </div>
-  
-          <div class="row justify-content-center">
-            <div class="col-12 text-center position-relative">
-              <div class="menu-img-circle">
-                <img src="img/drinks.jpg " alt="Circle Image" class="img-fluid rounded-circle">
-              </div>
-              <div class="menu-box p5 mx-auto"><br>
-                <h2>DRINKS</h2>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-12 text-center position-relative">
+            <div class="menu-img-circle">
+              <img src="/img/drinks.jpg " alt="Circle Image" class="img-fluid rounded-circle">
+            </div>
+            <div class="menu-box p5 mx-auto"><br>
+              <h2>DRINKS</h2>
+              
+              <div class="menu-items">
+                <div id="chocold" class="drink item">
+                  <p id="chocold-title"></p>
+                  <div id="chocold-instock" class="right-side">
+                    <span id="chocold-price" class="price"></span>
+                    <button class="cart-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div id="chocold-sold" class="right-side">
+                    <div class="d-flex justify-content-center align-items-center">
+                      <button class="cart-btn">
+                        <img src="/img/out-of-stock.png" height="55" width="70" alt="">
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 
-                <div class="menu-items">
-                  <div id="chocold" class="drink item">
-                    <p id="chocold-title"></p>
-                    <div id="chocold-instock" class="right-side">
-                      <span id="chocold-price" class="price"></span>
+                <div id="hot-coffee" class="drink item">
+                  <p id="hotcof-title"></p>
+                  <div id="hotcof-instock" class="right-side">
+                    <span id="hotcof-price" class="price"></span>
+                    <button class="cart-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div id="hotcof-sold" class="right-side">
+                    <div class="d-flex justify-content-center align-items-center">
                       <button class="cart-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                        </svg>
+                        <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                       </button>
-                    </div>
-                    <div id="chocold-sold" class="right-side">
-                      <div class="d-flex justify-content-center align-items-center">
-                        <button class="cart-btn">
-                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                        </button>
-                      </div>
                     </div>
                   </div>
-                  
-                  <div id="hot-coffee" class="drink item">
-                    <p id="hotcof-title"></p>
-                    <div id="hotcof-instock" class="right-side">
-                      <span id="hotcof-price" class="price"></span>
-                      <button class="cart-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                        </svg>
-                      </button>
-                    </div>
-                    <div id="hotcof-sold" class="right-side">
-                      <div class="d-flex justify-content-center align-items-center">
-                        <button class="cart-btn">
-                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                        </button>
-                      </div>
-                    </div>
+                </div>
+
+                <div id="iced-coffee" class="drink item">
+                  <p id="icedcof-title"></p>
+                  <div id="icedcof-instock" class="right-side">
+                    <span id="icedcof-price" class="price"></span>
+                    <button class="cart-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                      </svg>
+                    </button>
                   </div>
-  
-                  <div id="iced-coffee" class="drink item">
-                    <p id="icedcof-title"></p>
-                    <div id="icedcof-instock" class="right-side">
-                      <span id="icedcof-price" class="price"></span>
+                  <div id="icedcof-sold" class="right-side">
+                    <div class="d-flex justify-content-center align-items-center">
                       <button class="cart-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                        </svg>
+                        <img src="/img/out-of-stock.png" height="55" width="70" alt="">
                       </button>
-                    </div>
-                    <div id="icedcof-sold" class="right-side">
-                      <div class="d-flex justify-content-center align-items-center">
-                        <button class="cart-btn">
-                          <img src="/img/out-of-stock.png" height="55" width="70" alt="">
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="browse-hide">
-      <div class="d-flex justify-content-center align-items-center text-center">
-        <h1 style="color: black;"><br>PLEASE CHOOSE A BRANCH FIRST!</h1>
-      </div>
+  <div class="browse-hide">
+    <div class="d-flex justify-content-center align-items-center text-center">
+      <h1 style="color: black;"><br>PLEASE CHOOSE A BRANCH FIRST!</h1>
     </div>
+  </div>
 
-    <div class="footer-show">
-      <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-      </footer>
+  <div class="footer-show">
+    <footer class="small-footer">
+      <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
+  </div>
+
+  <div class="footer-fixed">
+    <footer class="small-footer fixed-bottom">
+      <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
+  </div>
+
+  <!-- Modal HTML -->
+  <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Processing</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Please wait...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-
-    <div class="footer-fixed">
-      <footer class="small-footer fixed-bottom">
-        <p>In Partial Fulfillment for subject Web Development</p>
-      </footer>
-    </div>
-
-    <!-- Modal HTML -->
-    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Processing</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <p id="modalMessage">Please wait...</p>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
   </div>
   
-    <script src="./main.js"></script>
-    <script type="module" src="../auth/auth.js" defer></script>
-    <script type="module" src="/index.js" defer></script>
+  <script src="/main.js"></script>
+  <script type="module" src="/auth/auth.js" defer></script>
+  <script type="module" src="/index.js" defer></script>
+  <script type="module" src="/menus/dashboards/js/browse.js" defer></script>
 </body>
 </html>
