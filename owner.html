@@ -11,19 +11,8 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-      @media (max-width: 830px) {
-            table {
-                display: none;
-            }
-
-            .details {
-                display: block;
-            }
-
-            
-        }
-
-        .actions button {
+ 
+    .actions button {
       border: none;
       border-radius: 5px;
       padding: 6px 12px;
@@ -49,6 +38,7 @@
     }
 
     .details {
+      display: none;
       background: #f9f9f9;
       padding: 1rem;
       border: 1px solid #ddd;
@@ -79,6 +69,16 @@
       color: white;
       margin-bottom: 1rem;
     }
+
+    @media (max-width: 830px) {
+            table {
+                display: none;
+            }
+
+            .details {
+                display: block;
+            }   
+      }
 
     </style>
 </head>
@@ -205,7 +205,13 @@
                             <option value="SM North Edsa">SM North Edsa</option>
                             <option value="One Mall Valenzuela">One Mall Valenzuela</option>
                         </select>
-                        <input type="text" id="position" placeholder="Position" required>
+                        
+                        <!--<input type="text" id="position" placeholder="Position" required>-->
+
+                        <select id="position">
+                          <option value="Manager">Manager</option>
+                          <option value="Staff">Staff</option>
+                      </select>
                     </div>
 
                     <div class="column">
