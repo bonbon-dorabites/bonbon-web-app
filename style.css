@@ -767,7 +767,6 @@ body {
     margin: 0;
 }
 
-
 /* Accordion Section */
 .pending-orders,
 .finished-orders {
@@ -916,12 +915,14 @@ body {
     background-color: #c82333;
 }
 
-.staff-dashboard {
+.staff-dashboard,
+.customer-dashboard,
+.manager-dashboard {
     padding: 85px 30px;
     max-width: 1000px;
-    margin: 0px auto;
-    
+    margin: 0 auto;
 }
+
 
 /*CUSTOMER*/
 textarea.form-control {
@@ -952,8 +953,6 @@ textarea.form-control:focus {
     font-weight: bold;
     color: var(--dark-brown);
 }
-
-
 
 
 /* CHECKOUT FORM */
