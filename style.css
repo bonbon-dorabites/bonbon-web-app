@@ -824,6 +824,24 @@ body {
     background-color: #218838;
     color: white;
 }
+
+.accordion-body .btn-danger {
+    align-self: flex-end;
+    margin-top: 10px;
+    background-color: #dc3545; 
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+.accordion-body .btn-danger:hover {
+    background-color: #c82333; 
+    color: white;
+}
+
 /* Spacing Adjustments */
 .mt-4 {
     margin-top: 1.5rem !important;
@@ -914,6 +932,8 @@ body {
 .btn-danger:hover {
     background-color: #c82333;
 }
+
+
 
 .staff-dashboard,
 .customer-dashboard,
