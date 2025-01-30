@@ -1238,7 +1238,7 @@ textarea.form-control:focus {
     text-align: left; /* Align to left */
 }
 .owner-dashboard-dropdown {
-    background-color: #CB7208;
+    background-color: var(--brown);
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -1487,7 +1487,7 @@ textarea.form-control:focus {
     padding: 30px;
 }
 
-.modal-content h3 {
+.addEmployee-content h3 {
     margin-bottom: 30px;
 }
 
@@ -1507,12 +1507,12 @@ textarea.form-control:focus {
 }
 
 /* Modal form */
-.modal form {
+.addEmployee-modal form {
     display: grid;
     gap: 15px;
 }
 
-.modal input, .modal select {
+.addEmployee-modal input, .addEmployee-modal select {
     padding: 10px;
     border: 1px solid var(--brown);
     border-radius: 5px;
@@ -1524,25 +1524,25 @@ textarea.form-control:focus {
    
 }
 
-.modal-content .modal-buttons {
+.addEmployee-content .modal-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-.modal-content button {
+.addEmployee-content button {
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.modal-content .cancel-btn {
+.addEmployee-content .cancel-btn {
     background-color: #dc3545;
     color: white;
 }
 
-.modal-content .save-btn {
+.addEmployee-content .save-btn {
     background-color: #28a745;
     color: white;
 }
