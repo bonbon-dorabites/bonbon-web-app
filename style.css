@@ -731,6 +731,21 @@ body {
     line-height: 2.2;
 }
 
+.browse-show {
+    display: none;
+}
+
+.browse-hide {
+    display: block;
+}
+
+.footer-show {
+    display: none;
+}
+
+.footer-fixed {
+    display: block;
+}
 
 /*
 .accordion .sizes.active .flavors {
