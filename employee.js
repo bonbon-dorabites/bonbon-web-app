@@ -355,42 +355,64 @@ async function updateEmployee() {
 async function deleteEmployee(button) {
     alert("DELETE EMPLOYEE");
     console.log("delete");
-    const row = button.closest("tr");
-    const employeeId = row.getAttribute("data-id"); // Get employee ID
+
+    let employeeId, branchId, row, detailsCard, detailsContainer;
+
+    // Check if the button is inside a table row or details card
+    row = button.closest("tr");
+    detailsCard = button.closest(".details-card");
+
+    if (row) {
+        // If deleting from the table
+        employeeId = row.getAttribute("data-id");
+        branchId = row.getAttribute("data-branch-id");
+    } else if (detailsCard) {
+        // If deleting from the details card
+        employeeId = detailsCard.getAttribute("data-id");
+        branchId = detailsCard.getAttribute("data-branch-id");
+        detailsContainer = detailsCard.closest(".details"); // Get the parent container
+    } else {
+        console.error("Could not find the row or details card.");
+        return;
+    }
 
     console.log("DELETE EMPLOYEE ID: " + employeeId);
-    const branchId = row.getAttribute("data-branch-id"); // Get branch ID
-  
-    // Confirm before deleting
-    const confirmDelete = confirm("Are you sure you want to delete this employee?");
     console.log("DELETE BRANCH ID: " + branchId);
 
-    console.log(confirmDelete);
+    // Confirm before deleting
+    const confirmDelete = confirm("Are you sure you want to delete this employee?");
     
     if (confirmDelete) {
-        console.log("In if");
-      try {
-        console.log("In try");
-        // Get reference to the employee document in Firestore
-        const employeeRef = doc(db, "branches", branchId, "employees", employeeId);
-        console.log(employeeRef);
-        // Delete the employee document from Firestore
-        await deleteDoc(employeeRef);
-  
-        console.log("Employee deleted successfully!");
-  
-        // Remove the row from the table
-        row.remove();
-  
-        alert("Employee deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting employee:", error.message);
-        console.error(error.stack);
-      }
+        try {
+            // Get reference to the employee document in Firestore
+            const employeeRef = doc(db, "branches", branchId, "employees", employeeId);
+
+            // Delete the employee document from Firestore
+            await deleteDoc(employeeRef);
+
+            console.log("Employee deleted successfully!");
+
+            // Remove the row or details card from the UI
+            if (row) {
+                row.remove();
+            }
+            if (detailsCard) {
+                detailsCard.remove();
+                // If the details container is now empty, remove it too
+                if (detailsContainer && detailsContainer.childElementCount === 0) {
+                    detailsContainer.remove();
+                }
+            }
+
+            alert("Employee deleted successfully!");
+        } catch (error) {
+            console.error("Error deleting employee:", error.message);
+            console.error(error.stack);
+        }
     } else {
-      console.log("Employee deletion canceled.");
+        console.log("Employee deletion canceled.");
     }
-  }
+}
 
 
 

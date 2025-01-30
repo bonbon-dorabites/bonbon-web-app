@@ -67,19 +67,41 @@ function openEditModal() {
 
 function editEmployee(button) {
   console.log("EDIT");
-  
+
+  let employeeId, branchId, name, branch, position, contactNumber, email, permission;
+
+  // Check if the clicked button is in a table row or details card
   const row = button.closest("tr");
+  const detailsCard = button.closest(".details-card");
 
-  const employeeId = row.getAttribute("data-id"); // Get employee ID
-  const branchId = row.getAttribute("data-branch-id");
+  if (row) {
+      // If the button is inside a table row
+      employeeId = row.getAttribute("data-id");
+      branchId = row.getAttribute("data-branch-id");
 
-  // Get the existing data from the row
-  const name = row.cells[0].textContent;
-  const branch = row.cells[1].textContent;
-  const position = row.cells[3].textContent;
-  const contactNumber = row.cells[4].textContent;
-  const email = row.cells[5].textContent;
-  const permission = row.querySelector("input[type='radio']:checked")?.value || "Declined";
+      // Get data from table row
+      name = row.cells[0].textContent;
+      branch = row.cells[1].textContent;
+      position = row.cells[3].textContent;
+      contactNumber = row.cells[4].textContent;
+      email = row.cells[5].textContent;
+      permission = row.querySelector("input[type='radio']:checked")?.value || "Declined";
+  } else if (detailsCard) {
+      // If the button is inside a details card
+      employeeId = detailsCard.getAttribute("data-id");
+      branchId = detailsCard.getAttribute("data-branch-id");
+
+      // Get data from details card
+      name = detailsCard.querySelector("p:nth-child(2)").textContent.replace("Name: ", "").trim();
+      branch = detailsCard.querySelector("p:nth-child(3)").textContent.replace("Branch: ", "").trim();
+      permission = detailsCard.querySelector("p:nth-child(4)").textContent.replace("Permission: ", "").trim();
+      position = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Position: ", "").trim();
+      contactNumber = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Contact: ", "").trim();
+      email = detailsCard.querySelector("p:nth-child(7)").textContent.replace("Email: ", "").trim();
+  } else {
+      console.error("Could not find the row or details card.");
+      return;
+  }
 
   // Populate the edit form
   document.getElementById("edit-name").value = name;
@@ -89,17 +111,16 @@ function editEmployee(button) {
   document.getElementById("edit-email").value = email;
   document.querySelector(`input[name="edit-permission"][value="${permission}"]`).checked = true;
 
-  // Store docId and branchId in hidden fields for later use
+  // Store employeeId and branchId in hidden fields
   document.getElementById("edit-doc-id").value = employeeId;
   document.getElementById("edit-branch-id").value = branchId;
 
-  console.log("Employee ID: " + employeeId);
-  console.log("Branch ID: " + branchId);
+  console.log("Employee ID:", employeeId);
+  console.log("Branch ID:", branchId);
 
-  // Show the modal
+  // Show the edit modal
   openEditModal();
 }
-
 
 // Close modal function
 function closeEditModal() {
