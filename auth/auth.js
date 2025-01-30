@@ -179,6 +179,25 @@ async function handleLogin(event) {
     }
 }
 
+document.getElementById("branch-selector").addEventListener("change", function() {
+    let browseShow = document.querySelector(".browse-show");
+    let footerShow = document.querySelector(".footer-show");
+    let browseHide = document.querySelector(".browse-hide");
+    let footerFixed = document.querySelector(".footer-fixed");
+
+    if (this.value === "") {  // If "Select a branch" is selected
+        browseShow.style.display = "none";
+        footerShow.style.display = "none";
+        browseHide.style.display = "block";
+        footerFixed.style.display = "block";
+    } else {  // If any other option is selected
+        browseShow.style.display = "block";
+        footerShow.style.display = "block";
+        browseHide.style.display = "none";
+        footerFixed.style.display = "none";
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     // Define the menu elements
     const signupMenu = document.getElementById("signup-menu");
