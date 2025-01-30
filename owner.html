@@ -229,41 +229,50 @@
             </div>
         </div>
 
+        <!-- Modal for Editing Employee -->
+        <div id="editEmployeeModal" class="edit-modal">
+          <div class="edit-modal-content">
+              <h3>Edit Employee</h3>
+              <form id="editEmployeeForm">
+                  <input type="hidden" id="edit-doc-id">
+                  <input type="hidden" id="edit-branch-id">
+
+                  <input type="text" id="edit-name" placeholder="Name" required>
+
+                  <div class="column">
+                      <select id="edit-branch" disabled>
+                          <option value="SM Valenzuela">SM Valenzuela</option>
+                          <option value="SM North Edsa">SM North Edsa</option>
+                          <option value="One Mall Valenzuela">One Mall Valenzuela</option>
+                      </select>
+                      <input type="text" id="edit-position" placeholder="Position" required>
+                  </div>
+
+                  <div class="column">
+                      <input type="text" id="edit-contact" placeholder="Contact Number" required>
+                      <input type="email" id="edit-email" placeholder="Email" required>
+                  </div>
+
+                  <label>Permission</label>
+                  <label>
+                      <input type="radio" name="edit-permission" value="Allowed"> Allowed
+                  </label>
+                  <label>
+                      <input type="radio" name="edit-permission" value="Declined"> Declined
+                  </label>
+
+                  <div class="modal-buttons">
+                      <button type="button" class="cancel-btn" onclick="closeEditModal()">Cancel</button>
+                      <button type="button" class="save-btn" id="save-edit">Save</button>
+                  </div>
+              </form>
+          </div>
+        </div>
+
         <!-- Details Section -->
 
     <section id="details-section">
-        <div class="details" id="details-0">
-            <div class="details-card">
-              <div class="initials" style="background-color: #ff4757;">RB</div>
-              <p><strong>Name:</strong> Rebecca Bauch</p>
-              <p><strong>Branch:</strong> </p>
-              <p><strong>Permission:</strong> </p>
-              <p><strong>Position:</strong> </p>
-              <p><strong>Contact:</strong></p>
-              <p><strong>Email:</strong></p>
-              <div class="actions">
-                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </div>
-          </div>
-    
-          <div class="details" id="details-1">
-            <div class="details-card">
-              <div class="initials" style="background-color: #ffa502;">FY</div>
-              <p><strong>Name:</strong> Felicita Yundt</p>
-              <p><strong>Branch:</strong> </p>
-              <p><strong>Permission:</strong> </p>
-              <p><strong>Position:</strong> </p>
-              <p><strong>Contact:</strong></p>
-              <p><strong>Email:</strong></p>
-              <div class="actions">
-                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
+
     </section>
       
     </div>

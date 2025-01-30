@@ -1464,7 +1464,7 @@ textarea.form-control:focus {
 }
 
 /* Modal Styling */
-.addEmployee-modal {
+.addEmployee-modal, .edit-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -1477,7 +1477,7 @@ textarea.form-control:focus {
     
 }
 
-.addEmployee-content {
+.edit-modal-content, .addEmployee-content {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
@@ -1487,7 +1487,7 @@ textarea.form-control:focus {
     padding: 30px;
 }
 
-.addEmployee-content h3 {
+.addEmployee-content h3, .edit-modal-content h3 {
     margin-bottom: 30px;
 }
 
@@ -1507,42 +1507,43 @@ textarea.form-control:focus {
 }
 
 /* Modal form */
-.addEmployee-modal form {
+.addEmployee-modal form, .edit-modal form {
     display: grid;
     gap: 15px;
 }
 
-.addEmployee-modal input, .addEmployee-modal select {
+.addEmployee-modal input, .addEmployee-modal select,
+.edit-modal input, .edit-modal select {
     padding: 10px;
     border: 1px solid var(--brown);
     border-radius: 5px;
 }
 
-.addEmployee {
-    width: 150px;
-    margin: 20px auto;
-   
-}
 
-.addEmployee-content .modal-buttons {
+
+.addEmployee-content .modal-buttons,
+.edit-modal-content .modal-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-.addEmployee-content button {
+.addEmployee-content button,
+.edit-modal-content button {
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.addEmployee-content .cancel-btn {
+.addEmployee-content .cancel-btn,
+.edit-modal-content .cancel-btn {
     background-color: #dc3545;
     color: white;
 }
 
-.addEmployee-content .save-btn {
+.addEmployee-content .save-btn,
+.edit-modal-content .save-btn {
     background-color: #28a745;
     color: white;
 }
