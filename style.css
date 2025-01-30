@@ -808,7 +808,7 @@ body {
     margin: 0;
 }
 /* Buttons in Accordion */
-.accordion-body .btn-success {
+.accordion-body .btn-success{
     align-self: flex-end;
     margin-top: 10px;
     background-color: #28a745;
