@@ -39,6 +39,9 @@ async function fetchData() {
             const startDate = data.coup_start ? data.coup_start.toDate().toLocaleDateString() : "N/A";
             const endDate = data.coup_end ? data.coup_end.toDate().toLocaleDateString() : "N/A";
 
+            // Convert coup_isActive to "Active" or "Expired"
+            const status = data.coup_isActive ? "Active" : "Expired";
+
             // Create a new table row
             const row = document.createElement("tr");
 
@@ -48,7 +51,7 @@ async function fetchData() {
                 <td>${startDate}</td>
                 <td>${endDate}</td>
                 <td>${data.coup_desc || "N/A"}</td>
-                <td>${data.coup_isActive || "N/A"}</td>
+                <td>${status}</td>
                 <td>
                     <button class="action-btn edit"><i class="fas fa-edit"></i></button>
                     <button class="action-btn delete" id="delete-user"><i class="fa-solid fa-trash"></i></button>
