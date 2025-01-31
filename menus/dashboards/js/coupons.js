@@ -67,16 +67,16 @@ async function fetchData() {
                 detailsContainer.className = "details";
                 detailsContainer.innerHTML = `
                     <div class="details-card">
-                    <div class="initials" style="background-color: ${randomColor};">HI</div>
-                    <p><strong>Amount:</strong> ${data.coup_amount}</p>
-                    <p><strong>Start Date:</strong> ${startDate}</p>
-                    <p><strong>End Date:</strong> ${endDate}</p>
-                    <p><strong>Coupon Description:</strong> ${data.coup_desc}</p>
-                    <p><strong>Status:</strong> ${status}</p>
-                    <div class="actions">
-                        <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
-                    </div>
+                        <div class="initials" style="background-color: ${randomColor};">${couponId}</div>
+                        <p><strong>Amount:</strong> ${data.coup_amount}</p>
+                        <p><strong>Start Date:</strong> ${startDate}</p>
+                        <p><strong>End Date:</strong> ${endDate}</p>
+                        <p><strong>Coupon Description:</strong> ${data.coup_desc}</p>
+                        <p><strong>Status:</strong> ${status}</p>
+                        <div class="actions">
+                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>
                 `;
                 
