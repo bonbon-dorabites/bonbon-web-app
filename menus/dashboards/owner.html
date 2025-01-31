@@ -8,148 +8,119 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="../../style.css">
 
     <style>
-        @media (max-width: 830px) {
+ 
+    .actions button {
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .actions .view {
+      background-color: #28a745;
+    }
+
+    .actions .delete {
+      background-color: #dc3545;
+    }
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .progress-bar progress {
+      width: 100%;
+    }
+
+    .details {
+      display: none;
+      background: #f9f9f9;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .details.active {
+      display: block;
+    }
+
+    .details-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .details-card .initials {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 830px) {
             table {
                 display: none;
             }
 
             .details {
                 display: block;
-            }
-        }
-        
-        @media(max-width: 370px){
-            .small-footer p {
-                font-size: 15px;
-                text-align: center;
-            }
-        }
-
-        .actions button {
-            border: none;
-            border-radius: 5px;
-            padding: 6px 12px;
-            color: white;
-            cursor: pointer;
-            }
-
-        .actions .view {
-            background-color: #28a745;
-        }
-
-        .actions .delete {
-            background-color: #dc3545;
-        }
-
-        .progress-bar {
-            display: flex;
-            align-items: center;
-        }
-
-        .progress-bar progress {
-            width: 100%;
-        }
-
-        .details {
-            background: #f9f9f9;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .details.active {
-            display: block;
-        }
-
-        .details-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .details-card .initials {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 1rem;
-        }
+            }   
+      }
 
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar fixed-top navbar-expand-lg" style="background-color: var(--light-brown);">
-          <div class="container-fluid">
-              <a href="/index.html">
-                  <img src="/img/logo.png" class="nav-logo navbar-brand custom-navbar-link">
-              </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
-                <li class="nav-item">
-                  <a class="nav-link custom-navbar-link" href="/menus/browse.html">Browse</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link custom-navbar-link" href="/menus/order.html">Orders</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link custom-navbar-link" href="/menus/coupons.html">Coupons</a>
-                </li>
-              </ul>
-              <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
+            <div class="container-fluid">
+                <a href="../../index.html">
+                    <img src="../../img/logo.png" class="nav-logo navbar-brand custom-navbar-link ms-5">
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ms-5 gap-5" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link custom-navbar-link" href="browse.html">Browse</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link custom-navbar-link active" href="order.html">Orders</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link custom-navbar-link" href="coupons.html">Coupons</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0 w-25 d-flex justify-content-end">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                      </svg>
-                  </a>
-                  <ul class="dropdown-menu">
-                      <span id="user-menu">
-                          <li><p></p><hr class="line" style="color: white;"></li>
-                      </span>
-                      <span id="signup-menu">
-                          <li><a class="dropdown-item" href="/auth/signup.html">Register</a></li>
-                      </span>
-                      <span id="login-menu">
-                          <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
-                      </span>
-                      <span id="edit-menu">
-                          <li><a class="dropdown-item" href="/menus/user-details.html">Edit Details</a></li>
-                      </span>
-                      <span id="logout-menu">
-                          <li><a class="dropdown-item">Log-out</a></li>
-                      </span>
-                      <span id="owner-menu">
-                          <li><a class="dropdown-item" href="/menus/dashboards/owner.html">Dashboard</a></li>
-                      </span>
-                      <span id="manager-menu">
-                          <li><a class="dropdown-item" href="/menus/dashboards/manager.html">Dashboard</a></li>
-                      </span>
-                      <span id="staff-menu">
-                          <li><a class="dropdown-item" href="/menus/dashboards/staff.html">Dashboard</a></li>
-                      </span>
-                      <span id="customer-menu">
-                          <li><a class="dropdown-item" href="/menus/dashboards/customer.html">Dashboard</a></li>
-                      </span>
-                  </ul>
-                </li>
-              </ul>
+                    <a class="nav-link dropdown-toggle custom-navbar-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#48201a" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="signup.html">Register</a></li>
+                      <li><a class="dropdown-item" href="login.html">Login</a></li>
+                      <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                    </ul>
+                    </li>
+                </ul>
+              </div>
             </div>
-          </div>
         </nav>
     </header>
 
@@ -185,7 +156,7 @@
         
         <div class="sales-illustration-container">
             <div class="sales-illustration-image">
-                <img src="/img/sales-illustration.png" alt="Sales Illustration Chart">
+                <img src="../../img/sales-illustration.png" alt="Sales Illustration Chart">
             </div>
             <p class="sales-illustration-caption">Fig2. Shows sales table</p>
         
@@ -203,7 +174,7 @@
                 </div>
             </div>
 
-                <table class="staff-management-table">
+                <table id="employee-table" class="staff-management-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -216,48 +187,50 @@
                         </tr>
                     </thead>
                     <tbody id="staff-table-body">
-                        <!-- Example row -->
-                        <tr>
-                            <td>John Doe</td>
-                            <td>SM Valenzuela</td>
-                            <td>
-                                <label>
-                                    <input type="radio" name="permission-1" value="Allowed" disabled> Allowed
-                                </label>
-                                <label>
-                                    <input type="radio" name="permission-1" value="Declined" disabled> Declined
-                                </label>
-                            </td>
-                            <td>Manager</td>
-                            <td>+63 912 345 6789</td>
-                            <td>johndoe@example.com</td>
-                            <td>
-                                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>One Mall Valenzuela</td>
-                            <td>
-                                <label>
-                                    <input type="radio" name="permission-2" value="Allowed" disabled> Allowed
-                                </label>
-                                <label>
-                                    <input type="radio" name="permission-2" value="Declined" disabled> Declined
-                                </label>
-                            </td>
-                            <td>Cashier</td>
-                            <td>+63 912 987 6543</td>
-                            <td>janesmith@example.com</td>
-                            <td>
-                                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
+              
                     </tbody>
                 </table>
         </div>
+
+        <!-- Details Section -->
+
+        <section id="details-section">
+
+        </section>
+
+        <div class="dashboard-line"></div> <!-- Separator Line -->
+
+        <div class="user-management-container">
+          <h2 class="staff-management-title">User Management</h2>
+          <div class="header-row">
+
+              <div class="search">
+                  <input type="text" id="search" placeholder="Search user...">
+                  <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
+              </div>
+          </div>
+
+              <table id="user-table" class="user-management-table">
+                  <thead>
+                      <tr>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Role</th>
+                          <th>Branch</th>
+                          <th>Email</th>
+                          <th>Contact Number</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody id="user-table-body">
+            
+                  </tbody>
+              </table>
+      </div>
+
+      <section id="userDetails-section">
+
+      </section>
 
         <!-- Modal for Adding Employee -->
         <div id="employeeModal" class="addEmployee-modal">
@@ -269,10 +242,16 @@
                     <div class="column">
                         <select id="employee-branch">
                             <option value="SM Valenzuela">SM Valenzuela</option>
-                            <option value="Waltermart">SM North Edsa</option>
-                            <option value="SM Mall of Asia">One Mall Valenzuela</option>
+                            <option value="SM North Edsa">SM North Edsa</option>
+                            <option value="One Mall Valenzuela">One Mall Valenzuela</option>
                         </select>
-                        <input type="text" id="position" placeholder="Position" required>
+                        
+                        <!--<input type="text" id="position" placeholder="Position" required>-->
+
+                        <select id="position">
+                          <option value="Manager">Manager</option>
+                          <option value="Staff">Staff</option>
+                      </select>
                     </div>
 
                     <div class="column">
@@ -289,95 +268,68 @@
                     </label>
 
                     <div class="modal-buttons">
-                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                        <button class="save-btn" onclick="saveEmployee()">Save</button>
+                        <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+                        <button type="button" class="save-btn" id="saveBtn">Save</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- Details Section -->
+        <!-- Modal for Editing Employee -->
+        <div id="editEmployeeModal" class="edit-modal">
+          <div class="edit-modal-content">
+              <h3>Edit Employee</h3>
+              <form id="editEmployeeForm">
+                  <input type="hidden" id="edit-doc-id">
+                  <input type="hidden" id="edit-branch-id">
 
-    <section id="details-section">
-        <div class="details" id="details-0">
-            <div class="details-card">
-              <div class="/initials" style="background-color: #ff4757;">RB</div>
-              <p><strong>Name:</strong> Rebecca Bauch</p>
-              <p><strong>Branch:</strong> </p>
-              <p><strong>Permission:</strong> </p>
-              <p><strong>Position:</strong> </p>
-              <p><strong>Contact:</strong></p>
-              <p><strong>Email:</strong></p>
-              <div class="actions">
-                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </div>
+                  <input type="text" id="edit-name" placeholder="Name" required>
+
+                  <div class="column">
+                      <select id="edit-branch" disabled>
+                          <option value="SM Valenzuela">SM Valenzuela</option>
+                          <option value="SM North Edsa">SM North Edsa</option>
+                          <option value="One Mall Valenzuela">One Mall Valenzuela</option>
+                      </select>
+                      <!--<input type="text" id="edit-position" placeholder="Position" required>-->
+
+                      <select id="edit-position">
+                        <option value="Manager">Manager</option>
+                        <option value="Staff">Staff</option>
+                    </select>
+                  </div>
+
+                  <div class="column">
+                      <input type="text" id="edit-contact" placeholder="Contact Number" required>
+                      <input type="email" id="edit-email" placeholder="Email" required>
+                  </div>
+
+                  <label>Permission</label>
+                  <label>
+                      <input type="radio" name="edit-permission" value="Allowed"> Allowed
+                  </label>
+                  <label>
+                      <input type="radio" name="edit-permission" value="Declined"> Declined
+                  </label>
+
+                  <div class="modal-buttons">
+                      <button type="button" class="cancel-btn" onclick="closeEditModal()">Cancel</button>
+                      <button type="button" class="save-btn" id="save-edit">Save</button>
+                  </div>
+              </form>
           </div>
-    
-          <div class="details" id="details-1">
-            <div class="details-card">
-              <div class="/initials" style="background-color: #ffa502;">FY</div>
-              <p><strong>Name:</strong> Felicita Yundt</p>
-              <p><strong>Branch:</strong> </p>
-              <p><strong>Permission:</strong> </p>
-              <p><strong>Position:</strong> </p>
-              <p><strong>Contact:</strong></p>
-              <p><strong>Email:</strong></p>
-              <div class="actions">
-                <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-                <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </div>
-          </div>
-        </div><br>
-    </section>
-      <br>
-    </div>
-
-    <!-- Modal HTML -->
-    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Processing</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="modalMessage">Please wait...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
         </div>
-    </div>
 
-    <!-- Footer --> <br>
-    <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
     
-    <!-- Modal HTML -->
-    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Processing</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="modalMessage">Please wait...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+
+      
     </div>
 
-    <script src="/main.js"></script>
-    <script type="module" src="/auth/auth.js" defer></script>
-    <script type="module" src="/index.js" defer></script>
+
+<script src="../../main.js"></script>
+<script type="module" src="./js/employee.js"></script>
+<script type="module" src="./js/user.js"></script>
+
+
 </body>
 </html>

@@ -49,131 +49,98 @@ document.querySelectorAll('.label').forEach(label => {
     });
   });
   
-
-// Open Modal
-function openModal() {
-    document.getElementById('employeeModal').style.display = "block";
-}
-
-// Close Modal
-function closeModal() {
-    document.getElementById('employeeModal').style.display = "none";
-}
-
 // Get modal and form elements
 const employeeModal = document.getElementById("employeeModal");
+const editModal = document.getElementById("editEmployeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
-
+const couponModal = document.getElementById("couponsModal");
 // Open modal function
 function openModal() {
   employeeModal.style.display = "block";
 }
 
-// Close modal function
-function closeModal() {
-  employeeModal.style.display = "none";
+// Open modal function
+function openEditModal() {
+  editModal.style.display = "block";
 }
 
-// Save employee details (placeholder function)
-function saveEmployee() {
-  // Get input values
-  const name = document.getElementById("name").value.trim();
-  const branch = document.getElementById("employee-branch").value;
-  const position = document.getElementById("position").value.trim();
-  const contact = document.getElementById("contact").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const permission = document.querySelector('input[name="permission"]:checked')?.value;
+// Close modal function
+function closeEditModal() {
+  editModal.style.display = "none";
+}
 
-  if (!name || !branch || !position || !contact || !email || !permission) {
-    alert("Please fill out all fields.");
-    return;
+function openCouponModal() {
+  couponModal.style.display = "block";
+}
+
+function closeCouponModal() {
+  couponModal.style.display = "none";
+}
+
+
+function editEmployee(button) {
+  console.log("EDIT");
+
+  let employeeId, branchId, name, branch, position, contactNumber, email, permission;
+
+  // Check if the clicked button is in a table row or details card
+  const row = button.closest("tr");
+  const detailsCard = button.closest(".details-card");
+
+  if (row) {
+      // If the button is inside a table row
+      employeeId = row.getAttribute("data-id");
+      branchId = row.getAttribute("data-branch-id");
+
+      // Get data from table row
+      name = row.cells[0].textContent;
+      branch = row.cells[1].textContent;
+      position = row.cells[3].textContent;
+      contactNumber = row.cells[4].textContent;
+      email = row.cells[5].textContent;
+      permission = row.querySelector("input[type='radio']:checked")?.value || "Declined";
+  } else if (detailsCard) {
+      // If the button is inside a details card
+      employeeId = detailsCard.getAttribute("data-id");
+      branchId = detailsCard.getAttribute("data-branch-id");
+
+      // Get data from details card
+      name = detailsCard.querySelector("p:nth-child(2)").textContent.replace("Name: ", "").trim();
+      branch = detailsCard.querySelector("p:nth-child(3)").textContent.replace("Branch: ", "").trim();
+      permission = detailsCard.querySelector("p:nth-child(4)").textContent.replace("Permission: ", "").trim();
+      position = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Position: ", "").trim();
+      contactNumber = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Contact: ", "").trim();
+      email = detailsCard.querySelector("p:nth-child(7)").textContent.replace("Email: ", "").trim();
+  } else {
+      console.error("Could not find the row or details card.");
+      return;
   }
 
-  // Append a new row to the staff table
-  const tableBody = document.getElementById("staff-table-body");
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-    <td>${name}</td>
-    <td>${branch}</td>
-    <td>
-      <label>
-        <input type="radio" name="permission-${Date.now()}" value="Allowed" ${permission === "Allowed" ? "checked" : ""} disabled> Allowed
-      </label>
-      <label>
-        <input type="radio" name="permission-${Date.now()}" value="Declined" ${permission === "Declined" ? "checked" : ""} disabled> Declined
-      </label>
-    </td>
-    <td>${position}</td>
-    <td>${contact}</td>
-    <td>${email}</td>
-    <td>
-      <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-      <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-    </td>
-  `;
-  tableBody.appendChild(newRow);
+  // Populate the edit form
+  document.getElementById("edit-name").value = name;
+  document.getElementById("edit-branch").value = branch;
+  document.getElementById("edit-position").value = position;
+  document.getElementById("edit-contact").value = contactNumber;
+  document.getElementById("edit-email").value = email;
+  document.querySelector(`input[name="edit-permission"][value="${permission}"]`).checked = true;
 
-  
-   // Generate initials
-   const initials = name
-   .split(" ")
-   .map((n) => n[0])
-   .join("")
-   .toUpperCase();
+  // Store employeeId and branchId in hidden fields
+  document.getElementById("edit-doc-id").value = employeeId;
+  document.getElementById("edit-branch-id").value = branchId;
 
- // Generate a random color for the initials
- const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  console.log("Employee ID:", employeeId);
+  console.log("Branch ID:", branchId);
 
- // Append a new details card
- const detailsContainer = document.createElement("div");
- detailsContainer.className = "details";
- detailsContainer.innerHTML = `
-   <div class="details-card">
-     <div class="initials" style="background-color: ${randomColor};">${initials}</div>
-     <p><strong>Name:</strong> ${name}</p>
-     <p><strong>Branch:</strong> ${branch}</p>
-     <p><strong>Permission:</strong> ${permission}</p>
-     <p><strong>Position:</strong> ${position}</p>
-     <p><strong>Contact:</strong> ${contact}</p>
-     <p><strong>Email:</strong> ${email}</p>
-     <div class="actions">
-       <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
-       <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
-     </div>
-   </div>
- `;
-
- const detailsSection = document.getElementById("details-section"); // Add this ID to your parent container for details
- detailsSection.appendChild(detailsContainer);
-
- // Close the modal
- closeModal();
-
- // Reset the form
- addEmployeeForm.reset();
+  // Show the edit modal
+  openEditModal();
 }
 
 // Close the modal when clicking outside of it
 window.onclick = function (event) {
-  if (event.target === modal) {
+  if (event.target === employeeModal) {
     closeModal();
   }
 };
-
-
-function toggleEdit(button) {
-  const row = button.parentElement.parentElement;
-  const radios = row.querySelectorAll('input[type="radio"]');
-  const isEditing = button.innerHTML === '<i class="fas fa-edit"></i>';
-
-  if (isEditing) {
-      button.textContent = 'Save';
-      radios.forEach(radio => radio.disabled = false);
-  } else {
-      button.innerHTML = '<i class="fas fa-edit"></i>';
-      radios.forEach(radio => radio.disabled = true);
-  }
-}
 
 function deleteRow(button) {
   const row = button.parentElement.parentElement;
