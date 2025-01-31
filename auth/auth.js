@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc, where, getDocs, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 // Firebase configuration
@@ -91,24 +91,24 @@ async function handleSignup(event) {
 
     try {
         // Create a new user with the provided email and password
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const uid = userCredential.user.uid;
+        await createUserWithEmailAndPassword(auth, email, password);
 
-        // Save user details to Firestore
+        // Save user details to Firestore with a timestamp and role
         await addDoc(collection(db, "users"), {
-            uid,
             firstName,
             lastName,
             phone,
             address,
-            email
+            email,
+            role: "customer",  // Custom role field
+            timestamp: serverTimestamp() // Add a Firestore timestamp
         });
 
         // Show loading modal and redirect after a delay
         showModal("Creating account. Please wait...", true);
         setTimeout(() => {
             window.location.href = "/auth/login.html";
-        }, 600);
+        }, 2000);
     } catch (error) {
         console.error("Signup error: ", error.code, error.message);
 
@@ -157,7 +157,7 @@ async function handleLogin(event) {
         showModal("Redirecting to your diary booklet...", true);
         setTimeout(() => {
             window.location.href = "/index.html";
-        }, 600);
+        }, 2000);
 
     } catch (error) {
         // Log the error details for debugging
