@@ -142,44 +142,44 @@ window.hasSugoi = () => toggleStock('dorabite_sugoi', false);
 window.hasNoSugoi = () => toggleStock('dorabite_sugoi', true);
 window.hasBonBox = () => toggleStock('dorabite_bonbon', false);
 window.hasNoBonBox = () => toggleStock('dorabite_bonbon', true);
-window.hasChoco = () => { 
-    toggleStock('dorabite_bonbon_choco', false); 
+window.hasChoco = () => {  
     toggleStock('dorabite_oishi_choco', false);
     toggleStock('dorabite_sugoi_choco', false);
+    toggleStock('dorabite_bonbon_choco', false);
 };
 window.hasNoChoco = () => { 
-    toggleStock('dorabite_bonbon_choco', true); 
     toggleStock('dorabite_oishi_choco', true);
     toggleStock('dorabite_sugoi_choco', true);
+    toggleStock('dorabite_bonbon_choco', true); 
 };
 window.hasDulce = () => { 
-    toggleStock('dorabite_bonbon_dulce', false); 
     toggleStock('dorabite_oishi_dulce', false);
     toggleStock('dorabite_sugoi_dulce', false);
+    toggleStock('dorabite_bonbon_dulce', false); 
 };
 window.hasNoDulce = () => { 
-    toggleStock('dorabite_bonbon_dulce', true); 
     toggleStock('dorabite_oishi_dulce', true);
     toggleStock('dorabite_sugoi_dulce', true);
+    toggleStock('dorabite_bonbon_dulce', true); 
 };
 window.hasCheese = () => { 
-    toggleStock('dorabite_bonbon_cheese', false); 
     toggleStock('dorabite_oishi_cheese', false);
     toggleStock('dorabite_sugoi_cheese', false);
+    toggleStock('dorabite_bonbon_cheese', false); 
 };
 window.hasNoCheese = () => { 
-    toggleStock('dorabite_bonbon_cheese', true); 
     toggleStock('dorabite_oishi_cheese', true);
     toggleStock('dorabite_sugoi_cheese', true);
+    toggleStock('dorabite_bonbon_cheese', true); 
 };
 window.hasWalnut = () => { 
-    toggleStock('dorabite_walnutella_bonbon', false); 
-    toggleStock('dorabite_walnutella_bonbon', false);
+    toggleStock('dorabite_walnutella_oishi', false); 
+    toggleStock('dorabite_walnutella_sugoi', false);
     toggleStock('dorabite_walnutella_bonbon', false);
 };
 window.hasNoWalnut = () => { 
-    toggleStock('dorabite_walnutella_bonbon', true); 
-    toggleStock('dorabite_walnutella_bonbon', true);
+    toggleStock('dorabite_walnutella_oishi', true); 
+    toggleStock('dorabite_walnutella_sugoi', true);
     toggleStock('dorabite_walnutella_bonbon', true);
 };
 window.hasNutella = () => toggleStock('boncoin_nutella', false);
