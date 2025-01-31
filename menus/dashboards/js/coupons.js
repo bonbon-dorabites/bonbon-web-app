@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs, Timestamp, setDoc } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB2ACxlgsaO0_E2zA1zsPEntCXOIHaG21I",
@@ -64,6 +64,52 @@ async function fetchData() {
         console.error("Error fetching data:", error);
     }
 }
+
+// Function to add a new coupon to Firestore
+async function addCoupon() {
+    const couponId = document.getElementById("couponId").value.trim();
+    const amountCoupon = document.getElementById("amountCoupon").value.trim();
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    const description = document.getElementById("description").value.trim();
+    const status = document.getElementById("status").value === "Active"; // Convert to boolean
+
+    // Validate required fields
+    if (!couponId || !amountCoupon || !startDate || !endDate || !description) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    try {
+        // Convert date input to Firestore Timestamp
+        const startTimestamp = Timestamp.fromDate(new Date(startDate));
+        const endTimestamp = Timestamp.fromDate(new Date(endDate));
+
+        // Firestore reference to "coupons" collection
+        const couponRef = doc(db, "coupons", couponId);
+
+        // Add data to Firestore
+        await setDoc(couponRef, {
+            coup_amount: parseFloat(amountCoupon),
+            coup_start: startTimestamp,
+            coup_end: endTimestamp,
+            coup_desc: description,
+            coup_isActive: status
+        });
+
+        alert("Coupon added successfully!");
+        closeCouponModal(); // Close modal after successful save
+        
+    } catch (error) {
+        console.error("Error adding coupon:", error);
+        alert("Failed to add coupon.");
+    }
+}
+
+    // Event listener for the save button
+    document.getElementById("save-coupon").addEventListener("click", addCoupon);
+
+
 
     // Call fetchData when the page loads
     document.addEventListener("DOMContentLoaded", fetchData);
