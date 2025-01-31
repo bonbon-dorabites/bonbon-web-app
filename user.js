@@ -1,6 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getFirestore, collection, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB2ACxlgsaO0_E2zA1zsPEntCXOIHaG21I",
@@ -60,9 +59,7 @@ async function fetchData() {
                 <td>${branch || "N/A"}</td>
                 <td>${data.email || "N/A"}</td>
                 <td>${data.phone || "N/A"}</td>
-                <td></td>
                 <td>
-                    <button class="action-btn edit" onclick="editUser(this)"><i class="fas fa-edit"></i></button>
                     <button class="action-btn delete" id="delete-user"><i class="fa-solid fa-trash"></i></button>
                 </td>
               `;
@@ -102,7 +99,6 @@ async function fetchData() {
                         <p><strong>Contact:</strong> ${data.phone}</p>
                         <p><strong>Email:</strong> ${data.email}</p>
                         <div class="actions">
-                            <button class="action-btn edit" onclick="editUser(this)"><i class="fas fa-edit"></i></button>
                             <button class="action-btn delete" id="delete-user"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
@@ -119,15 +115,7 @@ async function fetchData() {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    // Get references to the buttons
-    const saveButton = document.getElementById('save-user');
-
-    // Add event listeners
-    saveButton.addEventListener('click', addUser);
-});
-
-
+  /*
     function validateEmail(email) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValid = emailPattern.test(email);
@@ -142,80 +130,8 @@ async function fetchData() {
         return isValid;
     }
 
-    
-
-    async function addUser() {
-        // Get form values
-        const lastName = document.getElementById("lastName").value.trim();
-        const firstName = document.getElementById("firstName").value.trim();
-        const role = document.getElementById('role-dropdown').value.trim();
-        const branchName = document.getElementById('user-branch').value.trim();
-        const contact = document.getElementById("phone").value.trim();
-        const email = document.getElementById("emailAd").value.trim();
-
-            /*
-            if (!validateContactNumber(contactNumber)) {
-                alert("Please enter a valid contact!");
-                return;
-            }
-        
-
-            if (!validateEmail(email)) {
-                alert("Please enter a valid email address!");
-                return;
-            }*/
-
-            // Map branch names to Firestore branch IDs
-              const branchMap = {
-                "SM Valenzuela": "SmValenzuela",
-                "SM North Edsa": "SmNorthEdsa",
-                "One Mall Valenzuela": "OneMallVal"
-            };
-
-            // Get branch ID from map
-            const branch = branchMap[branchName];
-            let newUser; 
-            if(role === "Customer") {
-              // Create a user object with the collected data
-                newUser = {
-                  lastName: lastName,
-                  firstName: firstName,
-                  role: role,
-                  phone: contact,
-                  email: email,
-              };
-
-            } else {
-               newUser = {
-                branchId: branch,
-                role: role,
-                email: email,
-              };
-            }
-
-            try {
-                // Reference to the users collection in Firestore
-                const usersCollection = collection(db, "users");
-            
-                // Add user to Firestore
-                const docRef = await addDoc(usersCollection, newUser);
-            
-                // Log the new user ID
-                console.log("User added with ID: ", docRef.id);
-            
-                // Close the modal after saving
-                closeUserModal();
-
-                // Reload the page after adding the user
-                 window.location.reload();  // This reloads the page
-                        
-              } catch (error) {
-                console.error("Error adding user: ", error);
-                alert("Error adding user. Please try again.");
-              }
-    }
-
-    /* EDIT USERS */
+  
+    /* EDIT USERS *//*
     document.addEventListener("DOMContentLoaded", () => {
         // Get references to the buttons
         const saveBtn = document.getElementById('save-userEdit');
@@ -224,7 +140,7 @@ async function fetchData() {
         saveBtn.addEventListener('click', updateUser);
     });
     
-
+/*
     async function updateUser() {
         const userId = document.getElementById("edit-doc-id").value;
         alert("UPDATED: " + userId);
@@ -286,8 +202,7 @@ async function fetchData() {
           } catch (error) {
             console.error("Error updating employee:", error);
           }
-    }
-
+    }*/
 
     /* DELETE USER */
     async function deleteUser(button) {
