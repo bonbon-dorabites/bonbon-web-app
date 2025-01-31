@@ -60,6 +60,7 @@ async function fetchData() {
                 <td>${branch || "N/A"}</td>
                 <td>${data.email || "N/A"}</td>
                 <td>${data.phone || "N/A"}</td>
+                <td></td>
                 <td>
                     <button class="action-btn edit" onclick="editUser(this)"><i class="fas fa-edit"></i></button>
                     <button class="action-btn delete" id="delete-user"><i class="fa-solid fa-trash"></i></button>
