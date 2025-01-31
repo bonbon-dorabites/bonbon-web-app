@@ -249,10 +249,9 @@ async function addEmployeeToBranch(branchId, employeeData) {
     alert("ADD EMPLOYEE TO BRANCH");
     // Reference to the branch document
     console.log(branchId);
-    alert(branchId);
+
     const branchRef = doc(db, 'branches', branchId);
-    alert(branchRef);
-    alert(employeeData);
+
 
     // Reference to the 'employees' subcollection under the branch
     const employeesRef = collection(branchRef, 'employees');

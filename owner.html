@@ -192,6 +192,47 @@
                 </table>
         </div>
 
+        <!-- Details Section -->
+
+        <section id="details-section">
+
+        </section>
+
+        <div class="dashboard-line"></div> <!-- Separator Line -->
+
+        <div class="user-management-container">
+          <h2 class="staff-management-title">User Management</h2>
+          <div class="header-row">
+
+              <button onclick="openUserModal()">Add User</button>
+              <div class="search">
+                  <input type="text" id="search" placeholder="Search user...">
+                  <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
+              </div>
+          </div>
+
+              <table id="user-table" class="user-management-table">
+                  <thead>
+                      <tr>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Role</th>
+                          <th>Branch</th>
+                          <th>Email</th>
+                          <th>Contact Number</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody id="user-table-body">
+            
+                  </tbody>
+              </table>
+      </div>
+
+      <section id="userDetails-section">
+
+      </section>
+
         <!-- Modal for Adding Employee -->
         <div id="employeeModal" class="addEmployee-modal">
             <div class="addEmployee-content">
@@ -251,7 +292,12 @@
                           <option value="SM North Edsa">SM North Edsa</option>
                           <option value="One Mall Valenzuela">One Mall Valenzuela</option>
                       </select>
-                      <input type="text" id="edit-position" placeholder="Position" required>
+                      <!--<input type="text" id="edit-position" placeholder="Position" required>-->
+
+                      <select id="edit-position">
+                        <option value="Manager">Manager</option>
+                        <option value="Staff">Staff</option>
+                    </select>
                   </div>
 
                   <div class="column">
@@ -275,17 +321,91 @@
           </div>
         </div>
 
-        <!-- Details Section -->
+        <!-- Modal for Adding Users -->
+        <div id="usersModal" class="addUsers-modal dashboard-modals">
+          <div class="addUsers-content dashboard-content">
+              <h3>Add User</h3>
+              <form id="addUsersForm">
+                  <input type="text" id="firstName" placeholder="First Name" required>
+                  <input type="text" id="lastName" placeholder="Last Name" required>
+ 
+                  <div class="column">
+                      <input type="text" id="phone" placeholder="Contact Number" required>
+                      <input type="email" id="emailAd" placeholder="Email" required>
+                  </div>
 
-    <section id="details-section">
+                  <div class="column">
 
-    </section>
+                    <select id="role-dropdown">
+                        <option value="Manager">Manager</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Customer">Customer</option>
+                        <option value="Owner">Owner</option>
+                    </select>
+
+                    <select id="user-branch" disabled>
+                        <option value="SM Valenzuela">SM Valenzuela</option>
+                        <option value="SM North Edsa">SM North Edsa</option>
+                        <option value="One Mall Valenzuela">One Mall Valenzuela</option>
+                    </select>
+
+                 </div>
+
+                  <div class="modal-buttons">
+                      <button type="button" class="cancel-btn" onclick="closeUserModal()">Cancel</button>
+                      <button type="button" class="save-btn" id="save-user">Save</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+
+              <!-- Modal for Editing Users -->
+              <div id="editUsersModal" class="dashboard-modals">
+                <div class="dashboard-content">
+                    <h3>Edit User</h3>
+                    <form id="editUsersForm">
+                        <input type="hidden" id="edit-doc-id">
+                        <input type="hidden" id="edit-branch-id">
+                        
+                        <input type="text" id="edit-firstName" placeholder="First Name" required>
+                        <input type="text" id="edit-lastName" placeholder="Last Name" required>
+       
+                        <div class="column">
+                            <input type="text" id="edit-phone" placeholder="Contact Number" required>
+                            <input type="email" id="edit-emailAd" placeholder="Email" required>
+                        </div>
+                        
+                        <div class="column">
+                            <select id="edit-role-dropdown">
+                                <option value="Manager">Manager</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Owner">Owner</option>
+                            </select>
+
+                            <select id="edit-user-branch" disabled>
+                                <option value="SM Valenzuela">SM Valenzuela</option>
+                                <option value="SM North Edsa">SM North Edsa</option>
+                                <option value="One Mall Valenzuela">One Mall Valenzuela</option>
+                            </select>
+    
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="cancel-btn" onclick="closeUserEditModal()">Cancel</button>
+                            <button type="button" class="save-btn" id="save-userEdit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
       
     </div>
 
 
 <script src="./main.js"></script>
 <script type="module" src="./employee.js"></script>
+<script type="module" src="./user.js"></script>
 
 
 </body>

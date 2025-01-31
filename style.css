@@ -1348,7 +1348,8 @@ textarea.form-control:focus {
 }
 
 /* Staff Management Section */
-.staff-management-container{
+.staff-management-container, 
+.user-management-container {
     margin: 50px auto;
     max-width: 1200px;
     font-family: var(--fredoka);
@@ -1391,7 +1392,8 @@ textarea.form-control:focus {
     background-color: #A65A06;
 }
 
-.staff-management-title {
+.staff-management-title,
+.user-management-title {
     font-size: 1.8rem;
     font-weight: bold;
     color: #DA9747;
@@ -1400,7 +1402,8 @@ textarea.form-control:focus {
 }
 
  /* Table styling */
- .staff-management-table {
+ .staff-management-table,
+ .user-management-table {
     width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
@@ -1409,7 +1412,8 @@ textarea.form-control:focus {
 }
 
 /* Header row styling */
-.staff-management-table th {
+.staff-management-table th,
+.user-management-table th {
     background-color: var(--brown);
     color: white;
     padding: 10px;
@@ -1419,7 +1423,8 @@ textarea.form-control:focus {
 }
 
 /* Body row styling */
-.staff-management-table td {
+.staff-management-table td,
+.user-management-table td {
     padding: 10px;
     border: 1px solid var(--dark-brown);
     color: #333;
@@ -1430,7 +1435,14 @@ textarea.form-control:focus {
     background-color: #f9f3e8;
 }
 
+.user-management-table tbody tr:nth-child(even) {
+    background-color: #f9f3e8;
+}
 .staff-management-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.user-management-table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
@@ -1464,7 +1476,8 @@ textarea.form-control:focus {
 }
 
 /* Modal Styling */
-.addEmployee-modal, .edit-modal {
+.addEmployee-modal, .edit-modal,
+.dashboard-modals {
     display: none;
     position: fixed;
     z-index: 1;
@@ -1477,7 +1490,8 @@ textarea.form-control:focus {
     
 }
 
-.edit-modal-content, .addEmployee-content {
+.edit-modal-content, .addEmployee-content,
+.dashboard-content {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
@@ -1487,7 +1501,8 @@ textarea.form-control:focus {
     padding: 30px;
 }
 
-.addEmployee-content h3, .edit-modal-content h3 {
+.addEmployee-content h3, .edit-modal-content h3,
+.dashboard-content h3 {
     margin-bottom: 30px;
 }
 
@@ -1507,13 +1522,15 @@ textarea.form-control:focus {
 }
 
 /* Modal form */
-.addEmployee-modal form, .edit-modal form {
+.addEmployee-modal form, .edit-modal form,
+.dashboard-modals form  {
     display: grid;
     gap: 15px;
 }
 
 .addEmployee-modal input, .addEmployee-modal select,
-.edit-modal input, .edit-modal select {
+.edit-modal input, .edit-modal select, 
+.dashboard-modals input, .dashboard-modals select {
     padding: 10px;
     border: 1px solid var(--brown);
     border-radius: 5px;
@@ -1522,14 +1539,16 @@ textarea.form-control:focus {
 
 
 .addEmployee-content .modal-buttons,
-.edit-modal-content .modal-buttons {
+.edit-modal-content .modal-buttons,
+.dashboard-content .modal-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
 .addEmployee-content button,
-.edit-modal-content button {
+.edit-modal-content button,
+.dashboard-content button {
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
@@ -1537,13 +1556,15 @@ textarea.form-control:focus {
 }
 
 .addEmployee-content .cancel-btn,
-.edit-modal-content .cancel-btn {
+.edit-modal-content .cancel-btn,
+.dashboard-content .cancel-btn {
     background-color: #dc3545;
     color: white;
 }
 
 .addEmployee-content .save-btn,
-.edit-modal-content .save-btn {
+.edit-modal-content .save-btn,
+.dashboard-content .save-btn {
     background-color: #28a745;
     color: white;
 }
@@ -1557,35 +1578,6 @@ textarea.form-control:focus {
 .column input, .column select {
     width: 50%;
 }
-
-/*
-.staff-management-table {
-    
-    width: 100%;
-    overflow-x: auto;
-}*/
-
-/*
-.staff-management-table table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.staff-management-table th,
-.staff-management-table td {
-    border: 2px solid var(--dark-brown);
-    text-align: center;
-    padding: 10px;
-    font-size: 1rem;
-    color: var(--dark-brown);
-}
-
-.staff-management-table th {
-    background-color: #CB7208; 
-    color: white;
-    font-weight: bold;
-}
-
 
 /* Coupons Page Styles */
 .coupon-page-container {
