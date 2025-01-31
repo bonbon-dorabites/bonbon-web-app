@@ -44,6 +44,7 @@ async function fetchData() {
 
             // Create a new table row
             const row = document.createElement("tr");
+            row.setAttribute("edit-doc-old-id", couponId); // Store coupon ID in the row
 
             row.innerHTML = `
                 <td>${couponId || "N/A"}</td>
@@ -53,8 +54,8 @@ async function fetchData() {
                 <td>${data.coup_desc || "N/A"}</td>
                 <td>${status}</td>
                 <td>
-                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                    <button class="action-btn delete" id="delete-user"><i class="fa-solid fa-trash"></i></button>
+                    <button class="action-btn edit" onclick="editCoupon(this)"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete" id="delete-coupon"><i class="fa-solid fa-trash"></i></button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -74,8 +75,8 @@ async function fetchData() {
                         <p><strong>Coupon Description:</strong> ${data.coup_desc}</p>
                         <p><strong>Status:</strong> ${status}</p>
                         <div class="actions">
-                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
+                            <button class="action-btn edit" onclick="editCoupon(this)"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" id="delete-coupon"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
                 `;
@@ -136,6 +137,65 @@ async function addCoupon() {
     // Event listener for the save button
     document.getElementById("save-coupon").addEventListener("click", addCoupon);
 
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Get references to the buttons
+        const saveBtn = document.getElementById('save-editCoupon');
+    
+        // Add event listeners
+        saveBtn.addEventListener('click', updateCoupon);
+    });
+
+    // Update Coupon
+
+    async function updateCoupon() {
+        const oldCouponId = document.getElementById("edit-doc-old-id").value.trim(); // Store old ID
+        const newCouponId = document.getElementById("edit-couponId").value.trim();
+        const amount = document.getElementById("edit-amountCoupon").value.trim();
+        const startDate = document.getElementById("edit-startDate").value.trim();
+        const endDate = document.getElementById("edit-endDate").value.trim();
+        const description = document.getElementById("edit-description").value.trim();
+        const status = document.getElementById("edit-status").value.trim();
+    
+        if (!newCouponId) {
+            console.error("Error: Coupon ID is missing.");
+            alert("Coupon ID is required.");
+            return;
+        }
+    
+        try {
+            const couponData = {
+                coup_amount: parseFloat(amount) || 0,
+                coup_start: startDate ? Timestamp.fromDate(new Date(startDate)) : null,
+                coup_end: endDate ? Timestamp.fromDate(new Date(endDate)) : null,
+                coup_desc: description,
+                coup_isActive: status.toLowerCase() === "active"
+            };
+    
+            if (oldCouponId === newCouponId) {
+                // ID hasn't changed, just update the existing document
+                const couponRef = doc(db, "coupons", newCouponId);
+                await updateDoc(couponRef, couponData);
+            } else {
+                // ID has changed: delete old doc, create new one
+                const oldCouponRef = doc(db, "coupons", oldCouponId);
+                const newCouponRef = doc(db, "coupons", newCouponId);
+    
+                await deleteDoc(oldCouponRef); // Remove old document
+                await setDoc(newCouponRef, couponData); // Create new document with new ID
+            }
+    
+            console.log("Coupon updated successfully!");
+    
+            closeEditCouponModal();
+            
+    
+        } catch (error) {
+            console.error("Error updating coupon:", error);
+            alert("Failed to update coupon. Please try again.");
+        }
+    }
+    
 
 
     // Call fetchData when the page loads

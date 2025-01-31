@@ -54,6 +54,7 @@ const employeeModal = document.getElementById("employeeModal");
 const editModal = document.getElementById("editEmployeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 const couponModal = document.getElementById("couponsModal");
+const editCouponModal = document.getElementById("edit-couponsModal");
 // Open modal function
 function openModal() {
   employeeModal.style.display = "block";
@@ -75,6 +76,10 @@ function openCouponModal() {
 
 function closeCouponModal() {
   couponModal.style.display = "none";
+}
+
+function closeEditCouponModal() {
+  editCouponModal.style.display = "none";
 }
 
 
@@ -135,14 +140,63 @@ function editEmployee(button) {
   openEditModal();
 }
 
+function editCoupon(button) {
+  let couponId, amount, startDate, endDate, description, status;
+  // Check if the clicked button is in a table row or details card
+  const row = button.closest("tr");
+  const detailsCard = button.closest(".details-card");
+
+  if (row) {
+    // If the button is inside a table row
+    
+
+    // Get data from table row
+    couponId = row.cells[0].textContent;
+    amount = row.cells[1].textContent;
+    startDate = row.cells[2].textContent;
+    endDate = row.cells[3].textContent;
+    description = row.cells[4].textContent;
+    alert("DESC: " + description);
+    status = row.cells[5].textContent;
+  } else if (detailsCard) {
+      // If the button is inside a details card
+      couponId = detailsCard.getAttribute("data-id");
+
+      // Get data from details card
+      couponId = detailsCard.querySelector("p:nth-child(1)").textContent.replace("Amount: ", "").trim();
+      amount = detailsCard.querySelector("p:nth-child(2)").textContent.replace("Amount: ", "").trim();
+      startDate = detailsCard.querySelector("p:nth-child(3)").textContent.replace("Start Date: ", "").trim();
+      endDate = detailsCard.querySelector("p:nth-child(4)").textContent.replace("End Date: ", "").trim();
+      description = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Description: ", "").trim();
+      status = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Status: ", "").trim();
+  } else {
+      console.error("Could not find the row or details card.");
+      return;
+  }
+
+      // Format the start and end date into yyyy-mm-dd for <input type="date">
+      const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
+      const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+
+   // Populate the edit form
+   document.getElementById("edit-couponId").value = couponId;
+   document.getElementById("edit-doc-old-id").value = couponId;
+   document.getElementById("edit-amountCoupon").value = amount;
+   document.getElementById("edit-startDate").value = formattedStartDate;
+   document.getElementById("edit-endDate").value = formattedEndDate;
+   document.getElementById("edit-description").value = description;
+   document.getElementById("edit-status").value = status;
+
+   console.log("Coupon ID:", couponId);
+
+    // Show the edit modal
+    document.getElementById("edit-couponsModal").style.display = "block";
+
+}
+
 // Close the modal when clicking outside of it
 window.onclick = function (event) {
   if (event.target === employeeModal) {
     closeModal();
   }
 };
-
-function deleteRow(button) {
-  const row = button.parentElement.parentElement;
-  row.remove();
-}

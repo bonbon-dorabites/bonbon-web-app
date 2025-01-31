@@ -269,6 +269,41 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal for Editing Coupons-->
+    <div id="edit-couponsModal" class="dashboard-modals">
+        <div class="dashboard-content">
+            <h3>Edit Coupon</h3>
+            <form id="editCouponsForm">
+                <input type="hidden" id="edit-doc-old-id">
+                
+                <div class="column">
+                    <input type="text" id="edit-couponId" placeholder="Coupon Id" required>
+                    <input type="text" id="edit-amountCoupon" placeholder="Amount" required>
+                </div>
+      
+                <label for="startDate">Start Date</label>
+                <input type="date" id="edit-startDate" name="startDate" required>
+                        
+                <label for="endDate">End Date</label>
+                <input type="date" id="edit-endDate" name="endDate" required>
+                    
+                <label for="description">Coupon Description</label>
+                <textarea id="edit-description" name="description" rows="3" required></textarea>
+
+                <label for="status">Status</label>
+                <select id="edit-status" name="status" required>
+                    <option value="Active">Active</option>
+                    <option value="Expired">Expired</option>
+                </select>
+
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" onclick="closeEditCouponModal()">Cancel</button>
+                    <button type="button" class="save-btn" id="save-editCoupon">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
     
     <div class="dashboard-line"></div>
     <!-- Finished Orders Section -->
