@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, updateDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 // Firebase configuration
@@ -53,10 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const managerMenu = document.getElementById("manager-menu");
     const staffMenu = document.getElementById("staff-menu");
     const customerMenu = document.getElementById("customer-menu");
-    
+
     // Initialize Firebase authentication
     const auth = getAuth(); // Ensure you're getting the auth instance correctly
-    
+
     // Function to reset all menus to their default state
     const resetMenus = () => {
         console.log("Resetting menus to default...");
@@ -70,18 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         staffMenu.style.display = "none";
         customerMenu.style.display = "none";
     };
-    
-    let managerEmails = [
-        "jethrojamesaguilar.18@gmail.com"
-    ];
-    
-    let staffEmails = [
-        "jayjayangadok21@gmail.com",
-        "dehonorcharryl@gmail.com",
-        "shaynebondoc28@gmail.com"
-    ];
-    
-    // This function updates the UI when a user is logged in
+
     const updateUIForLoggedInUser = (user) => {
         console.log("User logged in: ", user.email);
     
@@ -89,112 +78,221 @@ document.addEventListener("DOMContentLoaded", () => {
         const q = query(usersCollection, where("email", "==", user.email));
     
         getDocs(q).then((querySnapshot) => {
-        if (!querySnapshot.empty) {
-            querySnapshot.forEach((doc) => {
-            const userData = doc.data();
-            const firstName = userData.firstName;
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    const firstName = userData.firstName;
+                    const role = userData.role; // Get the role
     
-            console.log("User data fetched: ", userData);
+                    console.log("User data fetched: ", userData);
     
-            // Show user-specific menus
-            signupMenu.style.display = "none";
-            loginMenu.style.display = "none";
-            userMenu.style.display = "block";
-            editMenu.style.display = "block";
-            logoutMenu.style.display = "block";
-
-            const userMenuText = userMenu.querySelector("p");
+                    // Show user-specific menus
+                    signupMenu.style.display = "none";
+                    loginMenu.style.display = "none";
+                    userMenu.style.display = "block";
+                    editMenu.style.display = "block";
+                    logoutMenu.style.display = "block";
     
-            // Check roles
-            if (user.email === "jayjay.otaku@gmail.com") {
-                ownerMenu.style.display = "block"; // Owner menu
-                const userMenuText = userMenu.querySelector("p");
-                if (userMenuText) {
-                    userMenuText.textContent = `Hi Admin`;
-                }
-                console.log("Owner menu displayed.");
-            } else if (managerEmails.includes(user.email)) {
-                managerMenu.style.display = "block"; // Manager menu
-                if (userMenuText) {
-                    userMenuText.textContent = `Hi Manager`;
-                }
-                console.log("Manager menu displayed.");
-            } else if (staffEmails.includes(user.email)) {
-                staffMenu.style.display = "block"; // Staff menu
-                console.log("Before setting text:", userMenuText?.textContent);
-                if (userMenuText) {
-                    userMenuText.textContent = `Hi Staff`;
-                }
-                console.log("After setting text:", userMenuText?.textContent);
-                console.log("Staff menu displayed.");
+                    const userMenuText = userMenu.querySelector("p");
+                    if (userMenuText) {
+                        userMenuText.textContent = ''; // Clear any previous text
+                    }
+    
+                    // Handle different roles
+                    if (role === "Owner") {
+                        ownerMenu.style.display = "block"; // Owner menu
+                        if (userMenuText) {
+                            userMenuText.textContent = `Hi Admin`; // Show "Hi Admin" for Owner
+                        }
+                        console.log("Owner menu displayed.");
+                    } else if (role === "Manager") {
+                        managerMenu.style.display = "block"; // Manager menu
+                        if (userMenuText) {
+                            userMenuText.textContent = `Hi Manager`; // Show "Hi Manager" for Manager
+                        }
+                        console.log("Manager menu displayed.");
+                    } else if (role === "Staff") {
+                        staffMenu.style.display = "block"; // Staff menu
+                        if (userMenuText) {
+                            userMenuText.textContent = `Hi Staff`; // Show "Hi Staff" for Staff
+                        }
+                        console.log("Staff menu displayed.");
+                    } else if (role === "Customer") {
+                        customerMenu.style.display = "block"; // Customer menu
+                        if (userMenuText) {
+                            userMenuText.textContent = `Hi, ${firstName}`; // Show "Hi, {firstName}" for Customer
+                        }
+                        console.log("Customer menu displayed.");
+                    }
+    
+                    // Real-time listener for Firestore document updates (onSnapshot)
+                    onSnapshot(doc.ref, (snapshot) => {
+                        const updatedData = snapshot.data();
+                        const updatedFirstName = updatedData?.firstName;
+    
+                        if (userMenuText && updatedFirstName) {
+                            // Update the firstName in real-time for the customer role
+                            if (role === "Customer") {
+                                userMenuText.textContent = `Hi, ${updatedFirstName}`;
+                            }
+                        }
+                    });
+                });
             } else {
-                customerMenu.style.display = "block"; // Customer menu
-                if (userMenuText) {
-                    userMenuText.textContent = `Hi, ${firstName}`;
-                }
-                console.log("Customer menu displayed.");
+                console.error("No user document found.");
             }
-            });
-        } else {
-            console.error("No user document found.");
-        }
         }).catch((error) => {
-        console.error("Error fetching user document:", error);
+            console.error("Error fetching user document:", error);
         });
     };
     
+
     // Listen for the logout button click
     logoutMenu.addEventListener("click", async () => {
         console.log("Logout clicked...");
         try {
-        // Sign out from Firebase
-        await signOut(auth);
-    
-        // Reset the menus to show signup/login
-        resetMenus();
-    
-        // Show the logout confirmation modal
-        console.log("Showing modal before redirect...");
-        showModal("You have logged out. Redirecting to login page.", true);
-    
-        // Wait for the modal to display before redirecting
-        setTimeout(() => {
-            console.log("test");
-            hideModal();
-            console.log("Redirecting to login...");
-            window.location.href = "/auth/login.html";
-        }, 600);  // Adjusted timeout to give enough time for the modal to appear
+            // Sign out from Firebase
+            await signOut(auth);
+
+            // Reset the menus to show signup/login
+            resetMenus();
+
+            // Show the logout confirmation modal
+            console.log("Showing modal before redirect...");
+            showModal("You have logged out. Redirecting to login page.", true);
+
+            // Wait for the modal to display before redirecting
+            setTimeout(() => {
+                console.log("test");
+                hideModal();
+                console.log("Redirecting to login...");
+                window.location.href = "/auth/login.html";
+            }, 600);  // Adjusted timeout to give enough time for the modal to appear
         } catch (error) {
-        console.error("Error signing out:", error);
+            console.error("Error signing out:", error);
         }
-    });      
+    });
 
     // Check if the user is logged in and update the UI accordingly
     const checkIfLoggedIn = () => {
-    const user = auth.currentUser;  // Get the current user from Firebase
-    console.log("Checking if user is logged in...");
-    
-    if (user) {
-        console.log("User is logged in: ", user.email);
-        updateUIForLoggedInUser(user);  // Update the UI for the logged-in user
-    } else {
-        console.log("No user logged in.");
-        resetMenus();  // If no user is logged in, reset the menus
-    }
+        const user = auth.currentUser;  // Get the current user from Firebase
+        console.log("Checking if user is logged in...");
+
+        if (user) {
+            console.log("User is logged in: ", user.email);
+            updateUIForLoggedInUser(user);  // Update the UI for the logged-in user
+        } else {
+            console.log("No user logged in.");
+            resetMenus();  // If no user is logged in, reset the menus
+        }
     };
 
     // Listen for changes to authentication state (login/logout)
     onAuthStateChanged(auth, (user) => {
-    console.log("Auth state changed...");
-    if (user) {
-        console.log("User is logged in: ", user.email);
-        updateUIForLoggedInUser(user);  // Update UI when user logs in
-    } else {
-        console.log("No user logged in.");
-        resetMenus();  // Reset the UI to show login/signup
-    }
+        console.log("Auth state changed...");
+        if (user) {
+            console.log("User is logged in: ", user.email);
+            updateUIForLoggedInUser(user);  // Update UI when user logs in
+        } else {
+            console.log("No user logged in.");
+            resetMenus();  // Reset the UI to show login/signup
+        }
     });
 
     // Check login status when the page loads
     checkIfLoggedIn();
+});
+
+const formFields = ["firstName", "lastName", "phone", "address", "email"]; // Adjust based on your form
+let originalData = {}; // Stores original values
+let userDocId = null; // Firestore Document ID
+
+// Load user data
+async function loadUserData(user) {
+    if (!user) return;
+    
+    const userEmail = user.email;
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("email", "==", userEmail));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const docSnap = querySnapshot.docs[0];
+        userDocId = docSnap.id; // Store the document ID
+        originalData = docSnap.data(); // Store original data
+
+        formFields.forEach(id => {
+            document.getElementById(id).value = originalData[id] || "";
+        });
+
+        toggleFormFields(true); // Disable fields initially
+
+        // Listen for Firestore updates
+        onSnapshot(doc(db, "users", userDocId), (snapshot) => {
+            const updatedData = snapshot.data();
+            if (updatedData) {
+                formFields.forEach(id => {
+                    document.getElementById(id).value = updatedData[id] || "";
+                });
+                originalData = { ...updatedData };
+            }
+        });
+    } else {
+        console.error("No user document found.");
+    }
+}
+
+// Auth listener
+auth.onAuthStateChanged(user => {
+    if (user) {
+        loadUserData(user);
+    } else {
+        console.log("No user is logged in.");
+    }
+});
+
+// Function to enable or disable form fields
+function toggleFormFields(disabled) {
+    formFields.forEach(id => {
+        let field = document.getElementById(id);
+        if (field) {
+            field.disabled = disabled;
+        } else {
+            console.warn(`Field with ID '${id}' not found.`);
+        }
+    });
+}
+
+// Enable form editing
+document.getElementById("allow-edit").addEventListener("click", () => {
+    toggleFormFields(false);
+});
+
+// Cancel editing (revert to original)
+document.getElementById("cancel-edit").addEventListener("click", () => {
+    formFields.forEach(id => {
+        document.getElementById(id).value = originalData[id] || "";
+    });
+    toggleFormFields(true);
+});
+
+// Submit form and update Firestore
+document.getElementById("submit-edit").addEventListener("click", async () => {
+    if (!userDocId) return;
+    
+    console.log("Entered")
+
+    const updatedData = {};
+    formFields.forEach(id => {
+        updatedData[id] = document.getElementById(id).value;
+    });
+
+    try {
+        await updateDoc(doc(db, "users", userDocId), updatedData);
+        console.log("Updated")
+        showModal("Successfully updated!", true);
+        toggleFormFields(true);
+    } catch (error) {
+        console.error("Error updating document:", error);
+    }
 });
