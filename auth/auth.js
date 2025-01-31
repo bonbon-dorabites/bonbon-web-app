@@ -100,7 +100,7 @@ async function handleSignup(event) {
             phone,
             address,
             email,
-            role: "customer",  // Custom role field
+            role: "Customer",  // Custom role field
             timestamp: serverTimestamp() // Add a Firestore timestamp
         });
 
