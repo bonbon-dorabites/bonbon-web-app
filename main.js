@@ -53,7 +53,7 @@ document.querySelectorAll('.label').forEach(label => {
 const employeeModal = document.getElementById("employeeModal");
 const editModal = document.getElementById("editEmployeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
-
+const couponModal = document.getElementById("couponsModal");
 // Open modal function
 function openModal() {
   employeeModal.style.display = "block";
@@ -68,6 +68,15 @@ function openEditModal() {
 function closeEditModal() {
   editModal.style.display = "none";
 }
+
+function openCouponModal() {
+  couponModal.style.display = "block";
+}
+
+function closeCouponModal() {
+  couponModal.style.display = "none";
+}
+
 
 function editEmployee(button) {
   console.log("EDIT");

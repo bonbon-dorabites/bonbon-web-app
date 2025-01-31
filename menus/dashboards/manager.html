@@ -111,7 +111,7 @@
     <div class="coupons-management-container">
         <h2 class="coupons-management-title">Coupon Management</h2>
         <div class="header-row">
-            <button onclick="openModal()">Add Coupon</button>
+            <button onclick="openCouponModal()">Add Coupon</button>
             <div class="search">
                 <input type="text" id="search" placeholder="Search coupon...">
                 <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
@@ -155,33 +155,58 @@
         </table>
     </div>
 
-    <div class="staff-management-line"></div>
-    <!-- Modal for Adding Employee -->
-    <div id="employeeModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Add Employee</h3>
-            <form id="addEmployeeForm">
-                <input type="text" id="name" placeholder="Name" required>
-                <div class="column">
-                    <input type="text" id="branch" placeholder="Branch" required>
-                    <input type="text" id="position" placeholder="Position" required>
-                </div>
-                <div class="column">
-                    <input type="text" id="contact" placeholder="Contact Number" required>
-                    <input type="email" id="email" placeholder="Email" required>
-                </div>
-                <input type="date" id="dateJoined" required>
-                <button class="addEmployee" type="submit">Add Employee</button>
-            </form>
-        </div>
-    </div>
     
+        <!-- Modal for Adding Coupons-->
+        <div id="couponsModal" class="dashboard-modals">
+            <div class="dashboard-content">
+                <h3>Add Coupon</h3>
+                <form id="addCouponsForm">
+                    <input type="text" id="name" placeholder="Name" required>
 
+                    <div class="column">
+                        <select id="employee-branch">
+                            <option value="SM Valenzuela">SM Valenzuela</option>
+                            <option value="SM North Edsa">SM North Edsa</option>
+                            <option value="One Mall Valenzuela">One Mall Valenzuela</option>
+                        </select>
+                        
+                        <!--<input type="text" id="position" placeholder="Position" required>-->
+
+                        <select id="position">
+                          <option value="Manager">Manager</option>
+                          <option value="Staff">Staff</option>
+                      </select>
+                    </div>
+
+                    <div class="column">
+                        <input type="text" id="contact" placeholder="Contact Number" required>
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+
+                    <label>Permission</label>
+                    <label>
+                        <input type="radio" name="permission" value="Allowed"> Allowed
+                    </label>
+                    <label>
+                        <input type="radio" name="permission" value="Declined"> Declined
+                    </label>
+
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-btn" onclick="closeCouponModal()">Cancel</button>
+                        <button type="button" class="save-btn" id="saveBtn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    
+        <div class="dashboard-line"></div>
     <!-- Finished Orders Section -->
     <section class="finished-orders mt-4">
     <h2>Finished Orders</h2>
     <br> <!-- Space above accordion -->
+
+    
 
     <div class="accordion" id="finishedOrdersAccordion">
         <!-- First Finished Order -->
@@ -242,5 +267,8 @@
 <footer class="small-footer">
     <p>In Partial Fulfillment for subject Web Development</p>
   </footer>
+
+  <script src="../../main.js"></script>
+  <script type="module" src="./js/coupons.js"></script>
 </body>
 </html>

@@ -961,7 +961,9 @@ body {
     background-color: #c82333;
 }
 
-.staff-dashboard {
+.staff-dashboard,
+.manager-dashboard,
+.customer-dashboard {
     padding: 85px 30px;
     max-width: 1000px;
     margin: 0px auto;
@@ -1349,7 +1351,8 @@ textarea.form-control:focus {
 
 /* Staff Management Section */
 .staff-management-container, 
-.user-management-container {
+.user-management-container,
+.coupons-management-container  {
     margin: 50px auto;
     max-width: 1200px;
     font-family: var(--fredoka);
@@ -1393,7 +1396,8 @@ textarea.form-control:focus {
 }
 
 .staff-management-title,
-.user-management-title {
+.user-management-title,
+.coupons-management-title {
     font-size: 1.8rem;
     font-weight: bold;
     color: #DA9747;
@@ -1403,7 +1407,8 @@ textarea.form-control:focus {
 
  /* Table styling */
  .staff-management-table,
- .user-management-table {
+ .user-management-table,
+ .coupons-management-table {
     width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
@@ -1413,7 +1418,8 @@ textarea.form-control:focus {
 
 /* Header row styling */
 .staff-management-table th,
-.user-management-table th {
+.user-management-table th,
+.coupons-management-table th {
     background-color: var(--brown);
     color: white;
     padding: 10px;
@@ -1424,7 +1430,8 @@ textarea.form-control:focus {
 
 /* Body row styling */
 .staff-management-table td,
-.user-management-table td {
+.user-management-table td,
+.coupons-management-table td {
     padding: 10px;
     border: 1px solid var(--dark-brown);
     color: #333;
