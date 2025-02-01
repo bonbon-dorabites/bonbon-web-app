@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, doc, updateDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkIfLoggedIn();
 });
 
-const formFields = ["firstName", "lastName", "phone", "address", "email"]; // Adjust based on your form
+const formFields = ["firstName", "lastName", "phone", "address"]; // Adjust based on your form
 let originalData = {}; // Stores original values
 let userDocId = null; // Firestore Document ID
 
@@ -294,5 +294,33 @@ document.getElementById("submit-edit").addEventListener("click", async () => {
         toggleFormFields(true);
     } catch (error) {
         console.error("Error updating document:", error);
+    }
+});
+
+document.getElementById("update-password-btn").addEventListener("click", async () => {
+    const newPassword = prompt("Enter your new password:");
+
+    if (!newPassword) {
+        alert("Password update canceled.");
+        return;
+    }
+
+    const user = auth.currentUser;
+    if (!user) {
+        alert("No user is signed in.");
+        return;
+    }
+
+    try {
+        await updatePassword(user, newPassword);
+        alert("Password successfully updated!");
+    } catch (error) {
+        if (error.code === "auth/requires-recent-login") {
+            alert("You need to re-authenticate before updating your password.");
+            reauthenticateUser(user);
+        } else {
+            console.error("Error updating password:", error);
+            alert("Failed to update password. Please try again.");
+        }
     }
 });
