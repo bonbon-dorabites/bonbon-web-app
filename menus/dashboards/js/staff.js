@@ -98,17 +98,20 @@ const setupStockUpdate = (branchId) => {
     const branchRef = doc(db, 'branches', branchId);
 
     // Define functions to handle the stock update for each menu item
-    toggleStock = (itemName, isSoldOut) => {
+    toggleStock = (itemName, isSoldOut, showSuccessModal = true) => {
         console.log(`Updating stock for item: ${itemName}, Sold-Out: ${isSoldOut}`);
         const itemRef = doc(branchRef, 'items', itemName);
-        updateDoc(itemRef, { isSoldOut: isSoldOut })
+        
+        return updateDoc(itemRef, { isSoldOut: isSoldOut })
             .then(() => {
                 console.log(`${itemName} updated to ${isSoldOut ? 'Sold-Out' : 'Available'}`);
-                showModal(`${itemName} is now ${isSoldOut ? 'Sold-Out' : 'Available'}`, true);  // Show success modal
+                if (showSuccessModal) {
+                    showModal("Item(s) successfully updated.", true);
+                }
             })
             .catch((error) => {
                 console.error("Error updating item stock:", error);
-                showModal(`Error updating ${itemName}: ${error.message}`, false);  // Show error modal
+                showModal(`Error updating item(s): ${error.message}`, false);
             });
     };
 
@@ -127,11 +130,16 @@ const setupStockUpdate = (branchId) => {
         
         console.log(`Button for item ${itemId} has availability: ${isAvailable}`);
         
-        if (isAvailable) {
-            button.onclick = setStockStatus(itemId, false);  // Mark item as available
-        } else {
-            button.onclick = setStockStatus(itemId, true);   // Mark item as sold-out
-        }
+        button.onclick = setStockStatus(itemId, !isAvailable);
+    });
+};
+
+// Grouped stock update functions (show only one modal)
+const updateMultipleStocks = (items, isSoldOut) => {
+    const updatePromises = items.map(item => toggleStock(item, isSoldOut, false));
+
+    Promise.all(updatePromises).then(() => {
+        showModal("Item(s) successfully updated.", true);
     });
 };
 
@@ -142,46 +150,18 @@ window.hasSugoi = () => toggleStock('dorabite_sugoi', false);
 window.hasNoSugoi = () => toggleStock('dorabite_sugoi', true);
 window.hasBonBox = () => toggleStock('dorabite_bonbon', false);
 window.hasNoBonBox = () => toggleStock('dorabite_bonbon', true);
-window.hasChoco = () => { 
-    toggleStock('dorabite_bonbon_choco', false); 
-    toggleStock('dorabite_oishi_choco', false);
-    toggleStock('dorabite_sugoi_choco', false);
-};
-window.hasNoChoco = () => { 
-    toggleStock('dorabite_bonbon_choco', true); 
-    toggleStock('dorabite_oishi_choco', true);
-    toggleStock('dorabite_sugoi_choco', true);
-};
-window.hasDulce = () => { 
-    toggleStock('dorabite_bonbon_dulce', false); 
-    toggleStock('dorabite_oishi_dulce', false);
-    toggleStock('dorabite_sugoi_dulce', false);
-};
-window.hasNoDulce = () => { 
-    toggleStock('dorabite_bonbon_dulce', true); 
-    toggleStock('dorabite_oishi_dulce', true);
-    toggleStock('dorabite_sugoi_dulce', true);
-};
-window.hasCheese = () => { 
-    toggleStock('dorabite_bonbon_cheese', false); 
-    toggleStock('dorabite_oishi_cheese', false);
-    toggleStock('dorabite_sugoi_cheese', false);
-};
-window.hasNoCheese = () => { 
-    toggleStock('dorabite_bonbon_cheese', true); 
-    toggleStock('dorabite_oishi_cheese', true);
-    toggleStock('dorabite_sugoi_cheese', true);
-};
-window.hasWalnut = () => { 
-    toggleStock('dorabite_walnutella_bonbon', false); 
-    toggleStock('dorabite_walnutella_bonbon', false);
-    toggleStock('dorabite_walnutella_bonbon', false);
-};
-window.hasNoWalnut = () => { 
-    toggleStock('dorabite_walnutella_bonbon', true); 
-    toggleStock('dorabite_walnutella_bonbon', true);
-    toggleStock('dorabite_walnutella_bonbon', true);
-};
+
+// Grouped stock updates (choco, dulce, cheese, walnut)
+window.hasChoco = () => updateMultipleStocks(['dorabite_oishi_choco', 'dorabite_sugoi_choco', 'dorabite_bonbon_choco'], false);
+window.hasNoChoco = () => updateMultipleStocks(['dorabite_oishi_choco', 'dorabite_sugoi_choco', 'dorabite_bonbon_choco'], true);
+window.hasDulce = () => updateMultipleStocks(['dorabite_oishi_dulce', 'dorabite_sugoi_dulce', 'dorabite_bonbon_dulce'], false);
+window.hasNoDulce = () => updateMultipleStocks(['dorabite_oishi_dulce', 'dorabite_sugoi_dulce', 'dorabite_bonbon_dulce'], true);
+window.hasCheese = () => updateMultipleStocks(['dorabite_oishi_cheese', 'dorabite_sugoi_cheese', 'dorabite_bonbon_cheese'], false);
+window.hasNoCheese = () => updateMultipleStocks(['dorabite_oishi_cheese', 'dorabite_sugoi_cheese', 'dorabite_bonbon_cheese'], true);
+window.hasWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'dorabite_walnutella_sugoi', 'dorabite_walnutella_bonbon'], false);
+window.hasNoWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'dorabite_walnutella_sugoi', 'dorabite_walnutella_bonbon'], true);
+
+// Individual stock updates
 window.hasNutella = () => toggleStock('boncoin_nutella', false);
 window.hasNoNutella = () => toggleStock('boncoin_nutella', true);
 window.hasHamCheese = () => toggleStock('boncoin_hamcheese', false);
@@ -196,3 +176,4 @@ window.hasHotcof = () => toggleStock('hot_cof', false);
 window.hasNoHotcof = () => toggleStock('hot_cof', true);
 window.hasIcedcof = () => toggleStock('iced_coffee', false);
 window.hasNoIcedcof = () => toggleStock('iced_coffee', true);
+

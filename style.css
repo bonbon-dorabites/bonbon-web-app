@@ -842,6 +842,108 @@ body {
     margin: 0;
 }
 
+/* USER DETAILS */
+.flatten {
+    display: flex;
+}
+
+#allow-edit, #email-edit, #password-edit {
+    background-color: green !important;
+}
+
+#allow-edit:hover, #email-edit:hover, #password-edit:hover {
+    background-color: rgb(130, 175, 40) !important;
+}
+
+#submit-edit, #email-submit, #password-submit {
+    background-color: rgb(0, 2, 128) !important;
+}
+
+#submit-edit:hover, #email-submit:hover, #password-submit:hover {
+    background-color: rgb(42, 101, 124) !important;
+}
+
+#cancel-edit, #email-cancel, #password-cancel {
+    background-color: maroon !important;
+}
+
+#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover {
+    background-color: rgb(153, 69, 69) !important;
+}
+
+.button-pers {
+    padding-left: 20px;
+    gap: 13px;
+}
+
+.pers-info {
+    background-color: #5C2918; 
+    font-family: var(--fredoka); 
+    color: white; border-radius: 10px; 
+    border: none;
+}
+
+@media (max-width: 767px) {
+    .flatten {
+        display: block;
+        text-align: center;
+    }
+
+    .button-pers {
+        justify-content: center;
+    }
+
+    .login-credential {
+         display: block;
+    }
+}
+
+.email-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.email-input-wrapper {
+    flex-grow: 1; /* Allows input field to take remaining space */
+    position: relative;
+    margin-right: 10px; /* Space between input and buttons */
+}
+
+.email-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+.email-input {
+    width: 100%;
+    padding-left: 40px; /* Space for icon */
+    border-radius: 20px;
+    border: 2px solid var(--dark-brown);
+}
+
+.email-buttons {
+    display: flex;
+    gap: 5px; /* Space between buttons */
+}
+
+.login-credential {
+    display: flex;
+    gap: 15px;
+}
+
+@media (max-width: 767px) {
+    .login-credential {
+         display: block;
+    }
+}
+
+.parent input {
+    width: 200px;
+}
 
 /* Accordion Section */
 .pending-orders,
