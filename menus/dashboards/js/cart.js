@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -30,6 +30,7 @@ document.querySelectorAll(".add-to-cart").forEach(button => {
         addToOrder(itemId);
     });
 });*/
+
 
 document.addEventListener("click", (event) => {
     if (event.target.closest(".add-to-cart")) {
@@ -83,6 +84,9 @@ async function addToCart(itemId, itemName, itemPrice) {
     const branchId = branchMap[branch];
     
     alert("BRANCH ID: " + branchId);
+
+    localStorage.setItem("selectedBranch", branchId);
+    console.log("Selected branch stored:", branchId); // Check if it's saved
 
     if (!branchId) {
         console.error("Please select a branch first.");
