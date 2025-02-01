@@ -70,15 +70,13 @@ async function fetchData() {
                 });
               });
 
-            // Generate a random color for the initials
-            const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-                    
+              
             // Append a new details card
             const detailsContainer = document.createElement("div");
             detailsContainer.className = "details";
             detailsContainer.innerHTML = `
                 <div class="details-card">
-                    <div class="initials" style="background-color: ${randomColor};">${couponId}</div>
+                    <div class="initials" style="background-color: var(--brown);">${couponId}</div>
                     <p><strong>Amount:</strong> ${data.coup_amount}</p>
                     <p><strong>Start Date:</strong> ${startDate}</p>
                     <p><strong>End Date:</strong> ${endDate}</p>
@@ -137,6 +135,7 @@ async function addCoupon() {
 
         alert("Coupon added successfully!");
         closeCouponModal(); // Close modal after successful save
+        location.reload();
         
     } catch (error) {
         console.error("Error adding coupon:", error);
@@ -198,7 +197,7 @@ async function addCoupon() {
             console.log("Coupon updated successfully!");
     
             closeEditCouponModal();
-            
+            location.reload();
     
         } catch (error) {
             console.error("Error updating coupon:", error);
