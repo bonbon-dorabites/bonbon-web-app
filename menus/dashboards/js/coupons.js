@@ -220,9 +220,9 @@ async function addCoupon() {
          couponId = row.cells[0].textContent;
      } else if (detailsCard) {
          // If deleting from the details card
-         /*
-         employeeId = detailsCard.getAttribute("data-id");
-         branchId = detailsCard.getAttribute("data-branch-id");*/
+         const initialsDiv = detailsCard.querySelector(".initials");
+         couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
+
          detailsContainer = detailsCard.closest(".details"); // Get the parent container
      } else {
          console.error("Could not find the row or details card.");

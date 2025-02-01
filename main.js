@@ -158,7 +158,7 @@ function editCoupon(button) {
     status = row.cells[5].textContent;
   } else if (detailsCard) {
       // If the button is inside a details card
-      // couponId = detailsCard.getAttribute("data-id");
+      
       // Get coupon ID from the `.initials` div
       const initialsDiv = detailsCard.querySelector(".initials");
       couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
