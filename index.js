@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut, updatePassword, updateEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, doc, updateDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 hideModal();
                 console.log("Redirecting to login...");
                 window.location.href = "/auth/login.html";
-            }, 600);  // Adjusted timeout to give enough time for the modal to appear
+            }, 2000);  // Adjusted timeout to give enough time for the modal to appear
         } catch (error) {
             console.error("Error signing out:", error);
         }
@@ -297,30 +297,99 @@ document.getElementById("submit-edit").addEventListener("click", async () => {
     }
 });
 
-document.getElementById("update-password-btn").addEventListener("click", async () => {
-    const newPassword = prompt("Enter your new password:");
-
-    if (!newPassword) {
-        alert("Password update canceled.");
-        return;
-    }
-
-    const user = auth.currentUser;
-    if (!user) {
-        alert("No user is signed in.");
-        return;
-    }
-
-    try {
-        await updatePassword(user, newPassword);
-        alert("Password successfully updated!");
-    } catch (error) {
-        if (error.code === "auth/requires-recent-login") {
-            alert("You need to re-authenticate before updating your password.");
-            reauthenticateUser(user);
-        } else {
-            console.error("Error updating password:", error);
-            alert("Failed to update password. Please try again.");
+// Listen for authentication state
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const docId = await fetchAndDisplayUserData(user);
+        if (docId) {
+            setupPasswordEditFunctions(user);
         }
+    } else {
+        console.log("No user is logged in.");
     }
 });
+
+// 1️⃣ Fetch user data and display email
+async function fetchAndDisplayUserData(user) {
+    const emailInput = document.getElementById("email");
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0]; // Get first matching document
+        const docId = userDoc.id;
+
+        // Real-time listener for email field updates
+        onSnapshot(doc(db, "users", docId), (docSnap) => {
+            if (docSnap.exists()) {
+                emailInput.value = docSnap.data().email;
+            }
+        });
+
+        return docId;
+    } else {
+        console.error("User not found in Firestore.");
+        return null;
+    }
+}
+
+// 3️⃣ Password Editing & Updating
+function setupPasswordEditFunctions(user) {
+    const passwordInput = document.getElementById("password");
+    const passwordEditBtn = document.getElementById("password-edit");
+    const passwordSubmitBtn = document.getElementById("password-submit");
+    const passwordCancelBtn = document.getElementById("password-cancel");
+
+    passwordEditBtn.addEventListener("click", () => {
+        passwordInput.disabled = false;
+    });
+
+    passwordCancelBtn.addEventListener("click", () => {
+        // Check if there was a change in the password field
+        if (passwordInput.value.trim() === "") {
+            // No change happened
+            showModal("No change happened. Cancel Failed.", false);
+            passwordInput.value = "";
+            passwordInput.disabled = true;
+        } else {
+            // Changes were made, clear the password field and disable it
+            passwordInput.value = "";
+            passwordInput.disabled = true;
+            showModal("Cancelled all edits successfully", true);
+        }
+    });
+
+    passwordSubmitBtn.addEventListener("click", async () => {
+        const newPassword = passwordInput.value;
+    
+        // Check if password field is disabled or nothing was typed
+        if (passwordInput.disabled || newPassword.trim() === "") {
+            // Show modal if no edit or change was made
+            showModal("There was no edit that happened. Submission Failed.", false);
+        } else {
+            try {
+                // Update password in Firebase Auth
+                await updatePassword(user, newPassword);
+    
+                // Show success modal and inform user to log in again
+                showModal("You have changed your password. You need to log-in again!", true);
+    
+                // Wait for the modal to display before redirecting
+                setTimeout(() => {
+                    console.log("test");
+                    hideModal();
+                    console.log("Password successfully updated!");
+                    window.location.href = "/auth/login.html"; // Redirect to login
+                }, 3000);
+    
+                console.log("✅ Password updated successfully.");
+            } catch (error) {
+                console.error("❌ Error updating password:", error);
+            }
+        }
+    
+        // Disable password field after submission
+        passwordInput.disabled = true;
+    });    
+}
