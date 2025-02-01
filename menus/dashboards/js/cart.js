@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs, Timestamp, setDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -15,7 +15,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getFirestore(app);
-auth.languageCode = 'en';
+
+
+// Attach event listeners to all cart buttons
+document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", function () {
+        const itemId = this.id
+        alert(itemId);
+        addToOrder(itemId);
+    });
+});
+
+async function addToOrder(itemId) {
+    
+}
+
+
 
