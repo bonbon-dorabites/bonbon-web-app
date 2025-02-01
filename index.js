@@ -268,26 +268,58 @@ document.getElementById("allow-edit").addEventListener("click", () => {
     toggleFormFields(false);
 });
 
-// Cancel editing (revert to original)
 document.getElementById("cancel-edit").addEventListener("click", () => {
+    let isCancelled = true; // Flag to check if cancellation was necessary
+
     formFields.forEach(id => {
-        document.getElementById(id).value = originalData[id] || "";
+        const originalValue = originalData[id] || "";
+        const currentValue = document.getElementById(id).value;
+        
+        // If the value has changed, mark as cancellation
+        if (currentValue !== originalValue) {
+            isCancelled = false; // Cancel is not needed
+        }
+        
+        document.getElementById(id).value = originalValue;
     });
+
     toggleFormFields(true);
+
+    // Show appropriate modal message based on whether any changes were made
+    if (isCancelled) {
+        showModal("No changes happened. Cancel failed.", false);
+    } else {
+        showModal("Cancelled all edits successfully.", false);
+    }
 });
 
-// Submit form and update Firestore
 document.getElementById("submit-edit").addEventListener("click", async () => {
     if (!userDocId) return;
     
     console.log("Entered")
 
     const updatedData = {};
+    let isChanged = false; // Flag to check if any changes were made
+
     formFields.forEach(id => {
-        updatedData[id] = document.getElementById(id).value;
+        const newValue = document.getElementById(id).value;
+        const originalValue = originalData[id] || "";
+        
+        // Check if the value has changed
+        if (newValue !== originalValue) {
+            isChanged = true;
+        }
+        updatedData[id] = newValue;
     });
 
+    if (!isChanged) {
+        // If no changes, show modal with error
+        showModal("No changes were made. Submission failed.", false);
+        return; // Exit without updating the document
+    }
+
     try {
+        // Update the Firestore document
         await updateDoc(doc(db, "users", userDocId), updatedData);
         console.log("Updated")
         showModal("Successfully updated!", true);
