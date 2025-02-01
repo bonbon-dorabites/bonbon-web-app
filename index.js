@@ -48,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginMenu = document.getElementById("login-menu");
     const userMenu = document.getElementById("user-menu");
     const editMenu = document.getElementById("edit-menu");
+    const empEditMenu = document.getElementById("emp-edit-menu");
+    const ownerDet = document.getElementById("owner-edit-menu");
     const logoutMenu = document.getElementById("logout-menu");
     const ownerMenu = document.getElementById("owner-menu");
     const managerMenu = document.getElementById("manager-menu");
@@ -64,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loginMenu.style.display = "block";
         userMenu.style.display = "none";  // Hide user menu when logged out
         editMenu.style.display = "none";
+        empEditMenu.style.display = "none";
+        ownerDet.style.display = "none";
         logoutMenu.style.display = "none";
         ownerMenu.style.display = "none";
         managerMenu.style.display = "none";
@@ -90,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     signupMenu.style.display = "none";
                     loginMenu.style.display = "none";
                     userMenu.style.display = "block";
-                    editMenu.style.display = "block";
                     logoutMenu.style.display = "block";
     
                     const userMenuText = userMenu.querySelector("p");
@@ -101,24 +104,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Handle different roles
                     if (role === "Owner") {
                         ownerMenu.style.display = "block"; // Owner menu
+                        ownerDet.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi Admin`; // Show "Hi Admin" for Owner
                         }
                         console.log("Owner menu displayed.");
                     } else if (role === "Manager") {
                         managerMenu.style.display = "block"; // Manager menu
+                        empEditMenu.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi Manager`; // Show "Hi Manager" for Manager
                         }
                         console.log("Manager menu displayed.");
                     } else if (role === "Staff") {
                         staffMenu.style.display = "block"; // Staff menu
+                        empEditMenu.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi Staff`; // Show "Hi Staff" for Staff
                         }
                         console.log("Staff menu displayed.");
                     } else if (role === "Customer") {
                         customerMenu.style.display = "block"; // Customer menu
+                        editMenu.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi, ${firstName}`; // Show "Hi, {firstName}" for Customer
                         }
