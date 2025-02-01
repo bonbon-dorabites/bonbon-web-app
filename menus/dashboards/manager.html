@@ -6,61 +6,129 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
     <title>Manager Dashboard</title>
     <style>
-        @media (max-width: 768px) {
-            .stock-update h3 {
-                font-size: 1.6rem; /* Slightly smaller font */
+
+    .actions button {
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .actions .view {
+      background-color: #28a745;
+    }
+
+    .actions .delete {
+      background-color: #dc3545;
+    }
+
+    .details {
+      display: none;
+      background: #f9f9f9;
+      /*padding: 1rem;*/
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 1rem;
+
+      padding-bottom: 1rem;
+    }
+
+    .details.active {
+      display: block;
+    }
+
+    .details-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .details-card .initials {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 830px) {
+            table {
+                display: none;
             }
-        
-            .stock-list li {
-                padding: 10px;
-                flex-direction: column; /* Stacks name and buttons vertically */
-                text-align: center;
-            }
-        
-            .dash-buttons {
-                flex-wrap: wrap; /* Allow buttons to wrap if space is limited */
-                justify-content: center; /* Center the buttons */
-            }
-        
-            .dash-buttons .btn {
-                padding: 8px 12px; /* Smaller button size */
-                font-size: 0.9rem;
-            }
+
+            .details {
+                display: block;
+            }   
+      }
+
+    
+    @media (max-width: 768px) {
+        .stock-update h3 {
+            font-size: 1.6rem; /* Slightly smaller font */
         }
-        
-        /* Small Phone Screens */
-        @media (max-width: 480px) {
-            .stock-update h3 {
-                font-size: 1.4rem; /* Smaller heading font size */
-            }
-            .stock-list li {
-                padding: 8px;
-                border-radius: 5px; /* Adjust border radius */
-            }
-        
-            .dash-buttons .btn {
-                font-size: 0.8rem; /* Smaller font size for buttons */
-                padding: 6px 10px; /* Adjust button size */
-            }
-        
-            .dashboard-header h1{
-                font-size: 3rem;
-            }
-        
+    
+        .stock-list li {
+            padding: 10px;
+            flex-direction: column; /* Stacks name and buttons vertically */
+            text-align: center;
         }
-        
-        @media (max-width: 350px){
-            .dash-buttons{
-                gap: 30px;
-            }
-            .owner-dashboard-title{
-                font-size: 2.5rem;
-        
-            }
+    
+        .dash-buttons {
+            flex-wrap: wrap; /* Allow buttons to wrap if space is limited */
+            justify-content: center; /* Center the buttons */
         }
+    
+        .dash-buttons .btn {
+            padding: 8px 12px; /* Smaller button size */
+            font-size: 0.9rem;
+        }
+
+        
+    }
+    
+    /* Small Phone Screens */
+    @media (max-width: 480px) {
+        .stock-update h3 {
+            font-size: 1.4rem; /* Smaller heading font size */
+        }
+        .stock-list li {
+            padding: 8px;
+            border-radius: 5px; /* Adjust border radius */
+        }
+    
+        .dash-buttons .btn {
+            font-size: 0.8rem; /* Smaller font size for buttons */
+            padding: 6px 10px; /* Adjust button size */
+        }
+    
+        .dashboard-header h1{
+            font-size: 3rem;
+        }
+    
+    }
+    
+    @media (max-width: 350px){
+        .dash-buttons{
+            gap: 30px;
+        }
+        .owner-dashboard-title{
+            font-size: 2.5rem;
+    
+        }
+    }
+    
     </style>
 </head>
 <body>
@@ -127,165 +195,179 @@
             </div>
           </div>
         </nav>
-    </header><br><br>
+      </header><br><br>
 
-    <section class="manager-dashboard">
-        <h1 class="owner-dashboard-title text-center ">Manager Dashboard</h1>
-        <div class="dashboard-line"></div>
 
-        <!-- Coupon Management Section -->
-        <div class="coupons-management-container">
-            <h2 class="coupons-management-title">Coupon Management</h2>
-            <div class="header-row">
-                <button onclick="openCouponModal()">Add Coupon</button>
-                <div class="search">
-                    <input type="text" id="search" placeholder="Search coupon...">
-                    <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
-                </div>
-            </div>
+<section class="manager-dashboard">
+    <h1 class="owner-dashboard-title text-center ">Manager Dashboard</h1>
+    <div class="dashboard-line"></div>
 
-            <table class="coupons-management-table">
-                <thead>
-                    <tr>
-                        <th>Coupon ID</th>
-                        <th>Amount</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Coupon Description</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="coupons-table-body">
-                    <tr>
-                        <td>DORA24</td>
-                        <td>P15</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Active</td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Expired</td>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        
-        <!-- Modal for Adding Coupons-->
-        <div id="couponsModal" class="dashboard-modals">
-            <div class="dashboard-content">
-                <h3>Add Coupon</h3>
-                <form id="addCouponsForm">
-                    <input type="text" id="name" placeholder="Name" required>
-
-                    <div class="column">
-                        <select id="employee-branch">
-                            <option value="SM Valenzuela">SM Valenzuela</option>
-                            <option value="SM North Edsa">SM North Edsa</option>
-                            <option value="One Mall Valenzuela">One Mall Valenzuela</option>
-                        </select>
-                        
-                        <!--<input type="text" id="position" placeholder="Position" required>-->
-
-                        <select id="position">
-                        <option value="Manager">Manager</option>
-                        <option value="Staff">Staff</option>
-                    </select>
-                    </div>
-
-                    <div class="column">
-                        <input type="text" id="contact" placeholder="Contact Number" required>
-                        <input type="email" id="email" placeholder="Email" required>
-                    </div>
-
-                    <label>Permission</label>
-                    <label>
-                        <input type="radio" name="permission" value="Allowed"> Allowed
-                    </label>
-                    <label>
-                        <input type="radio" name="permission" value="Declined"> Declined
-                    </label>
-
-                    <div class="modal-buttons">
-                        <button type="button" class="cancel-btn" onclick="closeCouponModal()">Cancel</button>
-                        <button type="button" class="save-btn" id="saveBtn">Save</button>
-                    </div>
-                </form>
+    <!-- Coupon Management Section -->
+    <div class="coupons-management-container">
+        <h2 class="coupons-management-title">Coupon Management</h2>
+        <div class="header-row">
+            <button onclick="openCouponModal()">Add Coupon</button>
+            <div class="search">
+                <input type="text" id="search" placeholder="Search coupon...">
+                <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
             </div>
         </div>
-        <div class="dashboard-line"></div>
 
-        <!-- Finished Orders Section -->
-        <section class="finished-orders mt-4">
-            <h2>Finished Orders</h2>
-            <br> <!-- Space above accordion -->
-            <div class="accordion" id="finishedOrdersAccordion">
-                <!-- First Finished Order -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
-                            ORDER ID: 67890
-                        </button>
-                    </h2>
-                    <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                        <div class="accordion-body">
-                            <p><b>Status:</b> Paid</p>
-                            <p><b>Feedback:</b></p>
-                            <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <br> <!-- Space between accordion items -->
+        <table id="coupons-table" class="coupons-management-table">
+            <thead>
+                <tr>
+                    <th>Coupon ID</th>
+                    <th>Amount</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Coupon Description</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="coupons-table-body">
 
-                <!-- Second Finished Order -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
-                            ORDER ID: 67901
-                        </button>
-                    </h2>
-                    <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                        <div class="accordion-body">
-                            <p><b>Status:</b> Paid</p>
-                            <p><b>Feedback:</b></p>
-                            <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <br> <!-- Space between accordion items -->
+            </tbody>
+        </table>
+    </div>
 
-                <!-- Third Finished Order -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
-                            ORDER ID: 67902
-                        </button>
-                    </h2>
-                    <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                        <div class="accordion-body">
-                            <p><b>Status:</b> Paid</p>
-                            <p><b>Feedback:</b></p>
-                            <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br><br> <!-- Space below section -->
-        </section>
+    <section id="couponDetails-section">
+
     </section>
 
-    <!-- Modal HTML -->
+
+    <!-- Modal for Adding Coupons-->
+    <div id="couponsModal" class="dashboard-modals">
+        <div class="dashboard-content">
+            <h3>Add Coupon</h3>
+            <form id="addCouponsForm">
+
+                <div class="column">
+                    <input type="text" id="couponId" placeholder="Coupon Id" required>
+                    <input type="text" id="amountCoupon" placeholder="Amount" required>
+                </div>
+      
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" name="startDate" required>
+                        
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" name="endDate" required>
+                    
+                <label for="description">Coupon Description</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="Active">Active</option>
+                    <option value="Expired">Expired</option>
+                </select>
+
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" onclick="closeCouponModal()">Cancel</button>
+                    <button type="button" class="save-btn" id="save-coupon">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Coupons-->
+    <div id="edit-couponsModal" class="dashboard-modals">
+        <div class="dashboard-content">
+            <h3>Edit Coupon</h3>
+            <form id="editCouponsForm">
+                <input type="hidden" id="edit-doc-old-id">
+                
+                <div class="column">
+                    <input type="text" id="edit-couponId" placeholder="Coupon Id" required>
+                    <input type="text" id="edit-amountCoupon" placeholder="Amount" required>
+                </div>
+      
+                <label for="startDate">Start Date</label>
+                <input type="date" id="edit-startDate" name="startDate" required>
+                        
+                <label for="endDate">End Date</label>
+                <input type="date" id="edit-endDate" name="endDate" required>
+                    
+                <label for="description">Coupon Description</label>
+                <textarea id="edit-description" name="description" rows="3" required></textarea>
+
+                <label for="status">Status</label>
+                <select id="edit-status" name="status" required>
+                    <option value="Active">Active</option>
+                    <option value="Expired">Expired</option>
+                </select>
+
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" onclick="closeEditCouponModal()">Cancel</button>
+                    <button type="button" class="save-btn" id="save-editCoupon">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="dashboard-line"></div>
+    <!-- Finished Orders Section -->
+    <section class="finished-orders mt-4">
+    <h2>Finished Orders</h2>
+    <br> <!-- Space above accordion -->
+
+    
+    <div class="accordion" id="finishedOrdersAccordion">
+        <!-- First Finished Order -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
+                    ORDER ID: 67890
+                </button>
+            </h2>
+            <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                <div class="accordion-body">
+                    <p><b>Status:</b> Paid</p>
+                    <p><b>Feedback:</b></p>
+                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <br> <!-- Space between accordion items -->
+
+        <!-- Second Finished Order -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
+                    ORDER ID: 67901
+                </button>
+            </h2>
+            <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                <div class="accordion-body">
+                    <p><b>Status:</b> Paid</p>
+                    <p><b>Feedback:</b></p>
+                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <br> <!-- Space between accordion items -->
+
+        <!-- Third Finished Order -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
+                    ORDER ID: 67902
+                </button>
+            </h2>
+            <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                <div class="accordion-body">
+                    <p><b>Status:</b> Paid</p>
+                    <p><b>Feedback:</b></p>
+                    <textarea class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br> <!-- Space below section -->
+</section>
+</section>
+
+        <!-- Modal HTML -->
     <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -302,13 +384,13 @@
             </div>
         </div>
     </div>
+    <!-- Footer -->
+  <footer class="small-footer">
+    <p>In Partial Fulfillment for subject Web Development</p>
+  </footer>
 
-    <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
-
-    <script src="/main.js"></script>
-    <script type="module" src="./js/coupons.js"></script>
-    <script type="module" src="/index.js" defer></script>
+  <script src="../../main.js"></script>
+  <script type="module" src="./js/coupons.js"></script>
+  <script type="module" src="../../index.js" defer></script>
 </body>
 </html>
