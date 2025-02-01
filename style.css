@@ -883,7 +883,18 @@ body {
     border: none;
 }
 
+.emp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 @media (max-width: 767px) {
+    .emp {
+        margin-top: 50px;
+    }
+
     .flatten {
         display: block;
         text-align: center;

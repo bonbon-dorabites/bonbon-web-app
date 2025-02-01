@@ -111,7 +111,7 @@
         </nav>
     </header>
 
-    <div class="edit-customer d-flex justify-self-center mx-auto vh-50">
+    <div class="emp d-flex justify-self-center mx-auto vh-50">
         <div class=" w-75 mx-auto"><br><br><span class="hidden-br4"><br><br><br></span> <span class="hidden-br3"><br><br><br></span>
             <button id="home" type="button" onclick="location.replace('/index.html')" class="btn btn-primary d-flex" style="background-color: #5C2918; color: white; border-radius: 20px; border: none; ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
@@ -157,7 +157,7 @@
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                               </svg>
                         </span>
-                        <input type="text" class="form-control" id="branchId" placeholder="Branch" disabled required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        <input type="text" class="form-control" id="branchId" placeholder="Branch" disabled required style="color: rgb(110, 106, 106); padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                     </div>
                     
                     <div class="mb-3 col-12 col-md-6" style="position: relative;">
@@ -169,24 +169,9 @@
                                   </svg>
                             </span>
                         </span>
-                        <input type="text" class="form-control" id="role" placeholder="Job" disabled required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        <input type="text" class="form-control" id="role" placeholder="Job" disabled required style="color: rgb(110, 106, 106); padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                     </div>
-                </div>
-            </form>&nbsp;<hr class="line" style="color: white;">
-            <br><br>
-            <form id="signupForm" method="post" class="form-table">
-                <div class="flatten">
-                    <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Login Credentials
-                    </h2>
-                </div>
-                <br><br>
-                <div class="login-credential">
-                    <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 47px;">
-                        &nbsp;Email
-                    </h3>
+
                     <div class="email-container d-flex">
                         <div class="email-input-wrapper">
                             <span class="email-icon">
@@ -194,46 +179,13 @@
                                     <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
                                 </svg>
                             </span>
-                            <input type="email" class="form-control email-input" id="email" placeholder="Email" disabled required style="color: rgb(110, 106, 106);">
-                        </div>
-                    </div>
-                </div>                
-                <br>
-                <div class="login-credential">
-                    <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Password
-                    </h3>
-                    <div class="email-container d-flex">
-                        <div class="email-input-wrapper">
-                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="var(--dark-brown)" class="bi bi-lock-fill" viewBox="0 0 16 16">
-                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
-                                  </svg>
-                            </span>
-                            <input type="password" class="form-control email-input" id="password" placeholder="Type your new password here" disabled required>
-                        </div>
-                
-                        <div class="email-buttons">
-                            <button id="password-edit" type="button" class="btn btn-primary submit pers-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
-                                </svg>
-                            </button>
-                            <button id="password-submit" type="button" class="btn btn-primary submit pers-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-send-fill" viewBox="0 0 16 16">
-                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                                </svg>
-                            </button>
-                            <button id="password-cancel" type="button" class="btn btn-primary submit pers-info">
-                                ✖
-                            </button>
+                            <input type="email" class="form-control email-input" id="email" placeholder="Email" disabled required 
+                            style="color: rgb(110, 106, 106);">
                         </div>
                     </div>
                 </div>
-            </form>
+            </form>&nbsp;
+            <br><br>
         </div>
     </div><br><br>
     <span class="hidden-br3"><br><br><br></span>
