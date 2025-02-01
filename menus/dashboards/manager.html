@@ -128,6 +128,12 @@
     
         }
     }
+
+    @media(max-height: 599px) {
+        .dashboard-modals form {
+            gap: 10px;
+        }
+    }
     
     </style>
 </head>
@@ -246,12 +252,15 @@
                     <input type="text" id="couponId" placeholder="Coupon Id" required>
                     <input type="text" id="amountCoupon" placeholder="Amount" required>
                 </div>
-      
-                <label for="startDate">Start Date</label>
-                <input type="date" id="startDate" name="startDate" required>
-                        
-                <label for="endDate">End Date</label>
-                <input type="date" id="endDate" name="endDate" required>
+                
+                <div class="column date">
+                    <label for="startDate">Start</label>
+                    <input type="date" id="startDate" name="startDate" required>
+                            
+                    <label for="endDate">End</label>
+                    <input type="date" id="endDate" name="endDate" required>
+                </div>
+
                     
                 <label for="description">Coupon Description</label>
                 <textarea id="description" name="description" rows="3" required></textarea>
@@ -281,12 +290,15 @@
                     <input type="text" id="edit-couponId" placeholder="Coupon Id" required>
                     <input type="text" id="edit-amountCoupon" placeholder="Amount" required>
                 </div>
-      
-                <label for="startDate">Start Date</label>
-                <input type="date" id="edit-startDate" name="startDate" required>
-                        
-                <label for="endDate">End Date</label>
-                <input type="date" id="edit-endDate" name="endDate" required>
+                
+                <div class="column">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="edit-startDate" name="startDate" required>
+                            
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="edit-endDate" name="endDate" required>
+                </div>
+
                     
                 <label for="description">Coupon Description</label>
                 <textarea id="edit-description" name="description" rows="3" required></textarea>
