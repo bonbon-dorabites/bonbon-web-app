@@ -77,7 +77,7 @@ function closeEditCouponModal() {
 function editEmployee(button) {
   console.log("EDIT");
 
-  let employeeId, branchId, name, branch, position, contactNumber, email, permission;
+  let employeeId, branchId, name, branch, position, contactNumber, email;
 
   // Check if the clicked button is in a table row or details card
   const row = button.closest("tr");
@@ -91,10 +91,9 @@ function editEmployee(button) {
       // Get data from table row
       name = row.cells[0].textContent;
       branch = row.cells[1].textContent;
-      position = row.cells[3].textContent;
-      contactNumber = row.cells[4].textContent;
-      email = row.cells[5].textContent;
-      permission = row.querySelector("input[type='radio']:checked")?.value || "Declined";
+      position = row.cells[2].textContent;
+      contactNumber = row.cells[3].textContent;
+      email = row.cells[4].textContent;
   } else if (detailsCard) {
       // If the button is inside a details card
       employeeId = detailsCard.getAttribute("data-id");
@@ -103,10 +102,9 @@ function editEmployee(button) {
       // Get data from details card
       name = detailsCard.querySelector("p:nth-child(2)").textContent.replace("Name: ", "").trim();
       branch = detailsCard.querySelector("p:nth-child(3)").textContent.replace("Branch: ", "").trim();
-      permission = detailsCard.querySelector("p:nth-child(4)").textContent.replace("Permission: ", "").trim();
-      position = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Position: ", "").trim();
-      contactNumber = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Contact: ", "").trim();
-      email = detailsCard.querySelector("p:nth-child(7)").textContent.replace("Email: ", "").trim();
+      position = detailsCard.querySelector("p:nth-child(4)").textContent.replace("Position: ", "").trim();
+      contactNumber = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Contact: ", "").trim();
+      email = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Email: ", "").trim();
   } else {
       console.error("Could not find the row or details card.");
       return;
@@ -118,7 +116,6 @@ function editEmployee(button) {
   document.getElementById("edit-position").value = position;
   document.getElementById("edit-contact").value = contactNumber;
   document.getElementById("edit-email").value = email;
-  document.querySelector(`input[name="edit-permission"][value="${permission}"]`).checked = true;
 
   // Store employeeId and branchId in hidden fields
   document.getElementById("edit-doc-id").value = employeeId;

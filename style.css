@@ -1677,6 +1677,7 @@ textarea.form-control:focus {
 .dashboard-modals {
     display: none;
     position: fixed;
+    margin: 4% auto;
     z-index: 1;
     left: 0;
     top: 0;
@@ -1690,7 +1691,7 @@ textarea.form-control:focus {
 .edit-modal-content, .addEmployee-content,
 .dashboard-content {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 700px;
@@ -1764,6 +1765,155 @@ textarea.form-control:focus {
 .dashboard-content .save-btn {
     background-color: #28a745;
     color: white;
+}
+
+@media screen and (max-width: 831px){
+    .addEmployee-modal, .edit-modal, .dashboard-modals {
+        margin: 6% auto;
+    }
+
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        margin: 6% auto;
+    }
+}
+
+@media screen and (max-width: 578px){
+    .addEmployee-modal, .edit-modal, .dashboard-modals {
+        margin: 5% auto;
+    }
+
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        margin: 8% auto;
+    }
+}
+
+@media screen and (max-width: 741px) {
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        width: 90%;
+        max-width: 550px;
+        padding: 15px;
+        margin: 8% auto;
+        box-sizing: border-box;
+        overflow-y: auto;
+        max-height: 70vh;
+    }
+}
+
+@media screen and (max-width: 617px) {
+    .addEmployee-modal, .edit-modal, .dashboard-modals {
+        margin: 8% auto;
+        overflow-y: auto;
+        height: 100%;
+    }
+
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        width: 85%;
+        max-width: 550px;
+        padding: 15px;
+        margin: 8% auto;
+        box-sizing: border-box;
+        overflow-y: auto;
+        max-height: 70vh;
+    }
+
+    .addEmployee-content h3, .edit-modal-content h3, .dashboard-content h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .addEmployee-modal form, .edit-modal form, .dashboard-modals form {
+        gap: 10px;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .addEmployee-modal input, .edit-modal input, .addEmployee-modal select, .edit-modal select, 
+    .dashboard-modals input, .dashboard-modals select {
+        width: 100%;
+        font-size: 13px;
+        padding: 7px;
+        border-radius: 4px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    .addEmployee-content .modal-buttons, .edit-modal-content .modal-buttons, .dashboard-content .modal-buttons {
+        gap: 5px;
+    }
+
+    .addEmployee-content button, .edit-modal-content button, .dashboard-content button {
+        width: 100%;
+        font-size: 14px;
+        padding: 7px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .permission-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        width: 95%;
+        max-width: 320px;
+        padding: 12px;
+        box-sizing: border-box;
+        max-height: 75vh;
+    }
+
+    .addEmployee-content h3, .edit-modal-content h3, .dashboard-content h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .addEmployee-modal input, .edit-modal input, .addEmployee-modal select, .edit-modal select, 
+    .dashboard-modals input, .dashboard-modals select {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    .addEmployee-content .modal-buttons, .edit-modal-content .modal-buttons, .dashboard-content .modal-buttons {
+        gap: 4px;
+    }
+
+    .addEmployee-content button, .edit-modal-content button, .dashboard-content button {
+        font-size: 13px;
+        padding: 6px;
+    }
+}
+
+@media screen and (max-height: 491px) {
+    .addEmployee-modal, .edit-modal, .dashboard-modals {
+        margin: 10% auto;
+    }
+
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        margin: 10% auto;
+    }
+
+    .addEmployee-modal, .edit-modal, .dashboard-modals {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Ensure it takes the full screen height */
+    }
+
+    .addEmployee-content, .edit-modal-content, .dashboard-content {
+        max-height: 75vh; /* Keep content within the viewport */
+        overflow-y: auto; /* Allow scrolling within the modal */
+    }
 }
 
 .column {

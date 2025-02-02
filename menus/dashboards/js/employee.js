@@ -78,14 +78,7 @@ async function fetchData() {
                 const data = doc.data();
                 console.log(`Employee data: ${JSON.stringify(data)}`);
 
-              const permissionRadio = `
-                <label>
-                    <input type="radio" name="permission-${doc.id}" value="Allowed" ${data.permission === "Allowed" ? "checked" : ""} disabled> Allowed
-                </label>
-                <label>
-                    <input type="radio" name="permission-${doc.id}" value="Declined" ${data.permission === "Declined" ? "checked" : ""} disabled> Declined
-                </label>
-                `;
+                
             
               // Create a new table row
               const row = document.createElement("tr");
@@ -97,7 +90,6 @@ async function fetchData() {
               row.innerHTML = `
                 <td>${data.name || "N/A"}</td>
                 <td>${branchLocation || "N/A"}</td>
-                <td>${permissionRadio || "N/A"}</td>
                 <td>${data.position || "N/A"}</td>
                 <td>${data.contactNumber || "N/A"}</td>
                 <td>${data.email || "N/A"}</td>
@@ -137,7 +129,6 @@ async function fetchData() {
                     <div class="initials" style="background-color: ${randomColor};">${initials}</div>
                     <p><strong>Name:</strong> ${data.name}</p>
                     <p><strong>Branch:</strong> ${branchLocation}</p>
-                    <p><strong>Permission:</strong> ${data.permission}</p>
                     <p><strong>Position:</strong> ${data.position}</p>
                     <p><strong>Contact:</strong> ${data.contactNumber}</p>
                     <p><strong>Email:</strong> ${data.email}</p>
@@ -221,8 +212,7 @@ function validateContactNumber(contactNumber) {
         name,
         position,
         contactNumber,
-        email,
-        permission: document.querySelector('input[name="permission"]:checked')?.value || "Declined" // Default to "Declined" if not selected
+        email // Default to "Declined" if not selected
     };
 
     try {
@@ -272,21 +262,13 @@ function insertNewEmployeeRow(employeeData, branchId) {
     
     const branchLocation = branchMapReverse[branchId] || "N/A";
 
-    const permissionRadio = `
-        <label>
-            <input type="radio" name="permission-${employeeData.email}" value="Allowed" ${employeeData.permission === "Allowed" ? "checked" : ""} disabled> Allowed
-        </label>
-        <label>
-            <input type="radio" name="permission-${employeeData.email}" value="Declined" ${employeeData.permission === "Declined" ? "checked" : ""} disabled> Declined
-        </label>
-    `;
+    
 
     // Create new row
     const row = document.createElement("tr");
     row.innerHTML = `
         <td>${employeeData.name || "N/A"}</td>
         <td>${branchLocation}</td>
-        <td>${permissionRadio}</td>
         <td>${employeeData.position || "N/A"}</td>
         <td>${employeeData.contactNumber || "N/A"}</td>
         <td>${employeeData.email || "N/A"}</td>
@@ -322,14 +304,13 @@ async function updateEmployee() {
     const position = document.getElementById("edit-position").value;
     const contactNumber = document.getElementById("edit-contact").value;
     const email = document.getElementById("edit-email").value;
-    const permission = document.querySelector('input[name="edit-permission"]:checked').value;
+    
 
     const updatedData = {
         name,
         position,
         contactNumber,
-        email,
-        permission,
+        email
     };
 
     try {

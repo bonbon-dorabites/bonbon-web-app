@@ -200,7 +200,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Branch</th>
-                            <th>Permission</th>
                             <th>Position</th>
                             <th>Contact Number</th>
                             <th>Email</th>
@@ -261,7 +260,7 @@
                     <input type="text" id="name" placeholder="Name" required>
 
                     <div class="column">
-                        <select id="employee-branch">
+                        <select id="employee-branch" class="w-100">
                             <option value="SM Valenzuela">SM Valenzuela</option>
                             <option value="SM North Edsa">SM North Edsa</option>
                             <option value="One Mall Valenzuela">One Mall Valenzuela</option>
@@ -269,26 +268,18 @@
                         
                         <!--<input type="text" id="position" placeholder="Position" required>-->
 
-                        <select id="position">
+                        <select id="position" class="w-100">
                           <option value="Manager">Manager</option>
                           <option value="Staff">Staff</option>
                       </select>
                     </div>
 
                     <div class="column">
-                        <input type="text" id="contact" placeholder="Contact Number" required>
-                        <input type="email" id="email" placeholder="Email" required>
+                        <input type="text" id="contact" class="w-100" placeholder="Contact Number" required>
+                        <input type="email" id="email" class="w-100" placeholder="Email" required>
                     </div>
 
-                    <label>Permission</label>
-                    <label>
-                        <input type="radio" name="permission" value="Allowed"> Allowed
-                    </label>
-                    <label>
-                        <input type="radio" name="permission" value="Declined"> Declined
-                    </label>
-
-                    <div class="modal-buttons">
+                    <div class="modal-buttons" class="w-100">
                         <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
                         <button type="button" class="save-btn" id="saveBtn">Save</button>
                     </div>
@@ -307,33 +298,26 @@
                   <input type="text" id="edit-name" placeholder="Name" required>
 
                   <div class="column">
-                      <select id="edit-branch" disabled>
+                      <select id="edit-branch"  class="w-100" disabled>
                           <option value="SM Valenzuela">SM Valenzuela</option>
                           <option value="SM North Edsa">SM North Edsa</option>
                           <option value="One Mall Valenzuela">One Mall Valenzuela</option>
                       </select>
                       <!--<input type="text" id="edit-position" placeholder="Position" required>-->
 
-                      <select id="edit-position">
+                      <select id="edit-position" class="w-100">
                         <option value="Manager">Manager</option>
                         <option value="Staff">Staff</option>
                     </select>
                   </div>
 
-                  <div class="column">
-                      <input type="text" id="edit-contact" placeholder="Contact Number" required>
-                      <input type="email" id="edit-email" placeholder="Email" required>
+                  <div class="column" class="w-100">
+                      <input type="text" id="edit-contact"  class="w-100"placeholder="Contact Number" required>
+                      <input type="email" id="edit-email"  class="w-100"placeholder="Email" required>
                   </div>
 
-                  <label>Permission</label>
-                  <label>
-                      <input type="radio" name="edit-permission" value="Allowed"> Allowed
-                  </label>
-                  <label>
-                      <input type="radio" name="edit-permission" value="Declined"> Declined
-                  </label>
 
-                  <div class="modal-buttons">
+                  <div class="modal-buttons" class="w-100">
                       <button type="button" class="cancel-btn" onclick="closeEditModal()">Cancel</button>
                       <button type="button" class="save-btn" id="save-edit">Save</button>
                   </div>
