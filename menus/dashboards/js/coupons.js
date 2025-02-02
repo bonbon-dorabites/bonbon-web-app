@@ -60,27 +60,35 @@ async function fetchData() {
             `;
             tableBody.appendChild(row);
 
-              // Generate a random color for the initials
-        const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-                
-        // Append a new details card
-                const detailsContainer = document.createElement("div");
-                detailsContainer.className = "details";
-                detailsContainer.innerHTML = `
-                    <div class="details-card">
-                        <div class="initials" style="background-color: ${randomColor};">${couponId}</div>
-                        <p><strong>Amount:</strong> ${data.coup_amount}</p>
-                        <p><strong>Start Date:</strong> ${startDate}</p>
-                        <p><strong>End Date:</strong> ${endDate}</p>
-                        <p><strong>Coupon Description:</strong> ${data.coup_desc}</p>
-                        <p><strong>Status:</strong> ${status}</p>
-                        <div class="actions">
-                            <button class="action-btn edit" onclick="editCoupon(this)"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn delete" id="delete-coupon"><i class="fa-solid fa-trash"></i></button>
-                        </div>
+            // Now add event listener to the delete button
+              document.querySelectorAll('.delete').forEach(button => {
+                button.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                  console.log("HI CONSOLE");
+                  deleteCoupon(e.target);  // Pass the button as the argument
+                  
+                });
+              });
+
+              
+            // Append a new details card
+            const detailsContainer = document.createElement("div");
+            detailsContainer.className = "details";
+            detailsContainer.innerHTML = `
+                <div class="details-card">
+                    <div class="initials" style="background-color: var(--brown);">${couponId}</div>
+                    <p><strong>Amount:</strong> ${data.coup_amount}</p>
+                    <p><strong>Start Date:</strong> ${startDate}</p>
+                    <p><strong>End Date:</strong> ${endDate}</p>
+                    <p><strong>Coupon Description:</strong> ${data.coup_desc}</p>
+                    <p><strong>Status:</strong> ${status}</p>
+                    <div class="actions">
+                        <button class="action-btn edit" onclick="editCoupon(this)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" id="delete-coupon"><i class="fa-solid fa-trash"></i></button>
                     </div>
+                </div>
                 `;
-                
+                    
                 const detailsSection = document.getElementById("couponDetails-section"); // Add this ID to your parent container for details
                 detailsSection.appendChild(detailsContainer);
         });
@@ -127,6 +135,7 @@ async function addCoupon() {
 
         alert("Coupon added successfully!");
         closeCouponModal(); // Close modal after successful save
+        location.reload();
         
     } catch (error) {
         console.error("Error adding coupon:", error);
@@ -188,7 +197,7 @@ async function addCoupon() {
             console.log("Coupon updated successfully!");
     
             closeEditCouponModal();
-            
+            location.reload();
     
         } catch (error) {
             console.error("Error updating coupon:", error);
@@ -196,6 +205,68 @@ async function addCoupon() {
         }
     }
     
+ async function deleteCoupon(button) {
+     alert("DELETE Coupon");
+     console.log("delete");
+ 
+     let couponId, row, detailsCard, detailsContainer;
+ 
+     // Check if the button is inside a table row or details card
+     row = button.closest("tr");
+     detailsCard = button.closest(".details-card");
+ 
+     if (row) {
+         // If deleting from the table
+         couponId = row.cells[0].textContent;
+     } else if (detailsCard) {
+         // If deleting from the details card
+         const initialsDiv = detailsCard.querySelector(".initials");
+         couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
+
+         detailsContainer = detailsCard.closest(".details"); // Get the parent container
+     } else {
+         console.error("Could not find the row or details card.");
+         return;
+     }
+ 
+     alert("DELETE COUPON ID: " + couponId);
+ 
+     // Confirm before deleting
+     const confirmDelete = confirm("Are you sure you want to delete this coupon?");
+     
+     if (confirmDelete) {
+         try {
+             // Get reference to the employee document in Firestore
+             const couponRef = doc(db, "coupons", couponId);
+ 
+             // Delete the employee document from Firestore
+             await deleteDoc(couponRef);
+ 
+             console.log("Coupon deleted successfully!");
+ 
+             // Remove the row or details card from the UI
+             if (row) {
+                 row.remove();
+             }
+             if (detailsCard) {
+                 detailsCard.remove();
+                 // If the details container is now empty, remove it too
+                 if (detailsContainer && detailsContainer.childElementCount === 0) {
+                     detailsContainer.remove();
+                 }
+             }
+ 
+             alert("Coupon deleted successfully!");
+         } catch (error) {
+             console.error("Error deleting employee:", error.message);
+             console.error(error.stack);
+         }
+     } else {
+         console.log("Employee deletion canceled.");
+     }
+ }
+    
+
 
 
     // Call fetchData when the page loads

@@ -20,6 +20,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 auth.languageCode = 'en';
 
+
 const branchSelector = document.getElementById("branch-selector");
 
 const branchMap = {

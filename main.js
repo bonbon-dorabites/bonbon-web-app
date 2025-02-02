@@ -39,15 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.querySelectorAll('.label').forEach(label => {
-    label.addEventListener('click', function () {
-      // Remove active class from all labels
-      document.querySelectorAll('.label').forEach(l => l.classList.remove('active'));
-      
-      // Add active class to the clicked label
-      this.classList.add('active');
-    });
-  });
   
 // Get modal and form elements
 const employeeModal = document.getElementById("employeeModal");
@@ -148,8 +139,6 @@ function editCoupon(button) {
 
   if (row) {
     // If the button is inside a table row
-    
-
     // Get data from table row
     couponId = row.cells[0].textContent;
     amount = row.cells[1].textContent;
@@ -160,14 +149,15 @@ function editCoupon(button) {
     status = row.cells[5].textContent;
   } else if (detailsCard) {
       // If the button is inside a details card
-      couponId = detailsCard.getAttribute("data-id");
-
+      
+      // Get coupon ID from the `.initials` div
+      const initialsDiv = detailsCard.querySelector(".initials");
+      couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
       // Get data from details card
-      couponId = detailsCard.querySelector("p:nth-child(1)").textContent.replace("Amount: ", "").trim();
       amount = detailsCard.querySelector("p:nth-child(2)").textContent.replace("Amount: ", "").trim();
       startDate = detailsCard.querySelector("p:nth-child(3)").textContent.replace("Start Date: ", "").trim();
       endDate = detailsCard.querySelector("p:nth-child(4)").textContent.replace("End Date: ", "").trim();
-      description = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Description: ", "").trim();
+      description = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Coupon Description: ", "").trim();
       status = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Status: ", "").trim();
   } else {
       console.error("Could not find the row or details card.");
@@ -200,3 +190,4 @@ window.onclick = function (event) {
     closeModal();
   }
 };
+

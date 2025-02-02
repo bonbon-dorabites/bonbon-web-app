@@ -6,7 +6,7 @@
     <title>Order: BonBon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
     <style>
       @media(max-width: 370px){
@@ -88,37 +88,40 @@
       </div>
     </nav>
   </header>
-    <section id="order">
-        <div class="header text-center"><br><br><br><br><br><br><br>
-            <h1>What’s in your cart?<hr class="line" style="width: 40%;" ></h1>
-        </div><br><br>
-        <div class="order-table text-center mx-auto">
-            <table class="table mx-auto">
-              <thead class="thead-dark">
+  <section id="order">
+    <div class="header text-center"><br><br><br><br><br><br><br>
+        <h1>What’s in your cart?<hr class="line" style="width: 40%;" ></h1>
+    </div><br><br>
+    <div class="order-table text-center mx-auto">
+        <table class="table mx-auto">
+            <thead class="thead-dark">
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Menu</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Price</th>
+                    <th scope="col"></th>
+                    <th scope="col">Menu</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
                 </tr>
-              </thead>
-              <tbody>
-                <div class="show">
-                  <tr>
-                    <td colspan="4"> You don't have anything ordered right now.</td>
-                  </tr>
+            </thead>
+            <tbody id="cart-items-body">
+              <!--
+                                <div class="show">
+                    <tr>
+                        <td colspan="4"> You don't have anything ordered right now.</td>
+                    </tr>
                 </div>
                 <tr>
-                  <th scope="row">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="darkgreen" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
-                      <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
-                    </svg>
-                  </th>
-                  <td>Add Orders</td>
+                    <th scope="row">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="darkgreen" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+                        </svg>
+                    </th>
+                    <td>Add Orders</td>
                 </tr>
-              </tbody>
-            </table>
-        </div><br><br>
+              -->
+
+            </tbody>
+        </table>
+    </div><br><br>
 
         <div class="checkout-btn">
           <button id="checkoutBtn" class="best-btn">&nbsp;&nbsp; Checkout &nbsp;
@@ -164,21 +167,14 @@
 
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
               <input type="email" id="email" name="email" placeholder="john@example.com" required>
+
+              <label for="phone"><i class="fa fa-phone"></i> Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
                           
               <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
               <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
 
-              <div class="col-checkout">
-                <div class="col-c1">
-                  <label for="adr"><i class="fa fa-address-card-o"></i> Postal Code</label>
-                  <input type="text" id="postal" name="address" placeholder="" required>
-                </div>
-
-                <div class="col-c1">
-                  <label for="phone"><i class="fa fa-phone"></i> Phone</label>
-                  <input type="tel" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-                </div>
-              </div>
+                
             </div>
 
             <div class="checkout-btn">
@@ -264,5 +260,6 @@
     <script src="/main.js"></script>
     <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
+    <script type="module" src="/menus/dashboards/js/order.js"defer></script>
 </body>
 </html>
