@@ -100,6 +100,8 @@ async function handleSignup(event) {
             phone,
             address,
             email,
+            usedCoupons: [],
+            order_count: 0,
             role: "Customer",  // Custom role field
             timestamp: serverTimestamp() // Add a Firestore timestamp
         });
