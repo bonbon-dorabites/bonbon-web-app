@@ -21,8 +21,7 @@ const employeeModal = document.getElementById("employeeModal");
 
 // Close add employee modal function
 function closeEmployeeModal() {
-  employeeModal.style.display = "none";
-
+  employeeModal.style.display = "none ";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -168,7 +167,7 @@ function validateContactNumber(contactNumber) {
     return isValid;
 }
 
-  async function addEmployee() {
+async function addEmployee() {
     // Get form values
     console.log("ADD EMPLOYEE");
     const name = document.getElementById('name').value.trim();
@@ -177,23 +176,21 @@ function validateContactNumber(contactNumber) {
     const email = document.getElementById('email').value.trim();
     const branchName = document.getElementById('employee-branch').value.trim();
     
-        // Validate inputs
-        if (!name || !position || !contactNumber || !email || !branchName) {
-            alert("All fields are required!");
-            return;
-        }
+    // Validate inputs
+    if (!name || !position || !contactNumber || !email || !branchName) {
+        showModal("All fields are required.", false);
+        return;
+    }
 
-        if (!validateContactNumber(contactNumber)) {
-            alert("Please enter a valid contact!");
-            return;
-        }
-    
+    if (!validateContactNumber(contactNumber)) {
+        showModal("Please enter a valid contact number (11 digits).", false);
+        return;
+    }
 
-        if (!validateEmail(email)) {
-            alert("Please enter a valid email address!");
-            return;
-        }
-    
+    if (!validateEmail(email)) {
+        showModal("Please enter a valid email address!", false);
+        return;
+    }
 
     // Map branch names to Firestore branch IDs
     const branchMap = {
@@ -205,7 +202,6 @@ function validateContactNumber(contactNumber) {
     // Get branch ID from map
     const branchId = branchMap[branchName];
     console.log(branchId);
-
 
     // Prepare employee data
     const employeeData = {
@@ -219,13 +215,14 @@ function validateContactNumber(contactNumber) {
         // Add employee to the selected branch's 'employees' subcollection
         await addEmployeeToBranch(branchId, employeeData);
         console.log("Employee added successfully!");
-
-        // Append the new row to the table without refreshing
+        showModal("Employee added successfully!", true)
         insertNewEmployeeRow(employeeData, branchId);
-
-        // Close the modal
-        closeEmployeeModal();
         
+        setTimeout(() => {
+            startListeningToEmployees(branchId);
+            closeEmployeeModal();
+        }, 2000);
+        closeEmployeeModal();
 
         // Clear the form
         document.getElementById("addEmployeeForm").reset();
@@ -236,12 +233,10 @@ function validateContactNumber(contactNumber) {
 }
 
 async function addEmployeeToBranch(branchId, employeeData) {
-    alert("ADD EMPLOYEE TO BRANCH");
     // Reference to the branch document
     console.log(branchId);
 
     const branchRef = doc(db, 'branches', branchId);
-
 
     // Reference to the 'employees' subcollection under the branch
     const employeesRef = collection(branchRef, 'employees');
@@ -262,10 +257,11 @@ function insertNewEmployeeRow(employeeData, branchId) {
     
     const branchLocation = branchMapReverse[branchId] || "N/A";
 
-    
-
     // Create new row
     const row = document.createElement("tr");
+    row.setAttribute("data-id", employeeData.id);  // Add employee ID to the row for identification
+    row.setAttribute("data-branch-id", branchId);  // Add branch ID to the row for reference
+    
     row.innerHTML = `
         <td>${employeeData.name || "N/A"}</td>
         <td>${branchLocation}</td>
@@ -278,12 +274,114 @@ function insertNewEmployeeRow(employeeData, branchId) {
         </td>
     `;
 
+    // Add event listener for the delete button inside the new row
+    row.querySelector("#delete-employee").addEventListener("click", function () {
+        deleteEmployee(this);  // Call the deleteEmployee function when the button is clicked
+    });
+
     // Append to table
     tableBody.appendChild(row);
 }
 
-// EDITING EMPLOYEES
 
+// Real-time listener to fetch employee data
+function listenForEmployeeUpdates(branchId) {
+    const branchRef = doc(db, 'branches', branchId);
+    const employeesRef = collection(branchRef, 'employees');
+
+    onSnapshot(employeesRef, (snapshot) => {
+        const tableBody = document.querySelector("#employee-table tbody");
+
+        // Clear the table before populating it with updated data
+        tableBody.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+            const employeeData = doc.data();
+            const employeeId = doc.id;
+
+            console.log(`Employee ID: ${employeeId}`);
+            console.log(`Employee Data: ${JSON.stringify(employeeData)}`);
+
+            // Convert branch ID back to location name
+            const branchMapReverse = {
+                "SmValenzuela": "SM Valenzuela",
+                "SmNorthEdsa": "SM North Edsa",
+                "OneMallVal": "One Mall Valenzuela"
+            };
+            
+            const branchLocation = branchMapReverse[branchId] || "N/A";
+
+            // Create new row
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${employeeData.name || "N/A"}</td>
+                <td>${branchLocation}</td>
+                <td>${employeeData.position || "N/A"}</td>
+                <td>${employeeData.contactNumber || "N/A"}</td>
+                <td>${employeeData.email || "N/A"}</td>
+                <td>
+                    <button class="action-btn edit" onclick="editEmployee(this)"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            `;
+
+            // Append to table
+            tableBody.appendChild(row);
+        });
+    });
+}
+
+// Initialize real-time listener for employees in a specific branch
+function startListeningToEmployees(branchId) {
+    listenForEmployeeUpdates(branchId);
+}
+
+
+// EDITING EMPLOYEES
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+  
+    modalMessage.textContent = message;
+  
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+  
+    loadingModal.show();
+}
+  
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
+  
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
+  
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to the buttons
     const saveBtn = document.getElementById('save-edit');
@@ -333,9 +431,6 @@ async function updateEmployee() {
 // Function to delete an employee
 
 async function deleteEmployee(button) {
-    alert("DELETE EMPLOYEE");
-    console.log("delete");
-
     let employeeId, branchId, row, detailsCard, detailsContainer;
 
     // Check if the button is inside a table row or details card
@@ -356,21 +451,17 @@ async function deleteEmployee(button) {
         return;
     }
 
-    console.log("DELETE EMPLOYEE ID: " + employeeId);
-    console.log("DELETE BRANCH ID: " + branchId);
+    console.log("Employee to delete:", employeeId, "Branch ID:", branchId);
 
-    // Confirm before deleting
-    const confirmDelete = confirm("Are you sure you want to delete this employee?");
-    
-    if (confirmDelete) {
+    // Show confirmation modal
+    showConfirmation("Are you sure you want to delete this employee?", async function () {
         try {
             // Get reference to the employee document in Firestore
             const employeeRef = doc(db, "branches", branchId, "employees", employeeId);
 
             // Delete the employee document from Firestore
             await deleteDoc(employeeRef);
-
-            console.log("Employee deleted successfully!");
+            console.log(`Employee with ID ${employeeId} deleted from Firestore`);
 
             // Remove the row or details card from the UI
             if (row) {
@@ -384,18 +475,15 @@ async function deleteEmployee(button) {
                 }
             }
 
-            alert("Employee deleted successfully!");
+            showModal("Row deleted successfully!", true);
         } catch (error) {
-            console.error("Error deleting employee:", error.message);
+            showModal("Failed to delete row.", false);
+            console.error("Error deleting employee from Firestore:", error.message);
             console.error(error.stack);
         }
-    } else {
-        console.log("Employee deletion canceled.");
-    }
+    });
 }
 
 
-
-
-  // Call fetchData when the page loads
-  document.addEventListener("DOMContentLoaded", fetchData);
+// Call fetchData when the page loads
+document.addEventListener("DOMContentLoaded", fetchData);

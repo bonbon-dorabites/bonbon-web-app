@@ -868,11 +868,11 @@ body {
     }    
 }
 
-#passwordModal {
+#passwordModal, #confirmationModal {
     overflow: hidden;
 }
 
-#passwordModal .modal-dialog {
+#passwordModal .modal-dialog, #confirmationModal .modal-dialog {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -881,7 +881,7 @@ body {
 }
 
 /* Optional: Adjust the modal size if needed */
-#passwordModal .modal-content {
+#passwordModal .modal-content, #confirmationModal .modal-content {
     width: 100%; /* Make modal content take the full width */
     max-width: 500px; /* Set a max width to avoid it becoming too wide */
     margin: 0 auto; /* Center the modal horizontally */
