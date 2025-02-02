@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, onSnapshot, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, onSnapshot, where, query, getDocs, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -263,6 +263,61 @@ async function deleteItem(itemId) {
      // unsubscribe();
  }
  
+
+ document.addEventListener("DOMContentLoaded", function() {
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    console.log("HERE PO AKO");
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener("click", async function(event) {
+            event.preventDefault(); // Prevent form submission for now
+
+            const user = auth.currentUser;
+            if (!user) {
+                console.error("User not authenticated.");
+                return;
+            }
+
+            await fillCheckoutForm(user.email);
+        });
+    }
+});
+
+async function fillCheckoutForm(userEmail) {
+    alert(userEmail);
+
+    const branchId = localStorage.getItem("selectedBranch");
+
+    if (!branchId) {
+        console.error("No branch selected.");
+        return;
+    }
+
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("email", "==", userEmail));
+
+    try {
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            console.error("User data not found.");
+            return;
+        }
+
+        const userData = querySnapshot.docs[0].data();
+        console.log("Fetched User Data:", userData); // Debugging
+
+        // Populate the form fields
+        document.getElementById("fname").value = userData.firstName || "";
+        document.getElementById("lname").value = userData.lastName || "";
+        document.getElementById("email").value = userData.email || "";
+        document.getElementById("adr").value = userData.address || "";
+        document.getElementById("phone").value = userData.phone || "";
+
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+    }
+}
+
 
 
 // Call the function to fetch cart items when the page loads or when needed

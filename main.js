@@ -39,15 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.querySelectorAll('.label').forEach(label => {
-    label.addEventListener('click', function () {
-      // Remove active class from all labels
-      document.querySelectorAll('.label').forEach(l => l.classList.remove('active'));
-      
-      // Add active class to the clicked label
-      this.classList.add('active');
-    });
-  });
   
 // Get modal and form elements
 const employeeModal = document.getElementById("employeeModal");
