@@ -847,27 +847,27 @@ body {
     display: flex;
 }
 
-#allow-edit, #email-edit, #password-edit {
+#allow-edit, #email-edit, #password-edit, #admin-password-edit {
     background-color: green !important;
 }
 
-#allow-edit:hover, #email-edit:hover, #password-edit:hover {
+#allow-edit:hover, #email-edit:hover, #password-edit:hover, #admin-password-edit:hover {
     background-color: rgb(130, 175, 40) !important;
 }
 
-#submit-edit, #email-submit, #password-submit {
+#submit-edit, #email-submit, #password-submit, #admin-password-submit {
     background-color: rgb(0, 2, 128) !important;
 }
 
-#submit-edit:hover, #email-submit:hover, #password-submit:hover {
+#submit-edit:hover, #email-submit:hover, #password-submit:hover, #admin-password-submit:hover {
     background-color: rgb(42, 101, 124) !important;
 }
 
-#cancel-edit, #email-cancel, #password-cancel {
+#cancel-edit, #email-cancel, #password-cancel, #admin-password-cancel {
     background-color: maroon !important;
 }
 
-#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover {
+#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover, #admin-password-cancel {
     background-color: rgb(153, 69, 69) !important;
 }
 
