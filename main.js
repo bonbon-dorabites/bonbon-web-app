@@ -142,7 +142,6 @@ function editCoupon(button) {
     startDate = row.cells[2].textContent;
     endDate = row.cells[3].textContent;
     description = row.cells[4].textContent;
-    alert("DESC: " + description);
     status = row.cells[5].textContent;
   } else if (detailsCard) {
       // If the button is inside a details card

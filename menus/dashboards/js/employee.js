@@ -21,7 +21,7 @@ const employeeModal = document.getElementById("employeeModal");
 
 // Close add employee modal function
 function closeEmployeeModal() {
-  employeeModal.style.display = "none ";
+  employeeModal.style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -176,6 +176,7 @@ function validateContactNumber(contactNumber) {
 
 async function addEmployee() {
     // Get form values
+    closeEmployeeModal();
     console.log("ADD EMPLOYEE");
     const name = document.getElementById('name').value.trim();
     const position = document.getElementById('position').value.trim();
@@ -224,20 +225,18 @@ async function addEmployee() {
         console.log("Employee added successfully!");
         showModal("Employee added successfully!", true);
         insertNewEmployeeRow(employeeData, branchId);
-        
-        setTimeout(() => {
-            startListeningToEmployees(branchId);
-            closeEmployeeModal();
-        }, 3000);
+        startListeningToEmployees(branchId);
         closeEmployeeModal();
-        location.reload();
-
+        
         // Clear the form
         document.getElementById("addEmployeeForm").reset();
         
     } catch (error) {
         console.error("Error adding employee:", error);
     }
+    setTimeout(() => {
+        location.reload();
+    }, 2000);
 }
 
 async function addEmployeeToBranch(branchId, employeeData) {
@@ -399,6 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function updateEmployee() {
+    closeEmployeeModal();
     const employeeId = document.getElementById("edit-doc-id").value;
     const branchId = document.getElementById("edit-branch-id").value;
     

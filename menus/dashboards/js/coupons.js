@@ -15,7 +15,49 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+  
+    modalMessage.textContent = message;
+  
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+  
+    loadingModal.show();
+}
+  
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
+  
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
 
 // Fetch data from Firestore and populate the table
 async function fetchData() {
@@ -112,7 +154,7 @@ async function addCoupon() {
 
     // Validate required fields
     if (!couponId || !amountCoupon || !startDate || !endDate || !description) {
-        alert("Please fill in all required fields.");
+        showModal("Please fill in all required fields!", false)
         return;
     }
 
@@ -133,13 +175,13 @@ async function addCoupon() {
             coup_isActive: status
         });
 
-        alert("Coupon added successfully!");
+        showModal("Coupon added successfully!", true);
         closeCouponModal(); // Close modal after successful save
         location.reload();
         
     } catch (error) {
+        showModal("Failed to add coupon.", false);
         console.error("Error adding coupon:", error);
-        alert("Failed to add coupon.");
     }
 }
 
@@ -168,7 +210,7 @@ async function addCoupon() {
     
         if (!newCouponId) {
             console.error("Error: Coupon ID is missing.");
-            alert("Coupon ID is required.");
+            showModal("Ooops! Coupon ID is missing. Operation failed.", false);
             return;
         }
     
@@ -195,18 +237,18 @@ async function addCoupon() {
             }
     
             console.log("Coupon updated successfully!");
+            showModal("Coupon updated successfully!",true);
     
             closeEditCouponModal();
             location.reload();
     
         } catch (error) {
             console.error("Error updating coupon:", error);
-            alert("Failed to update coupon. Please try again.");
+            showModal("Failed to updated coupon.",false);
         }
     }
     
  async function deleteCoupon(button) {
-     alert("DELETE Coupon");
      console.log("delete");
  
      let couponId, row, detailsCard, detailsContainer;
@@ -228,8 +270,7 @@ async function addCoupon() {
          console.error("Could not find the row or details card.");
          return;
      }
- 
-     alert("DELETE COUPON ID: " + couponId);
+
  
      // Confirm before deleting
      const confirmDelete = confirm("Are you sure you want to delete this coupon?");
@@ -256,9 +297,10 @@ async function addCoupon() {
                  }
              }
  
-             alert("Coupon deleted successfully!");
+             showModal("Coupon deleted successfully!", true);
          } catch (error) {
-             console.error("Error deleting employee:", error.message);
+             console.error("Error deleting coupon:", error.message);
+             showModal("Failed to delete coupon.", false);
              console.error(error.stack);
          }
      } else {
