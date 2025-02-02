@@ -880,6 +880,17 @@ body {
     
 }
 
+#clearSearchBtn {
+    margin-top: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#user-table tbody tr {
+    transition: opacity 0.3s ease-in-out;
+}
+
+
 /* Optional: Adjust the modal size if needed */
 #passwordModal .modal-content, #confirmationModal .modal-content {
     width: 100%; /* Make modal content take the full width */

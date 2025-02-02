@@ -34,17 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
     cancelButton.addEventListener('click', closeEmployeeModal);
 });
 
-// Fetch data from Firestore and populate the table
 async function fetchData() {
     const tableBody = document.querySelector("#employee-table tbody");
-  
-    try {
-      // Fetching all documents from all "employees" subcollections using collectionGroup
-      
-      const branchesSnapshot = await getDocs(collection(db, 'branches')); // Fetching from 'branches' collection
-      console.log("branches snapshot:", branchesSnapshot);
 
-               // If there are no branches, exit early
+    try {
+        // Fetching all documents from all "employees" subcollections using collectionGroup
+        const branchesSnapshot = await getDocs(collection(db, 'branches')); // Fetching from 'branches' collection
+        console.log("branches snapshot:", branchesSnapshot);
+
+        // If there are no branches, exit early
         if (branchesSnapshot.empty) {
             console.log("No branches found.");
             return;
@@ -57,100 +55,109 @@ async function fetchData() {
             branchLocations[branchDoc.id] = branchData.location; // Store branch ID and location
         });
 
+        const querySnapshot = await getDocs(collectionGroup(db, 'employees'));
 
-      const querySnapshot = await getDocs(collectionGroup(db, 'employees'));
-  
-      console.log("Fetching all employees...");
-      console.log("Query snapshot:", querySnapshot);
+        console.log("Fetching all employees...");
+        console.log("Query snapshot:", querySnapshot);
 
-      if (querySnapshot.empty) {
-          console.log("No employees found.");
-      } else {
-          querySnapshot.forEach((doc) => {
+        if (querySnapshot.empty) {
+            console.log("No employees found.");
+        } else {
+            // Step 1: Group employees by branch
+            const employeesByBranch = {};
+
+            querySnapshot.forEach((doc) => {
                 const employeeId = doc.id;
-                console.log(`Employee ID: ${employeeId}`);
                 const branchId = doc.ref.parent.parent.id; // Get the parent branch ID (in 'branches' collection)
-                console.log("BRANCH ID:" + branchId);  
-                const branchLocation = branchLocations[branchId] || "N/A";
-                console.log("BRANCH LOC:" + branchLocation);  
-              
                 const data = doc.data();
-                console.log(`Employee data: ${JSON.stringify(data)}`);
 
-                
-            
-              // Create a new table row
-              const row = document.createElement("tr");
-              row.setAttribute("data-id", employeeId); // Store employee ID in the row
-              row.setAttribute("data-branch-id", branchId); // Branch ID
-              
-            console.log("BRANCH ID H: " + branchId);
+                if (!employeesByBranch[branchId]) {
+                    employeesByBranch[branchId] = [];
+                }
 
-              row.innerHTML = `
-                <td>${data.name || "N/A"}</td>
-                <td>${branchLocation || "N/A"}</td>
-                <td>${data.position || "N/A"}</td>
-                <td>${data.contactNumber || "N/A"}</td>
-                <td>${data.email || "N/A"}</td>
-                <td>
-                    <button class="action-btn edit" onclick="editEmployee(this)"><i class="fas fa-edit"></i></button>
-                    <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
-                </td>
-              `;
-              tableBody.appendChild(row);
-
-              // Now add event listener to the delete button
-              document.querySelectorAll('.delete').forEach(button => {
-                button.addEventListener('click', (e) => {
-                e.stopImmediatePropagation();
-                  console.log("HI CONSOLE");
-                  deleteEmployee(e.target);  // Pass the button as the argument
-                  
+                // Step 2: Push employee into their respective branch
+                employeesByBranch[branchId].push({
+                    employeeId,
+                    branchId,
+                    branchLocation: branchLocations[branchId] || "N/A",
+                    data
                 });
-              });
+            });
 
-              
+            // Step 3: Sort employees in each branch by position (role)
+            Object.keys(employeesByBranch).forEach(branchId => {
+                const employees = employeesByBranch[branchId];
+                
+                // Sort by position (role)
+                employees.sort((a, b) => a.data.position.localeCompare(b.data.position));
+
+                // Append the sorted employees to the table
+                employees.forEach(({ employeeId, branchId, branchLocation, data }) => {
+                    const row = document.createElement("tr");
+                    row.setAttribute("data-id", employeeId); // Store employee ID in the row
+                    row.setAttribute("data-branch-id", branchId); // Branch ID
+
+                    row.innerHTML = `
+                        <td>${data.name || "N/A"}</td>
+                        <td>${branchLocation || "N/A"}</td>
+                        <td>${data.position || "N/A"}</td>
+                        <td>${data.contactNumber || "N/A"}</td>
+                        <td>${data.email || "N/A"}</td>
+                        <td>
+                            <button class="action-btn edit" onclick="editEmployee(this)"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+
+                    // Now add event listener to the delete button
+                    document.querySelectorAll('.delete').forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            e.stopImmediatePropagation();
+                            deleteEmployee(e.target);  // Pass the button as the argument
+                        });
+                    });
+
                     // Generate initials
                     const initials = data.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .toUpperCase();
-                
-                // Generate a random color for the initials
-                const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-                
-                // Append a new details card
-                const detailsContainer = document.createElement("div");
-                detailsContainer.className = "details";
-                detailsContainer.innerHTML = `
-                    <div class="details-card" data-id="${employeeId}" data-branch-id="${branchId}">
-                    <div class="initials" style="background-color: ${randomColor};">${initials}</div>
-                    <p><strong>Name:</strong> ${data.name}</p>
-                    <p><strong>Branch:</strong> ${branchLocation}</p>
-                    <p><strong>Position:</strong> ${data.position}</p>
-                    <p><strong>Contact:</strong> ${data.contactNumber}</p>
-                    <p><strong>Email:</strong> ${data.email}</p>
-                    <div class="actions">
-                        <button class="action-btn edit" onclick="editEmployee(this)"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                    </div>
-                `;
-                
-                const detailsSection = document.getElementById("details-section"); // Add this ID to your parent container for details
-                detailsSection.appendChild(detailsContainer);
-  
-          });
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .toUpperCase();
 
+                    // Generate a random color for the initials
+                    const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
-      }
-  
-      console.log("All employees loaded successfully!");
+                    // Append a new details card
+                    const detailsContainer = document.createElement("div");
+                    detailsContainer.className = "details";
+                    detailsContainer.innerHTML = `
+                        <div class="details-card" data-id="${employeeId}" data-branch-id="${branchId}">
+                            <div class="initials" style="background-color: ${randomColor};">${initials}</div>
+                            <p><strong>Name:</strong> ${data.name}</p>
+                            <p><strong>Branch:</strong> ${branchLocation}</p>
+                            <p><strong>Position:</strong> ${data.position}</p>
+                            <p><strong>Contact:</strong> ${data.contactNumber}</p>
+                            <p><strong>Email:</strong> ${data.email}</p>
+                            <div class="actions">
+                                <button class="action-btn edit" onclick="editEmployee(this)"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete" id="delete-employee"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    const detailsSection = document.getElementById("details-section"); // Add this ID to your parent container for details
+                    detailsSection.appendChild(detailsContainer);
+                });
+            });
+
+        }
+
+        console.log("All employees loaded successfully!");
     } catch (error) {
-      console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error);
     }
-  }
+}
+
 
 
 function validateEmail(email) {
@@ -393,18 +400,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function updateEmployee() {
     const employeeId = document.getElementById("edit-doc-id").value;
-    
-    alert("UPDATED: " + employeeId);
     const branchId = document.getElementById("edit-branch-id").value;
-    alert("UPDATED: " + branchId);
     
-
     const name = document.getElementById("edit-name").value;
     const position = document.getElementById("edit-position").value;
     const contactNumber = document.getElementById("edit-contact").value;
     const email = document.getElementById("edit-email").value;
     
-
     const updatedData = {
         name,
         position,
@@ -416,14 +418,16 @@ async function updateEmployee() {
         const employeeRef = doc(db, "branches", branchId, "employees", employeeId);
         await updateDoc(employeeRef, updatedData);
         console.log("Employee updated successfully!");
-        alert("Employee updated successfully!");
-        
-        // Close modal after save
+        showModal("Employee updated successfully!", true);
         closeEditModal();
         
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+        
         // Refresh the data or reload page
-        location.reload();
       } catch (error) {
+        showModal("Failed to updated employee.", false);
         console.error("Error updating employee:", error);
       }
 }

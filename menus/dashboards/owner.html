@@ -257,14 +257,11 @@
             </form><br><hr class="line" style="color: white;">
 
         <div class="staff-management-container">
-            <h2 class="staff-management-title">Staff Management</h2>
+            <h2 class="staff-management-title">Employee Management</h2>
             <div class="header-row">
 
                 <button onclick="openModal()">Add Employee</button>
-                <div class="search">
-                    <input type="text" id="search" placeholder="Search staff...">
-                    <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
-                </div>
+            
             </div>
 
                 <table id="employee-table" class="staff-management-table">
@@ -293,13 +290,14 @@
         <div class="dashboard-line"></div> <!-- Separator Line -->
 
         <div class="user-management-container">
-          <h2 class="staff-management-title">User Management</h2>
+          <h2 class="staff-management-title">Customer Information</h2>
           <div class="header-row">
 
               <div class="search">
                   <input type="text" id="search" placeholder="Search user...">
                   <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
               </div>
+              <button id="clearSearchBtn" style="display:none;">Clear Search</button>
           </div>
 
               <table id="user-table" class="user-management-table">

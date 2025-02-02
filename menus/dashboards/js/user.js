@@ -60,217 +60,117 @@ function showConfirmation(message, callback) {
 }
 
 
+// Function to search users based on the fields (first name, last name, email, phone)
+document.getElementById('search').addEventListener('input', searchUsers);
+document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
+
 // Fetch data from Firestore and populate the table
 async function fetchData() {
   const tableBody = document.querySelector("#user-table tbody");
   const detailsSection = document.getElementById("userDetails-section"); // Ensure this exists in your HTML
+  const allRows = [];
 
   try {
-      // Reference to the users collection
-      const usersCollection = collection(db, "users");
+    // Reference to the users collection
+    const usersCollection = collection(db, "users");
 
-      // Get all documents in the users collection
-      const snapshot = await getDocs(usersCollection);
+    // Get all documents in the users collection
+    const snapshot = await getDocs(usersCollection);
 
-      snapshot.forEach((doc) => {
-          const userId = doc.id;
-          const data = doc.data();
-          const userRole = data.role || "N/A"; // Ensure role exists
+    snapshot.forEach((doc) => {
+      const userId = doc.id;
+      const data = doc.data();
+      const userRole = data.role || "N/A"; // Ensure role exists
 
-          // Skip users with role "Staff", "Manager", or "Owner"
-          if (["Staff", "Manager", "Owner"].includes(userRole)) {
-              return; // Skip this user
-          }
+      // Skip users with role "Staff", "Manager", or "Owner"
+      if (["Staff", "Manager", "Owner"].includes(userRole)) {
+        return; // Skip this user
+      }
 
-          console.log(`User ID: ${userId}`);
-          console.log(`User data: ${JSON.stringify(data)}`);
+      console.log(`User ID: ${userId}`);
+      console.log(`User data: ${JSON.stringify(data)}`);
 
-          // Create a new table row (without the actions column)
-          const row = document.createElement("tr");
-          row.setAttribute("data-id", userId); // Store employee ID in the row
+      // Create a new table row (without the actions column)
+      const row = document.createElement("tr");
+      row.setAttribute("data-id", userId); // Store user ID in the row
+      row.innerHTML = `
+        <td>${data.firstName || "N/A"}</td>
+        <td>${data.lastName || "N/A"}</td>
+        <td>${data.email || "N/A"}</td>
+        <td>${data.phone || "N/A"}</td>
+      `;
+      tableBody.appendChild(row);
+      allRows.push(row); // Keep track of all rows
 
-          row.innerHTML = `
-              <td>${data.firstName || "N/A"}</td>
-              <td>${data.lastName || "N/A"}</td>
-              <td>${data.email || "N/A"}</td>
-              <td>${data.phone || "N/A"}</td>
-          `;
+      // Generate initials
+      const name = data.lastName && data.firstName
+        ? `${data.lastName} ${data.firstName}`
+        : data.firstName || data.lastName || "N/A";
 
-          tableBody.appendChild(row);
+      const initials = name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase();
 
-          // Generate initials
-          const name = data.lastName && data.firstName
-              ? `${data.lastName} ${data.firstName}`
-              : data.firstName || data.lastName || "N/A";
+      // Generate a random color for the initials
+      const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
-          const initials = name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")
-              .toUpperCase();
+      // Append a new details card (without the actions button)
+      const detailsContainer = document.createElement("div");
+      detailsContainer.className = "details";
+      detailsContainer.innerHTML = `
+        <div class="details-card" data-id="${userId}">
+          <div class="initials" style="background-color: ${randomColor};">${initials}</div>
+          <p><strong>First Name:</strong> ${data.firstName}</p>
+          <p><strong>Last Name:</strong> ${data.lastName}</p>
+          <p><strong>Contact:</strong> ${data.phone}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+        </div>
+      `;
+      detailsSection.appendChild(detailsContainer);
+    });
 
-          // Generate a random color for the initials
-          const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-
-          // Append a new details card (without the actions button)
-          const detailsContainer = document.createElement("div");
-          detailsContainer.className = "details";
-          detailsContainer.innerHTML = `
-              <div class="details-card" data-id="${userId}">
-                  <div class="initials" style="background-color: ${randomColor};">${initials}</div>
-                  <p><strong>First Name:</strong> ${data.firstName}</p>
-                  <p><strong>Last Name:</strong> ${data.lastName}</p>
-                  <p><strong>Contact:</strong> ${data.phone}</p>
-                  <p><strong>Email:</strong> ${data.email}</p>
-              </div>
-          `;
-
-          detailsSection.appendChild(detailsContainer);
-      });
+    // Store rows globally for search functionality
+    window.allRows = allRows;
 
   } catch (error) {
-      console.error("Error fetching data:", error);
+    console.error("Error fetching data:", error);
   }
 }
 
-
-  /*
-    function validateEmail(email) {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const isValid = emailPattern.test(email);
-        console.log(`Email validation (${email}):`, isValid);
-        return isValid;
-    }
-
-    function validateContactNumber(contactNumber) {
-        const contactPattern = /^[0-9]{11}$/; // Adjust length if needed
-        const isValid = contactPattern.test(contactNumber);
-        console.log(`Contact validation (${contactNumber}):`, isValid);
-        return isValid;
-    }
-
+// Search function to filter table rows based on the input
+function searchUsers() {
+  const searchTerm = document.getElementById('search').value.toLowerCase();
   
-    /* EDIT USERS *//*
-    document.addEventListener("DOMContentLoaded", () => {
-        // Get references to the buttons
-        const saveBtn = document.getElementById('save-userEdit');
-    
-        // Add event listeners
-        saveBtn.addEventListener('click', updateUser);
-    });
-    
-/*
-    async function updateUser() {
-        const userId = document.getElementById("edit-doc-id").value;
-        alert("UPDATED: " + userId);
-    
-        const lastName = document.getElementById("edit-lastName").value.trim();
-        const firstName = document.getElementById("edit-firstName").value.trim();
-        const phone = document.getElementById("edit-phone").value.trim();
-        const email = document.getElementById("edit-emailAd").value.trim();
-        const role = document.getElementById("edit-role-dropdown").value.trim();
-        const branch = document.getElementById("edit-user-branch").value.trim();
-        alert(branch);
+  // Filter through all rows
+  const filteredRows = window.allRows.filter(row => {
+    const cells = row.querySelectorAll("td");
+    const firstName = cells[0].textContent.toLowerCase();
+    const lastName = cells[1].textContent.toLowerCase();
+    const email = cells[2].textContent.toLowerCase();
+    const phone = cells[3].textContent.toLowerCase();
 
-        const branchMap = {
-          "SM Valenzuela": "SmValenzuela",
-          "SM North Edsa": "SmNorthEdsa",
-          "One Mall Valenzuela": "OneMallVal"
-      };
-  
-      // Get branch ID from map
-        const branchId = branchMap[branch];
+    // Check if any field matches the search term
+    return firstName.includes(searchTerm) || lastName.includes(searchTerm) ||
+           email.includes(searchTerm) || phone.includes(searchTerm);
+  });
 
+  // Hide all rows first
+  window.allRows.forEach(row => row.style.display = 'none');
 
+  // Show only filtered rows
+  filteredRows.forEach(row => row.style.display = '');
 
-        let updatedData; 
-            if(role === "Customer") {
-              updatedData = {
-                lastName,
-                firstName,
-                phone,
-                email,
-            };
+  // Show the "Clear Search" button
+  document.getElementById('clearSearchBtn').style.display = 'inline-block';
+}
 
-            } else {
-
-              alert("FOR OTHERS");
-
-              updatedData = {
-                branchId,
-                role,
-                email,
-            };
-            
-            }
-
-
-        try {
-            const userRef = doc(db, "users", userId);
-
-            await updateDoc(userRef, updatedData);
-
-            console.log("User updated successfully!");
-            alert("User updated successfully!");
-            
-            // Close modal after save
-            closeEditModal();
-            
-            // Refresh the data or reload page
-            location.reload();
-          } catch (error) {
-            console.error("Error updating employee:", error);
-          }
-    }*/
-
-    /* DELETE USER */
-  async function deleteUser(button) {
-    console.log("delete");
-
-    let userId, row, detailsCard, detailsContainer;
-
-    // Check if the button is inside a table row or details card
-    row = button.closest("tr");
-    detailsCard = button.closest(".details-card");
-
-    if (row) {
-        userId = row.getAttribute("data-id");
-    } else if (detailsCard) {
-        userId = detailsCard.getAttribute("data-id");
-        detailsContainer = detailsCard.closest(".details"); // Get the parent container
-    } else {
-        console.error("Could not find the row or details card.");
-        return;
-    }
-
-    console.log("DELETE USER ID: " + userId);
-
-    // Show confirmation modal before deleting
-    showConfirmation("Are you sure you want to delete this employee?", async function () {
-        try {
-            // Get reference to the employee document in Firestore
-            const userRef = doc(db, "users", userId);
-
-            // Delete the user document from Firestore
-            await deleteDoc(userRef);
-
-            console.log("User deleted successfully!");
-
-            // Remove the row or details card from the UI
-            if (row) row.remove();
-            if (detailsCard) {
-                detailsCard.remove();
-                if (detailsContainer && detailsContainer.childElementCount === 0) {
-                    detailsContainer.remove();
-                }
-            }
-
-            showModal("User Deleted Successfully", true);
-        } catch (error) {
-            console.error("Error deleting user:", error.message);
-            showModal("Error deleting user!", false);
-        }
-    });
+// Function to clear the search and reset table to original state
+function clearSearch() {
+  document.getElementById('search').value = ''; // Clear search input
+  window.allRows.forEach(row => row.style.display = ''); // Show all rows
+  document.getElementById('clearSearchBtn').style.display = 'none'; // Hide "Clear Search" button
 }
 
 // Call fetchData when the page loads
