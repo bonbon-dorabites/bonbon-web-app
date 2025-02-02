@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, onSnapshot, where, query, getDocs, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, deleteField, arrayUnion, onSnapshot, where, query, getDocs, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -484,6 +484,111 @@ async function applyCoupon(userEmail) {
 
 }
 
+document.getElementById("checkout-to-order").addEventListener("click", async () => {
+    // Perform checkout process here
+    console.log("Proceeding to checkout...");
+    await checkout();
+});
+
+async function checkout() {
+    const user = auth.currentUser;
+    if (!user) {
+        console.error("User not authenticated.");
+        return;
+    }
+
+    const userEmail = user.email;
+    const userId = user.uid;
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    if (userSnapshot.empty) {
+        alert("User not found.");
+        return;
+    }
+
+    const userDoc = userSnapshot.docs[0];
+    const userRef = doc(db, "users", userDoc.id);
+    const userData = userDoc.data();
+
+    const appliedCoupon = userData.appliedCoupon || null;
+    const currentOrderCount = userData.order_count || 0;
+
+
+    let updateData = {
+        order_count: currentOrderCount + 1, // Increment order count
+    };
+
+    if (appliedCoupon) {
+        updateData.usedCoupons = arrayUnion(appliedCoupon); // Add to usedCoupons array
+        updateData.appliedCoupon = deleteField(); // Remove appliedCoupon field
+    }
+
+    // Update user document
+    await updateDoc(userRef, updateData);
+    console.log("Checkout complete! Order count updated, and coupon moved to usedCoupons if applied.");
+
+     // === CART UPDATE ===
+     const branchId = localStorage.getItem("selectedBranch");
+     const cartRef = doc(db, "branches", branchId, "carts", userId);
+     const cartSnapshot = await getDoc(cartRef);
+
+     alert(branchId);
+
+    if (!cartSnapshot.exists()) {
+        console.log("Cart not found.");
+        return;
+    }
+
+    const cartData = cartSnapshot.data();
+    const itemsInCart = cartData.items_inCart || {};
+    const itemIds = Object.keys(itemsInCart);
+    console.log("Item IDs:", itemIds); // Logs the keys (item IDs) inside items_inCart
+
+     // Extract item names and quantities
+     const cartSummary = itemIds.map(itemId => ({
+        itemId: itemId, // Include the itemId
+        name: itemsInCart[itemId].name,
+        quantity: itemsInCart[itemId].quantity
+    }));
+
+    console.log("Cart items for checkout:", cartSummary);
+    // Get the total price (including delivery fee) from the DOM
+    const totalPriceElement = document.getElementById("total-price");
+    const totalPrice = parseFloat(totalPriceElement.textContent.replace("P", "").replace(",", "").trim()); // Get the total price value
+    console.log("TOTAL PRICE: " + totalPrice);
+
+    // Create new document in orders collection
+    const ordersRef = collection(db, "branches", branchId, "orders");
+    const newOrderRef = doc(ordersRef); // Auto-generated document ID
+
+    const orderData = {
+        uid: userId,
+        created_at: new Date(),
+        total_price: totalPrice,
+        items_bought: {},
+    };
+
+     // Loop through the items in the cart and add to items_bought
+     cartSummary.forEach(item => {
+        orderData.items_bought[item.itemId] = {
+            name: item.name,
+            quantity: item.quantity
+        };
+    });
+
+    // Set the order document
+    await setDoc(newOrderRef, orderData);
+
+    alert("Order created successfully!");
+   
+    await updateDoc(cartRef, { 
+        items_inCart: {} // Clear the items_inCart after checkout
+    });
+
+    console.log("Cart marked as checked out!");
+    window.location.href = "/menus/dashboards/customer.html";
+}
 
 // Call the function to fetch cart items when the page loads or when needed
 document.addEventListener("DOMContentLoaded", fetchCartItems);
