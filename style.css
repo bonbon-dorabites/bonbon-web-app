@@ -842,6 +842,53 @@ body {
     margin: 0;
 }
 
+/* Ensure the modal is fully centered on the screen */
+
+#loadingModal .modal-dialog {
+    display: flex;                  /* Use flex to center */
+    justify-content: center;        /* Center horizontally */
+    align-items: center;            /* Center vertically */
+    min-height: 100vh;               /* Take up the full height of the screen */
+    min-width: 100vw;               /* Take up the full height of the screen */
+    margin: 0;                       /* Remove default margin */
+}
+
+/* Optional: Adjust the size of the modal content */
+#loadingModal .modal-content {
+    max-width: 500px;                /* Limit the width of the modal */
+    width: 100%;                     /* Full width for the content */
+    margin: 0;                       /* Ensure no margin around the content */
+}
+
+@media (max-width: 650px) {
+    #loadingModal .modal-content {
+        max-width: 350px;                /* Limit the width of the modal */
+        width: 100%;                     /* Full width for the content */
+        margin: 0;                       /* Ensure no margin around the content */
+    }    
+}
+
+#passwordModal {
+    overflow: hidden;
+}
+
+#passwordModal .modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure the modal is vertically centered */
+    
+}
+
+/* Optional: Adjust the modal size if needed */
+#passwordModal .modal-content {
+    width: 100%; /* Make modal content take the full width */
+    max-width: 500px; /* Set a max width to avoid it becoming too wide */
+    margin: 0 auto; /* Center the modal horizontally */
+}
+ 
+
+
 /* USER DETAILS */
 .flatten {
     display: flex;
