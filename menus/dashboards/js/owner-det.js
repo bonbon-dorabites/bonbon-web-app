@@ -88,6 +88,8 @@ function populateBranches(user) {
     const roleSelect = document.getElementById("role");  // Role dropdown
     const loginEmp = document.querySelector(".login-emp"); // The 'login-emp' class element
     const emailInput = document.getElementById("branch-email"); // Email input for Staff and Manager
+    const allowRadio = document.getElementById("allow-access");
+    const declineRadio = document.getElementById("decline-access");
     loginEmp.style.display = 'none';
 
     // Fetch branches from Firestore
@@ -121,46 +123,46 @@ function populateBranches(user) {
 
         // Add event listener to role select to show or hide 'login-emp' for staff
         roleSelect.addEventListener("change", async function() {
-            if (roleSelect.value === "Staff") {
-                // Show login-emp if the role is Staff
+            if (roleSelect.value === "Staff" || roleSelect.value === "Manager") {
+                // Show login-emp if the role is Staff or Manager
                 loginEmp.style.display = 'block';
 
                 const branchId = branchSelect.value;
 
-                // Fetch the staff_email field for the selected branch
+                // Fetch the email based on the role selected (Staff or Manager)
                 const branchDoc = await getDoc(doc(db, "branches", branchId));
+                let email = "";
 
                 if (branchDoc.exists()) {
-                    const staffEmail = branchDoc.data().staff_email; // Get the staff email field
-                    emailInput.value = staffEmail; // Set the staff email in the email input field
-                }
-
-                // Add event listener to password field for handling password change
-                passEmp.addEventListener("submit", async (e) => {
-                    e.preventDefault(); // Prevent default form submission
-
-                    const newPassword = passwordInput.value;
-
-                    // Ensure new password is provided before updating
-                    if (newPassword) {
-                        await handlePasswordChange(user, newPassword);
-                    } else {
-                        console.log("Password is required");
+                    if (roleSelect.value === "Staff") {
+                        email = branchDoc.data().staff_email; // Get the staff email field
+                    } else if (roleSelect.value === "Manager") {
+                        email = branchDoc.data().manager_email; // Get the manager email field
                     }
-                });
 
-            } else if (roleSelect.value === "Manager") {
-                // Show login-emp if the role is Manager
-                loginEmp.style.display = 'block';
+                    emailInput.value = email; // Set the email in the email input field
 
-                const branchId = branchSelect.value;
+                    // Query Firestore to get the hasAccess field based on the email
+                    const usersRef = collection(db, "users");
+                    const q = query(usersRef, where("email", "==", email));
 
-                // Fetch the manager_email field for the selected branch
-                const branchDoc = await getDoc(doc(db, "branches", branchId));
+                    // Listen to changes in the user document and update the radio button
+                    onSnapshot(q, (querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            querySnapshot.forEach((doc) => {
+                                const hasAccess = doc.data().hasAccess; // Get the hasAccess field
 
-                if (branchDoc.exists()) {
-                    const managerEmail = branchDoc.data().manager_email; // Get the manager email field
-                    emailInput.value = managerEmail; // Set the manager email in the email input field
+                                // Toggle radio buttons based on the hasAccess field
+                                if (hasAccess === true) {
+                                    allowRadio.checked = true;
+                                    declineRadio.checked = false;
+                                } else {
+                                    allowRadio.checked = false;
+                                    declineRadio.checked = true;
+                                }
+                            });
+                        }
+                    });
                 }
 
             } else {

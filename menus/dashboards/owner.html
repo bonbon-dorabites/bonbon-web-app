@@ -210,7 +210,7 @@
                             style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
                             &nbsp;Role
                         </h3>
-                        <select id="role" class="form-control" required>
+                        <select id="role" class="form-control" disabled required>
                             <option value="" disabled selected>Select a Role</option>
                             <option value="Manager">Manager</option>
                             <option value="Staff">Staff</option>
@@ -235,52 +235,26 @@
                             <input type="email" class="form-control email-input" id="branch-email" placeholder="Email" disabled required style="color: rgb(110, 106, 106);">
                         </div>
                     </div>
-                </div><br>
-            </form><br><hr class="line" style="color: white;"><br><br>
-            <form id="signupForm" method="post" class="form-table">
-                <div class="flatten">
-                    <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Security Question
-                    </h2>
-                </div>
-                <br><br>
-                <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 47px;">
-                        &nbsp;Passcode
-                    </h3>
-                <div class="col2 justify-content-start">
-                    <img src="/img/reminder-icon.png" alt="">
-                    <p class="branch-alert" >
-                        This is required as a step to verify yourself when modifying staff and manager accounts' passwords.
-                    </p>
-                </div><br>
-                <div class="login-credential">
-                    <div class="email-input-wrapper">
-                        <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="var(--dark-brown)" class="bi bi-lock-fill" viewBox="0 0 16 16">
-                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
-                              </svg>
-                        </span>
-                        <input type="text" class="form-control email-input" id="passcode" placeholder="Enter your desired passcode" required>
+                    <br>
+                    <!-- Has Access Radio Buttons -->
+                    <div class="has-access-wrapper d-flex align-items-center">
+                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 20px;">
+                            &nbsp;Toggle Access
+                        </h3>
+                        <div class="radio-group d-flex">
+                            <label for="allow-access" style="margin-right: 15px;">
+                                <input type="radio" id="allow-access" name="access" value="allow" style="margin-right: 5px;">
+                                Allow
+                            </label>
+                            <label for="decline-access">
+                                <input type="radio" id="decline-access" name="access" value="decline" style="margin-right: 5px;">
+                                Decline
+                            </label>
+                        </div>
                     </div>
-            
-                    <div class="email-buttons">
-                        <button id="passcode-submit" type="button" class="btn btn-primary submit pers-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-send-fill" viewBox="0 0 16 16">
-                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                            </svg>
-                        </button>
-                        <button id="passcode-cancel" type="button" class="btn btn-primary submit pers-info">
-                            ✖
-                        </button>
-                    </div>
-                </div>
-            </form>
-            
-        </div>
-    </div><br><br>
+                </div><br>
+            </form><br><hr class="line" style="color: white;">
 
         <div class="staff-management-container">
             <h2 class="staff-management-title">Staff Management</h2>
