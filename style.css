@@ -1730,6 +1730,15 @@ textarea.form-control:focus {
     background-color: #fff;
 }
 
+.active-coupons {
+    width: 100%;
+    display: flex;
+    gap: 30px; 
+    flex-direction: column;
+    align-items: center;
+
+}
+
 .coupon-section-title {
     font-size: 2.0rem;
     font-weight: bold;
