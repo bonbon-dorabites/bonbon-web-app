@@ -82,7 +82,6 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-// Function to populate branches from Firestore and show/hide elements based on auth state
 function populateBranches(user) {
     const branchSelect = document.getElementById("branchSelect");
     const roleSelect = document.getElementById("role");  // Role dropdown
@@ -160,6 +159,21 @@ function populateBranches(user) {
                                     allowRadio.checked = false;
                                     declineRadio.checked = true;
                                 }
+
+                                // Add event listeners to update the hasAccess field when a radio button is clicked
+                                allowRadio.addEventListener("change", async () => {
+                                    if (allowRadio.checked) {
+                                        // Update hasAccess to true in Firestore
+                                        await updateDoc(doc.ref, { hasAccess: true });
+                                    }
+                                });
+
+                                declineRadio.addEventListener("change", async () => {
+                                    if (declineRadio.checked) {
+                                        // Update hasAccess to false in Firestore
+                                        await updateDoc(doc.ref, { hasAccess: false });
+                                    }
+                                });
                             });
                         }
                     });

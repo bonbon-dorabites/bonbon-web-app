@@ -155,11 +155,34 @@ async function handleLogin(event) {
         // Try to sign in the user
         await signInWithEmailAndPassword(auth, email, password);
 
-        // Show success message and redirect
-        showModal("Redirecting to your diary booklet...", true);
-        setTimeout(() => {
-            window.location.href = "/index.html";
-        }, 2000);
+        // Listen to the user's document in Firestore using onSnapshot
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("email", "==", email));
+
+        // Real-time listener for the user's document
+        onSnapshot(q, (querySnapshot) => {
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                    const role = doc.data().role;  // Get the user's role (Manager, Staff, etc.)
+                    const hasAccess = doc.data().hasAccess;  // Get the hasAccess field
+
+                    if ((role === "Manager" || role === "Staff") && hasAccess === false) {
+                        // If the user is a Manager or Staff but has no access, show an error and prevent redirect
+                        showModal("You do not have access to the website. Please contact the admin.", false);
+                        return;
+                    } else {
+                        // If the user has access, or their role is not Manager or Staff, redirect to index.html
+                        showModal("Redirecting to your diary booklet...", true);
+                        setTimeout(() => {
+                            window.location.href = "/index.html";
+                        }, 2000);
+                    }
+                });
+            } else {
+                // Handle case where user is not found in the Firestore collection
+                showModal("No user found with this email. Please sign up or check your email.", false);
+            }
+        });
 
     } catch (error) {
         // Log the error details for debugging
