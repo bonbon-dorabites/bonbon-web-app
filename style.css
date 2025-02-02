@@ -855,19 +855,19 @@ body {
     background-color: rgb(130, 175, 40) !important;
 }
 
-#submit-edit, #email-submit, #password-submit, #admin-password-submit {
+#submit-edit, #email-submit, #password-submit, #passcode-submit {
     background-color: rgb(0, 2, 128) !important;
 }
 
-#submit-edit:hover, #email-submit:hover, #password-submit:hover, #admin-password-submit:hover {
+#submit-edit:hover, #email-submit:hover, #password-submit:hover, #passcode-submit:hover {
     background-color: rgb(42, 101, 124) !important;
 }
 
-#cancel-edit, #email-cancel, #password-cancel, #admin-password-cancel {
+#cancel-edit, #email-cancel, #password-cancel, #passcode-cancel {
     background-color: maroon !important;
 }
 
-#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover, #admin-password-cancel {
+#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover, #passcode-cancel:hover {
     background-color: rgb(153, 69, 69) !important;
 }
 

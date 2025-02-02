@@ -20,17 +20,67 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 auth.languageCode = 'en';
 
-
-
-// Authenticate user and set up password functionality
+// Authenticate user and set up passcode functionality
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("User is authenticated:", user);
-        populateBranches(user); // Ensure branches still load correctly
+        populateBranches(user);
+        
+        // Get the user email from Firebase Authentication
+        const userEmail = user.email;
+        const passcodeInput = document.getElementById("passcode");
+
+        // Handle passcode cancel button click
+        document.getElementById("passcode-cancel").addEventListener("click", function() {
+            passcodeInput.value = ""; // Clear the input field
+        });
+
+        // Handle passcode submit button click
+        document.getElementById("passcode-submit").addEventListener("click", function() {
+            const passcode = passcodeInput.value.trim(); // Get the passcode entered
+
+            if (passcode) {
+                // Hash the original passcode for storage (for security)
+                hashPasscode(passcode).then(hashedPasscode => {
+                    // Query Firestore to find the document based on the user's email
+                    const usersRef = collection(db, "users");
+                    const q = query(usersRef, where("email", "==", userEmail));
+
+                    // Get the user document by email
+                    getDocs(q).then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            console.log("No user found with that email.");
+                            return;
+                        }
+
+                        // Assuming only one document with the email exists
+                        querySnapshot.forEach((doc) => {
+                            // Store the hashed passcode in Firestore
+                            updateDoc(doc.ref, {
+                                passcode: hashedPasscode
+                            })
+                            .then(() => {
+                                console.log("Passcode updated successfully!");
+                                // Call the verifyPasscode function to verify after storing the passcode
+                                verifyPasscode(userEmail);
+                            })
+                            .catch((error) => {
+                                console.error("Error updating passcode: ", error);
+                            });
+                        });
+                    }).catch((error) => {
+                        console.error("Error querying user by email: ", error);
+                    });
+                });
+            } else {
+                console.log("Please enter a passcode.");
+            }
+        });
     } else {
         console.log("User is not authenticated.");
     }
 });
+
 
 // Function to populate branches from Firestore and show/hide elements based on auth state
 function populateBranches(user) {

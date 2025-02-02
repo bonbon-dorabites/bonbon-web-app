@@ -42,6 +42,90 @@ function hideModal() {
     loadingModal.hide();
 }
 
+// Function to show the password modal and handle the input
+function showPasswordModal(message, callback) {
+    const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
+    const passwordMessage = document.getElementById('passwordMessage');
+    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+    const passwordInput = document.getElementById('passwordInput');
+
+    // Set the message for the modal
+    passwordMessage.textContent = message;
+
+    // Show the modal
+    passwordModal.show();
+
+    // Clear previous input
+    passwordInput.value = "";
+
+    // Handle the submit button click event
+    submitPasswordBtn.onclick = function() {
+        const passcode = passwordInput.value.trim();
+
+        // If passcode is not empty, call the callback with the entered passcode
+        if (passcode) {
+            callback(passcode);
+            passwordModal.hide();
+        } else {
+            alert("Please enter the passcode.");
+        }
+    };
+}
+
+// Function to verify passcode (using SHA-256 hash)
+function verifyPasscode() {
+    const ownerEmail = "owner_bonbon@gmail.com";
+
+    showPasswordModal("Please enter the owner's passcode to proceed:", function(enteredPasscode) {
+        // Hash the entered passcode for comparison (use SHA-256)
+        hashPasscode(enteredPasscode).then(hashedPasscode => {
+            // Query Firestore to find the owner's document by email
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("email", "==", ownerEmail));
+
+            // Get the user document by email
+            getDocs(q).then((querySnapshot) => {
+                if (querySnapshot.empty) {
+                    console.log("No user found with that email.");
+                    return;
+                }
+
+                // Assuming only one document with the email exists
+                querySnapshot.forEach((doc) => {
+                    // Get the stored passcode (hashed)
+                    const storedHashedPasscode = doc.data().passcode;
+
+                    // Compare the entered passcode with the stored hashed passcode
+                    if (hashedPasscode === storedHashedPasscode) {
+                        showModal("Passcode is correct! Access granted.", true)
+                        setTimeout(() => {
+                            console.log("test");
+                            hideModal();
+                            console.log("Redirecting to login...");
+                            window.location.href = "/menus/emp-details.html";
+                        }, 2000);
+                    } else {
+                        showModal("Incorrect passcode! Access denied.", false)
+                    }
+                });
+            }).catch((error) => {
+                console.error("Error querying user by email: ", error);
+            });
+        });
+    });
+}
+
+// Function to hash the entered passcode securely using SHA-256
+function hashPasscode(passcode) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(passcode))
+        .then(hashBuffer => {
+            return Array.from(new Uint8Array(hashBuffer))
+                .map(byte => byte.toString(16).padStart(2, '0'))
+                .join('');
+        });
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
     // Define the menu elements
     const signupMenu = document.getElementById("signup-menu");
@@ -85,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!querySnapshot.empty) {
                 querySnapshot.forEach((doc) => {
                     const userData = doc.data();
+                    const userEmail = userData.email;
                     const firstName = userData.firstName;
                     const role = userData.role; // Get the role
     
@@ -116,6 +201,10 @@ document.addEventListener("DOMContentLoaded", () => {
                             userMenuText.textContent = `Hi Manager`; // Show "Hi Manager" for Manager
                         }
                         console.log("Manager menu displayed.");
+                        // Make the emp-edit-menu clickable for Manager
+                        document.getElementById("emp-edit-menu").addEventListener("click", function() {
+                            verifyPasscode();
+                        });
                     } else if (role === "Staff") {
                         staffMenu.style.display = "block"; // Staff menu
                         empEditMenu.style.display = "block";
@@ -123,6 +212,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             userMenuText.textContent = `Hi Staff`; // Show "Hi Staff" for Staff
                         }
                         console.log("Staff menu displayed.");
+
+                        // Make the emp-edit-menu clickable for Manager
+                        document.getElementById("emp-edit-menu").addEventListener("click", function() {
+                            verifyPasscode();
+                        });
                     } else if (role === "Customer") {
                         customerMenu.style.display = "block"; // Customer menu
                         editMenu.style.display = "block";
