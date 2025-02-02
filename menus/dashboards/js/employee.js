@@ -215,14 +215,15 @@ async function addEmployee() {
         // Add employee to the selected branch's 'employees' subcollection
         await addEmployeeToBranch(branchId, employeeData);
         console.log("Employee added successfully!");
-        showModal("Employee added successfully!", true)
+        showModal("Employee added successfully!", true);
         insertNewEmployeeRow(employeeData, branchId);
         
         setTimeout(() => {
             startListeningToEmployees(branchId);
             closeEmployeeModal();
-        }, 2000);
+        }, 3000);
         closeEmployeeModal();
+        location.reload();
 
         // Clear the form
         document.getElementById("addEmployeeForm").reset();
