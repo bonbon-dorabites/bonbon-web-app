@@ -1837,6 +1837,10 @@ textarea.form-control:focus {
 .date label {
     align-self: center;
 }
+
+.hidden {
+    display: none;
+}
 /* Check out responsiveness */
 @media (max-width: 820px) {
     .checkout-container {

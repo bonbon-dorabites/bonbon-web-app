@@ -368,15 +368,122 @@ async function updateCartSummary(userId) {
                 </div>
             </div>
             <hr>
-            <p>Subtotal: <span class="price">P${totalPrice.toFixed(2)}</span></p>
-            <p>Delivery: <span class="price">P${deliveryFee.toFixed(2)}</span></p>
+            <p>Subtotal: <span class="price subtotal">P${totalPrice.toFixed(2)}</span></p>
+            <p id="discount-row" class="hidden">- Discount: <span class="price" id="discount-amount">P0.00</span></p> <!-- Hidden by default -->
+            <p>Delivery: <span class="price delivery-fee">P${deliveryFee.toFixed(2)}</span></p>
             <hr>
-            <p class="total"><b>Total:</b> <span class="price"><b>P${(totalPrice + deliveryFee).toFixed(2)}</b></span></p>
+            <p class="total"><b>Total:</b> <span class="price"><b id="total-price">P${(totalPrice + deliveryFee).toFixed(2)}</b></span></p>
         `;
     } catch (error) {
         console.error("Error fetching cart data:", error);
     }
 }
+
+// Event delegation: Listen for clicks inside .cart-part .container
+document.querySelector(".cart-part .container").addEventListener("click", async (event) => {
+    if (event.target && event.target.id === "apply-coupon") {
+
+        const user = auth.currentUser;
+            if (!user) {
+                console.error("User not authenticated.");
+                return;
+        }
+
+        await applyCoupon(user.email);
+    }
+});
+
+async function applyCoupon(userEmail) {
+
+    const couponCode = document.getElementById("coupon-code").value.trim();
+    
+    if (!couponCode) {
+        alert("Please enter a coupon code.");
+        return;
+    }
+
+    // Get the selected branch
+    const branchId = localStorage.getItem("selectedBranch");
+    console.log(branchId);
+    if (!branchId) {
+        alert("Please select a branch.");
+        return;
+    }
+
+    // Get user's usedCoupons and order_count
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    if (userSnapshot.empty) {
+        alert("User not found.");
+        return;
+    }
+
+    const userDoc = userSnapshot.docs[0];
+    const userData = userDoc.data();
+    const usedCoupons = userData.usedCoupons || [];
+    const orderCount = userData.order_count || 0;
+    
+    // Get coupon data
+    const couponRef = doc(db, "coupons", couponCode);
+    const couponSnap = await getDoc(couponRef);
+
+    if (!couponSnap.exists()) {
+        alert("Invalid coupon.");
+        return;
+    }
+
+    const couponData = couponSnap.data();
+
+    // 🔹 Check if coupon is already used
+    if (usedCoupons.includes(couponCode)) {
+        alert("You have already used this coupon.");
+        return;
+    }
+
+    // Get the subtotal from the price element
+    const subtotalElement = document.querySelector('.subtotal');
+    const subtotal = parseFloat(subtotalElement.textContent.replace('P', '').trim());
+    const deliveryFee = parseFloat(document.querySelector(".delivery-fee").textContent.replace("P", "") || 0);
+    // Log the subtotal to verify
+    console.log("Subtotal:", subtotal);
+
+    // 🔹 Validate the coupon requirements
+    if (couponData.min_order && subtotal < couponData.min_order) {
+        alert(`Minimum order of ₱${couponData.min_order} required to use this coupon.`);
+        return;
+    }
+
+    if (couponData.first_time_users_only && orderCount > 0) {
+        alert("This coupon is only available for first-time customers.");
+        return;
+    }
+
+    if (couponData.applicable_branches && !couponData.applicable_branches.includes(branchId)) {
+        alert("This coupon is not valid for the selected branch.");
+        return;
+    }
+
+    // Apply discount
+    const discountAmount = couponData.coup_amount;
+    const newTotal = subtotal + deliveryFee - discountAmount;
+    console.log("NEW TOTAL: " + newTotal);
+    // Update the UI
+    document.getElementById("discount-row").classList.remove("hidden");
+    document.getElementById("discount-amount").textContent = `P${discountAmount.toFixed(2)}`;
+    document.getElementById("total-price").textContent = `P${newTotal.toFixed(2)}`;
+
+    alert(`Coupon applied! You saved ₱${discountAmount.toFixed(2)}. New total: ₱${newTotal.toFixed(2)}`);
+    
+    // Save the applied coupon temporarily to the user's document
+    await setDoc(doc(db, "users", userDoc.id), {
+        appliedCoupon: couponCode,
+    }, { merge: true });
+
+    console.log("Coupon code applied and saved temporarily.");
+
+}
+
 
 // Call the function to fetch cart items when the page loads or when needed
 document.addEventListener("DOMContentLoaded", fetchCartItems);
