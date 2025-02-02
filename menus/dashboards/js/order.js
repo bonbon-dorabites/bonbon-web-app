@@ -91,7 +91,7 @@ async function fetchCartItems(user) {
 
             console.log(`Processed Item - Name: ${itemName}, Price: ${itemPrice}, Quantity: ${itemQuantity}`);
 
-            // Add item to table content
+            // Add item to table content with spinner
             tableContent += `
                 <tr>
                     <th scope="row">
@@ -100,12 +100,14 @@ async function fetchCartItems(user) {
                             style="cursor: pointer;"></i>
                     </th>
                     <td>${itemName}</td>
-                    <td>${itemQuantity}</td>
+                    <td>
+                        <input type="number" id="quantity-${itemId}" value="${itemQuantity}" min="1" max="50" 
+                               style="width: 60px;" class="quantity-spinner" />
+                    </td>
                     <td>P${itemPrice.toFixed(2)}</td>
                 </tr>
             `;
         }
-
 
         // Update the table body with fetched items
         document.getElementById("cart-items-body").innerHTML = tableContent || `
@@ -114,13 +116,22 @@ async function fetchCartItems(user) {
             </tr>
         `;
 
-
-         // Attach event listeners to the delete icons
-         itemIds.forEach(itemId => {
+        // Attach event listeners to the delete icons
+        itemIds.forEach(itemId => {
             const deleteIcon = document.getElementById(`delete-item-${itemId}`);
             if (deleteIcon) {
                 deleteIcon.addEventListener("click", function() {
                     deleteItem(itemId);  // Call your delete function
+                });
+            }
+
+            // Attach event listeners to the quantity spinners
+            const quantityInput = document.getElementById(`quantity-${itemId}`);
+            if (quantityInput) {
+                quantityInput.addEventListener("change", function() {
+                    const newQuantity = Math.max(1, Math.min(50, parseInt(quantityInput.value)));
+                    updateQuantity(itemId, newQuantity);  // Update the quantity in Firestore
+                    quantityInput.value = newQuantity;  // Update UI to reflect the constrained value
                 });
             }
         });
@@ -130,8 +141,47 @@ async function fetchCartItems(user) {
     }
 }
 
+async function updateQuantity(itemId, newQuantity) {
+    const user = auth.currentUser;
+    if (!user) {
+        console.error("User not authenticated.");
+        return;
+    }
+
+    const userId = user.uid;
+    const branchId = localStorage.getItem("selectedBranch");
+
+    if (!branchId) {
+        console.error("No branch selected.");
+        return;
+    }
+
+    const cartRef = doc(db, "branches", branchId, "carts", userId);
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const cartDoc = await transaction.get(cartRef);
+            if (!cartDoc.exists()) {
+                console.error("Cart does not exist.");
+                return;
+            }
+
+            let cartData = cartDoc.data();
+            const item = cartData.items_inCart[itemId];
+            if (item) {
+                item.quantity = newQuantity;
+
+                // Update the quantity in Firestore
+                transaction.update(cartRef, { [`items_inCart.${itemId}`]: item });
+            }
+        });
+    } catch (error) {
+        console.error("Error updating quantity:", error);
+    }
+}
+
+
 async function deleteItem(itemId) {
-    alert("ITEM DELETED");
     const user = auth.currentUser;
     if (!user) {
          console.error("User not authenticated.");
