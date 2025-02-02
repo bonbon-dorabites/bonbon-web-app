@@ -276,14 +276,14 @@ async function deleteItem(itemId) {
                 console.error("User not authenticated.");
                 return;
             }
-
+            await updateCartSummary(user.uid);
             await fillCheckoutForm(user.email);
+            
         });
     }
 });
 
 async function fillCheckoutForm(userEmail) {
-    alert(userEmail);
 
     const branchId = localStorage.getItem("selectedBranch");
 
@@ -318,7 +318,65 @@ async function fillCheckoutForm(userEmail) {
     }
 }
 
+async function updateCartSummary(userId) {
+    const branchId = localStorage.getItem("selectedBranch");
 
+    if (!branchId) {
+        console.error("No branch selected.");
+        return;
+    }
+
+    const cartRef = doc(db, "branches", branchId, "carts", userId);
+
+    try {
+        const cartSnap = await getDoc(cartRef);
+        if (!cartSnap.exists()) {
+            console.error("Cart not found.");
+            return;
+        }
+
+        const cartData = cartSnap.data();
+        const items = cartData.items_inCart || {};
+
+        let totalPrice = 0;
+        let itemCount = 0;
+        let cartSummaryHTML = "";
+
+        for (const itemId in items) {
+            const { name, price, quantity } = items[itemId];
+            const itemTotal = price * quantity;
+            totalPrice += itemTotal;
+            itemCount += quantity;
+
+            cartSummaryHTML += `
+                <p><a href="#">${name} (x${quantity})</a> <span class="price">P${itemTotal.toFixed(2)}</span></p>
+            `;
+        }
+
+        let deliveryFee = 50;
+
+        // Set values in HTML
+        document.querySelector(".cart-part .container h4 b").textContent = itemCount;
+        document.querySelector(".cart-part .container").innerHTML = `
+            <h4>Summary <span class="price" style="color:var(--dark-brown)"><i class="fa fa-shopping-cart"></i> <b>${itemCount}</b></span></h4>
+            ${cartSummaryHTML}
+            <div class="coupon-section">
+                <h4>Coupon</h4>
+                <div class="coupon-wrap">
+                    <input type="text" id="coupon-code" placeholder="Enter coupon code"/>
+                    <button id="apply-coupon">Apply</button>
+                </div>
+            </div>
+            <hr>
+            <p>Subtotal: <span class="price">P${totalPrice.toFixed(2)}</span></p>
+            <p>Delivery: <span class="price">P${deliveryFee.toFixed(2)}</span></p>
+            <hr>
+            <p class="total"><b>Total:</b> <span class="price"><b>P${(totalPrice + deliveryFee).toFixed(2)}</b></span></p>
+        `;
+    } catch (error) {
+        console.error("Error fetching cart data:", error);
+    }
+}
 
 // Call the function to fetch cart items when the page loads or when needed
 document.addEventListener("DOMContentLoaded", fetchCartItems);
