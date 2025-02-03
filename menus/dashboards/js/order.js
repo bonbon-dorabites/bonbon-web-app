@@ -26,15 +26,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const backBtn = document.getElementById("backBtn");
     const backBtn2 = document.getElementById("backBtn2");
 
+    async function hasItemsInCart() {
+        const user = auth.currentUser;
+        const userId = user.uid;
+        console.log("user-id:" + userId);
+
+        if (!user) {
+            console.error("No user.");
+        }
+    
+        const branchId = localStorage.getItem("selectedBranch");
+        console.log("Retrieved branch:", branchId); // Check if the value is retrieved
+        
+        if (!branchId) {
+            console.error("No branch selected.");
+        } else {
+            // Use branchId here
+            console.log("Branch selected:", branchId);
+        }
+    
+        const cartRef = doc(db, "branches", branchId, "carts", userId);
+
+        const cartSnap = await getDoc(cartRef);
+
+        if (cartSnap.exists()) {
+            const cartData = cartSnap.data();
+            return cartData.items_inCart && Object.keys(cartData.items_inCart).length > 0;
+        }
+        return false;
+    }
+
+
     // Show checkout form, hide order section only if the user is a customer
     checkoutBtn.addEventListener("click", async () => {
         const customer = await isCustomer();
-        if (customer) {
-            orderSection.style.display = "none";
-            checkoutForm.style.display = "block";
-        } else {
+        const hasItems = await hasItemsInCart();
+
+        if (!customer) {
             alert("You must be a customer to proceed with checkout.");
+            return;
         }
+
+        if (!hasItems) {
+            alert("Your cart is empty. Please add items before checking out.");
+            return;
+        }
+
+        orderSection.style.display = "none";
+        checkoutForm.style.display = "block";
     });
 
     // Show order section, hide checkout form
