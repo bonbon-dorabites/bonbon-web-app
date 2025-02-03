@@ -120,6 +120,29 @@ async function fetchData() {
         // Store sorted rows globally
         window.allCouponRows = Array.from(tableBody.querySelectorAll("tr"));
 
+
+        // Create details containers dynamically for each coupon
+        coupons.forEach(coupon => {
+            const detailsContainer = document.createElement("div");
+            detailsContainer.className = "details";
+            detailsContainer.innerHTML = `
+                <div class="details-card">
+                    <div class="initials" style="background-color: var(--brown);">${coupon.couponId || ""}</div>
+                    <p><strong>Amount:</strong> Php${coupon.coup_amount || "N/A"}.00</p>
+                    <p><strong>Coupon Description:</strong> ${coupon.coup_desc || "N/A"}</p>
+                    <p><strong>Status:</strong> ${coupon.status || "N/A"}</p>
+                    <div class="actions">
+                        <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
+                        <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+
+            const detailsSection = document.getElementById("couponDetails-section"); // Add this ID to your parent container for details
+            detailsSection.appendChild(detailsContainer);
+        });
+
         // Restore event listeners
         document.querySelectorAll('.edit').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -149,27 +172,6 @@ async function fetchData() {
                 showCoupon(couponId);
             });
         });
-
-        // Create details container dynamically
-        const detailsContainer = document.createElement("div");
-        detailsContainer.className = "details";
-        detailsContainer.innerHTML = `
-            <div class="details-card">
-                <div class="initials" style="background-color: var(--brown);">${coupons[0]?.couponId || ""}</div>
-                <p><strong>Amount:</strong> ${coupons[0]?.coup_amount || "N/A"}</p>
-                <p><strong>Coupon Description:</strong> ${coupons[0]?.coup_desc || "N/A"}</p>
-                <p><strong>Status:</strong> ${coupons[0]?.status || "N/A"}</p>
-                <div class="actions">
-                    <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
-                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
-        `;
-
-        const detailsSection = document.getElementById("couponDetails-section");
-        detailsSection.innerHTML = "";
-        detailsSection.appendChild(detailsContainer);
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -481,9 +483,9 @@ function editCoupon(couponId) {
             
             // Checkbox for applicable branches
             const branchCheckboxes = {
-                "SM VALENZUELA": document.getElementById("SmValenzuelaa"),
-                "SM NORTH EDSA": document.getElementById("SmNorthEdsaa"),
-                "ONE MALL VALENZUELA": document.getElementById("OneMallVall"),
+                "SmValenzuela": document.getElementById("SmValenzuelaa"),
+                "SmNorthEdsa": document.getElementById("SmNorthEdsaa"),
+                "OneMallVal": document.getElementById("OneMallVall"),
             };
             
             Object.keys(branchCheckboxes).forEach(branch => {
@@ -615,5 +617,16 @@ function searchCoupons(event) {
     tableBody.innerHTML = "";
     filteredRows.forEach(row => {
         tableBody.appendChild(row); // Append each filtered row
+    });
+}
+
+function clearSearch() {
+    document.getElementById('search').value = ""; // Clear the search input field
+    const tableBody = document.querySelector("#coupons-table tbody");
+
+    // Reset the table by showing all rows
+    tableBody.innerHTML = "";
+    window.allCouponRows.forEach(row => {
+        tableBody.appendChild(row); // Append each stored row back to the table
     });
 }
