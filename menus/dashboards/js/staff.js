@@ -293,6 +293,10 @@ document.addEventListener("click", function (event) {
             // Change button text
             event.target.textContent = additionalDetails.classList.contains("hidden") ? "View More" : "View Less";
         }
+    } else if (event.target.classList.contains("reject-order")) {
+        const orderCard = event.target.closest(".order-card"); // Get the specific order card
+        const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
+        rejectOrder(orderId);
     }
 });
 
@@ -364,6 +368,36 @@ async function confirmOrder(orderId, minutes, orderCard) {
  
 
 }
+// Function to reject an order by setting `isNew` to false
+async function rejectOrder(orderId) {
+    // Show a confirmation prompt before rejecting the order
+    const isConfirmed = confirm("Are you sure you want to reject this order?");
+
+    if (isConfirmed) {
+        try {
+            const branchButton = document.getElementById("staff-branch");
+            const branch = branchButton.textContent;
+            const branchId = reversedBranchMaps[branch];
+
+            // Firestore reference to the order document
+            const orderRef = doc(db, "branches", branchId, "orders", orderId);
+
+            // Update Firestore document to mark the order as not new
+            await updateDoc(orderRef, {
+                isNew: false,
+            });
+
+            console.log(`Order ${orderId} has been rejected.`);
+        } catch (error) {
+            console.error("Error rejecting order:", error);
+            alert("Failed to reject the order. Please try again.");
+        }
+    } else {
+        console.log("Order rejection canceled.");
+    }
+}
+
+
 
 // Function to get user information based on email
 async function getUserInfo(userEmail) {
