@@ -48,6 +48,13 @@ const branchMaps = {
     "OneMallVal": "ONE MALL VALENZUELA" 
 };
 
+const reversedBranchMaps = {
+    "SM VALENZUELA": "SmValenzuela",
+    "SM NORTH EDSA": "SmNorthEdsa",
+    "ONE MALL VALENZUELA": "OneMallVal"
+};
+
+
 async function fetchUserBranch(userEmail) {
     try {
         console.log("Fetching user branch for email:", userEmail);
@@ -198,59 +205,61 @@ async function fetchOrders(branchId) {
                 const orderId = doc.id;
                 const orderData = doc.data();
 
-                // Fetch user information from the users collection based on the email
-                const userEmail = orderData.user_email; // Assuming user_email field in order
-                const userDoc = await getUserInfo(userEmail);
+              
                 
-                if (userDoc) {
-                    const userData = userDoc.data();
-                    const userFullName = `${userData.firstName} ${userData.lastName}`;
-                    const userPhone = userData.phone;
-                    const userAddress = userData.address;
-
-
-                    // Loop through the items_bought map to display item details
-                    let itemsHTML = "";
-                    let totalPrice = 0;
-
-
-
-                    for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
-                        itemsHTML += `
-                            <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P ${itemDetails.price})</p>
+                if(orderData.isNew) {
+                    // Fetch user information from the users collection based on the email
+                    const userEmail = orderData.user_email; // Assuming user_email field in order
+                    const userDoc = await getUserInfo(userEmail);
+                    
+                    if (userDoc) {
+                        const userData = userDoc.data();
+                        const userFullName = `${userData.firstName} ${userData.lastName}`;
+                        const userPhone = userData.phone;
+                        const userAddress = userData.address;
+    
+    
+                        // Loop through the items_bought map to display item details
+                        let itemsHTML = "";
+    
+                        for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                            itemsHTML += `
+                                <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P ${itemDetails.price})</p>
+                            `;
+                        }
+    
+                        // Generate the order card HTML
+                        const orderCardHTML = `
+                        <div class="order-card">
+                            <div class="order-id">Order #${orderId}</div>
+                            
+                            <div class="order-details primary-details">
+                                ${itemsHTML}
+                                <hr>
+                                <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p> <!-- Displaying the calculated total price -->
+                                <p><b>Status:</b> ${orderData.status}</p>
+                            </div>
+    
+                            <div class="order-details hidden additional-details">
+                                <p><b>Name:</b> ${userFullName}</p>
+                                <p><b>Email:</b> ${userEmail}</p>
+                                <p><b>Phone:</b> ${userPhone}</p>
+                                <p><b>Address:</b> ${userAddress}</p>
+                            </div>
+    
+                            <div class="order-actions">
+                                <button class="btn btn-link view-more view-more-btn">View More</button>
+                                <button class="btn btn-success confirm-order">✔ Confirm</button>
+                                <button class="btn btn-danger reject-order">✘ Reject</button>
+                            </div>
+                        </div>
                         `;
+    
+                        // Append the order card to the container
+                        const ordersContainer = document.querySelector(".new-orders-container");
+                        ordersContainer.innerHTML += orderCardHTML;
                     }
-
-                    // Generate the order card HTML
-                    const orderCardHTML = `
-                    <div class="order-card">
-                        <div class="order-id">Order #${orderId}</div>
-                        
-                        <div class="order-details primary-details">
-                            ${itemsHTML}
-                            <hr>
-                            <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p> <!-- Displaying the calculated total price -->
-                            <p><b>Status:</b> ${orderData.status}</p>
-                        </div>
-
-                        <div class="order-details hidden additional-details">
-                            <p><b>Name:</b> ${userFullName}</p>
-                            <p><b>Email:</b> ${userEmail}</p>
-                            <p><b>Phone:</b> ${userPhone}</p>
-                            <p><b>Address:</b> ${userAddress}</p>
-                        </div>
-
-                        <div class="order-actions">
-                            <button class="btn btn-link view-more view-more-btn">View More</button>
-                            <button class="btn btn-success confirm-order">✔ Confirm</button>
-                            <button class="btn btn-danger reject-order">✘ Reject</button>
-                        </div>
-                    </div>
-                    `;
-
-                    // Append the order card to the container
-                    const ordersContainer = document.querySelector(".new-orders-container");
-                    ordersContainer.innerHTML += orderCardHTML;
+                
                 }
    
             });
@@ -284,7 +293,74 @@ document.addEventListener("click", function (event) {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
+    document.querySelector(".new-orders-container").addEventListener("click", function (event) {
+        if (event.target.classList.contains("confirm-order")) {
+            const orderCard = event.target.closest(".order-card"); // Get the specific order card
+            const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
+            const modal = document.getElementById("order-time-modal");
+            const inputMinutes = document.getElementById("input-minutes");
 
+            modal.style.display = "flex";
+
+        // Close Modal
+        document.getElementById("cancel-modal").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+        
+        // Handle Minute Buttons
+        document.querySelectorAll(".btn-minute").forEach((button) => {
+            button.addEventListener("click", (e) => {
+                inputMinutes.value = e.target.dataset.minutes;
+            });
+        });
+
+         // Confirm Button Action
+        document.getElementById("confirm-modal").addEventListener("click", () => {
+            const minutes = inputMinutes.value;
+            if (minutes) {
+                console.log(`Order confirmed with an estimated time of ${minutes} minutes.`);
+                modal.style.display = "none";
+                confirmOrder(orderId, minutes, orderCard, modal);
+            } else {
+                alert("Please input or select an estimated time.");
+            }
+        });
+
+        }
+    });
+
+});
+
+async function confirmOrder(orderId, minutes, orderCard) {
+    alert("HI: " + orderId);
+    const branchButton = document.getElementById("staff-branch");
+
+    const branch = branchButton.textContent;
+    const branchId = reversedBranchMaps[branch];
+    alert("BRANCH ID: " + branchId);
+    
+    try {
+        // Firestore reference to the order document
+        const orderRef = doc(db, "branches", branchId, "orders", orderId);
+
+        // Update Firestore document
+        await updateDoc(orderRef, {
+            isAccepted: true,
+            isNew: false,
+            estimatedTime: parseInt(minutes, 10) // Add estimated time
+        });
+
+        console.log(`Order ${orderId} confirmed with an estimated time of ${minutes} minutes.`);
+
+    } catch (error) {
+        console.error("Error updating order:", error);
+        alert("Failed to confirm the order. Please try again.");
+    }
+ 
+
+}
 
 // Function to get user information based on email
 async function getUserInfo(userEmail) {
