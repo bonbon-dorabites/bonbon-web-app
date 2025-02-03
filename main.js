@@ -139,7 +139,7 @@ function editEmployee(button) {
 }
 
 /*function editCoupon(button) {
-  let couponId, amount, startDate, endDate, description, status;
+  let couponId, `amount`, startDate, endDate, description, status;
   // Check if the clicked button is in a table row or details card
   const row = button.closest("tr");
   const detailsCard = button.closest(".details-card");
