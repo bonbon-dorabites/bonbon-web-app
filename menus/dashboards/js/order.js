@@ -654,10 +654,13 @@ async function checkout() {
     const newOrderRef = doc(ordersRef); // Auto-generated document ID
 
     const orderData = {
-        uid: userId,
+        user_email: userEmail,
         created_at: new Date(),
         total_price: totalPrice,
         items_bought: {},
+        isAccepted: false,
+        isNew: true,
+        isFinished: false,
     };
 
      // Loop through the items in the cart and add to items_bought
