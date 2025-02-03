@@ -61,12 +61,14 @@ function showConfirmation(message, callback) {
 
 async function fetchData() {
     const tableBody = document.querySelector("#coupons-table tbody");
-    const detailsSection = document.getElementById("userDetails-section"); // Ensure this exists in your HTML
-    const allRows = [];
+    tableBody.innerHTML = ""; // Clear existing rows
+    window.allCouponRows = []; // Initialize array to store all rows
 
     try {
         const couponsCollection = collection(db, "coupons");
         const snapshot = await getDocs(couponsCollection);
+
+        let coupons = [];
 
         snapshot.forEach((doc) => {
             const couponId = doc.id;
@@ -76,101 +78,99 @@ async function fetchData() {
             const endDate = data.coup_end ? data.coup_end.toDate().toLocaleDateString() : "N/A";
             const status = data.coup_isActive ? "Active" : "Expired";
 
-            const applicableBranches = data.applicable_branches?.join(", ") || "N/A";
-            const firstTimeUsersOnly = data.first_time_users_only ? "Yes" : "No";
-            const minOrder = data.min_order || "N/A";
-
-            const row = document.createElement("tr");
-            row.setAttribute("edit-doc-old-id", couponId); // Store coupon ID in the row
-
-            row.innerHTML = `
-                <td>${couponId || "N/A"}</td>
-                <td>Php${data.coup_amount || "N/A"}.00</td>
-                <td>${data.coup_desc || "N/A"}</td>
-                <td>${status}</td>
-                <td>
-                    <div style="display: flex !important;">
-                        <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
-                        <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </td>
-            `;
-            tableBody.appendChild(row);
-
-            // Fix the edit button event listener
-            document.querySelectorAll('.edit').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopImmediatePropagation();
-
-                    // Ensure we get the correct row
-                    const row = e.currentTarget.closest("tr");
-                    if (!row) return;
-
-                    // Extract coupon ID
-                    const couponId = row.getAttribute("edit-doc-old-id");
-
-                    // Show modal
-                    const showEditModal = document.getElementById("edit-couponsModal");
-                    showEditModal.style.display = 'block';
-
-                    // Call editCoupon with the coupon ID
-                    editCoupon(couponId);
-                });
+            coupons.push({
+                couponId,
+                coup_amount: data.coup_amount || 0, // Ensure amount is numeric for sorting
+                coup_desc: data.coup_desc || "N/A",
+                status,
+                rowHTML: `
+                    <tr edit-doc-old-id="${couponId}">
+                        <td>${couponId || "N/A"}</td>
+                        <td>Php${data.coup_amount || "N/A"}.00</td>
+                        <td>${data.coup_desc || "N/A"}</td>
+                        <td>${status}</td>
+                        <td>
+                            <div style="display: flex !important;">
+                                <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `
             });
-
-            // Add delete event listener
-            document.querySelectorAll('.delete').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopImmediatePropagation();
-                    deleteCoupon(e.target);  
-                });
-            });
-
-
-            // Add details card (optional, based on your use case)
-            const detailsContainer = document.createElement("div");
-            detailsContainer.className = "details";
-            detailsContainer.innerHTML = `
-                <div class="details-card">
-                    <div class="initials" style="background-color: var(--brown);">${couponId}</div>
-                    <p><strong>Amount:</strong> ${data.coup_amount}</p>
-                    <p><strong>Coupon Description:</strong> ${data.coup_desc}</p>
-                    <p><strong>Status:</strong> ${status}</p>
-                    <div class="actions">
-                        <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
-                        <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            `;
-
-            // Show details
-            document.querySelectorAll('.detail').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopImmediatePropagation();
-
-                    // Ensure we get the correct row
-                    const row = e.currentTarget.closest("tr");
-                    if (!row) return;
-
-                    // Extract coupon ID
-                    const couponId = row.getAttribute("edit-doc-old-id");
-
-                    // Show modal
-                    const showCouponModal = document.getElementById("details-couponsModal");
-                    showCouponModal.style.display = 'block';
-
-                    // Call editCoupon with the coupon ID
-                    showCoupon(couponId);
-                });
-            });
-
-            const detailsSection = document.getElementById("couponDetails-section");
-            detailsSection.appendChild(detailsContainer);
         });
-        // Store rows globally for search functionality
-        window.allRows = allRows;
+
+        // Sorting logic: Active first, then by amount (low to high), then by couponId alphabetically
+        coupons.sort((a, b) => {
+            if (a.status !== b.status) {
+                return a.status === "Active" ? -1 : 1; // Active first
+            }
+            if (a.coup_amount !== b.coup_amount) {
+                return a.coup_amount - b.coup_amount; // Lowest amount first
+            }
+            return a.couponId.localeCompare(b.couponId); // Alphabetically by couponId
+        });
+
+        // Append sorted rows to the table
+        coupons.forEach(coupon => {
+            tableBody.innerHTML += coupon.rowHTML;
+        });
+
+        // Store sorted rows globally
+        window.allCouponRows = Array.from(tableBody.querySelectorAll("tr"));
+
+        // Restore event listeners
+        document.querySelectorAll('.edit').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                const row = e.currentTarget.closest("tr");
+                if (!row) return;
+                const couponId = row.getAttribute("edit-doc-old-id");
+                document.getElementById("edit-couponsModal").style.display = 'block';
+                editCoupon(couponId);
+            });
+        });
+
+        document.querySelectorAll('.delete').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                deleteCoupon(e.target);
+            });
+        });
+
+        document.querySelectorAll('.detail').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                const row = e.currentTarget.closest("tr");
+                if (!row) return;
+                const couponId = row.getAttribute("edit-doc-old-id");
+                document.getElementById("details-couponsModal").style.display = 'block';
+                showCoupon(couponId);
+            });
+        });
+
+        // Create details container dynamically
+        const detailsContainer = document.createElement("div");
+        detailsContainer.className = "details";
+        detailsContainer.innerHTML = `
+            <div class="details-card">
+                <div class="initials" style="background-color: var(--brown);">${coupons[0]?.couponId || ""}</div>
+                <p><strong>Amount:</strong> ${coupons[0]?.coup_amount || "N/A"}</p>
+                <p><strong>Coupon Description:</strong> ${coupons[0]?.coup_desc || "N/A"}</p>
+                <p><strong>Status:</strong> ${coupons[0]?.status || "N/A"}</p>
+                <div class="actions">
+                    <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
+                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+
+        const detailsSection = document.getElementById("couponDetails-section");
+        detailsSection.innerHTML = "";
+        detailsSection.appendChild(detailsContainer);
+
     } catch (error) {
         console.error("Error fetching data:", error);
     }
@@ -598,39 +598,22 @@ function showCoupon(couponId) {
 document.addEventListener("DOMContentLoaded", fetchData);
 
 // Function to search users based on the fields (first name, last name, email, phone)
-document.getElementById('search').addEventListener('input', searchUsers);
+document.getElementById('search').addEventListener('input', searchCoupons);
 document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
 
-// Search function to filter table rows based on the input
-function searchCoupons() {
-    const searchTerm = document.getElementById('search').value.toLowerCase();
-    
-    // Filter through all rows
-    const filteredRows = window.allCouponRows.filter(row => {
-        const cells = row.querySelectorAll("td");
-        const couponId = cells[0].textContent.toLowerCase();
-        const amount = cells[1].textContent.toLowerCase();
-        const description = cells[2].textContent.toLowerCase();
-        const status = cells[3].textContent.toLowerCase();
+function searchCoupons(event) {
+    const searchQuery = event.target.value.toLowerCase(); // Get search input value and convert to lowercase
+    const tableBody = document.querySelector("#coupons-table tbody");
 
-        // Check if any field matches the search term
-        return couponId.includes(searchTerm) || amount.includes(searchTerm) ||
-               description.includes(searchTerm) || status.includes(searchTerm);
+    // Filter coupons based on the search query
+    const filteredRows = window.allCouponRows.filter(row => {
+        const rowText = row.textContent.toLowerCase(); // Get text content of the row
+        return rowText.includes(searchQuery); // Check if the row contains the search query
     });
 
-    // Hide all rows first
-    window.allCouponRows.forEach(row => row.style.display = 'none');
-
-    // Show only filtered rows
-    filteredRows.forEach(row => row.style.display = '');
-
-    // Show the "Clear Search" button
-    document.getElementById('clearSearchBtn').style.display = 'inline-block';
-}
-
-// Function to clear the search and reset table to original state
-function clearSearch() {
-    document.getElementById('search').value = ''; // Clear search input
-    window.allCouponRows.forEach(row => row.style.display = ''); // Show all rows
-    document.getElementById('clearSearchBtn').style.display = 'none'; // Hide "Clear Search" button
+    // Clear existing rows and append filtered rows to the table
+    tableBody.innerHTML = "";
+    filteredRows.forEach(row => {
+        tableBody.appendChild(row); // Append each filtered row
+    });
 }
