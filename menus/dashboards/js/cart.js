@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, runTransaction, serverTimestamp, query, collection, where, getDocs} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -31,9 +31,39 @@ document.querySelectorAll(".add-to-cart").forEach(button => {
     });
 });*/
 
+  async function isCustomer() {
+    // Query the 'users' collection using the provided email
+    const user = auth.currentUser;
+    const userEmail = user.email;
 
-document.addEventListener("click", (event) => {
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    // Check if user is found
+    if (!userSnapshot.empty) {
+        // Assuming the role is stored under the 'role' field
+        const userDoc = userSnapshot.docs[0];
+        const userRole = userDoc.data().role; // Access the role field
+
+        // Return true if the role is 'customer', otherwise false
+        return userRole === "Customer";
+    } else {
+        console.log("User not found.");
+        return false;
+    }
+}
+
+
+
+document.addEventListener("click", async (event) => {
     if (event.target.closest(".add-to-cart")) {
+        const isUserCustomer = await isCustomer(); // Check if user is a customer
+
+        if (!isUserCustomer) {
+            alert("Only customers can add items to the cart.");
+            return; // Stop execution if not a customer
+        }
+
         const button = event.target.closest(".add-to-cart");
         const itemId = button.id;
         alert(itemId);
@@ -56,11 +86,9 @@ document.addEventListener("click", (event) => {
         }).catch((error) => {
             console.error("Error fetching item price:", error);
         });
-         
-
-        
     }
 });
+
 
 const branchMap = {
     "oneMallVal": "OneMallVal",

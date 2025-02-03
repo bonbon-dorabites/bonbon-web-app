@@ -19,7 +19,59 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+document.addEventListener("DOMContentLoaded", () => {
+    const checkoutForm = document.getElementById("checkout-form");
+    const orderSection = document.getElementById("order");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    const backBtn = document.getElementById("backBtn");
+    const backBtn2 = document.getElementById("backBtn2");
 
+    // Show checkout form, hide order section only if the user is a customer
+    checkoutBtn.addEventListener("click", async () => {
+        const customer = await isCustomer();
+        if (customer) {
+            orderSection.style.display = "none";
+            checkoutForm.style.display = "block";
+        } else {
+            alert("You must be a customer to proceed with checkout.");
+        }
+    });
+
+    // Show order section, hide checkout form
+    backBtn.addEventListener("click", () => {
+        checkoutForm.style.display = "none";
+        orderSection.style.display = "block";
+    });
+
+    backBtn2.addEventListener("click", () => {
+        checkoutForm.style.display = "none";
+        orderSection.style.display = "block";
+    });
+});
+
+  async function isCustomer() {
+    // Query the 'users' collection using the provided email
+    const user = auth.currentUser;
+    const userEmail = user.email;
+
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    // Check if user is found
+    if (!userSnapshot.empty) {
+        // Assuming the role is stored under the 'role' field
+        const userDoc = userSnapshot.docs[0];
+        const userRole = userDoc.data().role; // Access the role field
+
+        // Return true if the role is 'customer', otherwise false
+        return userRole === "Customer";
+    } else {
+        console.log("User not found.");
+        return false;
+    }
+}
+
+  
 // Listener for authentication state changes
 auth.onAuthStateChanged(async (user) => {
     if (user) {
