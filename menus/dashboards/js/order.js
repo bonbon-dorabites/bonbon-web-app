@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, onSnapshot, where, query, getDocs, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, deleteField, arrayUnion, onSnapshot, where, query, getDocs, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -19,7 +19,98 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+document.addEventListener("DOMContentLoaded", () => {
+    const checkoutForm = document.getElementById("checkout-form");
+    const orderSection = document.getElementById("order");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    const backBtn = document.getElementById("backBtn");
+    const backBtn2 = document.getElementById("backBtn2");
 
+    async function hasItemsInCart() {
+        const user = auth.currentUser;
+        const userId = user.uid;
+        console.log("user-id:" + userId);
+
+        if (!user) {
+            console.error("No user.");
+        }
+    
+        const branchId = localStorage.getItem("selectedBranch");
+        console.log("Retrieved branch:", branchId); // Check if the value is retrieved
+        
+        if (!branchId) {
+            console.error("No branch selected.");
+        } else {
+            // Use branchId here
+            console.log("Branch selected:", branchId);
+        }
+    
+        const cartRef = doc(db, "branches", branchId, "carts", userId);
+
+        const cartSnap = await getDoc(cartRef);
+
+        if (cartSnap.exists()) {
+            const cartData = cartSnap.data();
+            return cartData.items_inCart && Object.keys(cartData.items_inCart).length > 0;
+        }
+        return false;
+    }
+
+
+    // Show checkout form, hide order section only if the user is a customer
+    checkoutBtn.addEventListener("click", async () => {
+        const customer = await isCustomer();
+        const hasItems = await hasItemsInCart();
+
+        if (!customer) {
+            alert("You must be a customer to proceed with checkout.");
+            return;
+        }
+
+        if (!hasItems) {
+            alert("Your cart is empty. Please add items before checking out.");
+            return;
+        }
+
+        orderSection.style.display = "none";
+        checkoutForm.style.display = "block";
+    });
+
+    // Show order section, hide checkout form
+    backBtn.addEventListener("click", () => {
+        checkoutForm.style.display = "none";
+        orderSection.style.display = "block";
+    });
+
+    backBtn2.addEventListener("click", () => {
+        checkoutForm.style.display = "none";
+        orderSection.style.display = "block";
+    });
+});
+
+  async function isCustomer() {
+    // Query the 'users' collection using the provided email
+    const user = auth.currentUser;
+    const userEmail = user.email;
+
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    // Check if user is found
+    if (!userSnapshot.empty) {
+        // Assuming the role is stored under the 'role' field
+        const userDoc = userSnapshot.docs[0];
+        const userRole = userDoc.data().role; // Access the role field
+
+        // Return true if the role is 'customer', otherwise false
+        return userRole === "Customer";
+    } else {
+        console.log("User not found.");
+        return false;
+    }
+}
+
+  
 // Listener for authentication state changes
 auth.onAuthStateChanged(async (user) => {
     if (user) {
@@ -276,14 +367,14 @@ async function deleteItem(itemId) {
                 console.error("User not authenticated.");
                 return;
             }
-
+            await updateCartSummary(user.uid);
             await fillCheckoutForm(user.email);
+            
         });
     }
 });
 
 async function fillCheckoutForm(userEmail) {
-    alert(userEmail);
 
     const branchId = localStorage.getItem("selectedBranch");
 
@@ -318,7 +409,280 @@ async function fillCheckoutForm(userEmail) {
     }
 }
 
+async function updateCartSummary(userId) {
+    const branchId = localStorage.getItem("selectedBranch");
 
+    if (!branchId) {
+        console.error("No branch selected.");
+        return;
+    }
+
+    const cartRef = doc(db, "branches", branchId, "carts", userId);
+
+    try {
+        const cartSnap = await getDoc(cartRef);
+        if (!cartSnap.exists()) {
+            console.error("Cart not found.");
+            return;
+        }
+
+        const cartData = cartSnap.data();
+        const items = cartData.items_inCart || {};
+
+        let totalPrice = 0;
+        let itemCount = 0;
+        let cartSummaryHTML = "";
+
+        for (const itemId in items) {
+            const { name, price, quantity } = items[itemId];
+            const itemTotal = price * quantity;
+            totalPrice += itemTotal;
+            itemCount += quantity;
+
+            cartSummaryHTML += `
+                <p><a href="#">${name} (x${quantity})</a> <span class="price">P${itemTotal.toFixed(2)}</span></p>
+            `;
+        }
+
+        let deliveryFee = 50;
+
+        // Set values in HTML
+        document.querySelector(".cart-part .container h4 b").textContent = itemCount;
+        document.querySelector(".cart-part .container").innerHTML = `
+            <h4>Summary <span class="price" style="color:var(--dark-brown)"><i class="fa fa-shopping-cart"></i> <b>${itemCount}</b></span></h4>
+            ${cartSummaryHTML}
+            <div class="coupon-section">
+                <h4>Coupon</h4>
+                <div class="coupon-wrap">
+                    <input type="text" id="coupon-code" placeholder="Enter coupon code"/>
+                    <button id="apply-coupon">Apply</button>
+                </div>
+            </div>
+            <hr>
+            <p>Subtotal: <span class="price subtotal">P${totalPrice.toFixed(2)}</span></p>
+            <p id="discount-row" class="hidden">- Discount: <span class="price" id="discount-amount">P0.00</span></p> <!-- Hidden by default -->
+            <p>Delivery: <span class="price delivery-fee">P${deliveryFee.toFixed(2)}</span></p>
+            <hr>
+            <p class="total"><b>Total:</b> <span class="price"><b id="total-price">P${(totalPrice + deliveryFee).toFixed(2)}</b></span></p>
+        `;
+    } catch (error) {
+        console.error("Error fetching cart data:", error);
+    }
+}
+
+// Event delegation: Listen for clicks inside .cart-part .container
+document.querySelector(".cart-part .container").addEventListener("click", async (event) => {
+    if (event.target && event.target.id === "apply-coupon") {
+
+        const user = auth.currentUser;
+            if (!user) {
+                console.error("User not authenticated.");
+                return;
+        }
+
+        await applyCoupon(user.email);
+    }
+});
+
+async function applyCoupon(userEmail) {
+
+    const couponCode = document.getElementById("coupon-code").value.trim();
+    
+    if (!couponCode) {
+        alert("Please enter a coupon code.");
+        return;
+    }
+
+    // Get the selected branch
+    const branchId = localStorage.getItem("selectedBranch");
+    console.log(branchId);
+    if (!branchId) {
+        alert("Please select a branch.");
+        return;
+    }
+
+    // Get user's usedCoupons and order_count
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    if (userSnapshot.empty) {
+        alert("User not found.");
+        return;
+    }
+
+    const userDoc = userSnapshot.docs[0];
+    const userData = userDoc.data();
+    const usedCoupons = userData.usedCoupons || [];
+    const orderCount = userData.order_count || 0;
+    
+    // Get coupon data
+    const couponRef = doc(db, "coupons", couponCode);
+    const couponSnap = await getDoc(couponRef);
+
+    if (!couponSnap.exists()) {
+        alert("Invalid coupon.");
+        return;
+    }
+
+    const couponData = couponSnap.data();
+
+    // 🔹 Check if coupon is already used
+    if (usedCoupons.includes(couponCode)) {
+        alert("You have already used this coupon.");
+        return;
+    }
+
+    // Get the subtotal from the price element
+    const subtotalElement = document.querySelector('.subtotal');
+    const subtotal = parseFloat(subtotalElement.textContent.replace('P', '').trim());
+    const deliveryFee = parseFloat(document.querySelector(".delivery-fee").textContent.replace("P", "") || 0);
+    // Log the subtotal to verify
+    console.log("Subtotal:", subtotal);
+
+    // 🔹 Validate the coupon requirements
+    if (couponData.min_order && subtotal < couponData.min_order) {
+        alert(`Minimum order of ₱${couponData.min_order} required to use this coupon.`);
+        return;
+    }
+
+    if (couponData.first_time_users_only && orderCount > 0) {
+        alert("This coupon is only available for first-time customers.");
+        return;
+    }
+
+    if (couponData.applicable_branches && !couponData.applicable_branches.includes(branchId)) {
+        alert("This coupon is not valid for the selected branch.");
+        return;
+    }
+
+    // Apply discount
+    const discountAmount = couponData.coup_amount;
+    const newTotal = subtotal + deliveryFee - discountAmount;
+    console.log("NEW TOTAL: " + newTotal);
+    // Update the UI
+    document.getElementById("discount-row").classList.remove("hidden");
+    document.getElementById("discount-amount").textContent = `P${discountAmount.toFixed(2)}`;
+    document.getElementById("total-price").textContent = `P${newTotal.toFixed(2)}`;
+
+    alert(`Coupon applied! You saved ₱${discountAmount.toFixed(2)}. New total: ₱${newTotal.toFixed(2)}`);
+    
+    // Save the applied coupon temporarily to the user's document
+    await setDoc(doc(db, "users", userDoc.id), {
+        appliedCoupon: couponCode,
+    }, { merge: true });
+
+    console.log("Coupon code applied and saved temporarily.");
+
+}
+
+document.getElementById("checkout-to-order").addEventListener("click", async () => {
+    // Perform checkout process here
+    console.log("Proceeding to checkout...");
+    await checkout();
+});
+
+async function checkout() {
+    const user = auth.currentUser;
+    if (!user) {
+        console.error("User not authenticated.");
+        return;
+    }
+
+    const userEmail = user.email;
+    const userId = user.uid;
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    if (userSnapshot.empty) {
+        alert("User not found.");
+        return;
+    }
+
+    const userDoc = userSnapshot.docs[0];
+    const userRef = doc(db, "users", userDoc.id);
+    const userData = userDoc.data();
+
+    const appliedCoupon = userData.appliedCoupon || null;
+    const currentOrderCount = userData.order_count || 0;
+
+
+    let updateData = {
+        order_count: currentOrderCount + 1, // Increment order count
+    };
+
+    if (appliedCoupon) {
+        updateData.usedCoupons = arrayUnion(appliedCoupon); // Add to usedCoupons array
+        updateData.appliedCoupon = deleteField(); // Remove appliedCoupon field
+    }
+
+    // Update user document
+    await updateDoc(userRef, updateData);
+    console.log("Checkout complete! Order count updated, and coupon moved to usedCoupons if applied.");
+
+     // === CART UPDATE ===
+     const branchId = localStorage.getItem("selectedBranch");
+     const cartRef = doc(db, "branches", branchId, "carts", userId);
+     const cartSnapshot = await getDoc(cartRef);
+
+     alert(branchId);
+
+    if (!cartSnapshot.exists()) {
+        console.log("Cart not found.");
+        return;
+    }
+
+    const cartData = cartSnapshot.data();
+    const itemsInCart = cartData.items_inCart || {};
+    const itemIds = Object.keys(itemsInCart);
+    console.log("Item IDs:", itemIds); // Logs the keys (item IDs) inside items_inCart
+
+     // Extract item names and quantities
+     const cartSummary = itemIds.map(itemId => ({
+        itemId: itemId, // Include the itemId
+        name: itemsInCart[itemId].name,
+        quantity: itemsInCart[itemId].quantity
+    }));
+
+    console.log("Cart items for checkout:", cartSummary);
+    // Get the total price (including delivery fee) from the DOM
+    const totalPriceElement = document.getElementById("total-price");
+    const totalPrice = parseFloat(totalPriceElement.textContent.replace("P", "").replace(",", "").trim()); // Get the total price value
+    console.log("TOTAL PRICE: " + totalPrice);
+
+    // Create new document in orders collection
+    const ordersRef = collection(db, "branches", branchId, "orders");
+    const newOrderRef = doc(ordersRef); // Auto-generated document ID
+
+    const orderData = {
+        user_email: userEmail,
+        created_at: new Date(),
+        total_price: totalPrice,
+        items_bought: {},
+        isAccepted: false,
+        isNew: true,
+        isFinished: false,
+    };
+
+     // Loop through the items in the cart and add to items_bought
+     cartSummary.forEach(item => {
+        orderData.items_bought[item.itemId] = {
+            name: item.name,
+            quantity: item.quantity
+        };
+    });
+
+    // Set the order document
+    await setDoc(newOrderRef, orderData);
+
+    alert("Order created successfully!");
+   
+    await updateDoc(cartRef, { 
+        items_inCart: {} // Clear the items_inCart after checkout
+    });
+
+    console.log("Cart marked as checked out!");
+    window.location.href = "/menus/dashboards/customer.html";
+}
 
 // Call the function to fetch cart items when the page loads or when needed
 document.addEventListener("DOMContentLoaded", fetchCartItems);

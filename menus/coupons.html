@@ -92,22 +92,29 @@
     <div class="coupon-page-container">
         <!-- Available Coupons Header -->
         <h2 class="coupon-section-title">Available Coupons</h2>
-
+        
         <!-- Active Coupons (no code shown) -->
-        <div class="coupon-page-card">
-            <span class="coupon-page-card-text">First Log-in Discount 10% All Items</span>
-            <button class="coupon-page-card-btn claim-btn">Claim</button>
+
+        <div class="active-coupons">
+            <!--
+            <div class="coupon-page-card">
+                <span class="coupon-page-card-text">First Log-in Discount 10% All Items</span>
+                <button class="coupon-page-card-btn claim-btn">Claim</button>
+            </div>
+        
+            <div class="coupon-page-card">
+                <span class="coupon-page-card-text">Min. Spend ₱500.00</span>
+                <button class="coupon-page-card-btn get-btn">Get</button>
+            </div>
+        
+            <div class="coupon-page-card">
+                <span class="coupon-page-card-text">Buy on any SM Store</span>
+                <button class="coupon-page-card-btn claim-btn">Claim</button>
+            </div>
+            -->
+
         </div>
-    
-        <div class="coupon-page-card">
-            <span class="coupon-page-card-text">Min. Spend ₱500.00</span>
-            <button class="coupon-page-card-btn get-btn">Get</button>
-        </div>
-    
-        <div class="coupon-page-card">
-            <span class="coupon-page-card-text">Buy on any SM Store</span>
-            <button class="coupon-page-card-btn claim-btn">Claim</button>
-        </div>
+       
         <br>
 
         <!-- Claimed Coupons Header -->
@@ -115,7 +122,8 @@
 
         <!-- Claimed Coupons (code shown below the name and "Claimed" on the right) -->
         <div class="claimed-coupon">
-            <div class="coupon-page-card claimed">
+            <!--
+                   <div class="coupon-page-card claimed">
                 <div class="coupon-details">
                     <span class="coupon-page-card-text">First Log-in Discount 10% All Items</span>
                     <div class="coupon-code">Code: FDASDFDSG</div>
@@ -138,6 +146,8 @@
                 </div>
                 <span class="claimed-text">Claimed</span>
             </div>
+            -->
+         
         </div>
     </div>
     <br><br><br>
@@ -167,5 +177,6 @@
     <script src="/main.js"></script>
     <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
+    <script type="module" src="./dashboards/js/couponsMenu.js"></script>
 </body>
 </html>
