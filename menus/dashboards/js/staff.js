@@ -259,7 +259,7 @@ async function fetchOrders(branchId) {
                             // Append the order card to the container
                             ordersContainer.innerHTML += orderCardHTML;
                         }
-                    } else if (orderData.isAccepted) {
+                    } else if (orderData.isAccepted && orderData.isFinished === false) {
                          // Generate the accordion item for accepted orders
                          const userEmail = orderData.user_email; // Assuming user_email field in order
                          const userDoc = await getUserInfo(userEmail);
@@ -282,7 +282,7 @@ async function fetchOrders(branchId) {
                             const accordionItemHTML = `
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
+                                    <button class="pending-order-id accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
                                         ORDER ID: ${orderId}
                                     </button>
                                 </h2>
@@ -298,7 +298,7 @@ async function fetchOrders(branchId) {
 
                                         <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
                                         <p><b>Status:</b> ${orderData.status}</p>
-                                        <button class="btn btn-success">Finish Order</button> <!-- Added the Finish Order button -->
+                                        <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
                                     </div>
                                 </div>
                             </div>
@@ -307,9 +307,46 @@ async function fetchOrders(branchId) {
 
                             // Append the accordion item to the accordion container
                             pendingOrdersAccordion.innerHTML += accordionItemHTML;
+                        } 
+                    } else if (orderData.isFinished) {
+                        console.log("ISFINISHED");
+                    
+                        // Empty the finished orders container before adding new content
+                        const finishedOrdersContainer = document.getElementById('finishedOrdersAccordion');
+                        finishedOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
+                    
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                    
+                            // Generate the finished order HTML with feedback
+                            const finishedOrderHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" aria-controls="finishedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                                    <div class="accordion-body feedback-status">
+                                        <p><b>Name:</b> ${userFullName}</p>
+                                        <p><b>Status:</b> Paid</p>
+                                        <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            `;
+                    
+                            // Append the finished order to the finished orders container
+                            finishedOrdersContainer.innerHTML += finishedOrderHTML;
                         }
-
                     }
+                    
+ 
 
                 });
             } else {
@@ -390,6 +427,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
+    document.querySelector(".accordion").addEventListener("click", function (event) {
+        if (event.target.classList.contains("finish-the-order")) {
+           alert("ORDER FINISHED");
+          // Find the closest accordion item
+          const accordionItem = event.target.closest(".accordion-item");
+
+          if (!accordionItem) {
+              alert("Error: Unable to find order details.");
+              return;
+          }
+
+          // Get the order ID from the corresponding button with class "pending-order-id"
+          const orderIdElement = accordionItem.querySelector(".pending-order-id");
+
+          if (!orderIdElement) {
+              alert("Error: Order ID not found.");
+              return;
+          }
+
+          // Extract the ORDER ID text from the button
+          const orderIdText = orderIdElement.textContent.trim();
+          const orderId = orderIdText.replace("ORDER ID:", "").trim(); // Remove "ORDER ID: " part
+
+          alert("ORDER ID: " + orderId);
+          // Get branch ID dynamically
+          const branchButton = document.getElementById("staff-branch");
+          const branch = branchButton.textContent;
+          const branchId = reversedBranchMaps[branch];
+
+          alert("BRANCH ID: " + branchId);
+
+          if (!orderId || !branchId) {
+              alert("Order ID or Branch ID is missing!");
+              return;
+          }
+
+          finishOrder(branchId, orderId);
+          window.location.reload();
+        }
+    });
+
+});
+
 async function confirmOrder(orderId, minutes, orderCard) {
     alert("HI: " + orderId);
     const branchButton = document.getElementById("staff-branch");
@@ -447,7 +529,22 @@ async function rejectOrder(orderId) {
     }
 }
 
+// Function to update Firestore and mark the order as finished
+async function finishOrder(branchId, orderId) {
+    const orderRef = doc(db, "branches", branchId, "orders", orderId);
 
+    try {
+        // Update Firestore to mark the order as finished
+        await updateDoc(orderRef, {
+            isFinished: true
+        });
+
+        alert(`Order ${orderId} has been marked as finished.`);
+    } catch (error) {
+        console.error("Error updating order:", error);
+        alert("Failed to finish the order. Please try again.");
+    }
+}
 
 // Function to get user information based on email
 async function getUserInfo(userEmail) {
