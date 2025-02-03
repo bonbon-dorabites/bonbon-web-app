@@ -95,9 +95,11 @@ async function fetchData() {
                 <td>${endDate}</td>
                 <td>${data.coup_desc || "N/A"}</td>
                 <td>${status}</td>
-                <td>
-                    <button class="action-btn edit" onclick="editCoupon(this)"><i class="fas fa-edit"></i></button>
-                    <button class="action-btn delete" id="delete-coupon"><i class="fa-solid fa-trash"></i></button>
+                <td >
+                    <div style="display: flex !important; ">
+                        <button class="action-btn edit" onclick="editCoupon(this)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" id="delete-coupon"><i class="fa-solid fa-trash"></i></button>
+                    </div>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -300,7 +302,7 @@ async function addCoupon() {
              showModal("Coupon deleted successfully!", true);
          } catch (error) {
              console.error("Error deleting coupon:", error.message);
-             showModal("Failed to delete coupon.", false);
+             showModal("Failed to delete coupon.", false );
              console.error(error.stack);
          }
      } else {
