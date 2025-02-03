@@ -100,32 +100,48 @@ async function isCustomer() {
 
 document.addEventListener("click", async (event) => {
     if (event.target.closest(".add-to-cart")) {
+        console.log("Add to cart button clicked");
+
         const isUserCustomer = await isCustomer(); // Check if user is a customer
+        console.log("User is customer:", isUserCustomer);
 
         if (!isUserCustomer) {
             showModal("Only customers can add items to the cart.", false);
+            console.log("User is not a customer. Stopping execution.");
             return; // Stop execution if not a customer
         }
 
         const button = event.target.closest(".add-to-cart");
         const itemId = button.id;
-
         const itemName = button.dataset.itemName;
-        
+        console.log("Item ID:", itemId, "| Item Name:", itemName);
+
+        if (!itemId) {
+            console.error("Error: itemId is undefined. Make sure the button has a valid ID.");
+            return;
+        }
+
         // Fetch the price from the 'items' collection using itemId
-        const itemRef = doc(db, "items", itemId); // Reference to the item document
-        getDoc(itemRef).then((docSnap) => {
+        try {
+            const itemRef = doc(db, "items", itemId); // Reference to the item document
+            const docSnap = await getDoc(itemRef);
+
             if (docSnap.exists()) {
                 const itemPrice = docSnap.data().item_price;
+                console.log("Item price fetched:", itemPrice);
 
                 // Call function to add item to the cart with the fetched price
-                addToCart(itemId, itemName, itemPrice);
+                showConfirmation("Are you sure you want to add this item to you cart?", async function () { 
+                    console.log("showConfirmation triggered. Calling addToCart...");
+                    await addToCart(itemId, itemName, itemPrice);
+                });
+
             } else {
-                console.log("Item not found in Firestore.");
+                console.error("Item not found in Firestore.");
             }
-        }).catch((error) => {
+        } catch (error) {
             console.error("Error fetching item price:", error);
-        });
+        }
     }
 });
 
@@ -163,6 +179,7 @@ async function addToCart(itemId, itemName, itemPrice) {
 
     const cartRef = doc(db, "branches", branchId, "carts", userId); // Reference to user's cart document
 
+    
     try {
         await runTransaction(db, async (transaction) => {
             const cartDoc = await transaction.get(cartRef);
@@ -201,7 +218,7 @@ async function addToCart(itemId, itemName, itemPrice) {
             }
         });
 
-        alert("Item added to cart successfully!");
+        showModal("Item added to cart successfully!", true);
     } catch (error) {
         console.error("Error adding item to cart:", error);
     }

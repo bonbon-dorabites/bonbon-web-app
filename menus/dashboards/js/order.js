@@ -115,9 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
             showModal("Your cart is empty. Please add items before checking out.", false);
             return;
         }
-
-        orderSection.style.display = "none";
-        checkoutForm.style.display = "block";
+        showConfirmation("Are you sure you wish to check these out?", async function () { 
+            orderSection.style.display = "none";
+            checkoutForm.style.display = "block";
+        });
     });
 
     // Show order section, hide checkout form
@@ -254,11 +255,13 @@ async function fetchCartItems(user) {
         // Attach event listeners to the delete icons
         itemIds.forEach(itemId => {
             const deleteIcon = document.getElementById(`delete-item-${itemId}`);
-            if (deleteIcon) {
+                if (deleteIcon) {
                 deleteIcon.addEventListener("click", function() {
-                    deleteItem(itemId);  // Call your delete function
+                    showConfirmation("Are you sure you want to remove this from cart?", async function () { 
+                        deleteItem(itemId);  // Call your delete function
+                    });
                 });
-            }
+                }
 
             // Attach event listeners to the quantity spinners
             const quantityInput = document.getElementById(`quantity-${itemId}`);
@@ -632,7 +635,8 @@ async function checkout() {
         return;
     }
 
-    const userEmail = user.email;
+    showConfirmation("Are you sure you want to purchase this?", async function () { 
+        const userEmail = user.email;
     const userId = user.uid;
     const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
     const userSnapshot = await getDocs(userQuery);
@@ -723,7 +727,10 @@ async function checkout() {
     });
 
     console.log("Cart marked as checked out!");
-    window.location.href = "/menus/dashboards/customer.html";
+    setTimeout(() => {
+        window.location.href = "/menus/dashboards/customer.html";
+    }, 1500);
+    });
 }
 
 // Call the function to fetch cart items when the page loads or when needed
