@@ -42,6 +42,29 @@ function hideModal() {
     loadingModal.hide();
 }
 
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
+
 // Function to show the password modal and handle the input
 function showPasswordModal(message, callback) {
     const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
@@ -501,28 +524,43 @@ function setupPasswordEditFunctions(user) {
             // Show modal if no edit or change was made
             showModal("There was no edit that happened. Submission Failed.", false);
         } else {
-            try {
-                // Update password in Firebase Auth
-                await updatePassword(user, newPassword);
-    
-                // Show success modal and inform user to log in again
-                showModal("You have changed your password. You need to log-in again!", true);
-    
-                // Wait for the modal to display before redirecting
-                setTimeout(() => {
-                    console.log("test");
-                    hideModal();
-                    console.log("Password successfully updated!");
-                    window.location.href = "/auth/login.html"; // Redirect to login
-                }, 3000);
-    
-                console.log("✅ Password updated successfully.");
-            } catch (error) {
-                console.error("❌ Error updating password:", error);
-            }
+            showConfirmation("Are you sure you want to change this branch's password?", async function () { 
+                try {
+                    // Update password in Firebase Auth
+                    await updatePassword(user, newPassword);
+            
+                    // Show success modal and inform user to log in again
+                    showModal("You have changed your password. You need to log in again!", true);
+            
+                    // Wait for the modal to display before redirecting
+                    setTimeout(() => {
+                        console.log("test");
+                        hideModal();
+                        console.log("Password successfully updated!");
+                        window.location.href = "/auth/login.html"; // Redirect to login
+                    }, 2500);
+            
+                    console.log("✅ Password updated successfully.");
+                } catch (error) {
+                    const errorCode = error.code;
+                    if (errorCode === 'auth/weak-password') {
+                        showModal("Password should be at least 6 characters.", false); // Firebase's default rule
+                        
+                    }
+                    console.error("❌ Error updating password:", error);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                }
+            }, function () {
+                // Reset the password field if the user cancels
+                document.getElementById("passwordInput").value = "";
+                console.log("❌ Password reset as user canceled the action.");
+            });            
         }
     
         // Disable password field after submission
         passwordInput.disabled = true;
+        newPassword = "";
     });    
 }
