@@ -291,12 +291,14 @@ async function fetchOrders(branchId) {
                                         <p><b>Name:</b> ${userFullName}</p>
                                         <p><b>Email:</b> ${userEmail}</p>
                                         <p><b>Phone:</b> ${userPhone}</p>
+                                        <p><b>Address:</b> ${userAddress}</p>
                                         <p><b>Items:</b></p>
                         
                                         ${itemsHTML}
                                         <hr style="border: 1px solid white; width: 100%">
 
                                         <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
+                                        <p><b>Estimated Time:</b> ${orderData.estimatedTime} minutes</p>
                                         <p><b>Status:</b> ${orderData.status}</p>
                                         <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
                                     </div>
