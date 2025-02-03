@@ -466,7 +466,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           finishOrder(branchId, orderId);
-          window.location.reload();
+          // Call refreshOrders to reload the orders section
+          refreshOrders();
         }
     });
 
@@ -564,4 +565,14 @@ async function getUserInfo(userEmail) {
         console.error("Error fetching user info:", error);
         return null;
     }
+}
+
+// Re-fetch and update the orders
+async function refreshOrders() {
+    const pendingOrdersAccordion = document.getElementById('pendingOrdersAccordion');
+    pendingOrdersAccordion.innerHTML = '';  // Clear the existing orders
+
+    // Your logic to fetch and display orders
+    await fetchOrders();  
+
 }
