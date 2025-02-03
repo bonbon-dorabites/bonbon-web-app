@@ -1665,6 +1665,15 @@ textarea.form-control:focus {
     transition: background-color 0.3s;
 }
 
+.action-btn.detail {
+    background-color: rgba(8, 8, 253, 0.863);
+    color: white;
+}
+
+.action-btn.detail:hover {
+    background-color: #3941af;
+}
+
 .action-btn.edit {
     background-color: #28a745;
     color: white;
@@ -1782,139 +1791,135 @@ textarea.form-control:focus {
     color: white;
 }
 
-@media screen and (max-width: 1053px){
-
-}
 
 @media screen and (max-width: 831px){
     .addEmployee-modal, .edit-modal {
-        margin: 6% auto;
+        margin: 6% auto !important;
     }
 
     .dashboard-modals, .dashboard-content {
-        margin: 8% auto;
+        margin: 6% auto !important;
     }
 
     .addEmployee-content, .edit-modal-content {
-        margin: 6% auto;
+        margin: 6% auto !important;
     }
 }
 
 @media screen and (max-width: 578px){
     .addEmployee-modal, .edit-modal, .dashboard-modals {
-        margin: 5% auto;
+        margin: 5% auto !important;
     }
 
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        margin: 8% auto;
+        margin: 8% auto !important;
     }
 }
 
 @media screen and (max-width: 741px) {
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        width: 90%;
-        max-width: 550px;
-        padding: 15px;
-        margin: 8% auto;
-        box-sizing: border-box;
-        overflow-y: auto;
-        max-height: 70vh;
+        width: 90% !important;
+        max-width: 550px !important;
+        margin: 8% auto !important;
+        box-sizing: border-box !important;
+        overflow-y: auto !important;
+        max-height: 70vh !important;
     }
 }
 
 @media screen and (max-width: 617px) {
     .addEmployee-modal, .edit-modal, .dashboard-modals {
-        margin: 8% auto;
-        overflow-y: auto;
-        height: 100%;
+        margin: 8% auto !important;
+        overflow-y: auto !important;
+        height: 100% !important;
     }
 
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        width: 85%;
-        max-width: 550px;
-        padding: 15px;
-        margin: 8% auto;
-        box-sizing: border-box;
-        max-height: 100vh;
+        width: 85% !important;
+        max-width: 550px !important;
+        padding: 15px  !important;
+        margin: 8% auto !important;
+        box-sizing: border-box !important;
+        max-height: 100vh !important;
     }
 
     .addEmployee-content h3, .edit-modal-content h3, .dashboard-content h3 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        text-align: center;
+        font-size: 18px !important;
+        margin-bottom: 10px !important;
+        text-align: center !important;
     }
 
     .addEmployee-modal form, .edit-modal form, .dashboard-modals form {
-        gap: 10px;
+        gap: 10px !important;
     }
 
     .column {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
     }
 
     .addEmployee-modal input, .edit-modal input, .addEmployee-modal select, .edit-modal select, 
     .dashboard-modals input, .dashboard-modals select {
-        width: 100%;
-        font-size: 13px;
-        padding: 7px;
-        border-radius: 4px;
+        width: 100% !important;
+        font-size: 13px !important;
+        padding: 7px !important;
+        border-radius: 4px !important;
     }
 
     label {
-        font-size: 13px;
+        font-size: 13px !important;
     }
 
     .addEmployee-content .modal-buttons, .edit-modal-content .modal-buttons, .dashboard-content .modal-buttons {
-        gap: 5px;
+        gap: 5px !important;
     }
 
     .addEmployee-content button, .edit-modal-content button, .dashboard-content button {
-        width: 100%;
-        font-size: 14px;
-        padding: 7px;
+        width: 100% !important;
+        font-size: 14px !important;
+        padding: 7px !important;
     }
 }
 
 @media screen and (max-width: 480px) {
     .addEmployee-modal, .edit-modal, .dashboard-modals {
-        margin: 8% auto;
-        overflow-y: auto;
-        height: 100%;
+        margin: 8% auto !important;
+        overflow-y: auto !important;
+        height: 100% !important;
     }
 
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        margin: 15% auto;
-        width: 85%;
-        max-width: 320px;
-        padding: 12px;
-        box-sizing: border-box;
-        max-height: 100vh;
+        margin: 15% auto !important;
+        width: 85% !important;
+        max-width: 320px !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+        max-height: 100vh !important;
     }
 
     .addEmployee-content h3, .edit-modal-content h3, .dashboard-content h3 {
-        font-size: 16px;
-        margin-bottom: 8px;
+        font-size: 16px !important;
+        margin-bottom: 8px !important;
     }
 
     .addEmployee-modal input, .edit-modal input, .addEmployee-modal select, .edit-modal select, 
     .dashboard-modals input, .dashboard-modals select {
-        font-size: 12px;
-        padding: 6px;
+        font-size: 12px !important;
+        padding: 6px !important;
     }
 
     label {
-        font-size: 12px;
+        font-size: 12px !important;
     }
 
     .addEmployee-content .modal-buttons, .edit-modal-content .modal-buttons, .dashboard-content .modal-buttons {
-        gap: 4px;
+        gap: 4px !important;
     }
 
     .addEmployee-content button, .edit-modal-content button, .dashboard-content button {
-        font-size: 13px;
-        padding: 6px;
+        font-size: 13px !important;
+        padding: 6px !important;
     }
 }
 
@@ -1924,19 +1929,19 @@ textarea.form-control:focus {
 
     .addEmployee-modal, .edit-modal, .dashboard-modals {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh; /* Ensure it takes the full screen height */
+        align-items: center !important;
+        justify-content: center !important;
+        height: 100vh !important; /* Ensure it takes the full screen height */
     }
 
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        max-height: 65vh; 
-        overflow-y: auto; /* Allow scrolling within the modal */
+        max-height: 65vh !important; 
+        overflow-y: auto !important; /* Allow scrolling within the modal */
     }
 
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        max-height: 75vh; 
-        overflow-y: auto;
+        max-height: 75vh !important; 
+        overflow-y: auto !important;
     }
 }
 

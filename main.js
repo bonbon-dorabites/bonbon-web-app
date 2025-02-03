@@ -46,6 +46,8 @@ const editModal = document.getElementById("editEmployeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 const couponModal = document.getElementById("couponsModal");
 const editCouponModal = document.getElementById("edit-couponsModal");
+const loadingCouponModal = document.getElementById("details-couponsModal");
+
 // Open modal function
 function openModal() {
   employeeModal.style.display = "block";
@@ -67,6 +69,14 @@ function openCouponModal() {
 
 function closeCouponModal() {
   couponModal.style.display = "none";
+}
+
+function openDetailsModal() {
+  loadingCouponModal.style.display = "block";
+}
+
+function closeDetailsModal() {
+  loadingCouponModal.style.display = "none";
 }
 
 function closeEditCouponModal() {
@@ -128,7 +138,7 @@ function editEmployee(button) {
   openEditModal();
 }
 
-function editCoupon(button) {
+/*function editCoupon(button) {
   let couponId, amount, startDate, endDate, description, status;
   // Check if the clicked button is in a table row or details card
   const row = button.closest("tr");
@@ -178,7 +188,7 @@ function editCoupon(button) {
     // Show the edit modal
     document.getElementById("edit-couponsModal").style.display = "block";
 
-}
+}*/
 
 // Close the modal when clicking outside of it
 window.onclick = function (event) {
