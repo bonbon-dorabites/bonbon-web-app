@@ -194,83 +194,86 @@ async function fetchOrders(branchId) {
         // Reference to the Firestore subcollection of orders inside the branch
         const ordersRef = collection(db, "branches", branchId, "orders");
 
-        // Query orders in this specific branch's orders subcollection
-        const querySnapshot = await getDocs(ordersRef);
-        if (!querySnapshot.empty) {
-            // Orders were found
-            console.log(`Found ${querySnapshot.size} orders for Branch ID: ${branchId}`);
+        // Real-time listener using onSnapshot
+        const unsubscribe = onSnapshot(ordersRef, async (querySnapshot) => {
+            if (!querySnapshot.empty) {
+                // Orders were found
+                console.log(`Found ${querySnapshot.size} orders for Branch ID: ${branchId}`);
 
-            querySnapshot.forEach(async (doc) => {
-                // Get order details
-                const orderId = doc.id;
-                const orderData = doc.data();
+                // Clear the existing orders to avoid duplicate cards
+                const ordersContainer = document.querySelector(".new-orders-container");
+                ordersContainer.innerHTML = '';
 
-              
-                
-                if(orderData.isNew) {
-                    // Fetch user information from the users collection based on the email
-                    const userEmail = orderData.user_email; // Assuming user_email field in order
-                    const userDoc = await getUserInfo(userEmail);
-                    
-                    if (userDoc) {
-                        const userData = userDoc.data();
-                        const userFullName = `${userData.firstName} ${userData.lastName}`;
-                        const userPhone = userData.phone;
-                        const userAddress = userData.address;
-    
-    
-                        // Loop through the items_bought map to display item details
-                        let itemsHTML = "";
-    
-                        for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
-                            itemsHTML += `
-                                <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P ${itemDetails.price})</p>
+                // Loop through the orders and display them
+                querySnapshot.forEach(async (doc) => {
+                    const orderId = doc.id;
+                    const orderData = doc.data();
+
+                    if(orderData.isNew) {
+                        // Fetch user information from the users collection based on the email
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                            const userPhone = userData.phone;
+                            const userAddress = userData.address;
+
+                            // Loop through the items_bought map to display item details
+                            let itemsHTML = "";
+
+                            for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                                itemsHTML += `
+                                    <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P ${itemDetails.price})</p>
+                                `;
+                            }
+
+                            // Generate the order card HTML
+                            const orderCardHTML = `
+                            <div class="order-card">
+                                <div class="order-id">Order #${orderId}</div>
+                                
+                                <div class="order-details primary-details">
+                                    ${itemsHTML}
+                                    <hr>
+                                    <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p> <!-- Displaying the calculated total price -->
+                                    <p><b>Status:</b> ${orderData.status}</p>
+                                </div>
+
+                                <div class="order-details hidden additional-details">
+                                    <p><b>Name:</b> ${userFullName}</p>
+                                    <p><b>Email:</b> ${userEmail}</p>
+                                    <p><b>Phone:</b> ${userPhone}</p>
+                                    <p><b>Address:</b> ${userAddress}</p>
+                                </div>
+
+                                <div class="order-actions">
+                                    <button class="btn btn-link view-more view-more-btn">View More</button>
+                                    <button class="btn btn-success confirm-order">✔ Confirm</button>
+                                    <button class="btn btn-danger reject-order">✘ Reject</button>
+                                </div>
+                            </div>
                             `;
+
+                            // Append the order card to the container
+                            ordersContainer.innerHTML += orderCardHTML;
                         }
-    
-                        // Generate the order card HTML
-                        const orderCardHTML = `
-                        <div class="order-card">
-                            <div class="order-id">Order #${orderId}</div>
-                            
-                            <div class="order-details primary-details">
-                                ${itemsHTML}
-                                <hr>
-                                <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p> <!-- Displaying the calculated total price -->
-                                <p><b>Status:</b> ${orderData.status}</p>
-                            </div>
-    
-                            <div class="order-details hidden additional-details">
-                                <p><b>Name:</b> ${userFullName}</p>
-                                <p><b>Email:</b> ${userEmail}</p>
-                                <p><b>Phone:</b> ${userPhone}</p>
-                                <p><b>Address:</b> ${userAddress}</p>
-                            </div>
-    
-                            <div class="order-actions">
-                                <button class="btn btn-link view-more view-more-btn">View More</button>
-                                <button class="btn btn-success confirm-order">✔ Confirm</button>
-                                <button class="btn btn-danger reject-order">✘ Reject</button>
-                            </div>
-                        </div>
-                        `;
-    
-                        // Append the order card to the container
-                        const ordersContainer = document.querySelector(".new-orders-container");
-                        ordersContainer.innerHTML += orderCardHTML;
                     }
-                
-                }
-   
-            });
-        } else {
-            console.log("No orders found for this branch.");
-        }
+
+                });
+            } else {
+                console.log("No orders found for this branch.");
+            }
+        });
+
+
+
     } catch (error) {
         console.error("Error fetching orders:", error);
     }
-
 }
+
 
 document.addEventListener("click", function (event) {
     if (event.target.classList.contains("view-more-btn")) {
