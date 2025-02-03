@@ -30,8 +30,51 @@ document.querySelectorAll(".add-to-cart").forEach(button => {
         addToOrder(itemId);
     });
 });*/
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+  
+    modalMessage.textContent = message;
+  
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+  
+    loadingModal.show();
+}
+  
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
+  
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
 
-  async function isCustomer() {
+async function isCustomer() {
     // Query the 'users' collection using the provided email
     const user = auth.currentUser;
     const userEmail = user.email;
@@ -60,23 +103,20 @@ document.addEventListener("click", async (event) => {
         const isUserCustomer = await isCustomer(); // Check if user is a customer
 
         if (!isUserCustomer) {
-            alert("Only customers can add items to the cart.");
+            showModal("Only customers can add items to the cart.", false);
             return; // Stop execution if not a customer
         }
 
         const button = event.target.closest(".add-to-cart");
         const itemId = button.id;
-        alert(itemId);
 
         const itemName = button.dataset.itemName;
-        alert(itemName);
         
         // Fetch the price from the 'items' collection using itemId
         const itemRef = doc(db, "items", itemId); // Reference to the item document
         getDoc(itemRef).then((docSnap) => {
             if (docSnap.exists()) {
                 const itemPrice = docSnap.data().item_price;
-                alert(itemPrice);
 
                 // Call function to add item to the cart with the fetched price
                 addToCart(itemId, itemName, itemPrice);
@@ -110,8 +150,6 @@ async function addToCart(itemId, itemName, itemPrice) {
     const branchSelector = document.getElementById("branch-selector");
     const branch = branchSelector.value;
     const branchId = branchMap[branch];
-    
-    alert("BRANCH ID: " + branchId);
 
     localStorage.setItem("selectedBranch", branchId);
     console.log("Selected branch stored:", branchId); // Check if it's saved
@@ -122,7 +160,6 @@ async function addToCart(itemId, itemName, itemPrice) {
     }
 
     const userId = user.uid; // Get the UID of the currently logged-in user
-    alert("USER ID: " + userId)
 
     const cartRef = doc(db, "branches", branchId, "carts", userId); // Reference to user's cart document
 
