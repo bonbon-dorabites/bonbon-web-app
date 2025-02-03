@@ -392,49 +392,66 @@
 
        
     <!-- Footer -->
-  <footer class="small-footer">
-    <p>In Partial Fulfillment for subject Web Development</p>
-  </footer>
+    <footer class="small-footer">
+        <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
     
-  <!-- Modal HTML -->
-  <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Processing</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <p id="modalMessage" style="text-align: start !important;">Please wait...</p>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal HTML -->
+    <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Processing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage" style="text-align: start !important;">Please wait...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div id="passwordModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Enter Passcode</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <p id="passwordMessage" style="text-align: start !important;">Please enter the owner's passcode:</p>
-                  <input type="password" id="passwordInput" class="form-control" placeholder="Enter passcode">
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary" id="submitPasswordBtn">Submit</button>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div id="passwordModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter Passcode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="passwordMessage" style="text-align: start !important;">Please enter the owner's passcode:</p>
+                    <input type="password" id="passwordInput" class="form-control" placeholder="Enter passcode">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitPasswordBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationTitle">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmationMessage">Are you sure you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script src="../../main.js"></script>
-  <script type="module" src="./js/coupons.js"></script>
-  <script type="module" src="../../index.js" defer></script>
+    <script src="../../main.js"></script>
+    <script type="module" src="./js/coupons.js"></script>
+    <script type="module" src="../../index.js" defer></script>
 </body>
 </html>

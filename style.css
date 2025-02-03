@@ -1835,7 +1835,7 @@ textarea.form-control:focus {
         padding: 15px;
         margin: 8% auto;
         box-sizing: border-box;
-        max-height: 70vh;
+        max-height: 100vh;
     }
 
     .addEmployee-content h3, .edit-modal-content h3, .dashboard-content h3 {
@@ -1878,17 +1878,19 @@ textarea.form-control:focus {
 }
 
 @media screen and (max-width: 480px) {
-    .permission-container {
-        flex-direction: column;
-        align-items: flex-start;
+    .addEmployee-modal, .edit-modal, .dashboard-modals {
+        margin: 8% auto;
+        overflow-y: auto;
+        height: 100%;
     }
 
     .addEmployee-content, .edit-modal-content, .dashboard-content {
-        width: 95%;
+        margin: 15% auto;
+        width: 85%;
         max-width: 320px;
         padding: 12px;
         box-sizing: border-box;
-        max-height: 75vh;
+        max-height: 100vh;
     }
 
     .addEmployee-content h3, .edit-modal-content h3, .dashboard-content h3 {
@@ -1915,6 +1917,8 @@ textarea.form-control:focus {
         padding: 6px;
     }
 }
+
+
 
 @media screen and (max-height: 600px) {
 

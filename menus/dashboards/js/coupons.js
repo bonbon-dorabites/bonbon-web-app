@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs, Timestamp, setDoc } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs, getDoc, Timestamp, setDoc } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB2ACxlgsaO0_E2zA1zsPEntCXOIHaG21I",
@@ -160,31 +160,33 @@ async function addCoupon() {
         return;
     }
 
-    try {
-        // Convert date input to Firestore Timestamp
-        const startTimestamp = Timestamp.fromDate(new Date(startDate));
-        const endTimestamp = Timestamp.fromDate(new Date(endDate));
-
-        // Firestore reference to "coupons" collection
-        const couponRef = doc(db, "coupons", couponId);
-
-        // Add data to Firestore
-        await setDoc(couponRef, {
-            coup_amount: parseFloat(amountCoupon),
-            coup_start: startTimestamp,
-            coup_end: endTimestamp,
-            coup_desc: description,
-            coup_isActive: status
-        });
-
-        showModal("Coupon added successfully!", true);
-        closeCouponModal(); // Close modal after successful save
-        location.reload();
-        
-    } catch (error) {
-        showModal("Failed to add coupon.", false);
-        console.error("Error adding coupon:", error);
-    }
+    showConfirmation("Are you sure you want to add this coupon?", async function () {
+        try {
+            // Convert date input to Firestore Timestamp
+            const startTimestamp = Timestamp.fromDate(new Date(startDate));
+            const endTimestamp = Timestamp.fromDate(new Date(endDate));
+    
+            // Firestore reference to "coupons" collection
+            const couponRef = doc(db, "coupons", couponId);
+    
+            // Add data to Firestore
+            await setDoc(couponRef, {
+                coup_amount: parseFloat(amountCoupon),
+                coup_start: startTimestamp,
+                coup_end: endTimestamp,
+                coup_desc: description,
+                coup_isActive: status
+            });
+    
+            showModal("Coupon added successfully!", true);
+            closeCouponModal(); // Close modal after successful save
+            location.reload();
+            
+        } catch (error) {
+            showModal("Failed to add coupon.", false);
+            console.error("Error adding coupon:", error);
+        }
+    });
 }
 
     // Event listener for the save button
@@ -199,119 +201,171 @@ async function addCoupon() {
         saveBtn.addEventListener('click', updateCoupon);
     });
 
-    // Update Coupon
+// Update Coupon
 
-    async function updateCoupon() {
-        const oldCouponId = document.getElementById("edit-doc-old-id").value.trim(); // Store old ID
-        const newCouponId = document.getElementById("edit-couponId").value.trim();
-        const amount = document.getElementById("edit-amountCoupon").value.trim();
-        const startDate = document.getElementById("edit-startDate").value.trim();
-        const endDate = document.getElementById("edit-endDate").value.trim();
-        const description = document.getElementById("edit-description").value.trim();
-        const status = document.getElementById("edit-status").value.trim();
-    
-        if (!newCouponId) {
-            console.error("Error: Coupon ID is missing.");
-            showModal("Ooops! Coupon ID is missing. Operation failed.", false);
+document.getElementById("save-editCoupon").addEventListener("click", updateCoupon);
+
+async function updateCoupon() {
+    const oldCouponId = document.getElementById("edit-doc-old-id").value.trim();
+    const newCouponId = document.getElementById("edit-couponId").value.trim();
+    const amount = parseFloat(document.getElementById("edit-amountCoupon").value.trim()) || 0;
+    const startDate = document.getElementById("edit-startDate").value.trim();
+    const endDate = document.getElementById("edit-endDate").value.trim();
+    const description = document.getElementById("edit-description").value.trim();
+    const status = document.getElementById("edit-status").value.trim() === "Active"; // Convert to boolean
+
+    if (!newCouponId) {
+        showModal("Ooops! Coupon ID is missing. Operation failed.", false);
+        return;
+    }
+
+    try {
+        console.log("Fetching existing coupon data for ID:", oldCouponId);
+        const existingCouponRef = doc(db, "coupons", oldCouponId);
+        const existingCouponSnap = await getDoc(existingCouponRef);
+
+        if (!existingCouponSnap.exists()) {
+            showModal("Coupon does not exist.", false);
             return;
         }
-    
-        try {
-            const couponData = {
-                coup_amount: parseFloat(amount) || 0,
-                coup_start: startDate ? Timestamp.fromDate(new Date(startDate)) : null,
-                coup_end: endDate ? Timestamp.fromDate(new Date(endDate)) : null,
-                coup_desc: description,
-                coup_isActive: status.toLowerCase() === "active"
-            };
-    
-            if (oldCouponId === newCouponId) {
-                // ID hasn't changed, just update the existing document
-                const couponRef = doc(db, "coupons", newCouponId);
-                await updateDoc(couponRef, couponData);
-            } else {
-                // ID has changed: delete old doc, create new one
-                const oldCouponRef = doc(db, "coupons", oldCouponId);
-                const newCouponRef = doc(db, "coupons", newCouponId);
-    
-                await deleteDoc(oldCouponRef); // Remove old document
-                await setDoc(newCouponRef, couponData); // Create new document with new ID
+
+        const existingCouponData = existingCouponSnap.data();
+
+        // Convert Firestore Timestamp (MM/DD/YYYY) to `YYYY-MM-DD`
+        const formatTimestampToDate = (timestamp) => {
+            if (timestamp && timestamp.toDate) {
+                const date = timestamp.toDate();
+                return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
             }
-    
-            console.log("Coupon updated successfully!");
-            showModal("Coupon updated successfully!",true);
-    
-            closeEditCouponModal();
-            location.reload();
-    
-        } catch (error) {
-            console.error("Error updating coupon:", error);
-            showModal("Failed to updated coupon.",false);
+            return null;
+        };
+
+        // Normalize existing Firestore data
+        const formattedExistingCouponData = {
+            coup_amount: parseFloat(existingCouponData.coup_amount) || 0, // Ensure number
+            coup_start: formatTimestampToDate(existingCouponData.coup_start), // Convert to YYYY-MM-DD
+            coup_end: formatTimestampToDate(existingCouponData.coup_end),
+            coup_desc: (existingCouponData.coup_desc || "").trim(), // Trim string
+            coup_isActive: Boolean(existingCouponData.coup_isActive) // Ensure boolean
+        };
+
+        console.log("Existing Coupon Data:", formattedExistingCouponData);
+
+        // Normalize input data
+        const newCouponData = {
+            coup_amount: amount,
+            coup_start: startDate || null, // YYYY-MM-DD format
+            coup_end: endDate || null,
+            coup_desc: description, // Already trimmed
+            coup_isActive: status
+        };
+
+        console.log("New Coupon Data:", newCouponData);
+
+        // Compare changes
+        const isChanged = Object.keys(newCouponData).some(
+            key => newCouponData[key] !== formattedExistingCouponData[key]
+        );
+
+        console.log("Changes Detected:", isChanged);
+
+        if (!isChanged) {
+            showModal("No edits were made.", false);
+            return;
         }
+
+        // Show confirmation only if changes were detected
+        showConfirmation("Are you sure you want to save your edits to this coupon?", async function () {
+            try {
+                const couponDataToUpdate = {
+                    coup_amount: amount,
+                    coup_start: startDate ? Timestamp.fromDate(new Date(startDate)) : null,
+                    coup_end: endDate ? Timestamp.fromDate(new Date(endDate)) : null,
+                    coup_desc: description,
+                    coup_isActive: status
+                };
+
+                if (oldCouponId === newCouponId) {
+                    await updateDoc(existingCouponRef, couponDataToUpdate);
+                } else {
+                    // ID changed, delete old doc and create new one
+                    await deleteDoc(existingCouponRef);
+                    await setDoc(doc(db, "coupons", newCouponId), couponDataToUpdate);
+                }
+
+                console.log("Coupon updated successfully!");
+                showModal("Coupon updated successfully!", true);
+                closeEditCouponModal();
+                location.reload();
+
+            } catch (error) {
+                console.error("Error updating coupon:", error);
+                showModal("Failed to update coupon.", false);
+            }
+        });
+
+    } catch (error) {
+        console.error("Error checking coupon changes:", error);
+        showModal("An error occurred while checking changes.", false);
     }
+}
+
+
+async function deleteCoupon(button) {
+    console.log("delete");
+
+    let couponId, row, detailsCard, detailsContainer;
+
+    // Check if the button is inside a table row or details card
+    row = button.closest("tr");
+    detailsCard = button.closest(".details-card");
+
+    if (row) {
+        // If deleting from the table
+        couponId = row.cells[0].textContent;
+    } else if (detailsCard) {
+        // If deleting from the details card
+        const initialsDiv = detailsCard.querySelector(".initials");
+        couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
+
+        detailsContainer = detailsCard.closest(".details"); // Get the parent container
+    } else {
+        console.error("Could not find the row or details card.");
+        return;
+    }
+
+
+    // Confirm before deleting
+    showConfirmation("Are you sure you want to delete this coupon?", async function () {
+    try {
+        // Get reference to the employee document in Firestore
+        const couponRef = doc(db, "coupons", couponId);
+
+        // Delete the employee document from Firestore
+        await deleteDoc(couponRef);
+
+        console.log("Coupon deleted successfully!");
+
+        // Remove the row or details card from the UI
+        if (row) {
+            row.remove();
+        }
+        if (detailsCard) {
+            detailsCard.remove();
+            // If the details container is now empty, remove it too
+            if (detailsContainer && detailsContainer.childElementCount === 0) {
+                detailsContainer.remove();
+            }
+        }
+
+        showModal("Coupon deleted successfully!", true);
+    } catch (error) {
+        console.error("Error deleting coupon:", error.message);
+        showModal("Failed to delete coupon.", false );
+        console.error(error.stack);
+    }
+    });
+}
     
- async function deleteCoupon(button) {
-     console.log("delete");
- 
-     let couponId, row, detailsCard, detailsContainer;
- 
-     // Check if the button is inside a table row or details card
-     row = button.closest("tr");
-     detailsCard = button.closest(".details-card");
- 
-     if (row) {
-         // If deleting from the table
-         couponId = row.cells[0].textContent;
-     } else if (detailsCard) {
-         // If deleting from the details card
-         const initialsDiv = detailsCard.querySelector(".initials");
-         couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
-
-         detailsContainer = detailsCard.closest(".details"); // Get the parent container
-     } else {
-         console.error("Could not find the row or details card.");
-         return;
-     }
-
- 
-     // Confirm before deleting
-     const confirmDelete = confirm("Are you sure you want to delete this coupon?");
-     
-     if (confirmDelete) {
-         try {
-             // Get reference to the employee document in Firestore
-             const couponRef = doc(db, "coupons", couponId);
- 
-             // Delete the employee document from Firestore
-             await deleteDoc(couponRef);
- 
-             console.log("Coupon deleted successfully!");
- 
-             // Remove the row or details card from the UI
-             if (row) {
-                 row.remove();
-             }
-             if (detailsCard) {
-                 detailsCard.remove();
-                 // If the details container is now empty, remove it too
-                 if (detailsContainer && detailsContainer.childElementCount === 0) {
-                     detailsContainer.remove();
-                 }
-             }
- 
-             showModal("Coupon deleted successfully!", true);
-         } catch (error) {
-             console.error("Error deleting coupon:", error.message);
-             showModal("Failed to delete coupon.", false );
-             console.error(error.stack);
-         }
-     } else {
-         console.log("Employee deletion canceled.");
-     }
- }
-    
-
-
-
-    // Call fetchData when the page loads
-    document.addEventListener("DOMContentLoaded", fetchData);
+// Call fetchData when the page loads
+document.addEventListener("DOMContentLoaded", fetchData);
