@@ -62,7 +62,6 @@ function showConfirmation(message, callback) {
 
 // Function to search users based on the fields (first name, last name, email, phone)
 document.getElementById('search').addEventListener('input', searchUsers);
-document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
 
 // Fetch data from Firestore and populate the table
 async function fetchData() {
