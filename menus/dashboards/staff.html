@@ -9,7 +9,70 @@
     <link rel="stylesheet" href="/style.css">
     <title>Staff Dashboard</title>
     <style>
-    
+
+        .new-orders-container {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .order-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-details {
+            width: 100%;
+        }
+
+        .primary-details {
+            padding: 15px;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            background-color: #edb868;
+            justify-content: flex-end;
+            padding: 10px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .order-actions .btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .order-id {
+            background-color: #edb868;
+            padding: 5px 10px;
+            font-weight: bold;
+            width: auto;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            font-size: large;
+        }
+
+        /* Styling for the additional details */
+        .additional-details {
+            padding: 10px;
+            padding-top: 20px;
+            background-color: #edb868;
+            width: 100%;
+        }
+
         @media (max-width: 768px) {
             .stock-update h3 {
                 font-size: 1.6rem; /* Slightly smaller font */
@@ -285,6 +348,42 @@
         </section>
 
         <div class="dashboard-line"></div>
+        <!-- New Orders Section -->
+        <section class="new-orders mt-4">
+            <div class="new-orders-container mt-4">
+                <h2>New Orders</h2>
+            
+                <!-- Order Card -->
+                <div class="order-card">
+                    <div class="order-id">Order #12345</div> <!-- Order ID here -->
+                    <!-- Basic Order Details -->
+                    <div class="order-details primary-details">
+                        <p><b>1 x Breaded Chicken Tenders</b> (€ 10.00)</p>
+                        <p><b>1 x Coca-Cola 330ml</b> (€ 2.00)</p>
+                        <hr>
+                        <p><b>Total:</b> € 15.00</p>
+                        <p><b>Status:</b> Not Paid</p>
+                    </div>
+                    
+                    <!-- Additional Details (hidden by default) -->
+                    <div class="order-details hidden additional-details">
+                        <p><b>Name:</b> John Doe</p>
+                        <p><b>Email:</b> example@gmail.com</p>
+                        <p><b>Phone:</b> +63 912 345 6789</p>
+                        <p><b>Address:</b> 123 Main Street, Valenzuela City, Philippines</p>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="order-actions">
+                        <button class="btn btn-link view-more">View More</button>
+                        <button class="btn btn-success confirm-order">✔ Confirm</button>
+                        <button class="btn btn-danger reject-order">✘ Reject</button>
+                    </div>
+                </div>
+                
+
+        </section>
+        <div class="dashboard-line"></div>
         
         <!-- Pending Orders Section -->
         <section class="pending-orders mt-4">
@@ -422,5 +521,6 @@
     <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
     <script type="module" src="/menus/dashboards/js/staff.js" defer></script>
+    <script src="/main.js"></script>
 </body>
 </html>

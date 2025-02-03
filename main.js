@@ -17,6 +17,21 @@ headers.forEach(header => {
 });
 
 
+document.querySelectorAll('.view-more').forEach(button => {
+  button.addEventListener('click', function () {
+      // Select the additional details section
+      const additionalDetails = this.closest('.order-card').querySelector('.order-details.hidden') || 
+                                this.closest('.order-card').querySelector('.order-details:not(.primary-details)');
+
+      if (additionalDetails) {
+          additionalDetails.classList.toggle('hidden'); // Toggle the visibility of additional details
+          
+          // Update button text based on visibility
+          this.textContent = additionalDetails.classList.contains('hidden') ? 'View More' : 'View Less';
+      }
+  });
+});
+
 
   
 // Get modal and form elements
