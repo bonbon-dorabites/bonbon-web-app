@@ -19,6 +19,50 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+  
+    modalMessage.textContent = message;
+  
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+  
+    loadingModal.show();
+}
+  
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
+  
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const checkoutForm = document.getElementById("checkout-form");
     const orderSection = document.getElementById("order");
@@ -63,12 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasItems = await hasItemsInCart();
 
         if (!customer) {
-            alert("You must be a customer to proceed with checkout.");
+            showModal("You must be a customer to proceed with checkout.", false);
             return;
         }
 
         if (!hasItems) {
-            alert("Your cart is empty. Please add items before checking out.");
+            showModal("Your cart is empty. Please add items before checking out.", false);
             return;
         }
 
@@ -489,7 +533,7 @@ async function applyCoupon(userEmail) {
     const couponCode = document.getElementById("coupon-code").value.trim();
     
     if (!couponCode) {
-        alert("Please enter a coupon code.");
+        showModal("Please enter a coupon code.", false);
         return;
     }
 
@@ -497,7 +541,7 @@ async function applyCoupon(userEmail) {
     const branchId = localStorage.getItem("selectedBranch");
     console.log(branchId);
     if (!branchId) {
-        alert("Please select a branch.");
+        showModal("Please select a branch.", false);
         return;
     }
 
@@ -506,7 +550,7 @@ async function applyCoupon(userEmail) {
     const userSnapshot = await getDocs(userQuery);
 
     if (userSnapshot.empty) {
-        alert("User not found.");
+        console.log("User not found.");
         return;
     }
 
@@ -520,7 +564,7 @@ async function applyCoupon(userEmail) {
     const couponSnap = await getDoc(couponRef);
 
     if (!couponSnap.exists()) {
-        alert("Invalid coupon.");
+        showModal("Invalid coupon entered.", false);
         return;
     }
 
@@ -528,7 +572,7 @@ async function applyCoupon(userEmail) {
 
     // 🔹 Check if coupon is already used
     if (usedCoupons.includes(couponCode)) {
-        alert("You have already used this coupon.");
+        showModal("You have already used this coupon.", false);
         return;
     }
 
@@ -541,17 +585,17 @@ async function applyCoupon(userEmail) {
 
     // 🔹 Validate the coupon requirements
     if (couponData.min_order && subtotal < couponData.min_order) {
-        alert(`Minimum order of ₱${couponData.min_order} required to use this coupon.`);
+        showModal("Minimum order of ₱${couponData.min_order} required to use this coupon.", false);
         return;
     }
 
     if (couponData.first_time_users_only && orderCount > 0) {
-        alert("This coupon is only available for first-time customers.");
+        showModal("This coupon is only available for first-time customers.", false);
         return;
     }
 
     if (couponData.applicable_branches && !couponData.applicable_branches.includes(branchId)) {
-        alert("This coupon is not valid for the selected branch.");
+        showModal("This coupon is not valid for the selected branch.", false);
         return;
     }
 
@@ -564,7 +608,7 @@ async function applyCoupon(userEmail) {
     document.getElementById("discount-amount").textContent = `P${discountAmount.toFixed(2)}`;
     document.getElementById("total-price").textContent = `P${newTotal.toFixed(2)}`;
 
-    alert(`Coupon applied! You saved ₱${discountAmount.toFixed(2)}. New total: ₱${newTotal.toFixed(2)}`);
+    showModal(`Coupon applied! You saved ₱${discountAmount.toFixed(2)}. New total: ₱${newTotal.toFixed(2)}`, true);
     
     // Save the applied coupon temporarily to the user's document
     await setDoc(doc(db, "users", userDoc.id), {
@@ -594,7 +638,7 @@ async function checkout() {
     const userSnapshot = await getDocs(userQuery);
 
     if (userSnapshot.empty) {
-        alert("User not found.");
+        showModal("User not found.", false);
         return;
     }
 
@@ -623,8 +667,6 @@ async function checkout() {
      const branchId = localStorage.getItem("selectedBranch");
      const cartRef = doc(db, "branches", branchId, "carts", userId);
      const cartSnapshot = await getDoc(cartRef);
-
-     alert(branchId);
 
     if (!cartSnapshot.exists()) {
         console.log("Cart not found.");
@@ -674,7 +716,7 @@ async function checkout() {
     // Set the order document
     await setDoc(newOrderRef, orderData);
 
-    alert("Order created successfully!");
+    showModal("Order created successfully!", true);
    
     await updateDoc(cartRef, { 
         items_inCart: {} // Clear the items_inCart after checkout
