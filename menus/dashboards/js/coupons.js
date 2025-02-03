@@ -147,9 +147,18 @@ async function fetchData() {
         document.querySelectorAll('.edit').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.stopImmediatePropagation();
+                let couponId;
                 const row = e.currentTarget.closest("tr");
-                if (!row) return;
-                const couponId = row.getAttribute("edit-doc-old-id");
+                const detailsCard = e.currentTarget.closest(".details-card");
+
+                if (row) {
+                    couponId = row.getAttribute("edit-doc-old-id");
+                } else if (detailsCard) {
+                    // Get coupon ID from the `.initials` div
+                    const initialsDiv = detailsCard.querySelector(".initials");
+                    couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
+                }
+                
                 document.getElementById("edit-couponsModal").style.display = 'block';
                 editCoupon(couponId);
             });
@@ -165,9 +174,18 @@ async function fetchData() {
         document.querySelectorAll('.detail').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.stopImmediatePropagation();
+                let couponId;
                 const row = e.currentTarget.closest("tr");
-                if (!row) return;
-                const couponId = row.getAttribute("edit-doc-old-id");
+                const detailsCard = e.currentTarget.closest(".details-card");
+
+                if (row) {
+                    couponId = row.getAttribute("edit-doc-old-id");
+                } else if (detailsCard) {
+                    // Get coupon ID from the `.initials` div
+                    const initialsDiv = detailsCard.querySelector(".initials");
+                    couponId = initialsDiv ? initialsDiv.textContent.trim() : "";
+                }
+                
                 document.getElementById("details-couponsModal").style.display = 'block';
                 showCoupon(couponId);
             });
