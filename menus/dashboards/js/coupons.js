@@ -85,7 +85,7 @@ async function fetchData() {
 
             row.innerHTML = `
                 <td>${couponId || "N/A"}</td>
-                <td>${data.coup_amount || "N/A"}</td>
+                <td>Php${data.coup_amount || "N/A"}.00</td>
                 <td>${data.coup_desc || "N/A"}</td>
                 <td>${status}</td>
                 <td>
