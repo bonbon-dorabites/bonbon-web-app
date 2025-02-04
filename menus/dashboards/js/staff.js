@@ -298,7 +298,7 @@ async function fetchOrders(branchId) {
                                         <hr style="border: 1px solid white; width: 100%">
 
                                         <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
-                                        <p><b>Estimated Time:</b> <span id="timer${orderId}">${orderData.estimatedTime} minutes</span></p>
+                                        <p><b>Estimated Time:</b> ${orderData.estimatedTime} minutes</span></p>
                                         <p><b>Status:</b> ${orderData.status}</p>
                                         <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
                                     </div>
@@ -624,38 +624,3 @@ async function refreshOrders() {
     await fetchOrders();  
 
 }
-
-function startCountdown(orderId, estimatedTimeInMinutes) {
-    const timerElement = document.getElementById(`timer${orderId}`);
-    let remainingTime = estimatedTimeInMinutes * 60; // Convert to seconds
-
-    // Check if there's a saved remaining time in localStorage
-    const savedTime = localStorage.getItem(`order_${orderId}_timer`);
-    if (savedTime) {
-        remainingTime = parseInt(savedTime, 10); // Use the saved time
-    }
-
-    // Update the timer every second
-    const timerInterval = setInterval(() => {
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = remainingTime % 60;
-        
-        // Display the remaining time in minutes:seconds format
-        timerElement.textContent = `${minutes}m ${seconds}s`;
-
-        remainingTime--;
-
-        // Save the remaining time to localStorage every second
-        localStorage.setItem(`order_${orderId}_timer`, remainingTime);
-
-        // When the timer reaches zero, stop the countdown and show a message
-        if (remainingTime < 0) {
-            clearInterval(timerInterval);
-            timerElement.textContent = "Time's up!";
-            localStorage.removeItem(`order_${orderId}_timer`); // Optionally remove timer state
-            // You can also change order status or trigger any other actions here
-            console.log(`Order #${orderId} time is up.`);
-        }
-    }, 1000);
-}
-
