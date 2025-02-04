@@ -1614,6 +1614,12 @@ textarea.form-control:focus {
     background-color: #c82333;
 }
 
+.change-status-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 /* Modal Styling */
 .addEmployee-modal, .edit-modal,
 .dashboard-modals {

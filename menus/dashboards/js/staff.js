@@ -260,9 +260,14 @@ async function fetchOrders(branchId) {
                             ordersContainer.innerHTML += orderCardHTML;
                         }
                     } else if (orderData.isAccepted && orderData.isFinished === false) {
+
+                        // Empty the finished orders container before adding new content
+                        const pendingOrdersContainer = document.getElementById('pendingOrdersAccordion');
+                        pendingOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
                          // Generate the accordion item for accepted orders
                          const userEmail = orderData.user_email; // Assuming user_email field in order
                          const userDoc = await getUserInfo(userEmail);
+                         
                         
                          if (userDoc) {
                             const userData = userDoc.data();
@@ -299,7 +304,11 @@ async function fetchOrders(branchId) {
 
                                         <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
                                         <p><b>Estimated Time:</b> ${orderData.estimatedTime} minutes</span></p>
-                                        <p><b>Status:</b> ${orderData.status}</p>
+                                        <p><b>Status:</b> <span id="orderStatus${orderId}">${orderData.status}</span></p>
+                                        <div class="change-status-btns">
+                                            <button class="btn btn-secondary undo-status" id="undoStatus${orderId}" style="display: none;"><i class="fa fa-arrow-left"></i></button> <!-- Undo button, initially hidden -->
+                                            <button class="btn btn-warning" id="toggleStatus${orderId}">Change Status</button> <!-- Status toggle button -->
+                                        </div>
                                         <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
                                     </div>
                                 </div>
@@ -309,8 +318,7 @@ async function fetchOrders(branchId) {
 
                             // Append the accordion item to the accordion container
                             pendingOrdersAccordion.innerHTML += accordionItemHTML;
-                                                        
-                            startCountdown(orderId, orderData.estimatedTime);
+                                                    
                         } 
                     } else if (orderData.isFinished) {
                         console.log("ISFINISHED");
@@ -337,7 +345,7 @@ async function fetchOrders(branchId) {
                                 <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
                                     <div class="accordion-body feedback-status">
                                         <p><b>Name:</b> ${userFullName}</p>
-                                        <p><b>Status:</b> Paid</p>
+                                        <p><b>Status:</b> ${orderData.status}</p>
                                         <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
                                     </div>
                                 </div>
@@ -364,6 +372,52 @@ async function fetchOrders(branchId) {
         console.error("Error fetching orders:", error);
     }
 }
+
+
+document.addEventListener('click', async function(event) {
+    if (event.target.classList.contains('btn-warning')) {
+        const orderCard = event.target.closest('.accordion-item');
+        const orderId = orderCard.querySelector('.pending-order-id').textContent.split(":")[1].trim();
+        console.log(orderId);
+        const orderStatusSpan = document.querySelector(`#orderStatus${orderId}`);
+        const currentStatus = orderStatusSpan.textContent;
+
+        const previousStatus = currentStatus; // Store the current status as the previous status
+        let newStatus;
+
+        // Toggle between statuses
+        if (currentStatus === 'Accepted') {
+            newStatus = 'Making';
+        } else if (currentStatus === 'Making') {
+            newStatus = 'Out for Delivery';
+        } else if (currentStatus === 'Out for Delivery') {
+            newStatus = 'Accepted';
+        }
+
+        // Update the displayed status in the UI
+        orderStatusSpan.textContent = newStatus;
+
+        // Show the Undo button
+        const undoButton = document.querySelector(`#undoStatus${orderId}`);
+        undoButton.style.display = 'inline-block';
+
+        // Store the previous status for potential undo
+        orderCard.dataset.previousStatus = previousStatus;
+        // Get branch ID dynamically
+        const branchButton = document.getElementById("staff-branch");
+        const branch = branchButton.textContent;
+        const branchId = reversedBranchMaps[branch];
+        console.log(branchId);
+        
+        const orderRef = doc(db, `branches/${branchId}/orders/${orderId}`);
+
+        await updateDoc(orderRef, {
+            status: newStatus
+        });
+
+        console.log(`Order #${orderId} status updated to "${newStatus}"`);
+    }
+});
 
 
 document.addEventListener("click", function (event) {
@@ -493,6 +547,7 @@ async function confirmOrder(orderId, minutes, orderCard) {
         await updateDoc(orderRef, {
             isAccepted: true,
             isNew: false,
+            status: "Accepted",
             estimatedTime: parseInt(minutes, 10) // Add estimated time
         });
 
@@ -581,7 +636,8 @@ async function finishOrder(branchId, orderId) {
 
            // Mark the order as finished in the orders collection
            await updateDoc(orderRef, {
-               isFinished: true
+               isFinished: true,
+               status: "Paid"
            });
 
            alert(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
