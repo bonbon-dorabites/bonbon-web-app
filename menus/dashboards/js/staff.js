@@ -473,10 +473,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const minutes = inputMinutes.value;
             if (minutes) {
                 console.log(`Order confirmed with an estimated time of ${minutes} minutes.`);
+                showModal(`Order confirmed with an estimated time of ${minutes} minutes.`, true);
                 modal.style.display = "none";
                 confirmOrder(orderId, minutes, orderCard, modal);
             } else {
-                alert("Please input or select an estimated time.");
+                showModal("Please input or select an estimated time.", false);
             }
         });
 
@@ -489,12 +490,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
     document.querySelector(".accordion").addEventListener("click", function (event) {
         if (event.target.classList.contains("finish-the-order")) {
-           alert("ORDER FINISHED");
+           showModal("Order is delivered.", true);
           // Find the closest accordion item
           const accordionItem = event.target.closest(".accordion-item");
 
           if (!accordionItem) {
-              alert("Error: Unable to find order details.");
+              showModal("Error: Unable to find order details.", false);
               return;
           }
 
@@ -502,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const orderIdElement = accordionItem.querySelector(".pending-order-id");
 
           if (!orderIdElement) {
-              alert("Error: Order ID not found.");
+              showModal("Error: Order ID not found.", false);
               return;
           }
 
@@ -510,16 +511,14 @@ document.addEventListener("DOMContentLoaded", () => {
           const orderIdText = orderIdElement.textContent.trim();
           const orderId = orderIdText.replace("ORDER ID:", "").trim(); // Remove "ORDER ID: " part
 
-          alert("ORDER ID: " + orderId);
           // Get branch ID dynamically
           const branchButton = document.getElementById("staff-branch");
           const branch = branchButton.textContent;
           const branchId = reversedBranchMaps[branch];
 
-          alert("BRANCH ID: " + branchId);
 
           if (!orderId || !branchId) {
-              alert("Order ID or Branch ID is missing!");
+              showModal("Oops! The order with which you wish to proceed has no Order ID and Branch Id on the database.");
               return;
           }
 
@@ -532,12 +531,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function confirmOrder(orderId, minutes, orderCard) {
-    alert("HI: " + orderId);
     const branchButton = document.getElementById("staff-branch");
 
     const branch = branchButton.textContent;
     const branchId = reversedBranchMaps[branch];
-    alert("BRANCH ID: " + branchId);
     
     try {
         // Firestore reference to the order document
@@ -555,7 +552,7 @@ async function confirmOrder(orderId, minutes, orderCard) {
 
     } catch (error) {
         console.error("Error updating order:", error);
-        alert("Failed to confirm the order. Please try again.");
+        showModal("Failed to confirm the order. Please try again.", false);
     }
  
 
@@ -582,7 +579,7 @@ async function rejectOrder(orderId) {
             console.log(`Order ${orderId} has been rejected.`);
         } catch (error) {
             console.error("Error rejecting order:", error);
-            alert("Failed to reject the order. Please try again.");
+            showModal("Failed to reject the order. Please try again.", false);
         }
     } else {
         console.log("Order rejection canceled.");
@@ -640,13 +637,13 @@ async function finishOrder(branchId, orderId) {
                status: "Paid"
            });
 
-           alert(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
+           showModal(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
        } else {
-           alert(`Order ${orderId} not found.`);
+           alert(`Order ${orderId} not found.`, true);
        }
     } catch (error) {
         console.error("Error updating order:", error);
-        alert("Failed to finish the order. Please try again.");
+        showModal("Failed to finish the order. Please try again.", false);
     }
 }
 

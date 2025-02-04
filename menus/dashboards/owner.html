@@ -114,7 +114,13 @@
                           <li><a class="dropdown-item" href="/auth/login.html">Login</a></li>
                       </span>
                       <span id="edit-menu">
-                          <li><a class="dropdown-item" href="/menus/user-details.html">Edit Details</a></li>
+                          <li><a class="dropdown-item" href="/menus/user-details.html">Details</a></li>
+                      </span>
+                      <span id="emp-edit-menu">
+                          <li><a class="dropdown-item"  >Details</a></li>
+                      </span>
+                      <span id="owner-edit-menu">
+                          <li><a class="dropdown-item" href="/menus/owner-details.html">Details</a></li>
                       </span>
                       <span id="logout-menu">
                           <li><a class="dropdown-item">Log-out</a></li>
@@ -178,15 +184,84 @@
         </div>
         <div class="dashboard-line"></div> <!-- Separator Line -->
 
+        <form id="signupForm" method="post" class="form-table">
+                <div class="flatten">
+                    <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
+                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                        &nbsp;Manage Employee Accounts
+                    </h2>
+                </div>
+                
+            
+                <!-- Dropdown for Branch Selection -->
+                <div class="login-credential">
+                    <div class="branch w-100"><br><br>
+                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                            &nbsp;Branch
+                        </h3>
+                        <select id="branchSelect" class="form-control" required>
+                            <option value="" disabled selected>Select a branch</option>
+                            <!-- Dynamically populated with branches from Firestore -->
+                        </select>
+                    </div>
+                    <div class="role w-100"><br><br>
+                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                            &nbsp;Role
+                        </h3>
+                        <select id="role" class="form-control" disabled required>
+                            <option value="" disabled selected>Select a Role</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <br>
+                
+                <div class="login-emp login-credential" style="display: none;">
+                    <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                        &nbsp;Email
+                    </h3>
+                    <div class="email-container d-flex">
+                        <div class="email-input-wrapper">
+                            <span class="email-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                                </svg>
+                            </span>
+                            <input type="email" class="form-control email-input" id="branch-email" placeholder="Email" disabled required style="color: rgb(110, 106, 106);">
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Has Access Radio Buttons -->
+                    <div class="has-access-wrapper d-flex align-items-center">
+                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 20px;">
+                            &nbsp;Toggle Access
+                        </h3>
+                        <div class="radio-group d-flex">
+                            <label for="allow-access" style="margin-right: 15px;">
+                                <input type="radio" id="allow-access" name="access" value="allow" style="margin-right: 5px;">
+                                Allow
+                            </label>
+                            <label for="decline-access">
+                                <input type="radio" id="decline-access" name="access" value="decline" style="margin-right: 5px;">
+                                Decline
+                            </label>
+                        </div>
+                    </div>
+                </div><br>
+            </form><br><hr class="line" style="color: white;">
+
         <div class="staff-management-container">
-            <h2 class="staff-management-title">Staff Management</h2>
+            <h2 class="staff-management-title">Employee Management</h2>
             <div class="header-row">
 
                 <button onclick="openModal()">Add Employee</button>
-                <div class="search">
-                    <input type="text" id="search" placeholder="Search staff...">
-                    <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
-                </div>
+            
             </div>
 
                 <table id="employee-table" class="staff-management-table">
@@ -194,7 +269,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Branch</th>
-                            <th>Permission</th>
                             <th>Position</th>
                             <th>Contact Number</th>
                             <th>Email</th>
@@ -216,7 +290,7 @@
         <div class="dashboard-line"></div> <!-- Separator Line -->
 
         <div class="user-management-container">
-          <h2 class="staff-management-title">User Management</h2>
+          <h2 class="staff-management-title">Customer Information</h2>
           <div class="header-row">
 
               <div class="search">
@@ -230,11 +304,8 @@
                       <tr>
                           <th>First Name</th>
                           <th>Last Name</th>
-                          <th>Role</th>
-                          <th>Branch</th>
                           <th>Email</th>
                           <th>Contact Number</th>
-                          <th>Actions</th>
                       </tr>
                   </thead>
                   <tbody id="user-table-body">
@@ -247,7 +318,7 @@
 
       </section>
 
-        <!-- Modal for Adding Employee -->
+        <!-- Modal for `ing Employee -->
         <div id="employeeModal" class="addEmployee-modal">
             <div class="addEmployee-content">
                 <h3>Add Employee</h3>
@@ -255,34 +326,27 @@
                     <input type="text" id="name" placeholder="Name" required>
 
                     <div class="column">
-                        <select id="employee-branch">
+                        <select id="employee-branch" class="w-100">
+                            <option value="" selected>Select a branch</option>
                             <option value="SM Valenzuela">SM Valenzuela</option>
                             <option value="SM North Edsa">SM North Edsa</option>
                             <option value="One Mall Valenzuela">One Mall Valenzuela</option>
                         </select>
                         
-                        <!--<input type="text" id="position" placeholder="Position" required>-->
 
-                        <select id="position">
+                        <select id="position" class="w-100">
+                          <option value="" selected>Select a role</option>
                           <option value="Manager">Manager</option>
                           <option value="Staff">Staff</option>
                       </select>
                     </div>
 
                     <div class="column">
-                        <input type="text" id="contact" placeholder="Contact Number" required>
-                        <input type="email" id="email" placeholder="Email" required>
+                        <input type="text" id="contact" class="w-100" placeholder="Contact Number" required>
+                        <input type="email" id="email" class="w-100" placeholder="Email" required>
                     </div>
 
-                    <label>Permission</label>
-                    <label>
-                        <input type="radio" name="permission" value="Allowed"> Allowed
-                    </label>
-                    <label>
-                        <input type="radio" name="permission" value="Declined"> Declined
-                    </label>
-
-                    <div class="modal-buttons">
+                    <div class="modal-buttons" class="w-100">
                         <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
                         <button type="button" class="save-btn" id="saveBtn">Save</button>
                     </div>
@@ -301,33 +365,26 @@
                   <input type="text" id="edit-name" placeholder="Name" required>
 
                   <div class="column">
-                      <select id="edit-branch" disabled>
+                      <select id="edit-branch"  class="w-100" disabled>
                           <option value="SM Valenzuela">SM Valenzuela</option>
                           <option value="SM North Edsa">SM North Edsa</option>
                           <option value="One Mall Valenzuela">One Mall Valenzuela</option>
                       </select>
                       <!--<input type="text" id="edit-position" placeholder="Position" required>-->
 
-                      <select id="edit-position">
+                      <select id="edit-position" class="w-100">
                         <option value="Manager">Manager</option>
                         <option value="Staff">Staff</option>
                     </select>
                   </div>
 
-                  <div class="column">
-                      <input type="text" id="edit-contact" placeholder="Contact Number" required>
-                      <input type="email" id="edit-email" placeholder="Email" required>
+                  <div class="column" class="w-100">
+                      <input type="text" id="edit-contact"  class="w-100"placeholder="Contact Number" required>
+                      <input type="email" id="edit-email"  class="w-100"placeholder="Email" required>
                   </div>
 
-                  <label>Permission</label>
-                  <label>
-                      <input type="radio" name="edit-permission" value="Allowed"> Allowed
-                  </label>
-                  <label>
-                      <input type="radio" name="edit-permission" value="Declined"> Declined
-                  </label>
 
-                  <div class="modal-buttons">
+                  <div class="modal-buttons" class="w-100">
                       <button type="button" class="cancel-btn" onclick="closeEditModal()">Cancel</button>
                       <button type="button" class="save-btn" id="save-edit">Save</button>
                   </div>
@@ -340,6 +397,10 @@
       
     </div>
 
+    <footer class="small-footer">
+        <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
+    
     <!-- Modal HTML -->
     <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -349,7 +410,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="modalMessage">Please wait...</p>
+                    <p id="modalMessage" style="text-align: start !important;">Please wait...</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -358,13 +419,47 @@
         </div>
     </div>
 
-    <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
+    <div id="passwordModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter Passcode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="passwordMessage" style="text-align: start !important;">Please enter the owner's passcode:</p>
+                    <input type="password" id="passwordInput" class="form-control" placeholder="Enter passcode">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitPasswordBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationTitle">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmationMessage">Are you sure you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="/main.js"></script>
     <script type="module" src="/menus/dashboards/js/employee.js"></script>
     <script type="module" src="/menus/dashboards/js/user.js"></script>
+    <script type="module" src="/menus/dashboards/js/owner-det.js" defer></script>
     <script type="module" src="/index.js" defer></script>
 </body>
 </html>

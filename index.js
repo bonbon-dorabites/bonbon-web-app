@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, updateDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut, updatePassword, deleteUser } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 // Firebase configuration
@@ -42,12 +42,121 @@ function hideModal() {
     loadingModal.hide();
 }
 
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
+
+// Function to show the password modal and handle the input
+function showPasswordModal(message, callback) {
+    const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
+    const passwordMessage = document.getElementById('passwordMessage');
+    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+    const passwordInput = document.getElementById('passwordInput');
+
+    // Set the message for the modal
+    passwordMessage.textContent = message;
+
+    // Show the modal
+    passwordModal.show();
+
+    // Clear previous input
+    passwordInput.value = "";
+
+    // Handle the submit button click event
+    submitPasswordBtn.onclick = function() {
+        const passcode = passwordInput.value.trim();
+
+        // If passcode is not empty, call the callback with the entered passcode
+        if (passcode) {
+            callback(passcode);
+            passwordModal.hide();
+        } else {
+            alert("Please enter the passcode.");
+        }
+    };
+}
+
+// Function to verify passcode (using SHA-256 hash)
+function verifyPasscode() {
+    const ownerEmail = "owner_bonbon@gmail.com";
+
+    showPasswordModal("Please enter the owner's passcode to proceed:", function(enteredPasscode) {
+        // Hash the entered passcode for comparison (use SHA-256)
+        hashPasscode(enteredPasscode).then(hashedPasscode => {
+            // Query Firestore to find the owner's document by email
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("email", "==", ownerEmail));
+
+            // Get the user document by email
+            getDocs(q).then((querySnapshot) => {
+                if (querySnapshot.empty) {
+                    console.log("No user found with that email.");
+                    return;
+                }
+
+                // Assuming only one document with the email exists
+                querySnapshot.forEach((doc) => {
+                    // Get the stored passcode (hashed)
+                    const storedHashedPasscode = doc.data().passcode;
+
+                    // Compare the entered passcode with the stored hashed passcode
+                    if (hashedPasscode === storedHashedPasscode) {
+                        showModal("Passcode is correct! Access granted.", true)
+                        setTimeout(() => {
+                            console.log("test");
+                            hideModal();
+                            console.log("Redirecting to login...");
+                            window.location.href = "/menus/emp-details.html";
+                        }, 2000);
+                    } else {
+                        showModal("Incorrect passcode! Access denied.", false)
+                    }
+                });
+            }).catch((error) => {
+                console.error("Error querying user by email: ", error);
+            });
+        });
+    });
+}
+
+// Function to hash the entered passcode securely using SHA-256
+function hashPasscode(passcode) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(passcode))
+        .then(hashBuffer => {
+            return Array.from(new Uint8Array(hashBuffer))
+                .map(byte => byte.toString(16).padStart(2, '0'))
+                .join('');
+        });
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
     // Define the menu elements
     const signupMenu = document.getElementById("signup-menu");
     const loginMenu = document.getElementById("login-menu");
     const userMenu = document.getElementById("user-menu");
     const editMenu = document.getElementById("edit-menu");
+    const empEditMenu = document.getElementById("emp-edit-menu");
+    const ownerDet = document.getElementById("owner-edit-menu");
     const logoutMenu = document.getElementById("logout-menu");
     const ownerMenu = document.getElementById("owner-menu");
     const managerMenu = document.getElementById("manager-menu");
@@ -64,6 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loginMenu.style.display = "block";
         userMenu.style.display = "none";  // Hide user menu when logged out
         editMenu.style.display = "none";
+        empEditMenu.style.display = "none";
+        ownerDet.style.display = "none";
         logoutMenu.style.display = "none";
         ownerMenu.style.display = "none";
         managerMenu.style.display = "none";
@@ -81,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!querySnapshot.empty) {
                 querySnapshot.forEach((doc) => {
                     const userData = doc.data();
+                    const userEmail = userData.email;
                     const firstName = userData.firstName;
                     const role = userData.role; // Get the role
     
@@ -90,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     signupMenu.style.display = "none";
                     loginMenu.style.display = "none";
                     userMenu.style.display = "block";
-                    editMenu.style.display = "block";
                     logoutMenu.style.display = "block";
     
                     const userMenuText = userMenu.querySelector("p");
@@ -101,24 +212,37 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Handle different roles
                     if (role === "Owner") {
                         ownerMenu.style.display = "block"; // Owner menu
+                        ownerDet.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi Admin`; // Show "Hi Admin" for Owner
                         }
                         console.log("Owner menu displayed.");
                     } else if (role === "Manager") {
                         managerMenu.style.display = "block"; // Manager menu
+                        empEditMenu.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi Manager`; // Show "Hi Manager" for Manager
                         }
                         console.log("Manager menu displayed.");
+                        // Make the emp-edit-menu clickable for Manager
+                        document.getElementById("emp-edit-menu").addEventListener("click", function() {
+                            verifyPasscode();
+                        });
                     } else if (role === "Staff") {
                         staffMenu.style.display = "block"; // Staff menu
+                        empEditMenu.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi Staff`; // Show "Hi Staff" for Staff
                         }
                         console.log("Staff menu displayed.");
+
+                        // Make the emp-edit-menu clickable for Manager
+                        document.getElementById("emp-edit-menu").addEventListener("click", function() {
+                            verifyPasscode();
+                        });
                     } else if (role === "Customer") {
                         customerMenu.style.display = "block"; // Customer menu
+                        editMenu.style.display = "block";
                         if (userMenuText) {
                             userMenuText.textContent = `Hi, ${firstName}`; // Show "Hi, {firstName}" for Customer
                         }
@@ -167,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 hideModal();
                 console.log("Redirecting to login...");
                 window.location.href = "/auth/login.html";
-            }, 600);  // Adjusted timeout to give enough time for the modal to appear
+            }, 2000);  // Adjusted timeout to give enough time for the modal to appear
         } catch (error) {
             console.error("Error signing out:", error);
         }
@@ -268,26 +392,58 @@ document.getElementById("allow-edit").addEventListener("click", () => {
     toggleFormFields(false);
 });
 
-// Cancel editing (revert to original)
 document.getElementById("cancel-edit").addEventListener("click", () => {
+    let isCancelled = true; // Flag to check if cancellation was necessary
+
     formFields.forEach(id => {
-        document.getElementById(id).value = originalData[id] || "";
+        const originalValue = originalData[id] || "";
+        const currentValue = document.getElementById(id).value;
+        
+        // If the value has changed, mark as cancellation
+        if (currentValue !== originalValue) {
+            isCancelled = false; // Cancel is not needed
+        }
+        
+        document.getElementById(id).value = originalValue;
     });
+
     toggleFormFields(true);
+
+    // Show appropriate modal message based on whether any changes were made
+    if (isCancelled) {
+        showModal("No changes happened. Cancel failed.", false);
+    } else {
+        showModal("Cancelled all edits successfully.", false);
+    }
 });
 
-// Submit form and update Firestore
 document.getElementById("submit-edit").addEventListener("click", async () => {
     if (!userDocId) return;
     
     console.log("Entered")
 
     const updatedData = {};
+    let isChanged = false; // Flag to check if any changes were made
+
     formFields.forEach(id => {
-        updatedData[id] = document.getElementById(id).value;
+        const newValue = document.getElementById(id).value;
+        const originalValue = originalData[id] || "";
+        
+        // Check if the value has changed
+        if (newValue !== originalValue) {
+            isChanged = true;
+        }
+        updatedData[id] = newValue;
     });
 
+    if (!isChanged) {
+        // If no changes, show modal with error
+        showModal("No changes were made. Submission failed.", false);
+        return; // Exit without updating the document
+    }
+
     try {
+        // Update the Firestore document
         await updateDoc(doc(db, "users", userDocId), updatedData);
         console.log("Updated")
         showModal("Successfully updated!", true);
@@ -297,30 +453,163 @@ document.getElementById("submit-edit").addEventListener("click", async () => {
     }
 });
 
-document.getElementById("update-password-btn").addEventListener("click", async () => {
-    const newPassword = prompt("Enter your new password:");
-
-    if (!newPassword) {
-        alert("Password update canceled.");
-        return;
-    }
-
-    const user = auth.currentUser;
-    if (!user) {
-        alert("No user is signed in.");
-        return;
-    }
-
-    try {
-        await updatePassword(user, newPassword);
-        alert("Password successfully updated!");
-    } catch (error) {
-        if (error.code === "auth/requires-recent-login") {
-            alert("You need to re-authenticate before updating your password.");
-            reauthenticateUser(user);
-        } else {
-            console.error("Error updating password:", error);
-            alert("Failed to update password. Please try again.");
+// Listen for authentication state
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const docId = await fetchAndDisplayUserData(user);
+        if (docId) {
+            setupPasswordEditFunctions(user);
+            accountDelete(user);
         }
+    } else {
+        console.log("No user is logged in.");
     }
 });
+
+// 1️⃣ Fetch user data and display email
+async function fetchAndDisplayUserData(user) {
+    const emailInput = document.getElementById("email");
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0]; // Get first matching document
+        const docId = userDoc.id;
+
+        // Real-time listener for email field updates
+        onSnapshot(doc(db, "users", docId), (docSnap) => {
+            if (docSnap.exists()) {
+                emailInput.value = docSnap.data().email;
+            }
+        });
+
+        return docId;
+    } else {
+        console.error("User not found in Firestore.");
+        return null;
+    }
+}
+
+// 3️⃣ Password Editing & Updating
+function setupPasswordEditFunctions(user) {
+    const passwordInput = document.getElementById("password");
+    const passwordEditBtn = document.getElementById("password-edit");
+    const passwordSubmitBtn = document.getElementById("password-submit");
+    const passwordCancelBtn = document.getElementById("password-cancel");
+
+    passwordEditBtn.addEventListener("click", () => {
+        passwordInput.disabled = false;
+    });
+
+    passwordCancelBtn.addEventListener("click", () => {
+        // Check if there was a change in the password field
+        if (passwordInput.value.trim() === "") {
+            // No change happened
+            showModal("No change happened. Cancel Failed.", false);
+            passwordInput.value = "";
+            passwordInput.disabled = true;
+        } else {
+            // Changes were made, clear the password field and disable it
+            passwordInput.value = "";
+            passwordInput.disabled = true;
+            showModal("Cancelled all edits successfully", true);
+        }
+    });
+
+    passwordSubmitBtn.addEventListener("click", async () => {
+        const newPassword = passwordInput.value;
+    
+        // Check if password field is disabled or nothing was typed
+        if (passwordInput.disabled || newPassword.trim() === "") {
+            showModal("There was no edit that happened. Submission Failed.", false);
+        } else {
+            showConfirmation(
+                "Are you sure you want to change this account's password?",
+                async function () { // ✅ CONFIRM FUNCTION
+                    try {
+                        await updatePassword(user, newPassword);
+    
+                        showModal("You have changed your password. You need to log in again!", true);
+                        console.log("Password successfully updated!");
+    
+                        setTimeout(() => {
+                            window.location.href = "/auth/login.html"; // Redirect to login
+                        }, 2500);
+    
+                        console.log("✅ Password updated successfully.");
+                    } catch (error) {
+                        if (error.code === 'auth/requires-recent-login') {
+                            showModal("You have been logged in for too long. Log-in again.", false);
+                            setTimeout(() => {
+                                window.location.href = "/auth/login.html";
+                            }, 2500);
+                        } 
+                        
+                        if (error.code === 'auth/weak-password') {
+                            showModal("Password should be at least 8 characters.", false);
+                        }
+                        console.error("❌ Error updating password:", error);
+                    }
+    
+                    // ✅ Disable password field **AFTER** confirmation
+                    passwordInput.disabled = true;
+                },
+                function () { // ❌ CANCEL FUNCTION
+                    // ✅ Reset the input field and re-enable it
+                    passwordInput.value = "";
+                    location.reload()
+                    console.log("❌ Password reset as user canceled the action.");
+                }
+            );
+        }
+    });
+      
+}
+
+function accountDelete(user) {
+    const deleteAccountBtn = document.getElementById("account-delete");
+
+    deleteAccountBtn.addEventListener("click", async () => {
+        showConfirmation(
+            "Are you sure you want to delete your account? This action cannot be undone.",
+            async function () { // ✅ Confirm deletion
+                try {
+                    const userEmail = user.email;
+                    const userId = user.uid;
+
+                    // ✅ Delete user data from Firestore
+                    const usersCollection = collection(db, "users");
+                    const q = query(usersCollection, where("email", "==", userEmail)); // Use "uid" if stored
+                    const querySnapshot = await getDocs(q);
+
+                    querySnapshot.forEach(async (docSnap) => {
+                        await deleteDoc(doc(db, "users", docSnap.id));
+                    });
+
+                    console.log("✅ Firestore user data deleted");
+
+                    // ✅ Delete user from Firebase Authentication
+                    await deleteUser(user);
+                    console.log("✅ User deleted from Firebase Authentication");
+
+                    // Redirect after deletion
+                    showModal("Your account has been deleted. Thank you using our application.", true);
+                    setTimeout(() => {
+                        window.location.href = "/auth/signup.html";
+                    }, 2500);
+                } catch (error) {
+                    console.error("❌ Error deleting account:", error);
+                    if (error.code === "auth/requires-recent-login") {
+                        showModal("Please log in again to delete your account.", false);
+                    } else {
+                        showModal("Failed to delete account. Please try again.", false);
+                    }
+                }
+            },
+            function () { // ❌ Cancel deletion
+                console.log("❌ Account deletion canceled.");
+            }
+        );
+    });
+}

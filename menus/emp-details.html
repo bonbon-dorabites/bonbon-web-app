@@ -14,7 +14,6 @@
                 text-align: center;
             }
         }
-        
         .hidden-br3 {
             display: none;
         }
@@ -32,20 +31,9 @@
                 position: relative;
             }
         }
-
-        .reminder {
-            color: #ffc107; /* Bootstrap's yellow color */
-            margin-top: 10px;
-            text-align: center;
-        }
-
         @media(min-height:619px) {
             .hidden-br4 {
                 display: block;
-            }
-
-            .reminder {
-                font-size: 8px !important;
             }
         }
 
@@ -101,7 +89,7 @@
                           <li><a class="dropdown-item" href="/menus/user-details.html">Details</a></li>
                       </span>
                       <span id="emp-edit-menu">
-                          <li><a class="dropdown-item"  >Details</a></li>
+                          <li><a class="dropdown-item">Details</a></li>
                       </span>
                       <span id="owner-edit-menu">
                           <li><a class="dropdown-item" href="/menus/owner-details.html">Details</a></li>
@@ -129,7 +117,7 @@
         </nav>
     </header>
 
-    <div class="edit-customer d-flex justify-self-center mx-auto vh-50">
+    <div class="emp d-flex justify-self-center mx-auto vh-50">
         <div class=" w-75 mx-auto"><br><br><span class="hidden-br4"><br><br><br></span> <span class="hidden-br3"><br><br><br></span>
             <button id="home" type="button" onclick="location.replace('/index.html')" class="btn btn-primary d-flex" style="background-color: #5C2918; color: white; border-radius: 20px; border: none; ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
@@ -138,49 +126,48 @@
                 &nbsp;&nbsp;Home
             </button><br>
             <h1 class="title text-weight-400 text-size-28 half-margin-bottom decorative_bottom_line" style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                Edit Details
+                Details
             </h1>
             <br>
             <br>
             
             <form id="signupForm" method="post" class="form-table"> 
-                <div class="flatten">
-                    <h3 class=" text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line" style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;&nbsp;Personal Information
-                    </h3>
-                    <div class="button-pers">
-                        <button id="allow-edit" type="button" class="btn btn-primary submit pers-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                            </svg>
-                        </button>
-                        <button id="submit-edit" type="button" class="btn btn-primary submit pers-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-send-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                            </svg>
-                        </button>
-                        <button id="cancel-edit" type="button" class="btn btn-primary submit pers-info">
-                            ✖
-                        </button>
-                    </div>
-                </div><br>
+                <h3 class=" text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line" style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                    &nbsp;&nbsp;Relevant Information
+                </h3>
+                
+                <div class="button-pers" style="display: none !important;">
+                    <button id="allow-edit" type="button" class="btn btn-primary submit pers-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                        </svg>
+                    </button>
+                    <button id="submit-edit" type="button" class="btn btn-primary submit pers-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-send-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                        </svg>
+                    </button>
+                    <button id="cancel-edit" type="button" class="btn btn-primary submit pers-info">
+                        ✖
+                    </button>
+                </div>
                 <div class="row">
                     <div class="mb-3 col-12 col-md-6" style="position: relative;">
-                        <label for="firstName" class="form-label visually-hidden">First Name</label>
+                        <label for="branch" class="form-label visually-hidden">Branch</label>
                         <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="25" fill="var(--dark-brown)" class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                               </svg>
                         </span>
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name" disabled required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        <input type="text" class="form-control" id="branchId" placeholder="Branch" disabled required style="color: rgb(110, 106, 106); padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                     </div>
                     
                     <div class="mb-3 col-12 col-md-6" style="position: relative;">
-                        <label for="lastName" class="form-label visually-hidden">Last Name</label>
+                        <label for="job" class="form-label visually-hidden">Job</label>
                         <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
                             <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="var(--dark-brown)" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -188,57 +175,9 @@
                                   </svg>
                             </span>
                         </span>
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name" disabled required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
+                        <input type="text" class="form-control" id="role" placeholder="Job" disabled required style="color: rgb(110, 106, 106); padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
                     </div>
-                </div>
-    
-                <div class="mb-3" style="position: relative;">
-                    <label for="phone" class="form-label visually-hidden">Phone</label>
-                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="var(--dark-brown)" class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
-                          </svg>
-                    </span>
-                    <input type="text" class="form-control" id="phone" placeholder="Phone" disabled required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
-                </div>
-    
-                <div class="mb-3" style="position: relative;">
-                    <label for="address" class="form-label visually-hidden">Address</label>
-                    <span style="position: absolute; left: 0px; top: 50%; transform: translateY(-50%); font-size: 18px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="22" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.3 1.3 0 0 0-.37.265.3.3 0 0 0-.057.09V14l.002.008.016.033a.6.6 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.6.6 0 0 0 .146-.15l.015-.033L12 14v-.004a.3.3 0 0 0-.057-.09 1.3 1.3 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465s-2.462-.172-3.34-.465c-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411"/>
-                        </svg>
-                    </span>
-                    <input type="text" class="form-control" id="address" placeholder="Address" disabled required style="padding-left: 40px; border-radius: 20px; border: 2px solid var(--dark-brown);">
-                </div><br>
-                <div class="col2 justify-content-start">
-                    <img src="/img/reminder-icon.png" alt="">
-                    <p class="reminder" style="font-size: 16px;">
-                        Proceed with caution. Account can no longer be restored.
-                    </p>
-                </div><br>
-                <div class="login-credential d-flex align-items-center">
-                    <div class="email-buttons d-flex align-items-center">
-                        <button id="account-delete" type="button" class="btn btn-primary submit pers-info">
-                            Account&nbsp;Delete
-                        </button>
-                    </div>
-                </div>
-            </form>&nbsp;<hr class="line" style="color: white;">
-            <br><br>
-            <form id="signupForm" method="post" class="form-table">
-                <div class="flatten">
-                    <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Login Credentials
-                    </h2>
-                </div>
-                <br><br>
-                <div class="login-credential">
-                    <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 47px;">
-                        &nbsp;Email
-                    </h3>
+
                     <div class="email-container d-flex">
                         <div class="email-input-wrapper">
                             <span class="email-icon">
@@ -246,15 +185,15 @@
                                     <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
                                 </svg>
                             </span>
-                            <input type="email" class="form-control email-input" id="email" placeholder="Email" disabled required style="color: rgb(110, 106, 106);">
+                            <input type="email" class="form-control email-input" id="email" placeholder="Email" disabled required 
+                            style="color: rgb(110, 106, 106);">
                         </div>
                     </div>
-                </div>                
-                <br>
+                </div><br><hr class="line" style="color: white;"><br>
                 <div class="login-credential">
                     <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
                         style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Password
+                        &nbsp;Modify Password
                     </h3>
                     <div class="email-container d-flex">
                         <div class="email-input-wrapper">
@@ -284,8 +223,9 @@
                             </button>
                         </div>
                     </div>
-                </div><br><br><hr class="line" style="color: white">
-            </form>
+                </div>
+            </form>&nbsp;
+            <br><br>
         </div>
     </div><br><br>
     <span class="hidden-br3"><br><br><br></span>
@@ -293,24 +233,6 @@
         <footer class="small-footer">
           <p>In Partial Fulfillment for subject Web Development</p>
         </footer>
-    </div>
-
-    <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationTitle">Confirm Action</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="confirmationMessage">Are you sure you want to proceed?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirm</button>
-                </div>
-            </div>
-        </div>
     </div>
     
     <!-- Modal HTML -->
@@ -349,10 +271,25 @@
             </div>
         </div>
     </div>
+    <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationTitle">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmationMessage">Are you sure you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <script src="/main.js"></script>
-    <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/browse.js" defer></script>
+    <script type="module" src="/menus/dashboards/js/emp-det.js" defer></script>
 </body>
 </html>

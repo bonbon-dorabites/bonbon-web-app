@@ -22,6 +22,8 @@ const editModal = document.getElementById("editEmployeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 const couponModal = document.getElementById("couponsModal");
 const editCouponModal = document.getElementById("edit-couponsModal");
+const loadingCouponModal = document.getElementById("details-couponsModal");
+
 // Open modal function
 function openModal() {
   employeeModal.style.display = "block";
@@ -45,6 +47,14 @@ function closeCouponModal() {
   couponModal.style.display = "none";
 }
 
+function openDetailsModal() {
+  loadingCouponModal.style.display = "block";
+}
+
+function closeDetailsModal() {
+  loadingCouponModal.style.display = "none";
+}
+
 function closeEditCouponModal() {
   editCouponModal.style.display = "none";
 }
@@ -53,7 +63,7 @@ function closeEditCouponModal() {
 function editEmployee(button) {
   console.log("EDIT");
 
-  let employeeId, branchId, name, branch, position, contactNumber, email, permission;
+  let employeeId, branchId, name, branch, position, contactNumber, email;
 
   // Check if the clicked button is in a table row or details card
   const row = button.closest("tr");
@@ -67,10 +77,9 @@ function editEmployee(button) {
       // Get data from table row
       name = row.cells[0].textContent;
       branch = row.cells[1].textContent;
-      position = row.cells[3].textContent;
-      contactNumber = row.cells[4].textContent;
-      email = row.cells[5].textContent;
-      permission = row.querySelector("input[type='radio']:checked")?.value || "Declined";
+      position = row.cells[2].textContent;
+      contactNumber = row.cells[3].textContent;
+      email = row.cells[4].textContent;
   } else if (detailsCard) {
       // If the button is inside a details card
       employeeId = detailsCard.getAttribute("data-id");
@@ -79,10 +88,9 @@ function editEmployee(button) {
       // Get data from details card
       name = detailsCard.querySelector("p:nth-child(2)").textContent.replace("Name: ", "").trim();
       branch = detailsCard.querySelector("p:nth-child(3)").textContent.replace("Branch: ", "").trim();
-      permission = detailsCard.querySelector("p:nth-child(4)").textContent.replace("Permission: ", "").trim();
-      position = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Position: ", "").trim();
-      contactNumber = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Contact: ", "").trim();
-      email = detailsCard.querySelector("p:nth-child(7)").textContent.replace("Email: ", "").trim();
+      position = detailsCard.querySelector("p:nth-child(4)").textContent.replace("Position: ", "").trim();
+      contactNumber = detailsCard.querySelector("p:nth-child(5)").textContent.replace("Contact: ", "").trim();
+      email = detailsCard.querySelector("p:nth-child(6)").textContent.replace("Email: ", "").trim();
   } else {
       console.error("Could not find the row or details card.");
       return;
@@ -94,7 +102,6 @@ function editEmployee(button) {
   document.getElementById("edit-position").value = position;
   document.getElementById("edit-contact").value = contactNumber;
   document.getElementById("edit-email").value = email;
-  document.querySelector(`input[name="edit-permission"][value="${permission}"]`).checked = true;
 
   // Store employeeId and branchId in hidden fields
   document.getElementById("edit-doc-id").value = employeeId;
@@ -107,8 +114,8 @@ function editEmployee(button) {
   openEditModal();
 }
 
-function editCoupon(button) {
-  let couponId, amount, startDate, endDate, description, status;
+/*function editCoupon(button) {
+  let couponId, `amount`, startDate, endDate, description, status;
   // Check if the clicked button is in a table row or details card
   const row = button.closest("tr");
   const detailsCard = button.closest(".details-card");
@@ -121,7 +128,6 @@ function editCoupon(button) {
     startDate = row.cells[2].textContent;
     endDate = row.cells[3].textContent;
     description = row.cells[4].textContent;
-    alert("DESC: " + description);
     status = row.cells[5].textContent;
   } else if (detailsCard) {
       // If the button is inside a details card
@@ -158,7 +164,7 @@ function editCoupon(button) {
     // Show the edit modal
     document.getElementById("edit-couponsModal").style.display = "block";
 
-}
+}*/
 
 // Close the modal when clicking outside of it
 window.onclick = function (event) {
