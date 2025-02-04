@@ -225,7 +225,7 @@ async function fetchOrders(branchId) {
 
                             for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
                                 itemsHTML += `
-                                    <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P ${itemDetails.price})</p>
+                                    <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P${itemDetails.price})</p>
                                 `;
                             }
 
