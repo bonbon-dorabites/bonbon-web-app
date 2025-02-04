@@ -28,30 +28,26 @@ body {
 }
 
 .loadBonbonGif {
-    width: 300px; height: 300px;
-    padding-left: 10px;
+    width: 270px; height: 200px;
+    padding-left: 50px;
 }
 
 .loadDots {
-    width: 250px; height: 150px;
+    width: 180px; height: 100px;
 }
 
-.gifmodal.backdrop{
-    background-color: black;
-}
-
-.modal-backdrop {
-    background-color: white !important; /* Customize the color here */
+.gifmodal-backdrop{
+    background-color: solid black;
 }
 
 @media (max-width: 761px) and (max-height: 658px){
     .loadBonbonGif {
-        width: 280px; height: 250px;
-        padding-left: 10px;
+        width: 230px; height: 180px;
+        padding-left: 30px;
     }
 
     .loadDots {
-        width: 200px; height: 100px;
+        width: 160px; height: 80px;
     }
 }
 

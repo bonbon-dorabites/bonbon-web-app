@@ -786,7 +786,7 @@
     </div>
     </div>
 
-    <!-- Modal HTML --><!-- Modal HTML -->
+    <!-- Modal HTML -->
     <div id="gifModal" class="modal gifmodal fade" tabindex="-1" role="dialog" 
     aria-labelledby="gifLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -825,25 +825,25 @@
     
     <script>
         window.addEventListener("DOMContentLoaded", function() {
-                const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
-                    backdrop: 'static',
-                    keyboard: false
-                });
-    
-                // Set the modal state in localStorage
-                localStorage.setItem('showModal', 'true');
-    
-                setTimeout(() => {
-                    const modalElement = document.getElementById('gifModal');
-                    modalElement.style.display = 'block';
-                    loadingModal.show();
-                }, 300);
-    
-                setTimeout(() => {
-                    loadingModal.hide();
-                    localStorage.removeItem('showModal'); // Clear state after hiding
-                }, 5000);
+            const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
+                backdrop: 'static',
+                keyboard: false
             });
+
+            // Set the modal state in localStorage
+            localStorage.setItem('showModal', 'true');
+
+            setTimeout(() => {
+                const modalElement = document.getElementById('gifModal');
+                modalElement.style.display = 'block';
+                loadingModal.show();
+            }, 300);
+
+            setTimeout(() => {
+                loadingModal.hide();
+                localStorage.removeItem('showModal'); // Clear state after hiding
+            }, 3000);
+        });
     </script>
     
     <script src="../main.js"></script>
