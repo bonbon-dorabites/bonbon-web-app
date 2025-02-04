@@ -1640,7 +1640,8 @@ textarea.form-control:focus {
  /* Table styling */
  .staff-management-table,
  .user-management-table,
- .coupons-management-table {
+ .coupons-management-table,
+ .sales-management-table {
     width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
@@ -1651,7 +1652,8 @@ textarea.form-control:focus {
 /* Header row styling */
 .staff-management-table th,
 .user-management-table th,
-.coupons-management-table th {
+.coupons-management-table th,
+.sales-management-table th {
     background-color: var(--brown);
     color: white;
     padding: 10px;
@@ -1663,7 +1665,8 @@ textarea.form-control:focus {
 /* Body row styling */
 .staff-management-table td,
 .user-management-table td,
-.coupons-management-table td {
+.coupons-management-table td,
+.sales-management-table td {
     padding: 10px;
     border: 1px solid var(--dark-brown);
     color: #333;
@@ -1677,11 +1680,28 @@ textarea.form-control:focus {
 .user-management-table tbody tr:nth-child(even) {
     background-color: #f9f3e8;
 }
+
+.sales-management-table tbody tr:nth-child(even) {
+    background-color: #f9f3e8;
+}
+
+.coupons-management-table tbody tr:nth-child(even) {
+    background-color: #f9f3e8;
+}
+
 .staff-management-table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
 .user-management-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.sales-management-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.coupons-management-table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 

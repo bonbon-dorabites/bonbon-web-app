@@ -115,10 +115,23 @@ document.addEventListener("DOMContentLoaded", () => {
             showModal("Your cart is empty. Please add items before checking out.", false);
             return;
         }
+
         showConfirmation("Are you sure you wish to check these out?", async function () { 
             orderSection.style.display = "none";
             checkoutForm.style.display = "block";
         });
+
+
+        // Check if the coupon field is empty and remove the coupon if needed
+        const couponCode = document.getElementById("coupon-code").value.trim();
+        console.log("COUPON CODE: " + couponCode);
+        const user = auth.currentUser;
+        console.log("USER EMAIL MO TO: " + user.email);
+
+        if (couponCode === "") {
+            // If the coupon field is empty, remove the applied coupon from Firestore
+            await removeCouponFromFirestore(user.email);
+        }
     });
 
     // Show order section, hide checkout form
@@ -741,6 +754,27 @@ async function checkout() {
         window.location.href = "/menus/dashboards/customer.html";
     }, 1500);
     });
+}
+
+async function removeCouponFromFirestore(userEmail) {
+    // Get the user document
+    const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+    const userSnapshot = await getDocs(userQuery);
+
+    if (userSnapshot.empty) {
+        console.log("User not found.");
+        return;
+    }
+
+    const userDoc = userSnapshot.docs[0];
+    const userRef = doc(db, "users", userDoc.id);
+
+    // Remove the applied coupon from the user's document
+    await updateDoc(userRef, {
+        appliedCoupon: deleteField(), // Removes the applied coupon
+    });
+
+    console.log("Applied coupon removed from Firestore.");
 }
 
 // Call the function to fetch cart items when the page loads or when needed
