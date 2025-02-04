@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, doc, updateDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collection, doc, updateDoc, where, getDocs, getDoc, setDoc, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -539,17 +539,61 @@ async function finishOrder(branchId, orderId) {
     const orderRef = doc(db, "branches", branchId, "orders", orderId);
 
     try {
-        // Update Firestore to mark the order as finished
-        await updateDoc(orderRef, {
-            isFinished: true
-        });
+        // Fetch the order document first
+        const orderDoc = await getDoc(orderRef);
 
-        alert(`Order ${orderId} has been marked as finished.`);
+        if (orderDoc.exists()) {
+            const orderData = orderDoc.data();
+            
+            // Get the total_price from the order
+            const totalPrice = orderData.total_price;
+            const createdAt = orderData.created_at.toDate(); // Convert Firestore timestamp to JS Date
+
+            // Get the month and year from the created_at timestamp
+            const month = createdAt.getMonth() + 1;  // getMonth() returns 0-11, so we add 1
+            const year = createdAt.getFullYear();
+
+           // Optional: Log or alert the total price and month-year info
+           console.log(`Order ${orderId} - Total Price: P${totalPrice.toFixed(2)} - Created at: ${createdAt}`);
+
+           // Reference to the sales document for the specific branch, year, and month
+           const salesRef = doc(db, "sales", branchId, String(year), String(month).padStart(2, "0"));
+
+           // Fetch the sales document for the year and month
+           const salesDoc = await getDoc(salesRef);
+
+           if (salesDoc.exists()) {
+               // If the document exists, increment the sales total
+               const currentSales = salesDoc.data().total_sales || 0;
+               await updateDoc(salesRef, {
+                   total_sales: currentSales + totalPrice
+               });
+
+               console.log(`Sales for ${year}-${String(month).padStart(2, "0")} updated. New total: P${(currentSales + totalPrice).toFixed(2)}`);
+           } else {
+               // If the document doesn't exist, create it with the initial sales total
+               await setDoc(salesRef, {
+                   total_sales: totalPrice
+               });
+
+               console.log(`Sales document for ${year}-${String(month).padStart(2, "0")} created with total: P${totalPrice.toFixed(2)}`);
+           }
+
+           // Mark the order as finished in the orders collection
+           await updateDoc(orderRef, {
+               isFinished: true
+           });
+
+           alert(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
+       } else {
+           alert(`Order ${orderId} not found.`);
+       }
     } catch (error) {
         console.error("Error updating order:", error);
         alert("Failed to finish the order. Please try again.");
     }
 }
+
 
 // Function to get user information based on email
 async function getUserInfo(userEmail) {
