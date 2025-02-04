@@ -1,3 +1,26 @@
+function showLoadingModal() {
+  window.addEventListener("DOMContentLoaded", function() {
+      // Create the modal instance
+      const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
+          backdrop: 'static', // Prevents closing modal by clicking outside
+          keyboard: false // Disables closing the modal with keyboard
+      });
+
+      // Show the modal after a delay
+      setTimeout(() => {
+          const modalElement = document.getElementById('gifModal');
+          modalElement.style.display = 'block'; // Now show the modal after styles are loaded
+          loadingModal.show();
+      }, 300); // Delay as needed
+
+      // Optionally, hide the modal after some time (simulate processing)
+      setTimeout(() => {
+          loadingModal.hide(); // Hide the modal after 5 seconds
+      }, 5000); // Adjust the time as needed
+  });
+}
+
+
 // Toggle accordion sections
 const headers = document.querySelectorAll('.accordion-header');
 headers.forEach(header => {
