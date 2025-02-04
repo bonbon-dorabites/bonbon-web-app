@@ -655,6 +655,7 @@ body {
     background-color: var(--beige);
     color: var(--wood-color);
     animation: fadeIn 0.3s ease-in-out;
+    min-height: 140px;
 }
 
 @keyframes fadeIn {
