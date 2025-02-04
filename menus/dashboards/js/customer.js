@@ -110,7 +110,7 @@ async function displayOrders(allOrders) {
     finishedOrdersContainer.innerHTML = "";
 
     for (const order of allOrders) {
-        const { branch, orderId, user_email, items_bought, total_price, status, isNew, isAccepted, isFinished, estimatedTime, feedback } = order;
+        const { branch, orderId, user_email, items_bought, total_price, status, isNew, isAccepted, isFinished, didFeedback, estimatedTime, feedback } = order;
         
          
         // Log the full content of each order
@@ -118,6 +118,7 @@ async function displayOrders(allOrders) {
          
         // Log each individual property as well for better clarity
         console.log(`Branch: ${branch}`);
+        console.log(`DID FEEDBACK: ${didFeedback}`);
         console.log(`Order ID: ${orderId}`);
         console.log(`Email: ${user_email}`);
         console.log(`Items in Cart:`, items_bought); // This can be an object or array, so logging as such
@@ -201,9 +202,10 @@ async function displayOrders(allOrders) {
                             <p><b>Name:</b> ${userFullName}</p>
                             <p><b>Status:</b> Paid</p>
                             <p><b>Feedback:</b></p>
-                            <textarea name="feedback" class="form-control" placeholder="Enter your feedback here..." rows="3"></textarea>
+                            <textarea name="feedback" class="form-control" placeholder="Enter your feedback here..." rows="3" 
+                                ${didFeedback ? "disabled" : ""}>${didFeedback ? feedback : ""}</textarea>
                             <br>
-                            <button type="button" class="btn btn-success feedback-submit" id="submitFeedbackBtn">Submit Feedback</button>
+                            ${didFeedback ? "" : '<button type="button" class="btn btn-success feedback-submit" id="submitFeedbackBtn">Submit Feedback</button>'}
                         </div>
                     </div>
                 </div>`;
@@ -248,7 +250,7 @@ async function submitFeedback(orderId, branchId) {
         // Disable the textarea after submission
         const textarea = document.querySelector(`#finishedOrder${orderId} .form-control`);
         textarea.disabled = true;
-        
+
         console.log(`Feedback for Order #${orderId} saved to Firestore!`);
     } else {
         alert('Please enter feedback before submitting.');
