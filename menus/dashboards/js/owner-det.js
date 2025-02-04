@@ -68,6 +68,7 @@ function showConfirmation(message, callback) {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("User is authenticated:", user);
+        populateBranches(user);
         
         // Get the user email from Firebase Authentication
         const userEmail = user.email;
@@ -134,3 +135,109 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+function populateBranches(user) {
+    const branchSelect = document.getElementById("branchSelect");
+    const roleSelect = document.getElementById("role");  // Role dropdown
+    const loginEmp = document.querySelector(".login-emp"); // The 'login-emp' class element
+    const emailInput = document.getElementById("branch-email"); // Email input for Staff and Manager
+    const allowRadio = document.getElementById("allow-access");
+    const declineRadio = document.getElementById("decline-access");
+    loginEmp.style.display = 'none';
+
+    // Fetch branches from Firestore
+    const branchCollection = collection(db, "branches");
+
+    onSnapshot(branchCollection, (branchesSnapshot) => {
+        // Clear any existing options in the select dropdown
+        branchSelect.innerHTML = '<option value="" disabled selected>Select a branch</option>';
+
+        // Iterate through each document in the snapshot
+        branchesSnapshot.forEach((doc) => {
+            const location = doc.data().location; // Get the location field from the document
+            const option = document.createElement("option");
+            option.value = doc.id; // Use the document ID as the value
+            option.textContent = location; // Use the location as the option text
+            branchSelect.appendChild(option);
+        });
+
+        console.log("Branches populated successfully.");
+
+        // Add event listener to branch select to enable Role dropdown
+        branchSelect.addEventListener("change", function() {
+            // Enable the role dropdown when a branch is selected
+            roleSelect.disabled = false;
+            // Reset the role to default (this ensures 'Staff' is not selected)
+            roleSelect.value = "";  // Reset role dropdown to default value
+            // Reset the email field and hide the login-emp and pass-emp classes
+            emailInput.value = '';
+            loginEmp.style.display = 'none';
+        });
+
+        // Add event listener to role select to show or hide 'login-emp' for staff
+        roleSelect.addEventListener("change", async function() {
+            if (roleSelect.value === "Staff" || roleSelect.value === "Manager") {
+                // Show login-emp if the role is Staff or Manager
+                loginEmp.style.display = 'block';
+
+                const branchId = branchSelect.value;
+
+                // Fetch the email based on the role selected (Staff or Manager)
+                const branchDoc = await getDoc(doc(db, "branches", branchId));
+                let email = "";
+
+                if (branchDoc.exists()) {
+                    if (roleSelect.value === "Staff") {
+                        email = branchDoc.data().staff_email; // Get the staff email field
+                    } else if (roleSelect.value === "Manager") {
+                        email = branchDoc.data().manager_email; // Get the manager email field
+                    }
+
+                    emailInput.value = email; // Set the email in the email input field
+
+                    // Query Firestore to get the hasAccess field based on the email
+                    const usersRef = collection(db, "users");
+                    const q = query(usersRef, where("email", "==", email));
+
+                    // Listen to changes in the user document and update the radio button
+                    onSnapshot(q, (querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            querySnapshot.forEach((doc) => {
+                                const hasAccess = doc.data().hasAccess; // Get the hasAccess field
+
+                                // Toggle radio buttons based on the hasAccess field
+                                if (hasAccess === true) {
+                                    allowRadio.checked = true;
+                                    declineRadio.checked = false;
+                                } else {
+                                    allowRadio.checked = false;
+                                    declineRadio.checked = true;
+                                }
+
+                                // Add event listeners to update the hasAccess field when a radio button is clicked
+                                allowRadio.addEventListener("change", async () => {
+                                    if (allowRadio.checked) {
+                                        // Update hasAccess to true in Firestore
+                                        await updateDoc(doc.ref, { hasAccess: true });
+                                    }
+                                });
+
+                                declineRadio.addEventListener("change", async () => {
+                                    if (declineRadio.checked) {
+                                        // Update hasAccess to false in Firestore
+                                        await updateDoc(doc.ref, { hasAccess: false });
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+
+            } else {
+                // Hide login-emp and pass-emp if the role is not Staff or Manager
+                loginEmp.style.display = 'none';
+            }
+        });
+    }, (error) => {
+        console.error("Error listening to branches: ", error);
+    });
+}
