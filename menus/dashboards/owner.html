@@ -149,11 +149,31 @@
         <h1 class="owner-dashboard-title text-center">Admin Dashboard</h1>
         <div class="owner-dashboard-line"></div>
         <br>
+        <div class="sales-management-container">
+            
         <h2 class="owner-dashboard-section-title">Tabulated Sales</h2>
         <!-- Dropdown for months -->
         <div class="owner-dashboard-dropdown-container">
             <label for="month-selector" class="dropdown-label">Display by:</label>
+            <select id="branch-selector" class="owner-dashboard-dropdown">
+                <option value="" disabled selected>Select a branch.</option>
+                <option value="smVal">SM Valenzuela</option>
+                <option value="smNorth">SM North Edsa</option>
+                <option value="oneMallVal">One Mall Valenzuala</option>
+            </select>
+            <select id="year-selector" class="owner-dashboard-dropdown">
+                <option value="" disabled selected>Select a year.</option>
+                <option value="january">2019</option>
+                <option value="february">2020</option>
+                <option value="march">2021</option>
+                <option value="april">2022</option>
+                <option value="may">2023</option>
+                <option value="june">2024</option>
+                <option value="july">2025</option>
+                <option value="august">2026</option>
+            </select>
             <select id="month-selector" class="owner-dashboard-dropdown">
+                <option value="" disabled selected>Select a month.</option>
                 <option value="january">January</option>
                 <option value="february">February</option>
                 <option value="march">March</option>
@@ -167,94 +187,106 @@
                 <option value="november">November</option>
                 <option value="december">December</option>
             </select>
-
-            <select id="branch-selector" class="owner-dashboard-dropdown">
-                <option value="smVal">SM Valenzuela</option>
-                <option value="smNorth">SM North Edsa</option>
-                <option value="oneMallVal">One Mall Valenzuala</option>
+            <select id="day-selector" class="owner-dashboard-dropdown">
+                <option value="" disabled selected>Select a month.</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <!--Continue till 31-->
             </select>
         </div>
-        
-        <div class="sales-illustration-container">
-            <div class="sales-illustration-image">
-                <img src="../../img/sales-illustration.png" alt="Sales Illustration Chart">
-            </div>
-            <p class="sales-illustration-caption">Fig2. Shows sales table</p>
-        
-        </div>
-        <div class="dashboard-line"></div> <!-- Separator Line -->
 
-        <form id="signupForm" method="post" class="form-table">
-                <div class="flatten">
-                    <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Manage Employee Accounts
-                    </h2>
+        <table id="sales-table" class="sales-management-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Branch</th>
+                    <th>Position</th>
+                    <th>Contact Number</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="staff-table-body">
+        
+            </tbody>
+        </table>
+    </div>
+    <div class="dashboard-line"></div> <!-- Separator Line -->
+
+    <form id="signupForm" method="post" class="form-table">
+        <div class="flatten">
+            <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
+                style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                &nbsp;Manage Employee Accounts
+            </h2>
+        </div>
+        
+    
+        <!-- Dropdown for Branch Selection -->
+        <div class="login-credential">
+            <div class="branch w-100"><br><br>
+                <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                    style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                    &nbsp;Branch
+                </h3>
+                <select id="branchSelect" class="form-control" required>
+                    <option value="" disabled selected>Select a branch</option>
+                    <!-- Dynamically populated with branches from Firestore -->
+                </select>
+            </div>
+            <div class="role w-100"><br><br>
+                <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                    style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                    &nbsp;Role
+                </h3>
+                <select id="role" class="form-control" disabled required>
+                    <option value="" disabled selected>Select a Role</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Staff">Staff</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+        
+        <div class="login-emp login-credential" style="display: none;">
+            <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
+                &nbsp;Email
+            </h3>
+            <div class="email-container d-flex">
+                <div class="email-input-wrapper">
+                    <span class="email-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                        </svg>
+                    </span>
+                    <input type="email" class="form-control email-input" id="branch-email" placeholder="Email" disabled required style="color: rgb(110, 106, 106);">
                 </div>
-                
-            
-                <!-- Dropdown for Branch Selection -->
-                <div class="login-credential">
-                    <div class="branch w-100"><br><br>
-                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                            &nbsp;Branch
-                        </h3>
-                        <select id="branchSelect" class="form-control" required>
-                            <option value="" disabled selected>Select a branch</option>
-                            <!-- Dynamically populated with branches from Firestore -->
-                        </select>
-                    </div>
-                    <div class="role w-100"><br><br>
-                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                            &nbsp;Role
-                        </h3>
-                        <select id="role" class="form-control" disabled required>
-                            <option value="" disabled selected>Select a Role</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Staff">Staff</option>
-                        </select>
-                    </div>
+            </div>
+            <br>
+            <!-- Has Access Radio Buttons -->
+            <div class="has-access-wrapper d-flex align-items-center">
+                <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
+                    style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 20px;">
+                    &nbsp;Toggle Access
+                </h3>
+                <div class="radio-group d-flex">
+                    <label for="allow-access" style="margin-right: 15px;">
+                        <input type="radio" id="allow-access" name="access" value="allow" style="margin-right: 5px;">
+                        Allow
+                    </label>
+                    <label for="decline-access">
+                        <input type="radio" id="decline-access" name="access" value="decline" style="margin-right: 5px;">
+                        Decline
+                    </label>
                 </div>
-                
-                <br>
-                
-                <div class="login-emp login-credential" style="display: none;">
-                    <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                        style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                        &nbsp;Email
-                    </h3>
-                    <div class="email-container d-flex">
-                        <div class="email-input-wrapper">
-                            <span class="email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--dark-brown)" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
-                                </svg>
-                            </span>
-                            <input type="email" class="form-control email-input" id="branch-email" placeholder="Email" disabled required style="color: rgb(110, 106, 106);">
-                        </div>
-                    </div>
-                    <br>
-                    <!-- Has Access Radio Buttons -->
-                    <div class="has-access-wrapper d-flex align-items-center">
-                        <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
-                            style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold; padding-right: 20px;">
-                            &nbsp;Toggle Access
-                        </h3>
-                        <div class="radio-group d-flex">
-                            <label for="allow-access" style="margin-right: 15px;">
-                                <input type="radio" id="allow-access" name="access" value="allow" style="margin-right: 5px;">
-                                Allow
-                            </label>
-                            <label for="decline-access">
-                                <input type="radio" id="decline-access" name="access" value="decline" style="margin-right: 5px;">
-                                Decline
-                            </label>
-                        </div>
-                    </div>
-                </div><br>
-            </form><br><hr class="line" style="color: white;">
+            </div>
+        </div><br>
+    </form><br><hr class="line" style="color: white;">
 
         <div class="staff-management-container">
             <h2 class="staff-management-title">Employee Management</h2>
