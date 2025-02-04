@@ -168,6 +168,7 @@
             <div class="accordion" id="pendingOrdersAccordion"></div> 
             <br>
         </section>
+        <div class="dashboard-line"></div>
 
     <!-- Finished Orders Section -->
     <section class="finished-orders mt-4">
@@ -301,7 +302,7 @@
             setTimeout(() => {
                 loadingModal.hide();
                 localStorage.removeItem('showModal'); // Clear state after hiding
-            }, 10000);
+            }, 5000);
         });
     </script>
     <script src="/main.js"></script>

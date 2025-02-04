@@ -127,7 +127,6 @@ async function fetchClaimedCoupons(user) {
     // Fetch user data from Firestore
     const unsubscribeUser = onSnapshot(query(collection(db, "users"), where("email", "==", userEmail)), (querySnapshot) => {
         if (!querySnapshot.empty) {
-            headTitle.style.display = "block";
             const userDoc = querySnapshot.docs[0];
             const userData = userDoc.data();
             const usedCoupons = userData.usedCoupons || [];
@@ -141,12 +140,12 @@ async function fetchClaimedCoupons(user) {
             }
 
             let hasCoupons = false;
-            headTitle.style.display = "block";
 
             usedCoupons.forEach(async (couponId, index, array) => {
                 const couponDocRef = doc(db, "coupons", couponId);
                 const unsubscribeCoupon = onSnapshot(couponDocRef, (couponDocSnap) => {
                     if (couponDocSnap.exists()) {
+                        headTitle.style.display = "block";
                         hasCoupons = true;
                         const couponData = couponDocSnap.data();
                         const startDate = new Date(couponData.coup_start.seconds * 1000).toLocaleDateString();
@@ -196,11 +195,8 @@ async function fetchClaimedCoupons(user) {
                         claimedCouponsContainer.appendChild(noCouponMessage);
                     }
 
-                    
-                    headTitle.style.display = "block";
                 });
                 
-                headTitle.style.display = "block";
             });
             
             

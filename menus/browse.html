@@ -546,7 +546,7 @@
     </div>
   </div>
 
-  <div class="footer-show">
+  <!--<div class="footer-show">
     <footer class="small-footer">
       <p>In Partial Fulfillment for subject Web Development</p>
     </footer>
@@ -556,7 +556,7 @@
     <footer class="small-footer fixed-bottom">
       <p>In Partial Fulfillment for subject Web Development</p>
     </footer>
-  </div>
+  </div>-->
 
   <!-- Modal HTML -->
   <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
@@ -644,12 +644,12 @@
               const modalElement = document.getElementById('gifModal');
               modalElement.style.display = 'block';
               loadingModal.show();
-          }, 300);
+          }, 300); 
 
           setTimeout(() => {
               loadingModal.hide();
               localStorage.removeItem('showModal'); // Clear state after hiding
-          }, 3000);
+          }, 2000);
       });
   }
 
