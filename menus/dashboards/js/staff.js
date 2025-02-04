@@ -634,7 +634,8 @@ async function finishOrder(branchId, orderId) {
            // Mark the order as finished in the orders collection
            await updateDoc(orderRef, {
                isFinished: true,
-               status: "Paid"
+               status: "Paid",
+               didFeedback: false
            });
 
            showModal(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
