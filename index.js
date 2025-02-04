@@ -567,7 +567,7 @@ function setupPasswordEditFunctions(user) {
       
 }
 
-function accountDelete(user) {
+async function accountDelete(user) {
     const deleteAccountBtn = document.getElementById("account-delete");
 
     deleteAccountBtn.addEventListener("click", async () => {
@@ -583,18 +583,25 @@ function accountDelete(user) {
                     const q = query(usersCollection, where("email", "==", userEmail)); // Use "uid" if stored
                     const querySnapshot = await getDocs(q);
 
-                    querySnapshot.forEach(async (docSnap) => {
-                        await deleteDoc(doc(db, "users", docSnap.id));
-                    });
+                    if (querySnapshot.empty) {
+                        console.warn("⚠️ No Firestore document found for this user.");
+                    } else {
+                        // Convert deletions to an array of promises
+                        const deletePromises = querySnapshot.docs.map(docSnap =>
+                            deleteDoc(doc(db, "users", docSnap.id))
+                        );
 
-                    console.log("✅ Firestore user data deleted");
+                        // Wait for all deletions to finish
+                        await Promise.all(deletePromises);
+                        console.log("✅ Firestore user data deleted");
+                    }
 
                     // ✅ Delete user from Firebase Authentication
                     await deleteUser(user);
                     console.log("✅ User deleted from Firebase Authentication");
 
                     // Redirect after deletion
-                    showModal("Your account has been deleted. Thank you using our application.", true);
+                    showModal("Your account has been deleted. Thank you for using our application.", true);
                     setTimeout(() => {
                         window.location.href = "/auth/signup.html";
                     }, 2500);
