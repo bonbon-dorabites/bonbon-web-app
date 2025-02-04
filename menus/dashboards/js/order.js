@@ -693,6 +693,7 @@ async function checkout() {
      const cartSummary = itemIds.map(itemId => ({
         itemId: itemId, // Include the itemId
         name: itemsInCart[itemId].name,
+        price: itemsInCart[itemId].price,
         quantity: itemsInCart[itemId].quantity
     }));
 
@@ -714,12 +715,14 @@ async function checkout() {
         isAccepted: false,
         isNew: true,
         isFinished: false,
+        status: "Waiting for Confirmation",
     };
 
      // Loop through the items in the cart and add to items_bought
      cartSummary.forEach(item => {
         orderData.items_bought[item.itemId] = {
             name: item.name,
+            price: item.price,
             quantity: item.quantity
         };
     });

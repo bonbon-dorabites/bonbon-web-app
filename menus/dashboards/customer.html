@@ -9,6 +9,66 @@
     <link rel="stylesheet" href="/style.css">
     <title>Customer Dashboard</title>
     <style>
+
+        .new-orders {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .new-orders-container {
+            border-radius: 10px;
+        }
+        
+        .order-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-details {
+            width: 100%;
+        }
+
+        .primary-details {
+            padding: 15px;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            background-color: #edb868;
+            justify-content: flex-end;
+            padding: 10px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .order-actions .btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .order-id {
+            background-color: #edb868;
+            padding: 5px 10px;
+            font-weight: bold;
+            width: auto;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            font-size: large;
+        }
+
       @media(max-width: 370px){
             .small-footer p {
                 font-size: 12px;
@@ -89,63 +149,25 @@
         </nav>
     </header>
 
-    <section id="customer">
+    <section class="customer-dashboard">
         <div class="dashboard-header text-center">
             <h1>Customer Dashboard</h1>
         </div>
-        <div class="first-line"></div>
+        <div class="dashboard-line"></div>
 
+        <!-- New Orders Section -->
+        <section class="new-orders mt-4">
+            <h2>New Orders</h2>
+            <div class="new-orders-container mt-4"></div>
+        </section>
+        <div class="dashboard-line"></div>
+        
         <!-- Pending Orders Section -->
         <section class="pending-orders mt-4">
-            <h2>Pending Orders</h2><br> 
-
-        <div class="accordion" id="pendingOrdersAccordion">
-            <!-- Order 1 -->
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder1" aria-expanded="false" aria-controls="pendingOrder1">
-                        ORDER ID: 54321
-                    </button>
-                </h2>
-                <div id="pendingOrder1" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                    <div class="accordion-body">
-                        <p><b>Name:</b> John Doe</p>
-                        <p><b>Email:</b> example@gmail.com</p>
-                        <p><b>Phone:</b> +63 912 345 6789</p>
-                        <p><b>Menu:</b> ORIGINAL OISHI (x1)</p>
-                        <p><b>Coupons:</b> Availed</p>
-                        <p><b>Final Price:</b> P64.00</p>
-                        <p><b>Status:</b> Not yet Paid</p>
-                        <br> <!-- Add space below content -->
-                        <button class="btn btn-success">Finish Order</button>
-                    </div>
-                </div>
-            </div> <br> 
-
-            <!-- Order 2 -->
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder2" aria-expanded="false" aria-controls="pendingOrder2">
-                        ORDER ID: 67898
-                    </button>
-                </h2>
-                <div id="pendingOrder2" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                    <div class="accordion-body">
-                        <p><b>Name:</b> Jane Smith</p>
-                        <p><b>Email:</b> jane.smith@gmail.com</p>
-                        <p><b>Phone:</b> +63 917 654 3210</p>
-                        <p><b>Menu:</b> CHOCO DELIGHT (x2)</p>
-                        <p><b>Coupons:</b> None</p>
-                        <p><b>Final Price:</b> P128.00</p>
-                        <p><b>Status:</b> Not yet Paid</p>
-                        <br> <!-- Add space below content -->
-                        <button class="btn btn-success">Finish Order</button>
-                    </div>
-                </div>
-            </div>
-        </div><br> 
-        <div class="first-line"></div>
-    </section>
+            <h2>Pending Orders</h2>
+            <div class="accordion" id="pendingOrdersAccordion"></div> 
+            <br>
+        </section>
 
     <!-- Finished Orders Section -->
     <section class="finished-orders mt-4">
@@ -206,15 +228,6 @@
         <br><br> 
     </section>
 
-    <br> <!-- Spacing between accordion items -->
-    <div class="first-line"></div>
-
-
-    <!-- Footer -->
-    <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
-    
     <!-- Modal HTML -->
     <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -255,6 +268,7 @@
     <script src="/main.js"></script>
     <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
+    <script type="module" src="/menus/dashboards/js/customer.js"></script>
 </body>
 </html>
 

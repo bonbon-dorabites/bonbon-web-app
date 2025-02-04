@@ -688,6 +688,7 @@ body {
     background-color: var(--beige);
     color: var(--wood-color);
     animation: fadeIn 0.3s ease-in-out;
+    min-height: 140px;
 }
 
 @keyframes fadeIn {
@@ -1723,6 +1724,12 @@ textarea.form-control:focus {
 
 .action-btn.delete:hover {
     background-color: #c82333;
+}
+
+.change-status-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 /* Modal Styling */
