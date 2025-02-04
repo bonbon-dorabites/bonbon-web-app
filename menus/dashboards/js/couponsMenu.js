@@ -32,142 +32,184 @@ auth.onAuthStateChanged(async (user) => {
 
 
 async function fetchAvailableCoupons(user) {
-    // Get the existing active-coupons div
     const activeCouponsContainer = document.querySelector(".active-coupons");
+    const headTitle = document.getElementById("coupon-head");
+    const noCouponMessage = document.createElement("h2");
+    noCouponMessage.textContent = "No Coupons Available";
+    noCouponMessage.style.textAlign = "center";
+    noCouponMessage.style.marginTop = "10px";
+    noCouponMessage.style.color = "marroon";
+    noCouponMessage.style.fontWeight = "bold";
+    noCouponMessage.style.fontStyle = "italic";
+    noCouponMessage.classList.add("no-coupons-text");
 
-    // Query the user's document to get their usedCoupons array
     const userEmail = user.email;
     const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
 
-    // Listen for real-time updates to the user's document
     const unsubscribeUser = onSnapshot(userQuery, (userSnapshot) => {
-        // If the user is found
         if (!userSnapshot.empty) {
             const userDoc = userSnapshot.docs[0];
             const userData = userDoc.data();
-            const usedCoupons = userData.usedCoupons || []; // Get the usedCoupons array
+            const usedCoupons = userData.usedCoupons || [];
 
-            // Listen for real-time updates to the coupons collection
             const unsubscribeCoupons = onSnapshot(collection(db, "coupons"), (querySnapshot) => {
-                // Clear the existing coupons before adding new ones
                 activeCouponsContainer.innerHTML = '';
+                document.querySelectorAll(".no-coupons-text").forEach(el => el.remove()); // Remove previous messages
+
+                let hasCoupons = false;
+                let couponArray = [];
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    const couponId = doc.id; // Document ID as the coupon code
-                    const startDate = new Date(data.coup_start.seconds * 1000);
-                    const endDate = new Date(data.coup_end.seconds * 1000);
-                    const isActive = data.coup_isActive; // Boolean indicating if the coupon is active
+                    const couponId = doc.id;
+                    const isActive = data.coup_isActive;
+                    const minOrder = data.min_order || 0;
 
-                    // Check if the coupon is active and if it has not been claimed already
                     if (isActive && !usedCoupons.includes(couponId)) {
-                        // Create the coupon card div
+                        hasCoupons = true;
+
                         const couponDiv = document.createElement("div");
                         couponDiv.classList.add("coupon-page-card");
 
-                        // Generate coupon description and button
                         const couponText = document.createElement("span");
                         couponText.classList.add("coupon-page-card-text");
                         couponText.textContent = data.coup_desc;
 
-                        // Add extra info (dates and discount)
                         const extraInfo = document.createElement("div");
                         extraInfo.classList.add("coupon-extra-info");
                         extraInfo.innerHTML = `
-                            <small>Valid: ${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}</small>
-                            <br>
                             <small>Code: <strong>${couponId}</strong></small>
                             <br>
                             <small>Discount Amount: ₱${data.coup_amount}</small>
+                            <br>
+                            <small>Minimum Spend: ₱${minOrder}</small>
                         `;
 
-                        // Append everything to the coupon div
                         couponDiv.appendChild(couponText);
                         couponDiv.appendChild(extraInfo);
-
-                        // Append the coupon card to the active-coupons div
-                        activeCouponsContainer.appendChild(couponDiv);
+                        couponArray.push(couponDiv);
                     }
                 });
+
+                // Apply spacing for first and last coupons
+                if (couponArray.length > 0) {
+                    couponArray[0].style.marginTop = "15px";
+                    couponArray[couponArray.length - 1].style.marginBottom = "15px";
+                }
+
+                couponArray.forEach(coupon => activeCouponsContainer.appendChild(coupon));
+
+                if (!hasCoupons) {
+                    activeCouponsContainer.appendChild(noCouponMessage);
+                }
+
+                headTitle.style.display = "block";
             });
-        } else {
-            console.log("User not found");
         }
     });
 
-    // Return the unsubscribe function for cleaning up the listener when it's no longer needed
     return unsubscribeUser;
 }
 
-
 async function fetchClaimedCoupons(user) {
     const userEmail = user.email;
+    const headTitle = document.getElementById("coupon-head2");
+    const claimedCouponsContainer = document.querySelector(".claimed-coupon");
+    const noCouponMessage = document.createElement("h2");
+    noCouponMessage.textContent = "No Coupons Claimed";
+    noCouponMessage.style.textAlign = "center";
+    noCouponMessage.style.marginTop = "10px";
+    noCouponMessage.style.color = "marroon";
+    noCouponMessage.style.fontWeight = "bold";
+    noCouponMessage.style.fontStyle = "italic";
+    noCouponMessage.classList.add("no-coupons-text");
 
-    // Listen for real-time updates to the users collection
+    // Fetch user data from Firestore
     const unsubscribeUser = onSnapshot(query(collection(db, "users"), where("email", "==", userEmail)), (querySnapshot) => {
-        // If the user document exists
         if (!querySnapshot.empty) {
-            const userDoc = querySnapshot.docs[0]; // Get the first document (there should only be one)
+            headTitle.style.display = "block";
+            const userDoc = querySnapshot.docs[0];
             const userData = userDoc.data();
-            const usedCoupons = userData.usedCoupons || []; // Get the usedCoupons array (default to empty array if undefined)
+            const usedCoupons = userData.usedCoupons || [];
 
-            // Get the existing claimed-coupon div
-            const claimedCouponsContainer = document.querySelector(".claimed-coupon");
+            claimedCouponsContainer.innerHTML = ''; // Clear previous coupons
 
-            // Clear previous claimed coupons before appending new ones
-            claimedCouponsContainer.innerHTML = '';
+            // If there are no claimed coupons, show the message
+            if (usedCoupons.length === 0) {
+                claimedCouponsContainer.appendChild(noCouponMessage);
+                return;
+            }
 
-            // Iterate over the usedCoupons and fetch coupon details for each coupon ID
-            usedCoupons.forEach(async (couponId) => {
+            let hasCoupons = false;
+            headTitle.style.display = "block";
+
+            usedCoupons.forEach(async (couponId, index, array) => {
                 const couponDocRef = doc(db, "coupons", couponId);
-                // Listen for real-time updates to each coupon's data
                 const unsubscribeCoupon = onSnapshot(couponDocRef, (couponDocSnap) => {
                     if (couponDocSnap.exists()) {
+                        hasCoupons = true;
                         const couponData = couponDocSnap.data();
                         const startDate = new Date(couponData.coup_start.seconds * 1000).toLocaleDateString();
                         const endDate = new Date(couponData.coup_end.seconds * 1000).toLocaleDateString();
+                        const minOrder = couponData.min_order || 0;
 
-                        // Create the claimed coupon card div
                         const couponDiv = document.createElement("div");
                         couponDiv.classList.add("coupon-page-card", "claimed");
 
-                        // Create the coupon details section
+                        if (index === 0) couponDiv.style.marginTop = "15px"; // Space above first coupon
+                        if (index === array.length - 1) couponDiv.style.marginBottom = "15px"; // Space below last coupon
+
                         const couponDetails = document.createElement("div");
                         couponDetails.classList.add("coupon-details");
 
-                        // Generate the coupon description and code
                         const couponText = document.createElement("span");
                         couponText.classList.add("coupon-page-card-text");
                         couponText.textContent = couponData.coup_desc;
 
-                        const couponCode = document.createElement("div");
-                        couponCode.classList.add("coupon-code");
-                        couponCode.textContent = `Code: ${couponId}`;
+                        const extraInfo = document.createElement("div");
+                        extraInfo.classList.add("coupon-extra-info");
+                        extraInfo.innerHTML = `
+                            <small>Valid: ${startDate} - ${endDate}</small>
+                            <br>
+                            <small>Code: <strong>${couponId}</strong></small>
+                            <br>
+                            <small>Discount Amount: ₱${couponData.coup_amount}</small>
+                            <br>
+                            <small>Minimum Spend: ₱${minOrder}</small>
+                        `;
 
-                        // Append coupon details to the card
-                        couponDetails.appendChild(couponText);
-                        couponDetails.appendChild(couponCode);
-
-                        // Create the claimed text
                         const claimedText = document.createElement("span");
                         claimedText.classList.add("claimed-text");
                         claimedText.textContent = "Claimed";
 
-                        // Append the coupon details and claimed text to the card
+                        couponDetails.appendChild(couponText);
+                        couponDetails.appendChild(extraInfo);
+
                         couponDiv.appendChild(couponDetails);
                         couponDiv.appendChild(claimedText);
 
-                        // Append the coupon card to the claimed-coupon container
                         claimedCouponsContainer.appendChild(couponDiv);
                     }
+
+                    // Show or hide the "No Coupons Claimed" message depending on whether we have coupons
+                    if (!hasCoupons && claimedCouponsContainer.childElementCount === 0) {
+                        claimedCouponsContainer.appendChild(noCouponMessage);
+                    }
+
+                    
+                    headTitle.style.display = "block";
                 });
+                
+                headTitle.style.display = "block";
             });
+            
+            
         } else {
             console.log("User document not found!");
+            claimedCouponsContainer.appendChild(noCouponMessage);
         }
     });
 
-    // Return the unsubscribe function for cleaning up the listener when it's no longer needed
     return unsubscribeUser;
 }
 

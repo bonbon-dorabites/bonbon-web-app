@@ -595,7 +595,7 @@ async function applyCoupon(userEmail) {
 
     // 🔹 Validate the coupon requirements
     if (couponData.min_order && subtotal < couponData.min_order) {
-        showModal("Minimum order of ₱${couponData.min_order} required to use this coupon.", false);
+        showModal("Minimum spend not met.", false);
         return;
     }
 

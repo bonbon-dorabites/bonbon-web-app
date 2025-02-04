@@ -36,8 +36,9 @@ body {
     width: 180px; height: 100px;
 }
 
-.gifmodal-backdrop{
-    background-color: solid black;
+#gifModal-backdrop, .gifmodal-backdrop{
+    background-color: black !important;
+    opacity: 1 !important;
 }
 
 @media (max-width: 761px) and (max-height: 658px){
