@@ -244,7 +244,8 @@ async function submitFeedback(orderId, branchId) {
         
         // Update Firestore with the feedback for that order
         await updateDoc(orderRef, {
-            feedback: feedbackText
+            feedback: feedbackText,
+            didFeedback: true
         });
 
         // Disable the textarea after submission
