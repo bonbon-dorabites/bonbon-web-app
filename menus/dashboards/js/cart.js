@@ -77,6 +77,9 @@ function showConfirmation(message, callback) {
 async function isCustomer() {
     // Query the 'users' collection using the provided email
     const user = auth.currentUser;
+    if (!user) {
+        return false; // Return false if user is not logged in
+    }
     const userEmail = user.email;
 
     const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
@@ -106,7 +109,7 @@ document.addEventListener("click", async (event) => {
         console.log("User is customer:", isUserCustomer);
 
         if (!isUserCustomer) {
-            showModal("Only customers can add items to the cart.", false);
+            showModal("Only logged-in customers can add items to the cart.", false);
             console.log("User is not a customer. Stopping execution.");
             return; // Stop execution if not a customer
         }

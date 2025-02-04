@@ -133,9 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-  async function isCustomer() {
+async function isCustomer() {
     // Query the 'users' collection using the provided email
     const user = auth.currentUser;
+
+    if (!user) {
+        showModal("Only logged-in customers can see checkout form.", false);
+        return false; 
+    }
+
     const userEmail = user.email;
 
     const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
@@ -150,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Return true if the role is 'customer', otherwise false
         return userRole === "Customer";
     } else {
+        
         console.log("User not found.");
         return false;
     }
