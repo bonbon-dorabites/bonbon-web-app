@@ -104,7 +104,6 @@ function updateTable() {
 
 function updateDaySelector() {
     console.log("HII PI");
-    daySelector.innerHTML = ""; // Clear previous options
 
     const selectedYear = parseInt(yearSelector.value, 10);
     const selectedMonth = monthSelector.value;
