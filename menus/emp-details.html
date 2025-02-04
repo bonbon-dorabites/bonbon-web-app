@@ -8,6 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/style.css">
     <style>
+        @media(max-width: 370px){
+            .small-footer p {
+                font-size: 12px;
+                text-align: center;
+            }
+        }
         .hidden-br3 {
             display: none;
         }
@@ -283,11 +289,7 @@
         </div>
     </div>
     
-    <script src="/main.js"></script>
-    <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/owner-det.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/browse.js" defer></script>
     <script type="module" src="/menus/dashboards/js/emp-det.js" defer></script>
 </body>
 </html>

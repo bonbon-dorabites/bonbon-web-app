@@ -921,11 +921,11 @@ body {
     background-color: rgb(42, 101, 124) !important;
 }
 
-#cancel-edit, #email-cancel, #password-cancel, #passcode-cancel {
+#cancel-edit, #email-cancel, #password-cancel, #passcode-cancel, #account-delete {
     background-color: maroon !important;
 }
 
-#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover, #passcode-cancel:hover {
+#cancel-edit:hover, #email-cancel:hover, #password-cancel:hover, #passcode-cancel:hover, #account-delete:hover {
     background-color: rgb(153, 69, 69) !important;
 }
 

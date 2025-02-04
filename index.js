@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut, updatePassword, updateEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, updateDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut, updatePassword, deleteUser } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, getDoc, where, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 // Firebase configuration
@@ -459,6 +459,7 @@ onAuthStateChanged(auth, async (user) => {
         const docId = await fetchAndDisplayUserData(user);
         if (docId) {
             setupPasswordEditFunctions(user);
+            accountDelete(user);
         }
     } else {
         console.log("No user is logged in.");
@@ -521,46 +522,94 @@ function setupPasswordEditFunctions(user) {
     
         // Check if password field is disabled or nothing was typed
         if (passwordInput.disabled || newPassword.trim() === "") {
-            // Show modal if no edit or change was made
             showModal("There was no edit that happened. Submission Failed.", false);
         } else {
-            showConfirmation("Are you sure you want to change this branch's password?", async function () { 
-                try {
-                    // Update password in Firebase Auth
-                    await updatePassword(user, newPassword);
-            
-                    // Show success modal and inform user to log in again
-                    showModal("You have changed your password. You need to log in again!", true);
-            
-                    // Wait for the modal to display before redirecting
-                    setTimeout(() => {
-                        console.log("test");
-                        hideModal();
-                        console.log("Password successfully updated!");
-                        window.location.href = "/auth/login.html"; // Redirect to login
-                    }, 2500);
-            
-                    console.log("✅ Password updated successfully.");
-                } catch (error) {
-                    const errorCode = error.code;
-                    if (errorCode === 'auth/weak-password') {
-                        showModal("Password should be at least 6 characters.", false); // Firebase's default rule
-                        
-                    }
-                    console.error("❌ Error updating password:", error);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 2000);
-                }
-            }, function () {
-                // Reset the password field if the user cancels
-                document.getElementById("passwordInput").value = "";
-                console.log("❌ Password reset as user canceled the action.");
-            });            
-        }
+            showConfirmation(
+                "Are you sure you want to change this account's password?",
+                async function () { // ✅ CONFIRM FUNCTION
+                    try {
+                        await updatePassword(user, newPassword);
     
-        // Disable password field after submission
-        passwordInput.disabled = true;
-        newPassword = "";
-    });    
+                        showModal("You have changed your password. You need to log in again!", true);
+                        console.log("Password successfully updated!");
+    
+                        setTimeout(() => {
+                            window.location.href = "/auth/login.html"; // Redirect to login
+                        }, 2500);
+    
+                        console.log("✅ Password updated successfully.");
+                    } catch (error) {
+                        if (error.code === 'auth/requires-recent-login') {
+                            showModal("You have been logged in for too long. Log-in again.", false);
+                            setTimeout(() => {
+                                window.location.href = "/auth/login.html";
+                            }, 2500);
+                        } 
+                        
+                        if (error.code === 'auth/weak-password') {
+                            showModal("Password should be at least 8 characters.", false);
+                        }
+                        console.error("❌ Error updating password:", error);
+                    }
+    
+                    // ✅ Disable password field **AFTER** confirmation
+                    passwordInput.disabled = true;
+                },
+                function () { // ❌ CANCEL FUNCTION
+                    // ✅ Reset the input field and re-enable it
+                    passwordInput.value = "";
+                    location.reload()
+                    console.log("❌ Password reset as user canceled the action.");
+                }
+            );
+        }
+    });
+      
+}
+
+function accountDelete(user) {
+    const deleteAccountBtn = document.getElementById("account-delete");
+
+    deleteAccountBtn.addEventListener("click", async () => {
+        showConfirmation(
+            "Are you sure you want to delete your account? This action cannot be undone.",
+            async function () { // ✅ Confirm deletion
+                try {
+                    const userEmail = user.email;
+                    const userId = user.uid;
+
+                    // ✅ Delete user data from Firestore
+                    const usersCollection = collection(db, "users");
+                    const q = query(usersCollection, where("email", "==", userEmail)); // Use "uid" if stored
+                    const querySnapshot = await getDocs(q);
+
+                    querySnapshot.forEach(async (docSnap) => {
+                        await deleteDoc(doc(db, "users", docSnap.id));
+                    });
+
+                    console.log("✅ Firestore user data deleted");
+
+                    // ✅ Delete user from Firebase Authentication
+                    await deleteUser(user);
+                    console.log("✅ User deleted from Firebase Authentication");
+
+                    // Redirect after deletion
+                    showModal("Your account has been deleted. Thank you using our application.", true);
+                    setTimeout(() => {
+                        window.location.href = "/auth/signup.html";
+                    }, 2500);
+                } catch (error) {
+                    console.error("❌ Error deleting account:", error);
+                    if (error.code === "auth/requires-recent-login") {
+                        showModal("Please log in again to delete your account.", false);
+                    } else {
+                        showModal("Failed to delete account. Please try again.", false);
+                    }
+                }
+            },
+            function () { // ❌ Cancel deletion
+                console.log("❌ Account deletion canceled.");
+            }
+        );
+    });
 }
