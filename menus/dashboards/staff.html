@@ -10,8 +10,11 @@
     <title>Staff Dashboard</title>
     <style>
 
+        .new-orders {
+            max-width: 800px;
+            margin: 0 auto;
+        }
         .new-orders-container {
-            padding: 20px;
             border-radius: 10px;
         }
 
@@ -438,154 +441,27 @@
         <!-- New Orders Section -->
         <section class="new-orders mt-4">
             <h2>New Orders</h2>
-            <div class="new-orders-container mt-4">
-                
-                
-                <!-- Order Card -->
-
-                <!--
-
-                <div class="order-card">
-                    <div class="order-id">Order #12345</div> 
-                    
-                    <div class="order-details primary-details">
-                        <p><b>1 x Breaded Chicken Tenders</b> (€ 10.00)</p>
-                        <p><b>1 x Coca-Cola 330ml</b> (€ 2.00)</p>
-                        <hr>
-                        <p><b>Total:</b> € 15.00</p>
-                        <p><b>Status:</b> Not Paid</p>
-                    </div>
-                    
-                    
-                    <div class="order-details hidden additional-details">
-                        <p><b>Name:</b> John Doe</p>
-                        <p><b>Email:</b> example@gmail.com</p>
-                        <p><b>Phone:</b> +63 912 345 6789</p>
-                        <p><b>Address:</b> 123 Main Street, Valenzuela City, Philippines</p>
-                    </div>
-                    
-        
-                    <div class="order-actions">
-                        <button class="btn btn-link view-more">View More</button>
-                        <button class="btn btn-success confirm-order">✔ Confirm</button>
-                        <button class="btn btn-danger reject-order">✘ Reject</button>
-                    </div>
-                </div>
-                    
-                -->
-            </div>
-                
-
+            <div class="new-orders-container mt-4"></div>
+            
         </section>
         <div class="dashboard-line"></div>
         
         <!-- Pending Orders Section -->
         <section class="pending-orders mt-4">
             <h2>Pending Orders</h2>
-            <div class="accordion" id="pendingOrdersAccordion">
-                <br> <!-- Add spacing above accordion items -->
-
-                <!-- Order 1 -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder1" aria-expanded="false" aria-controls="pendingOrder1">
-                            ORDER ID: 12345
-                        </button>
-                    </h2>
-                    <div id="pendingOrder1" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                        <div class="accordion-body">
-                            <p><b>Name:</b> John Doe</p>
-                            <p><b>Email:</b> example@gmail.com</p>
-                            <p><b>Phone:</b> +63 912 345 6789</p>
-                            <p><b>Menu:</b> ORIGINAL OISHI (x1)</p>
-                            <p><b>Coupons:</b> Availed</p>
-                            <p><b>Final Price:</b> P64.00</p>
-                            <p><b>Status:</b> Not yet Paid</p>
-                            <button class="btn btn-success">Finish Order</button>
-                        </div>
-                    </div>
-                </div>
-
-                <br> <!-- Spacing between accordion items -->
-
-                <!-- Order 2 -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrder2" aria-expanded="false" aria-controls="pendingOrder2">
-                            ORDER ID: 67890
-                        </button>
-                    </h2>
-                    <div id="pendingOrder2" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                        <div class="accordion-body">
-                            <p><b>Name:</b> Jane Smith</p>
-                            <p><b>Email:</b> jane.smith@gmail.com</p>
-                            <p><b>Phone:</b> +63 917 654 3210</p>
-                            <p><b>Menu:</b> CHOCO DELIGHT (x2)</p>
-                            <p><b>Coupons:</b> None</p>
-                            <p><b>Final Price:</b> P128.00</p>
-                            <p><b>Status:</b> Not yet Paid</p>
-                            <button class="btn btn-success">Finish Order</button>
-                        </div>
-                    </div>
-                </div>
-            </div> <br> 
+            <div class="accordion" id="pendingOrdersAccordion"></div> 
+            <br>
         </section>
+
 
         <div class="dashboard-line"></div>
 
         <!-- Finished Orders Section -->
         <section class="finished-orders mt-4">
             <h2>Finished Orders</h2>
-            <div class="accordion" id="finishedOrdersAccordion">
-                <br> <!-- Add spacing above accordion items -->
+            <div class="accordion" id="finishedOrdersAccordion"></div>
 
-                <!-- First Finished Order -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder1" aria-expanded="false" aria-controls="finishedOrder1">
-                            ORDER ID: 67890
-                        </button>
-                    </h2>
-                    <div id="finishedOrder1" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                        <div class="accordion-body feedback-status">
-                            <p><b>Status:</b> Paid</p>
-                            <p><b>Feedback:</b> 10/10 Love it!</p>
-                        </div>
-                    </div>
-                </div>
 
-                <br> <!-- Spacing between accordion items -->
-
-                <!-- Second Finished Order -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder2" aria-expanded="false" aria-controls="finishedOrder2">
-                            ORDER ID: 67901
-                        </button>
-                    </h2>
-                    <div id="finishedOrder2" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                        <div class="accordion-body feedback-status">
-                            <p><b>Status:</b> Paid</p>
-                            <p><b>Feedback:</b> Great service, fast delivery, and delicious food!</p>
-                        </div>
-                    </div>
-                </div><br> 
-
-                <!-- Third Finished Order -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder3" aria-expanded="false" aria-controls="finishedOrder3">
-                            ORDER ID: 67902
-                        </button>
-                    </h2>
-                    <div id="finishedOrder3" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                        <div class="accordion-body feedback-status">
-                            <p><b>Status:</b> Paid</p>
-                            <p><b>Feedback:</b> The food was excellent, and I appreciate the quick delivery!</p>
-                        </div>
-                    </div>
-                </div>
-            </div><br> 
         </section>
     </section>
 

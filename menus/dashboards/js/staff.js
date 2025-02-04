@@ -259,7 +259,98 @@ async function fetchOrders(branchId) {
                             // Append the order card to the container
                             ordersContainer.innerHTML += orderCardHTML;
                         }
+                    } else if (orderData.isAccepted && orderData.isFinished === false) {
+                         // Generate the accordion item for accepted orders
+                         const userEmail = orderData.user_email; // Assuming user_email field in order
+                         const userDoc = await getUserInfo(userEmail);
+                        
+                         if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                            const userPhone = userData.phone;
+                            const userAddress = userData.address;
+
+                            // Loop through the items_bought map to display item details
+                            let itemsHTML = "";
+                            for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                                itemsHTML += `
+                                    <p>- ${itemDetails.name} (x${itemDetails.quantity})</p>
+                                `;
+                            }
+
+                            // Generate the accordion item HTML
+                            const accordionItemHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="pending-order-id accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="acceptedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
+                                    <div class="accordion-body">
+                                        <p><b>Name:</b> ${userFullName}</p>
+                                        <p><b>Email:</b> ${userEmail}</p>
+                                        <p><b>Phone:</b> ${userPhone}</p>
+                                        <p><b>Address:</b> ${userAddress}</p>
+                                        <p><b>Items:</b></p>
+                        
+                                        ${itemsHTML}
+                                        <hr style="border: 1px solid white; width: 100%">
+
+                                        <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
+                                        <p><b>Estimated Time:</b> <span id="timer${orderId}">${orderData.estimatedTime} minutes</span></p>
+                                        <p><b>Status:</b> ${orderData.status}</p>
+                                        <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            `;
+
+                            // Append the accordion item to the accordion container
+                            pendingOrdersAccordion.innerHTML += accordionItemHTML;
+                                                        
+                            startCountdown(orderId, orderData.estimatedTime);
+                        } 
+                    } else if (orderData.isFinished) {
+                        console.log("ISFINISHED");
+                    
+                        // Empty the finished orders container before adding new content
+                        const finishedOrdersContainer = document.getElementById('finishedOrdersAccordion');
+                        finishedOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
+                    
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                    
+                            // Generate the finished order HTML with feedback
+                            const finishedOrderHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" aria-controls="finishedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                                    <div class="accordion-body feedback-status">
+                                        <p><b>Name:</b> ${userFullName}</p>
+                                        <p><b>Status:</b> Paid</p>
+                                        <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            `;
+                    
+                            // Append the finished order to the finished orders container
+                            finishedOrdersContainer.innerHTML += finishedOrderHTML;
+                        }
                     }
+                    
+ 
 
                 });
             } else {
@@ -340,6 +431,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
+    document.querySelector(".accordion").addEventListener("click", function (event) {
+        if (event.target.classList.contains("finish-the-order")) {
+           alert("ORDER FINISHED");
+          // Find the closest accordion item
+          const accordionItem = event.target.closest(".accordion-item");
+
+          if (!accordionItem) {
+              alert("Error: Unable to find order details.");
+              return;
+          }
+
+          // Get the order ID from the corresponding button with class "pending-order-id"
+          const orderIdElement = accordionItem.querySelector(".pending-order-id");
+
+          if (!orderIdElement) {
+              alert("Error: Order ID not found.");
+              return;
+          }
+
+          // Extract the ORDER ID text from the button
+          const orderIdText = orderIdElement.textContent.trim();
+          const orderId = orderIdText.replace("ORDER ID:", "").trim(); // Remove "ORDER ID: " part
+
+          alert("ORDER ID: " + orderId);
+          // Get branch ID dynamically
+          const branchButton = document.getElementById("staff-branch");
+          const branch = branchButton.textContent;
+          const branchId = reversedBranchMaps[branch];
+
+          alert("BRANCH ID: " + branchId);
+
+          if (!orderId || !branchId) {
+              alert("Order ID or Branch ID is missing!");
+              return;
+          }
+
+          finishOrder(branchId, orderId);
+          // Call refreshOrders to reload the orders section
+          refreshOrders();
+        }
+    });
+
+});
+
 async function confirmOrder(orderId, minutes, orderCard) {
     alert("HI: " + orderId);
     const branchButton = document.getElementById("staff-branch");
@@ -397,7 +534,22 @@ async function rejectOrder(orderId) {
     }
 }
 
+// Function to update Firestore and mark the order as finished
+async function finishOrder(branchId, orderId) {
+    const orderRef = doc(db, "branches", branchId, "orders", orderId);
 
+    try {
+        // Update Firestore to mark the order as finished
+        await updateDoc(orderRef, {
+            isFinished: true
+        });
+
+        alert(`Order ${orderId} has been marked as finished.`);
+    } catch (error) {
+        console.error("Error updating order:", error);
+        alert("Failed to finish the order. Please try again.");
+    }
+}
 
 // Function to get user information based on email
 async function getUserInfo(userEmail) {
@@ -418,3 +570,48 @@ async function getUserInfo(userEmail) {
         return null;
     }
 }
+
+// Re-fetch and update the orders
+async function refreshOrders() {
+    const pendingOrdersAccordion = document.getElementById('pendingOrdersAccordion');
+    pendingOrdersAccordion.innerHTML = '';  // Clear the existing orders
+
+    // Your logic to fetch and display orders
+    await fetchOrders();  
+
+}
+
+function startCountdown(orderId, estimatedTimeInMinutes) {
+    const timerElement = document.getElementById(`timer${orderId}`);
+    let remainingTime = estimatedTimeInMinutes * 60; // Convert to seconds
+
+    // Check if there's a saved remaining time in localStorage
+    const savedTime = localStorage.getItem(`order_${orderId}_timer`);
+    if (savedTime) {
+        remainingTime = parseInt(savedTime, 10); // Use the saved time
+    }
+
+    // Update the timer every second
+    const timerInterval = setInterval(() => {
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = remainingTime % 60;
+        
+        // Display the remaining time in minutes:seconds format
+        timerElement.textContent = `${minutes}m ${seconds}s`;
+
+        remainingTime--;
+
+        // Save the remaining time to localStorage every second
+        localStorage.setItem(`order_${orderId}_timer`, remainingTime);
+
+        // When the timer reaches zero, stop the countdown and show a message
+        if (remainingTime < 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "Time's up!";
+            localStorage.removeItem(`order_${orderId}_timer`); // Optionally remove timer state
+            // You can also change order status or trigger any other actions here
+            console.log(`Order #${orderId} time is up.`);
+        }
+    }, 1000);
+}
+
