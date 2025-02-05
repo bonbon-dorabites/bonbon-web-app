@@ -41,6 +41,38 @@ function hideModal() {
     loadingModal.hide();
 }
 
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+    const cancelButton = document.getElementById('cancelActionBtn'); // Get the cancel button
+
+    // Set the confirmation message
+    modalMessage.textContent = message;
+
+    // Remove previous event listeners to prevent duplication
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    cancelButton.replaceWith(cancelButton.cloneNode(true));
+
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+    const newCancelButton = document.getElementById('cancelActionBtn');
+
+    // Attach new event listener for Confirm
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide(); // Hide modal properly
+    });
+
+    // Attach new event listener for Cancel
+    newCancelButton.addEventListener("click", function () {
+        modalInstance.hide(); // Ensure modal is closed
+    });
+
+    // Show the modal
+    modalInstance.show();
+}
+
 // Mapping of branchId to display text
 const branchMaps = {
     "SmValenzuela": "SM VALENZUELA",
@@ -109,7 +141,9 @@ const setupStockUpdate = (branchId) => {
 
     // Define functions to handle the stock update for each menu item
     toggleStock = (itemName, isSoldOut, showSuccessModal = true) => {
-        console.log(`Updating stock for item: ${itemName}, Sold-Out: ${isSoldOut}`);
+        
+        showConfirmation("Are you sure you want to update this stock?", async function () { 
+            console.log(`Updating stock for item: ${itemName}, Sold-Out: ${isSoldOut}`);
         const itemRef = doc(branchRef, 'items', itemName);
         
         return updateDoc(itemRef, { isSoldOut: isSoldOut })
@@ -123,6 +157,8 @@ const setupStockUpdate = (branchId) => {
                 console.error("Error updating item stock:", error);
                 showModal(`Error updating item(s): ${error.message}`, false);
             });
+        });
+        
     };
 
     // Attach event listeners to buttons that toggle stock availability
@@ -146,10 +182,12 @@ const setupStockUpdate = (branchId) => {
 
 // Grouped stock update functions (show only one modal)
 const updateMultipleStocks = (items, isSoldOut) => {
-    const updatePromises = items.map(item => toggleStock(item, isSoldOut, false));
-
-    Promise.all(updatePromises).then(() => {
-        showModal("Item(s) successfully updated.", true);
+        const updatePromises = items.map(item => toggleStock(item, isSoldOut, false));
+    
+        showConfirmation("Are you sure you want to update this stock?", async function () { 
+        Promise.all(updatePromises).then(() => {
+            showModal("Item(s) successfully updated.", true);
+        });
     });
 };
 
@@ -355,77 +393,70 @@ document.addEventListener('click', async function(event) {
 });
 
 
-document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("view-more-btn")) {
-        console.log("View More clicked");
-
-        // Find the closest order-card
-        const orderCard = event.target.closest(".order-card");
-        if (!orderCard) return;
-
-        // Select the additional details section
-        const additionalDetails = orderCard.querySelector(".order-details.hidden") || 
-                                  orderCard.querySelector(".order-details:not(.primary-details)");
-
-        if (additionalDetails) {
-            additionalDetails.classList.toggle("hidden"); // Toggle visibility
-
-            // Change button text
-            event.target.textContent = additionalDetails.classList.contains("hidden") ? "View More" : "View Less";
-        }
-    } else if (event.target.classList.contains("reject-order")) {
-        const orderCard = event.target.closest(".order-card"); // Get the specific order card
-        const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
-        rejectOrder(orderId);
-    }
-});
-
 document.addEventListener("DOMContentLoaded", () => {
-    // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
-    document.querySelector(".new-orders-container").addEventListener("click", function (event) {
+    const newOrdersContainer = document.querySelector(".new-orders-container");
+    const confirmationModal = document.getElementById("confirmationModal");
+
+    newOrdersContainer.addEventListener("click", function (event) {
         if (event.target.classList.contains("confirm-order")) {
-            const orderCard = event.target.closest(".order-card"); // Get the specific order card
-            const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
-            const modal = document.getElementById("order-time-modal");
-            const inputMinutes = document.getElementById("input-minutes");
+            showConfirmation("Are you sure you want to confirm this order?", async function () {
+                const orderCard = event.target.closest(".order-card"); // Get the specific order card
+                const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
+                const modal = document.getElementById("order-time-modal");
+                const inputMinutes = document.getElementById("input-minutes");
 
-            modal.style.display = "flex";
+                modal.style.display = "flex";
 
-        // Close Modal
-        document.getElementById("cancel-modal").addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-        
-        // Handle Minute Buttons
-        document.querySelectorAll(".btn-minute").forEach((button) => {
-            button.addEventListener("click", (e) => {
-                inputMinutes.value = e.target.dataset.minutes;
+                // Ensure event listeners are not duplicated
+                document.getElementById("cancel-modal").onclick = () => {
+                    modal.style.display = "none";
+                };
+
+                // Handle Minute Buttons
+                document.querySelectorAll(".btn-minute").forEach((button) => {
+                    button.onclick = (e) => {
+                        inputMinutes.value = e.target.dataset.minutes;
+                    };
+                });
+
+                // Confirm Button Action
+                document.getElementById("confirm-modal").onclick = () => {
+                    const minutes = inputMinutes.value;
+                    if (minutes) {
+                        console.log(`Order confirmed with an estimated time of ${minutes} minutes.`);
+                        showModal(`Order confirmed with an estimated time of ${minutes} minutes.`, true);
+                        modal.style.display = "none";
+                        confirmOrder(orderId, minutes, orderCard, modal);
+                    } else {
+                        showModal("Please input or select an estimated time.", false);
+                    }
+                };
             });
-        });
+        } 
 
-         // Confirm Button Action
-        document.getElementById("confirm-modal").addEventListener("click", () => {
-            const minutes = inputMinutes.value;
-            if (minutes) {
-                console.log(`Order confirmed with an estimated time of ${minutes} minutes.`);
-                showModal(`Order confirmed with an estimated time of ${minutes} minutes.`, true);
-                modal.style.display = "none";
-                confirmOrder(orderId, minutes, orderCard, modal);
-            } else {
-                showModal("Please input or select an estimated time.", false);
-            }
-        });
-
+        if (event.target.classList.contains("reject-order")) {
+            showConfirmation("Are you sure you want to reject this order?", async function () {
+                const orderCard = event.target.closest(".order-card");
+                const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1];
+                rejectOrder(orderId);
+            });
         }
     });
 
+    // Ensure modal is properly removed on cancel
+    confirmationModal.addEventListener("hidden.bs.modal", function () {
+        document.body.classList.remove("modal-open");
+        document.querySelector(".modal-backdrop")?.remove();
+    });
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
     document.querySelector(".accordion").addEventListener("click", function (event) {
         if (event.target.classList.contains("finish-the-order")) {
-           showModal("Order is delivered.", true);
+            showConfirmation("Are you sure you this order is finished?", async function () { 
+                showModal("Order is delivered.", true);
           // Find the closest accordion item
           const accordionItem = event.target.closest(".accordion-item");
 
@@ -460,6 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
           finishOrder(branchId, orderId);
           // Call refreshOrders to reload the orders section
           refreshOrders();
+            });
         }
     });
 

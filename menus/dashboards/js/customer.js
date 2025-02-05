@@ -20,6 +20,50 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 auth.languageCode = 'en';
 
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+
+    modalMessage.textContent = message;
+
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+
+    loadingModal.show();
+}
+
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
+
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
+
 document.addEventListener("click", function (event) {
     if (event.target.classList.contains("view-more-btn")) {
         console.log("View More clicked");
