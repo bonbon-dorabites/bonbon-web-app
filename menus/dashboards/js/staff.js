@@ -141,9 +141,7 @@ const setupStockUpdate = (branchId) => {
 
     // Define functions to handle the stock update for each menu item
     toggleStock = (itemName, isSoldOut, showSuccessModal = true) => {
-        
-        showConfirmation("Are you sure you want to update this stock?", async function () { 
-            console.log(`Updating stock for item: ${itemName}, Sold-Out: ${isSoldOut}`);
+        console.log(`Updating stock for item: ${itemName}, Sold-Out: ${isSoldOut}`);
         const itemRef = doc(branchRef, 'items', itemName);
         
         return updateDoc(itemRef, { isSoldOut: isSoldOut })
@@ -157,8 +155,6 @@ const setupStockUpdate = (branchId) => {
                 console.error("Error updating item stock:", error);
                 showModal(`Error updating item(s): ${error.message}`, false);
             });
-        });
-        
     };
 
     // Attach event listeners to buttons that toggle stock availability
@@ -182,12 +178,10 @@ const setupStockUpdate = (branchId) => {
 
 // Grouped stock update functions (show only one modal)
 const updateMultipleStocks = (items, isSoldOut) => {
-        const updatePromises = items.map(item => toggleStock(item, isSoldOut, false));
-    
-        showConfirmation("Are you sure you want to update this stock?", async function () { 
-        Promise.all(updatePromises).then(() => {
-            showModal("Item(s) successfully updated.", true);
-        });
+    const updatePromises = items.map(item => toggleStock(item, isSoldOut, false));
+
+    Promise.all(updatePromises).then(() => {
+        showModal("Item(s) successfully updated.", true);
     });
 };
 
