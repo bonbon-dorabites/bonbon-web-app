@@ -44,6 +44,8 @@ const employeeModal = document.getElementById("employeeModal");
 const editModal = document.getElementById("editEmployeeModal");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 const couponModal = document.getElementById("couponsModal");
+const itemModal = document.getElementById("menuModal");
+const editItemModal = document.getElementById("editMenuModal");
 const editCouponModal = document.getElementById("edit-couponsModal");
 const loadingCouponModal = document.getElementById("details-couponsModal");
 
@@ -57,9 +59,26 @@ function openEditModal() {
   editModal.style.display = "block";
 }
 
+
 // Close modal function
 function closeEditModal() {
   editModal.style.display = "none";
+}
+
+function openMenuModal() {
+  itemModal.style.display = "block";
+}
+
+function closeMenuModal() {
+  itemModal.style.display = "none";
+}
+
+function openEditMenuModal() {
+  editItemModal.style.display = "block";
+}
+
+function closeEditMenuModal() {
+  editItemModal.style.display = "none";
 }
 
 function openCouponModal() {
@@ -135,6 +154,54 @@ function editEmployee(button) {
 
   // Show the edit modal
   openEditModal();
+}
+
+
+function editMenu(button) {
+  console.log("EDIT ");
+  const row = button.closest("tr");
+
+  let itemName, price, docId;
+
+  if (row) {
+      // If the button is inside a table row
+      docId = row.getAttribute("data-menu-id"); // Get the docId from the row
+
+      // Get the data for the selected item
+      itemName = row.cells[1].innerText;
+      price = parseFloat(row.cells[4].innerText.replace("₱", "").replace(",", ""));
+  } else {
+      console.error("Could not find the row or details card.");
+      return;
+  }
+
+  // Populate the modal fields
+    document.getElementById("edit-menu_name").value = itemName;
+    document.getElementById("edit-menu_price").value = price;
+
+    
+  // Store docId in a hidden field
+  document.getElementById("edit-doc-menu-id").value = docId;
+  console.log("DOC ID:", docId);
+
+  // Show the edit modal
+  openEditMenuModal();
+}
+
+document.getElementById("menu-category").addEventListener("change", function() {
+  const sizeDropdown = document.getElementById("dorayaki-size");
+  
+  if (this.value === "Dorayaki Bites") {
+      sizeDropdown.removeAttribute("disabled");
+  } else {
+      sizeDropdown.setAttribute("disabled", "disabled");
+      sizeDropdown.selectedIndex = 0; // Reset selection when disabled
+  }
+});
+
+// Ensure price input only accepts numbers
+function validatePrice(input) {
+  input.value = input.value.replace(/[^0-9.]/g, ''); // Allow only numbers and decimal points
 }
 
 /*function editCoupon(button) {
