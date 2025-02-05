@@ -151,17 +151,40 @@ async function addItems() {
         console.log("Document added with ID: ", docId); // Log the custom docId
         alert("Item added successfully!");
 
+        // Get all branches
+        const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+        // Iterate over all branches with a proper asynchronous loop
+        for (const branchDoc of branchesSnapshot.docs) {
+            const branchId = branchDoc.id;
+
+            // Define a simpler item data for each branch (with just item_name, isSoldOut, and category)
+            const branchItemData = {
+                item_name: itemName,
+                isSoldOut: false,  // Default status for items
+                category: menuCategory
+            };
+
+            // Create a document reference for the specific branch's "items" subcollection
+            const branchItemRef = doc(db, "branches", branchId, "items", docId);
+
+            // Add the item to the branch's "items" subcollection using the document reference
+            await setDoc(branchItemRef, branchItemData);
+            console.log(`Item added to branch ${branchId} with simplified data`);
+        }
+
+        // Show success message
+        alert("Item added to all branches successfully!");
+
         // Reset the form after adding
         document.getElementById("addMenuForm").reset();
 
-        // Optionally, close the modal here (if you have closeMenuModal function)
-        // closeMenuModal();
-        
     } catch (e) {
         console.error("Error adding document: ", e);
         alert("Error adding item. Please try again.");
     }
 }
+
 
 
 async function editItems() {
