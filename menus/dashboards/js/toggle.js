@@ -92,7 +92,6 @@ onAuthStateChanged(auth, async (user) => {
             // Display the branch location
             document.getElementById("staff-branch").innerText = branchData.location;
 
-
             // Fetch and display stock updates
             fetchStockUpdates(branchId);
         } else {
@@ -110,6 +109,9 @@ function fetchStockUpdates(branchId) {
     onSnapshot(itemsRef, (snapshot) => {
         // Clear previous data
         document.querySelector(".dorabites-container").innerHTML = "";
+        document.querySelector(".flavors-container").innerHTML = "";
+        document.querySelector(".boncoin-container").innerHTML = "";
+        document.querySelector(".drinks-container").innerHTML = "";
 
         snapshot.forEach((doc) => {
             const itemData = doc.data();
@@ -117,6 +119,12 @@ function fetchStockUpdates(branchId) {
 
             if (itemData.category.startsWith("size")) {
                 createSizeRow(itemId, itemData);
+            } else if (itemData.category.startsWith("flavor")) {
+                createFlavorRow(itemId, itemData);
+            } else if (itemData.category.startsWith("boncoin")) {
+                createBoncoinRow(itemId, itemData);
+            } else if (itemData.category.startsWith("drink")) {
+                createDrinkRow(itemId, itemData);
             }
         });
     });
@@ -129,6 +137,174 @@ function createSizeRow(itemId, itemData) {
     // Create row div
     const row = document.createElement("div");
     row.className = "size-row";
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "10px";
+    row.style.marginBottom = "5px";
+    row.style.padding = "10px"; // Padding for spacing inside the row
+    row.style.borderRadius = "5px"; // Rounded corners
+    row.style.backgroundColor = "#f2f2f2"; // Light background color
+    row.style.height = "70px"; // Limit the height of each row
+    row.style.width = "900px"; // Limit the height of each row
+    row.style.fontSize = "20px"; // Smaller font size for better fit
+    row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
+
+    // Item Name
+    const name = document.createElement("span");
+    name.innerText = itemData.item_name;
+    name.style.fontWeight = "bold"; // Bold the item name
+    name.style.flex = "1"; // Allow the name to take the available space
+
+    // Status
+    const status = document.createElement("span");
+    status.innerText = itemData.isSoldOut ? "Sold Out" : "Available";
+    status.style.color = itemData.isSoldOut ? "red" : "green";
+    status.style.fontWeight = "bold"; // Bold the status text
+
+    // Available button
+    const availableBtn = document.createElement("button");
+    availableBtn.innerText = "Available";
+    availableBtn.className = "btn btn-success";
+    availableBtn.style.fontSize = "12px"; // Smaller font size
+    availableBtn.style.padding = "5px 10px"; // Adjust button size
+    availableBtn.onclick = () => toggleStockStatus(itemId, false);
+
+    // Sold Out button
+    const soldOutBtn = document.createElement("button");
+    soldOutBtn.innerText = "Sold Out";
+    soldOutBtn.className = "btn btn-danger";
+    soldOutBtn.style.fontSize = "12px"; // Smaller font size
+    soldOutBtn.style.padding = "5px 10px"; // Adjust button size
+    soldOutBtn.onclick = () => toggleStockStatus(itemId, true);
+
+    // Append elements
+    row.appendChild(name);
+    row.appendChild(status);
+    row.appendChild(availableBtn);
+    row.appendChild(soldOutBtn);
+
+    container.appendChild(row);
+}
+
+// Function to create a row for each flavor dynamically
+function createFlavorRow(itemId, itemData) {
+    const container = document.querySelector(".flavors-container");
+
+    // Create row div
+    const row = document.createElement("div");
+    row.className = "flavor-row";
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "10px";
+    row.style.marginBottom = "5px";
+    row.style.padding = "10px"; // Padding for spacing inside the row
+    row.style.borderRadius = "5px"; // Rounded corners
+    row.style.backgroundColor = "#f2f2f2"; // Light background color
+    row.style.height = "70px"; // Limit the height of each row
+    row.style.width = "900px"; // Limit the height of each row
+    row.style.fontSize = "20px"; // Smaller font size for better fit
+    row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
+
+    // Item Name
+    const name = document.createElement("span");
+    name.innerText = itemData.item_name;
+    name.style.fontWeight = "bold"; // Bold the item name
+    name.style.flex = "1"; // Allow the name to take the available space
+
+    // Status
+    const status = document.createElement("span");
+    status.innerText = itemData.isSoldOut ? "Sold Out" : "Available";
+    status.style.color = itemData.isSoldOut ? "red" : "green";
+    status.style.fontWeight = "bold"; // Bold the status text
+
+    // Available button
+    const availableBtn = document.createElement("button");
+    availableBtn.innerText = "Available";
+    availableBtn.className = "btn btn-success";
+    availableBtn.style.fontSize = "12px"; // Smaller font size
+    availableBtn.style.padding = "5px 10px"; // Adjust button size
+    availableBtn.onclick = () => toggleStockStatus(itemId, false);
+
+    // Sold Out button
+    const soldOutBtn = document.createElement("button");
+    soldOutBtn.innerText = "Sold Out";
+    soldOutBtn.className = "btn btn-danger";
+    soldOutBtn.style.fontSize = "12px"; // Smaller font size
+    soldOutBtn.style.padding = "5px 10px"; // Adjust button size
+    soldOutBtn.onclick = () => toggleStockStatus(itemId, true);
+
+    // Append elements
+    row.appendChild(name);
+    row.appendChild(status);
+    row.appendChild(availableBtn);
+    row.appendChild(soldOutBtn);
+
+    container.appendChild(row);
+}
+
+// Function to create a row for each Boncoin item dynamically
+function createBoncoinRow(itemId, itemData) {
+    const container = document.querySelector(".boncoin-container");
+
+    // Create row div
+    const row = document.createElement("div");
+    row.className = "boncoin-row";
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "10px";
+    row.style.marginBottom = "5px";
+    row.style.padding = "10px"; // Padding for spacing inside the row
+    row.style.borderRadius = "5px"; // Rounded corners
+    row.style.backgroundColor = "#f2f2f2"; // Light background color
+    row.style.height = "70px"; // Limit the height of each row
+    row.style.width = "900px"; // Limit the height of each row
+    row.style.fontSize = "20px"; // Smaller font size for better fit
+    row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
+
+    // Item Name
+    const name = document.createElement("span");
+    name.innerText = itemData.item_name;
+    name.style.fontWeight = "bold"; // Bold the item name
+    name.style.flex = "1"; // Allow the name to take the available space
+
+    // Status
+    const status = document.createElement("span");
+    status.innerText = itemData.isSoldOut ? "Sold Out" : "Available";
+    status.style.color = itemData.isSoldOut ? "red" : "green";
+    status.style.fontWeight = "bold"; // Bold the status text
+
+    // Available button
+    const availableBtn = document.createElement("button");
+    availableBtn.innerText = "Available";
+    availableBtn.className = "btn btn-success";
+    availableBtn.style.fontSize = "12px"; // Smaller font size
+    availableBtn.style.padding = "5px 10px"; // Adjust button size
+    availableBtn.onclick = () => toggleStockStatus(itemId, false);
+
+    // Sold Out button
+    const soldOutBtn = document.createElement("button");
+    soldOutBtn.innerText = "Sold Out";
+    soldOutBtn.className = "btn btn-danger";
+    soldOutBtn.style.fontSize = "12px"; // Smaller font size
+    soldOutBtn.style.padding = "5px 10px"; // Adjust button size
+    soldOutBtn.onclick = () => toggleStockStatus(itemId, true);
+
+    // Append elements
+    row.appendChild(name);
+    row.appendChild(status);
+    row.appendChild(availableBtn);
+    row.appendChild(soldOutBtn);
+
+    container.appendChild(row);
+}
+
+// Function to create a row for each drink dynamically
+function createDrinkRow(itemId, itemData) {
+    const container = document.querySelector(".drinks-container");
+
+    // Create row div
+    const row = document.createElement("div");
+    row.className = "drink-row";
     row.style.display = "flex";
     row.style.alignItems = "center";
     row.style.gap = "10px";

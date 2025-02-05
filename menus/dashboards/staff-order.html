@@ -320,26 +320,34 @@
             </div>
         </div>
 
-        <!-- First Horizontal Line -->
+        <div class="dashboard-line"></div>
+        <!-- New Orders Section -->
+        <section class="new-orders mt-4">
+            <h2>New Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No new orders to show.</h3>
+            <div class="new-orders-container mt-4"></div>
+            
+        </section>
         <div class="dashboard-line"></div>
         
-
-        <!-- Stock Update Section -->
-        <section class="stock-update mt-4">
-            <h2>Stock Update</h2>
-            <h3>Sizes (Dorayaki Bites & Walnutella)</h3>
-            <div class="dorabites-container"></div>
-        
-            <h3>Flavors (Dorayaki Bites)</h3>
-            <div class="flavors-container"></div>
-        
-            <h3>Flavors (Boncoin)</h3>
-            <div class="boncoin-container"></div>
-        
-            <h3>Drinks</h3>
-            <div class="drinks-container"></div>
+        <!-- Pending Orders Section -->
+        <section class="pending-orders mt-4">
+            <h2>Pending Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No pending orders to show.</h3>
+            <div class="accordion" id="pendingOrdersAccordion"></div> 
+            <br>
         </section>
 
+
+        <div class="dashboard-line"></div>
+
+        <!-- Finished Orders Section -->
+        <section class="finished-orders mt-4">
+            <h2>Finished Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No finished orders to show.</h3>
+            <div class="accordion" id="finishedOrdersAccordion"></div>
+        </section>
+    </section>
     
     <!-- Modal HTML -->
     <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
@@ -472,7 +480,7 @@
     </script>
     <script type="module" src="/auth/auth.js" defer></script>
     <script type="module" src="/index.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/toggle.js" defer></script>
+    <script type="module" src="/menus/dashboards/js/staff.js" defer></script>
     <script src="/main.js"></script>
 </body>
 </html>
