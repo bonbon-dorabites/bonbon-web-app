@@ -88,6 +88,8 @@ function updateItemDisplay(branch) {
 // Event listener for branch selection
 branchSelector.addEventListener("change", (event) => {
     updateItemDisplay(event.target.value);
+    const hide = document.querySelector(".browse-hide");
+    hide.style.display = "none";
 });
 
 // Function to fetch and listen to menu items in real-time from Firestore
