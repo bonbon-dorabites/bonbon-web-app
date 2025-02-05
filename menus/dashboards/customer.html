@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/style.css">
     <title>Customer Dashboard</title>
     <style>
-
+        #c-title, #c-title1, #c-title2, #c-title3, #c-line1, #c-line2, #c-line3 {
+            display: none;
+        }
         .new-orders {
             max-width: 800px;
             margin: 0 auto;
@@ -149,33 +151,33 @@
         </nav>
     </header>
 
-    <section class="customer-dashboard">
+    <section class="customer-dashboard ">
         <div class="dashboard-header text-center">
-            <h1>Customer Dashboard</h1>
+            <h1 id="c-title">Customer Dashboard</h1>
         </div>
-        <div class="dashboard-line"></div>
+        <div id="c-line1" class="dashboard-line"></div>
 
         <!-- New Orders Section -->
-        <section class="new-orders mt-4">
-            <h2>New Orders</h2>
-            <h3 style="font-style: italic; color: maroon; margin-left: 20px; display: none;">No new orders to show.</h3>
-            <div class="new-orders-container mt-4"></div>
+        <section class="new-orders mt-4 ">
+            <h2 id="c-title1" class="text-center">New Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No new orders to show.</h3>
+            <div class="new-orders-container mt-4"></div><br>
         </section>
-        <div class="dashboard-line"></div>
+        <div id="c-line2" class="dashboard-line"></div>
         
         <!-- Pending Orders Section -->
         <section class="pending-orders mt-4">
-            <h2>Pending Orders</h2>
-            <h3 style="font-style: italic; color: maroon; margin-left: 20px; display: none; margin-bottom: 20px;">No pending orders to show.</h3>
-            <div class="accordion" id="pendingOrdersAccordion"></div> 
+            <h2 id="c-title2" class="text-center">Pending Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none; margin-bottom: 20px;">No pending orders to show.</h3>
+            <div class="accordion" id="pendingOrdersAccordion"></div> <br>
         </section>
-        <div class="dashboard-line"></div>
+        <div id="c-line3" class="dashboard-line"></div>
 
         <!-- Finished Orders Section -->
         <section class="finished-orders mt-4">
-            <h2>Finished Orders</h2>
-            <h3 style="font-style: italic; color: maroon; margin-left: 20px; display: none;">No finished orders to show.</h3>
-            <div class="accordion" id="finishedOrdersAccordion"></div>
+            <h2 id="c-title3" class="text-center">Finished Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No finished orders to show.</h3>
+            <div class="accordion" id="finishedOrdersAccordion"></div><br>
         </section>
     </section>
 

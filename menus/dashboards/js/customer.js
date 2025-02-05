@@ -100,45 +100,51 @@ async function fetchOrders() {
     });
 }
 
+
+const show1 = document.getElementById("c-title");
+const show2 = document.getElementById("c-title1");
+const show3 = document.getElementById("c-title2");
+const show4 = document.getElementById("c-title3");
+const show5 = document.getElementById("c-line1");
+const show6 = document.getElementById("c-line2");
+const show7 = document.getElementById("c-line3");
+
 async function displayOrders(allOrders) {
+    show1.style.display = "block";
+    show2.style.display = "block";
+    show3.style.display = "block";
+    show4.style.display = "block";
+    show5.style.display = "block";
+    show6.style.display = "block";
+    show7.style.display = "block";
     const ordersContainer = document.querySelector(".new-orders-container");
     const pendingOrdersAccordion = document.getElementById("pendingOrdersAccordion");
     const finishedOrdersContainer = document.getElementById("finishedOrdersAccordion");
-    
+
+    const noNewOrdersMessage = document.querySelector(".new-orders h3");
+    const noPendingOrdersMessage = document.querySelector(".pending-orders h3");
+    const noFinishedOrdersMessage = document.querySelector(".finished-orders h3");
+
+    // Clear previous content
     ordersContainer.innerHTML = "";
     pendingOrdersAccordion.innerHTML = "";
     finishedOrdersContainer.innerHTML = "";
 
+    let hasNewOrders = false;
+    let hasPendingOrders = false;
+    let hasFinishedOrders = false;
+
     for (const order of allOrders) {
         const { branch, orderId, user_email, items_bought, total_price, status, isNew, isAccepted, isFinished, didFeedback, estimatedTime, feedback } = order;
-        
-         
-        // Log the full content of each order
-        console.log("Order Content: ", order);
-         
-        // Log each individual property as well for better clarity
-        console.log(`Branch: ${branch}`);
-        console.log(`DID FEEDBACK: ${didFeedback}`);
-        console.log(`Order ID: ${orderId}`);
-        console.log(`Email: ${user_email}`);
-        console.log(`Items in Cart:`, items_bought); // This can be an object or array, so logging as such
-        console.log(`Total Price: ${total_price}`);
-        console.log(`Status: ${status}`);
-        console.log(`Is New: ${isNew}`);
-        console.log(`Is Accepted: ${isAccepted}`);
-        console.log(`Is Finished: ${isFinished}`);
-        console.log(`Estimated Time: ${estimatedTime}`);
-        console.log(`Feedback: ${feedback}`);
- 
+
         const userDoc = await getUserInfo(user_email);
-        
         if (!userDoc) continue;
-        
+
         const userData = userDoc.data();
         const userFullName = `${userData.firstName} ${userData.lastName}`;
         const userPhone = userData.phone;
         const userAddress = userData.address;
-        
+
         let itemsHTML = "";
         for (const itemId in items_bought) {
             const item = items_bought[itemId];
@@ -146,6 +152,7 @@ async function displayOrders(allOrders) {
         }
 
         if (isNew) {
+            hasNewOrders = true;
             const orderCardHTML = `
                 <div class="order-card">
                     <div class="order-id">Order #${orderId} - ${branch}</div>
@@ -166,6 +173,7 @@ async function displayOrders(allOrders) {
                 </div>`;
             ordersContainer.innerHTML += orderCardHTML;
         } else if (isAccepted && !isFinished) {
+            hasPendingOrders = true;
             const accordionItemHTML = `
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -190,10 +198,11 @@ async function displayOrders(allOrders) {
                 </div>`;
             pendingOrdersAccordion.innerHTML += accordionItemHTML;
         } else if (isFinished) {
+            hasFinishedOrders = true;
             const finishedOrderHTML = `
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" data-branch-id="${branch}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false">
                             ORDER ID: ${orderId} - ${branch}
                         </button>
                     </h2>
@@ -212,7 +221,13 @@ async function displayOrders(allOrders) {
             finishedOrdersContainer.innerHTML += finishedOrderHTML;
         }
     }
+
+    // Show/hide "No orders to show" messages based on order availability
+    noNewOrdersMessage.style.display = hasNewOrders ? "none" : "block";
+    noPendingOrdersMessage.style.display = hasPendingOrders ? "none" : "block";
+    noFinishedOrdersMessage.style.display = hasFinishedOrders ? "none" : "block";
 }
+
 
 // Function to get user information based on email
 async function getUserInfo(userEmail) {
