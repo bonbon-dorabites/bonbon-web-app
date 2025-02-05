@@ -56,15 +56,12 @@ function fetchOrders() {
 }
 
 function updateTable() {
-    
     tableBody.innerHTML = "";
     const selectedBranch = branchSelector.value;
-    console.log("SELECTED BRANCH" + selectedBranch);
     const selectedYear = yearSelector.value;
-    console.log("SELECTED Year" + selectedYear);
     const selectedMonth = monthSelector.value;
     const selectedDay = daySelector.value;
-    
+
     let filteredOrders = orders;
 
     if (selectedBranch) {
@@ -83,6 +80,8 @@ function updateTable() {
 
     filteredOrders.sort((a, b) => a.created_at - b.created_at);
 
+    let totalSales = 0; // Initialize total sales
+
     filteredOrders.forEach(order => {
         const row = document.createElement("tr");
         const items = Object.values(order.items_bought).map(item => `${item.name} (x${item.quantity})`).join(", ");
@@ -91,12 +90,18 @@ function updateTable() {
             <td>${order.id}</td>
             <td>${order.created_at.toLocaleDateString()}</td>
             <td>${items}</td>
-            <td>${order.total_price}</td>
+            <td>₱${order.total_price.toFixed(2)}</td>
             <td>${order.user_email}</td>
         `;
         tableBody.appendChild(row);
+
+        totalSales += order.total_price; // Add order price to total sales
     });
+
+    // Update total sales in the footer
+    document.getElementById("total-sales").textContent = `₱${totalSales.toFixed(2)}`;
 }
+
 
 [branchSelector, yearSelector, monthSelector, daySelector].forEach(selector => {
     selector.addEventListener("change", updateTable);
