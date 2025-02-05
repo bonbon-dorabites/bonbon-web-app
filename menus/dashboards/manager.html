@@ -501,6 +501,72 @@
     
     <div class="dashboard-line"></div>
 
+    <div class="sales-management-container">
+            
+        <h2 class="owner-dashboard-section-title">Tabulated Sales</h2>
+        <!-- Dropdown for months -->
+        <div class="owner-dashboard-dropdown-container">
+            <label for="month-selector" class="dropdown-label">Display by:</label>
+            <select id="branch-selector-sales" class="owner-dashboard-dropdown">
+                <option value="" selected>All Branch</option>
+                <option value="SmValenzuela">SM Valenzuela</option>
+                <option value="SmNorthEdsa">SM North Edsa</option>
+                <option value="OneMallVal">One Mall Valenzuala</option>
+            </select>
+            <select id="year-selector" class="owner-dashboard-dropdown">
+                <option value=""selected>All Year</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+            </select>
+            <select id="month-selector" class="owner-dashboard-dropdown">
+                <option value=""selected>All Month</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+            <select id="day-selector" class="owner-dashboard-dropdown">
+                <option value="" selected>All Day</option>
+            </select>
+        </div>
+
+        <table id="sales-table" class="sales-management-table">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Date</th>
+                    <th>Order Details</th>
+                    <th>Total Price</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="sales-table-body">
+        
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total Sales:</strong></td>
+                    <td id="total-sales">₱0.00</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+
     <!-- Finished Orders Section -->
     <section class="finished-orders mt-4">
         <h2>Finished Orders</h2>
@@ -575,5 +641,6 @@
     <script type="module" src="../../index.js" defer></script>
     <script type="module" src="/menus/dashboards/js/manager.js"></script>
     <script type="module" src="/menus/dashboards/js/menu.js"></script>
+    <script type="module" src="/menus/dashboards/js/sales.js"></script>
 </body>
 </html>
