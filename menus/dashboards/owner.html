@@ -215,6 +215,34 @@
     </div>
     <div class="dashboard-line"></div> <!-- Separator Line -->
 
+    <div class="menu-management-container coupons-management-container">
+        <h2 class="menu-management-title coupons-management-title">Menu Management</h2>
+        <div class="header-row">
+            <button onclick="openCouponModal()">Add Product</button>
+            <div class="search">
+                <input type="text" id="search" placeholder="Search product...">
+                <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
+            </div>
+        </div>
+
+        <table id="menu-table" class="menu-management-table coupons-management-table">
+            <thead>
+                <tr>
+                    <th>Product #</th>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="menu-table-body">
+
+            </tbody>
+        </table>
+    </div>
+
     <form id="signupForm" method="post" class="form-table">
         <div class="flatten">
             <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"

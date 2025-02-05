@@ -182,8 +182,8 @@ window.hasOreoCream = () => toggleStock('boncoin_oreocream', false);
 window.hasNoOreoCream = () => toggleStock('boncoin_oreocream', true);
 window.hasChocold = () => toggleStock('chocold', false);
 window.hasNoChocold = () => toggleStock('chocold', true);
-window.hasHotcof = () => toggleStock('hot_cof', false);
-window.hasNoHotcof = () => toggleStock('hot_cof', true);
+window.hasHotcof = () => toggleStock('hot_coffee', false);
+window.hasNoHotcof = () => toggleStock('hot_coffee', true);
 window.hasIcedcof = () => toggleStock('iced_coffee', false);
 window.hasNoIcedcof = () => toggleStock('iced_coffee', true);
 
