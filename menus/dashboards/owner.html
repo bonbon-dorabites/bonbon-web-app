@@ -11,7 +11,65 @@
     <link rel="stylesheet" href="/style.css">
 
     <style>
- 
+        /* Floating Menu Container */
+        .floating-menu {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: gray;
+            opacity: 0.8;
+            padding: 10px;
+            border-radius: 15px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Menu Buttons */
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: #444;
+            border-radius: 50%;
+            transition: 0.3s;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .menu-btn:hover {
+            background: #ff9800;
+        }
+
+        .menu-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Initially hidden menu items */
+        .menu-item {
+            opacity: 0;
+            transform: scale(0);
+            transition: 0.3s;
+            position: absolute;
+            left: 55px;
+        }
+
+        /* Show menu items when active */
+        .floating-menu.active .menu-item {
+            opacity: 1;
+            transform: scale(1);
+            position: relative;
+            left: 0;
+        }
+
     .actions button {
       border: none;
       border-radius: 5px;
@@ -144,6 +202,29 @@
           </div>
         </nav>
     </header>
+
+    <!-- Floating Navigation Menu -->
+    <div class="floating-menu">
+        <div class="menu-btn main-btn" style="color: white;">
+            Home
+        </div>
+
+        <div class="menu-item menu-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm-7 8v-2a5 5 0 0 1 10 0v2"></path>
+            </svg>
+        </div>
+        <div class="menu-item menu-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M6 3h12l1 7H5l1-7zm1 18h10M8 21v-5m8 5v-5"></path>
+            </svg>
+        </div>
+        <div class="menu-item menu-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 4h16v16H4V4zm2 4h12M6 12h12m-12 4h8"></path>
+            </svg>
+        </div>
+    </div>
 
     <div class="owner-dashboard-container">
         <h1 class="owner-dashboard-title text-center">Admin Dashboard</h1>
@@ -524,6 +605,14 @@
                 loadingModal.hide();
                 localStorage.removeItem('showModal'); // Clear state after hiding
             }, 3000);
+        });
+
+        // Toggle Floating Menu
+        const mainBtn = document.querySelector('.main-btn');
+        const menuContainer = document.querySelector('.floating-menu');
+
+        mainBtn.addEventListener('click', () => {
+            menuContainer.classList.toggle('active');
         });
     </script>
     <script src="/main.js"></script>
