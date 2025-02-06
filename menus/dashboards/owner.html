@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="/style.css">
 
     <style>
+        #menuModal {
+            display: none;
+        }
+
         /* Floating Menu Container */
         .floating-menu {
             position: fixed;
@@ -280,7 +284,7 @@
         <!-- Dropdown for months -->
         <div class="owner-dashboard-dropdown-container">
             <label for="month-selector" class="dropdown-label">Display by:</label>
-            <select id="branch-selector-sales" class="owner-dashboard-dropdown">
+            <select id="branch-selector-sales" class="owner-dashboard-dropdown w-auto">
                 <option value="" selected>All Branch</option>
                 <option value="SmValenzuela">SM Valenzuela</option>
                 <option value="SmNorthEdsa">SM North Edsa</option>
@@ -345,7 +349,7 @@
         <div class="header-row">
             <button onclick="openMenuModal()">Add Product</button>
             <div class="search">
-                <input type="text" id="search" placeholder="Search product...">
+                <input type="text" id="search2" placeholder="Search product...">
                 <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
             </div>
         </div>
@@ -367,19 +371,16 @@
             </tbody>
         </table>
     </div>
-
+    <div class="owner-dashboard-line"></div>
     <form id="signupForm" method="post" class="form-table">
         <div class="flatten">
-            <h2 class="text-weight-200 text-size-14 half-margin-bottom decorative_bottom_line"
-                style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
-                &nbsp;Manage Employee Accounts
-            </h2>
+            <h2 class="menu-management-title coupons-management-title">Employee Access</h2>
         </div>
         
     
         <!-- Dropdown for Branch Selection -->
         <div class="login-credential">
-            <div class="branch w-100"><br><br>
+            <div class="branch w-100"><br>
                 <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
                     style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
                     &nbsp;Branch
@@ -389,7 +390,7 @@
                     <!-- Dynamically populated with branches from Firestore -->
                 </select>
             </div>
-            <div class="role w-100"><br><br>
+            <div class="role w-100"><br>
                 <h3 class="text-weight-200 text-size-12 half-margin-bottom decorative_bottom_line"
                     style="color: var(--dark-brown); font-family: var(--fredoka); font-weight: bold;">
                     &nbsp;Role
@@ -642,7 +643,7 @@
             <div class="header-row">
                 <button onclick="openCouponModal()">Add Coupon</button>
                 <div class="search">
-                    <input type="text" id="search" placeholder="Search coupon...">
+                    <input type="text" id="search3" placeholder="Search coupon...">
                     <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
                 </div>
             </div>
@@ -1022,13 +1023,13 @@
         });*/
     </script>
     <script src="/main.js"></script>
-    <script type="module" src="/menus/dashboards/js/employee.js"></script>
-    <script type="module" src="/menus/dashboards/js/user.js"></script>
-    <script type="module" src="/menus/dashboards/js/owner-det.js" defer></script>
+<!--<script type="module" src="/menus/dashboards/js/employee.js"></script>-->
+<!--<script type="module" src="/menus/dashboards/js/user.js"></script>-->
+<!--<script type="module" src="/menus/dashboards/js/owner-det.js" defer></script>-->
     <script type="module" src="/menus/dashboards/js/menu.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/sales.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/coupons.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/couponsMenu.js" defer></script>
+<!--<script type="module" src="/menus/dashboards/js/sales.js" defer></script>-->
+<!--<script type="module" src="/menus/dashboards/js/coupons.js" defer></script>-->
+<!--<script type="module" src="/menus/dashboards/js/couponsMenu.js" defer></script>-->
     <script type="module" src="/hi.js" defer></script>
 </body>
 </html>

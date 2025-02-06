@@ -91,7 +91,7 @@ async function fetchData() {
                         <td>${status}</td>
                         <td>
                             <div style="display: flex !important;">
-                                <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
+                                <button class="action-btn detail"><i class="fas fa-list-alt"></i></button>
                                 <button class="action-btn edit"><i class="fas fa-edit"></i></button>
                                 <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
@@ -132,7 +132,7 @@ async function fetchData() {
                     <p><strong>Coupon Description:</strong> ${coupon.coup_desc || "N/A"}</p>
                     <p><strong>Status:</strong> ${coupon.status || "N/A"}</p>
                     <div class="actions">
-                        <button class="action-btn detail"><i class="bi bi-file-earmark-richtext-fill"></i></button>
+                        <button class="action-btn detail"><i class="fas fa-list-alt"></i></button>
                         <button class="action-btn edit"><i class="fas fa-edit"></i></button>
                         <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
                     </div>
@@ -618,7 +618,7 @@ function showCoupon(couponId) {
 document.addEventListener("DOMContentLoaded", fetchData);
 
 // Function to search users based on the fields (first name, last name, email, phone)
-document.getElementById('search').addEventListener('input', searchCoupons);
+document.getElementById('search3').addEventListener('input', searchCoupons);
 document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
 
 function searchCoupons(event) {
