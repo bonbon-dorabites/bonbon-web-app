@@ -310,7 +310,7 @@
                 <option value="November">November</option>
                 <option value="December">December</option>
             </select>
-            <select id="day-selector" class="owner-dashboard-dropdown">
+            <select id="day-selector" class="owner-dashboard-dropdown d-none">
                 <option value="" selected>All Day</option>
             </select>
         </div>
@@ -634,9 +634,283 @@
           </div>
         </div>
 
+        <!-- Coupon Management Section -->
+        <div class="coupons-management-container">
+            <h2 class="coupons-management-title">Coupon Management</h2>
+            <div class="header-row">
+                <button onclick="openCouponModal()">Add Coupon</button>
+                <div class="search">
+                    <input type="text" id="search" placeholder="Search coupon...">
+                    <i class="fas fa-search" style="position: absolute; margin-left: -25px; margin-top: 10px; color: #A65A06;"></i>
+                </div>
+            </div>
     
-
-      
+            <table id="coupons-table" class="coupons-management-table">
+                <thead>
+                    <tr>
+                        <th>Coupon&nbsp;ID</th>
+                        <th>Discount</th>
+                        <th>Coupon&nbsp;Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="coupons-table-body">
+    
+                </tbody>
+            </table>
+        </div>
+    
+        <section id="couponDetails-section">
+    
+        </section>
+    
+    
+        <!-- Modal for Adding Coupons-->
+        <div id="couponsModal" class="dashboard-modals">
+            <div class="dashboard-content">
+                <h3>Add Coupon</h3>
+                <form id="addCouponsForm" class="w-100">
+                    <div class="column" class="w-100">
+                        <input type="text" id="couponId" class="w-100" placeholder="Coupon Id" required>
+                        <input type="text" id="amountCoupon" class="w-100" placeholder="Discount" required>
+                    </div><br>
+                    
+                    <div class="column date" class="w-100">
+                        <label for="startDate">Start</label>
+                        <input type="date" id="startDate" class="w-100" name="startDate" required>
+                                
+                        <label for="endDate">End</label>
+                        <input type="date" class="w-100" id="endDate" name="endDate" required>
+                    </div><br>
+        
+                    <label for="description">Coupon Description</label>
+                    <textarea id="description" class="w-100" name="description" rows="3" required></textarea><br>
+        
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required>
+                        <option value="Active" class="w-100">Active</option>
+                        <option value="Expired" class="w-100">Expired</option>
+                    </select><br>
+    
+                    <!-- Applicable Branches -->
+                    <label>Applicable Branches</label>
+                    <div class="d-block flex-column flex-sm-row">
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" id="SmValenzuela">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="SmValenzuela">SM&nbsp;VALENZUELA</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" id="SmNorthEdsa">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="SmNorthEdsa">SM&nbsp;NORTH&nbsp;EDSA</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" id="OneMallVal">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="OneMallVal">ONE&nbsp;MALL&nbsp;VALENZUELA</label>
+                            </div>
+                        </div>
+                    </div><br>
+        
+                    <!-- First Time Users Only -->
+                    <label>First Time Users Only</label>
+                    <div class="d-block flex-column flex-sm-row">
+                        <div class="form-radio mb-2 ms-0 d-flex flex-row flex-sm-row justify-content-start align-items-center" style="width: 15%; height: 15px;">
+                            <input type="radio" id="firstTimeYes" name="firstTime" value="Yes" required>
+                            <div class="label-container">
+                                <label for="firstTimeYes">&nbsp;&nbsp;&nbsp;Yes</label>
+                            </div>
+                        </div>
+                        <div class="form-radio mb-2 ms-0 d-flex flex-row flex-sm-row justify-content-start align-items-center" style="width: 15%; height: 15px;">
+                            <input type="radio" id="firstTimeNo" name="firstTime" value="No" required>
+                            <div class="label-container">
+                                <label for="firstTimeNo">&nbsp;&nbsp;&nbsp;No</label>
+                            </div>
+                        </div>
+                    </div><br>
+        
+                    <!-- Minimum Order -->
+                    <label for="minOrder">Minimum Spend (Php)</label>
+                    <input type="number" id="minOrder" class="w-100" name="minOrder" placeholder="Minimum Order" required>
+        
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-btn" onclick="closeCouponModal()">Cancel</button>
+                        <button type="button" class="save-btn" id="save-coupon">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <section id="userDetails-section">
+    
+        </section>
+    
+        <!-- Modal for Editing Coupons-->
+        <div id="edit-couponsModal" class="dashboard-modals" style="display: none;">
+            <div class="dashboard-content">
+                <h3>Edit Coupon</h3>
+                <form id="editCouponsForm">
+                    <input type="hidden" id="edit-doc-old-id">
+                    
+                    <div class="column">
+                        <input type="text" class="w-100" id="edit-couponId" disabled placeholder="Coupon Id" required>
+                        <input type="text" class="w-100" id="edit-amountCoupon" placeholder="Amount" required>
+                    </div><br>
+                    
+                    <div class="column">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" class="w-100" id="edit-startDate" name="startDate" required>
+                                
+                        <label for="endDate">End Date</label>
+                        <input type="date" class="w-100" id="edit-endDate" name="endDate" required>
+                    </div><br>
+    
+                        
+                    <label for="description">Coupon Description</label>
+                    <textarea id="edit-description" class="w-100" name="description" rows="3" required></textarea>
+    
+                    <label for="status">Status</label>
+                    <select id="edit-status" name="status" class="w-100" required>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                    </select><br>
+    
+                    <!-- Applicable Branches -->
+                    <label>Applicable Branches</label>
+                    <div class="d-block flex-column flex-sm-row">
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" id="SmValenzuelaa">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="SmValenzuela">SM&nbsp;VALENZUELA</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" id="SmNorthEdsaa">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="SmNorthEdsa">SM&nbsp;NORTH&nbsp;EDSA</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" id="OneMallVall">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="OneMallVal">ONE&nbsp;MALL&nbsp;VALENZUELA</label>
+                            </div>
+                        </div>
+                    </div><br>
+        
+                    <!-- First Time Users Only -->
+                    <label>First Time Users Only</label>
+                    <div class="d-block flex-column flex-sm-row">
+                        <div class="form-radio mb-2 ms-0 d-flex flex-row flex-sm-row justify-content-start align-items-center" style="width: 15%; height: 15px;">
+                            <input type="radio" id="firstTimeYess" name="firstTime" value="Yes" required>
+                            <div class="label-container">
+                                <label for="firstTimeYes">&nbsp;&nbsp;&nbsp;Yes</label>
+                            </div>
+                        </div>
+                        <div class="form-radio mb-2 ms-0 d-flex flex-row flex-sm-row justify-content-start align-items-center" style="width: 15%; height: 15px;">
+                            <input type="radio" id="firstTimeNoo" name="firstTime" value="No" required>
+                            <div class="label-container">
+                                <label for="firstTimeNo">&nbsp;&nbsp;&nbsp;No</label>
+                            </div>
+                        </div>
+                    </div><br>
+        
+                    <!-- Minimum Order -->
+                    <label for="minOrder">Minimum Spend (Php)</label>
+                    <input type="number" id="minOrderr" class="w-100" name="minOrder" placeholder="Minimum Order" required>
+    
+                    <div class="modal-buttons"class="w-100" >
+                        <button type="button" class="cancel-btn" onclick="closeEditCouponModal()">Cancel</button>
+                        <button type="button" class="save-btn" id="save-editCoupon">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <!-- Modal for Editing Coupons-->
+        <div id="details-couponsModal" class="dashboard-modals" style="display: none;">
+            <div class="dashboard-content">
+                <h3>Coupon Details</h3>
+                <form id="editCouponsForm">
+                    <input type="hidden" id="edit-doc-old-id">
+                    
+                    <div class="column">
+                        <input type="text" class="w-100" id="edit-couponIddd" disabled placeholder="Coupon Id" required>
+                        <input type="text" class="w-100" id="edit-amountCouponnn" disabled placeholder="Amount" required>
+                    </div><br>
+                    
+                    <div class="column">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" class="w-100" id="edit-startDateee" name="startDate" disabled required>
+                                
+                        <label for="endDate">End Date</label>
+                        <input type="date" class="w-100" id="edit-endDateee" name="endDate" disabled required>
+                    </div><br>
+    
+                        
+                    <label for="description">Coupon Description</label>
+                    <textarea id="edit-descriptionnn" class="w-100" name="description" rows="3" disabled required></textarea><br>
+    
+                    <label for="status">Status</label>
+                    <select id="edit-statusss" name="status" class="w-100" disabled required>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                    </select><br>
+    
+                    <!-- Applicable Branches -->
+                    <label>Applicable Branches</label>
+                    <div class="d-block flex-column flex-sm-row">
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" type="checkbox" disabled id="SmValenzuelaaa">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="SmValenzuela">SM&nbsp;VALENZUELA</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" disabled type="checkbox" id="SmNorthEdsaaa">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="SmNorthEdsa">SM&nbsp;NORTH&nbsp;EDSA</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2 d-flex flex-row flex-sm-row" style="width: 15%;">
+                            <input class="form-check-input" disabled type="checkbox" id="OneMallValll">&nbsp;&nbsp;
+                            <div class="label-container">
+                                <label class="form-check-label" for="OneMallVal">ONE&nbsp;MALL&nbsp;VALENZUELA</label>
+                            </div>
+                        </div>
+                    </div><br>
+        
+                    <!-- First Time Users Only -->
+                    <label>First Time Users Only</label>
+                    <div class="d-block flex-column flex-sm-row">
+                        <div class="form-radio mb-2 ms-0 d-flex flex-row flex-sm-row justify-content-start align-items-center" style="width: 15%; height: 15px;">
+                            <input type="radio" id="firstTimeYesss" name="firstTime" value="Yes" disabled required>
+                            <div class="label-container">
+                                <label for="firstTimeYes">&nbsp;&nbsp;&nbsp;Yes</label>
+                            </div>
+                        </div>
+                        <div class="form-radio mb-2 ms-0 d-flex flex-row flex-sm-row justify-content-start align-items-center" style="width: 15%; height: 15px;">
+                            <input type="radio" id="firstTimeNooo" name="firstTime" value="No" disabled required>
+                            <div class="label-container">
+                                <label for="firstTimeNo">&nbsp;&nbsp;&nbsp;No</label>
+                            </div>
+                        </div>
+                    </div><br>
+        
+                    <!-- Minimum Order -->
+                    <label for="minOrder">Minimum Spend (Php)</label>
+                    <input type="number" id="minOrderrr" class="w-100" name="minOrder" placeholder="Minimum Order" disabled required>
+    
+                    <div class="modal-buttons"class="w-100" >
+                        <button type="button" class="cancel-btn" onclick="closeDetailsModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!--<footer class="small-footer">

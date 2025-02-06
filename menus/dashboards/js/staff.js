@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, doc, updateDoc, where, getDocs, getDoc, setDoc, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collection, doc, updateDoc, where, getDocs, getDoc, setDoc, query, onSnapshot, writeBatch} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -39,38 +39,6 @@ function showModal(message, isSuccess) {
 function hideModal() {
     const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
     loadingModal.hide();
-}
-
-function showConfirmation(message, callback) {
-    const modalElement = document.getElementById('confirmationModal');
-    const modalInstance = new bootstrap.Modal(modalElement);
-    const modalMessage = document.getElementById('confirmationMessage');
-    const confirmButton = document.getElementById('confirmActionBtn');
-    const cancelButton = document.getElementById('cancelActionBtn'); // Get the cancel button
-
-    // Set the confirmation message
-    modalMessage.textContent = message;
-
-    // Remove previous event listeners to prevent duplication
-    confirmButton.replaceWith(confirmButton.cloneNode(true));
-    cancelButton.replaceWith(cancelButton.cloneNode(true));
-
-    const newConfirmButton = document.getElementById('confirmActionBtn');
-    const newCancelButton = document.getElementById('cancelActionBtn');
-
-    // Attach new event listener for Confirm
-    newConfirmButton.addEventListener("click", function () {
-        callback(); // Execute the callback function
-        modalInstance.hide(); // Hide modal properly
-    });
-
-    // Attach new event listener for Cancel
-    newCancelButton.addEventListener("click", function () {
-        modalInstance.hide(); // Ensure modal is closed
-    });
-
-    // Show the modal
-    modalInstance.show();
 }
 
 // Mapping of branchId to display text
@@ -111,6 +79,7 @@ async function fetchUserBranch(userEmail) {
 
             // Wait for DOM update and then call setupStockUpdate
             setTimeout(() => {
+                loadDorayakiItems(branchId);
                 setupStockUpdate(branchId);
             }, 0);
         } else {
@@ -132,6 +101,211 @@ window.onload = () => {
         }
     });
 };
+
+
+// Function to fetch and display items based on category and categ
+async function loadDorayakiItems(branchId) {
+    try {
+        const itemsRef = collection(db, "branches", branchId, "items");
+
+        // Query for items
+        const querySnapshot = await getDocs(itemsRef);
+
+        const sizeContainer = document.getElementById("size-dorayaki-container");
+        const flavorContainer = document.getElementById("flavor-dorayaki-bites");
+        const boncoinContainer = document.getElementById("boncoin-flavors-container");
+        const drinksContainer = document.getElementById("drinks-stocks-container");
+
+        sizeContainer.innerHTML = "";  // Clear size list
+        flavorContainer.innerHTML = "";  // Clear dorayaki bites list
+        boncoinContainer.innerHTML = "";  // Clear Boncoin list
+        drinksContainer.innerHTML = "";  // Clear Drinks list
+
+        const displayedDorayakiNames = new Set();  // Set to track displayed Dorayaki Bites names
+        const displayedBoncoinNames = new Set();  // Set to track displayed Boncoin names
+        const displayedDrinksNames = new Set();  // Set to track displayed Drinks names
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const listItem = document.createElement("li");
+
+            // Check if the category is size1, size2, size3
+            if (data.category && ["size1", "size2", "size3"].includes(data.category)) {
+                listItem.innerHTML = `
+                    ${data.item_name} 
+                    <div class="dash-buttons">
+                        <button data-item-id="${doc.id}" class="btn btn-success available-size" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                        <button data-item-id="${doc.id}" class="btn btn-danger unavailable-size" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                    </div>
+                `;
+                sizeContainer.appendChild(listItem);
+            }
+
+            // Check if the categ field exists and matches "Dorayaki Bites"
+            if (data.categ && data.categ === "Dorayaki Bites") {
+                // Only display the item if the item_name hasn't been shown yet
+                if (!displayedDorayakiNames.has(data.item_name)) {
+                    listItem.innerHTML = `
+                        
+                        <p class="dorayaki-name">${data.item_name}</p>
+                        <div class="dash-buttons">
+                            <button data-item-id="${doc.id}" class="btn btn-success available-dorayaki" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                            <button data-item-id="${doc.id}" class="btn btn-danger unavailable-dorayaki" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                        </div>
+                    `;
+                    flavorContainer.appendChild(listItem);
+                    displayedDorayakiNames.add(data.item_name);  // Add item_name to the set
+                }
+            }
+
+            // Check if the categ field exists and matches "Boncoin"
+            if (data.categ && data.categ === "Boncoin") {
+                // Only display the item if the item_name hasn't been shown yet
+                if (!displayedBoncoinNames.has(data.item_name)) {
+                    listItem.innerHTML = `
+                        ${data.item_name}
+                        <div class="dash-buttons">
+                            <button data-item-id="${doc.id}" class="btn btn-success available-boncoin" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                            <button data-item-id="${doc.id}" class="btn btn-danger unavailable-boncoin" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                        </div>
+                    `;
+                    boncoinContainer.appendChild(listItem);
+                    displayedBoncoinNames.add(data.item_name);  // Add item_name to the set
+                }
+            }
+
+            // Check if the categ field exists and matches "Drinks"
+            if (data.categ && data.categ === "Drinks") {
+                // Only display the item if the item_name hasn't been shown yet
+                if (!displayedDrinksNames.has(data.item_name)) {
+                    listItem.innerHTML = `
+                        ${data.item_name}
+                        <div class="dash-buttons">
+                            <button data-item-id="${doc.id}" class="btn btn-success available-drinks" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                            <button data-item-id="${doc.id}" class="btn btn-danger unavailable-drinks" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                        </div>
+                    `;
+                    drinksContainer.appendChild(listItem);
+                    displayedDrinksNames.add(data.item_name);  // Add item_name to the set
+                }
+            }
+        });
+
+        // Add event listeners for available and unavailable buttons
+        document.querySelectorAll(".available-size, .unavailable-size").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                const itemId = e.target.getAttribute("data-item-id");
+                const isAvailable = e.target.classList.contains("available-size");
+
+                // Update isSoldOut field based on the button clicked
+                const itemRef = doc(db, "branches", branchId, "items", itemId);
+                await updateDoc(itemRef, {
+                    isSoldOut: !isAvailable  // If it's available, set to false, otherwise true
+                });
+
+                // Toggle button states
+                e.target.disabled = true;
+                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                otherButton.disabled = false;
+            });
+        });
+
+        
+        // Add event listeners for available-dorayaki and unavailable-dorayaki buttons
+        document.querySelectorAll(".available-dorayaki, .unavailable-dorayaki").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                console.log("nagbabago");
+
+                const itemId = e.target.getAttribute("data-item-id");
+                const itemName = e.target.closest('li').querySelector('.dorayaki-name').textContent;  // Get the item_name from the parent <li>
+                console.log("ITEM NAME: " + itemName);
+                const isAvailable = e.target.classList.contains("available-dorayaki");
+
+                // Get reference to the collection of items
+                const itemsRef = collection(db, "branches", branchId, "items");
+
+                try {
+                    // Query for all items with the same item_name
+                    const querySnapshot = await getDocs(itemsRef);
+                    const batch = writeBatch(db); // Use batch to update multiple documents at once
+
+                    querySnapshot.forEach((docSnapshot) => {
+                        const data = docSnapshot.data();  // Get the data from the document snapshot
+                        console.log("COMPARE: " + data.item_name + "::" + itemName);
+
+                        if (data.item_name === itemName) {
+                            const itemRef = doc(db, "branches", branchId, "items", docSnapshot.id);  // Correct way to reference document
+                            // Add the update operation to the batch
+                            batch.update(itemRef, {
+                                isSoldOut: !isAvailable  // If it's available, set to false, otherwise true
+                            });
+                        }
+                    });
+
+                    // Commit the batch update
+                    await batch.commit();
+
+                    // Toggle button states for this specific item
+                    e.target.disabled = true;
+                    const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                    otherButton.disabled = false;
+                } catch (error) {
+                    console.error("Error updating items:", error);
+                }
+            });
+        });
+
+
+
+        // Add event listeners for available-boncoin and unavailable-boncoin buttons
+        document.querySelectorAll(".available-boncoin, .unavailable-boncoin").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
+                const isAvailable = e.target.classList.contains("available-boncoin");
+
+                // Reference the specific item using the itemId
+                const itemRef = doc(db, "branches", branchId, "items", itemId);
+                
+                // Update the isSoldOut field for the specific item
+                await updateDoc(itemRef, {
+                    isSoldOut: !isAvailable  // If it's available, set to false; otherwise, true
+                });
+
+                // Toggle button states for this specific item
+                e.target.disabled = true;
+                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                otherButton.disabled = false;
+            });
+        });
+
+                // Add event listeners for available-drinks and unavailable-drinks buttons
+        document.querySelectorAll(".available-drinks, .unavailable-drinks").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
+                const isAvailable = e.target.classList.contains("available-drinks");
+
+                // Reference the specific item using the itemId
+                const itemRef = doc(db, "branches", branchId, "items", itemId);
+                
+                // Update the isSoldOut field for the specific item
+                await updateDoc(itemRef, {
+                    isSoldOut: !isAvailable  // If it's available, set to false; otherwise, true
+                });
+
+                // Toggle button states for this specific item
+                e.target.disabled = true;
+                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                otherButton.disabled = false;
+            });
+        });
+
+    } catch (error) {
+        console.error("Error loading dorayaki items:", error);
+    }
+}
+
+
+
 
 let toggleStock;  // Declare toggleStock globally
 
@@ -157,13 +331,6 @@ const setupStockUpdate = (branchId) => {
             });
     };
 
-    // Attach event listeners to buttons that toggle stock availability
-    const setStockStatus = (itemName, isSoldOut) => {
-        return () => {
-            console.log(`Button clicked for item: ${itemName}, Sold-Out: ${isSoldOut}`);
-            toggleStock(itemName, isSoldOut);
-        };
-    };
 
     // Attach event listeners to each menu item in the stock update section
     document.querySelectorAll('.dash-buttons button').forEach(button => {
@@ -185,14 +352,6 @@ const updateMultipleStocks = (items, isSoldOut) => {
     });
 };
 
-// Ensure the functions like hasOishi are globally available
-window.hasOishi = () => toggleStock('dorabite_oishi', false);
-window.hasNoOishi = () => toggleStock('dorabite_oishi', true);
-window.hasSugoi = () => toggleStock('dorabite_sugoi', false);
-window.hasNoSugoi = () => toggleStock('dorabite_sugoi', true);
-window.hasBonBox = () => toggleStock('dorabite_bonbon', false);
-window.hasNoBonBox = () => toggleStock('dorabite_bonbon', true);
-
 // Grouped stock updates (choco, dulce, cheese, walnut)
 window.hasChoco = () => updateMultipleStocks(['dorabite_oishi_choco', 'dorabite_sugoi_choco', 'dorabite_bonbon_choco'], false);
 window.hasNoChoco = () => updateMultipleStocks(['dorabite_oishi_choco', 'dorabite_sugoi_choco', 'dorabite_bonbon_choco'], true);
@@ -203,137 +362,187 @@ window.hasNoCheese = () => updateMultipleStocks(['dorabite_oishi_cheese', 'dorab
 window.hasWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'dorabite_walnutella_sugoi', 'dorabite_walnutella_bonbon'], false);
 window.hasNoWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'dorabite_walnutella_sugoi', 'dorabite_walnutella_bonbon'], true);
 
-// Individual stock updates
-window.hasNutella = () => toggleStock('boncoin_nutella', false);
-window.hasNoNutella = () => toggleStock('boncoin_nutella', true);
-window.hasHamCheese = () => toggleStock('boncoin_hamcheese', false);
-window.hasNoHamCheese = () => toggleStock('boncoin_hamcheese', true);
-window.hasMozzarella = () => toggleStock('boncoin_mozarella', false);
-window.hasNoMozzarella = () => toggleStock('boncoin_mozarella', true);
-window.hasOreoCream = () => toggleStock('boncoin_oreocream', false);
-window.hasNoOreoCream = () => toggleStock('boncoin_oreocream', true);
-window.hasChocold = () => toggleStock('chocold', false);
-window.hasNoChocold = () => toggleStock('chocold', true);
-window.hasHotcof = () => toggleStock('hot_coffee', false);
-window.hasNoHotcof = () => toggleStock('hot_coffee', true);
-window.hasIcedcof = () => toggleStock('iced_coffee', false);
-window.hasNoIcedcof = () => toggleStock('iced_coffee', true);
 
 // Main fetchOrders function that accepts the branchContent as an argument
 async function fetchOrders(branchId) {
     console.log("Branch button content:", branchId);
     try {
+        // Reference to the Firestore subcollection of orders inside the branch
         const ordersRef = collection(db, "branches", branchId, "orders");
 
+        // Real-time listener using onSnapshot
         const unsubscribe = onSnapshot(ordersRef, async (querySnapshot) => {
-            const ordersContainer = document.querySelector(".new-orders-container");
-            const pendingOrdersContainer = document.getElementById("pendingOrdersAccordion");
-            const finishedOrdersContainer = document.getElementById("finishedOrdersAccordion");
-
-            const noNewOrdersMessage = document.querySelector(".new-orders h3");
-            const noPendingOrdersMessage = document.querySelector(".pending-orders h3");
-            const noFinishedOrdersMessage = document.querySelector(".finished-orders h3");
-
-            // Clear previous content
-            ordersContainer.innerHTML = "";
-            pendingOrdersContainer.innerHTML = "";
-            finishedOrdersContainer.innerHTML = "";
-
-            let hasNewOrders = false;
-            let hasPendingOrders = false;
-            let hasFinishedOrders = false;
-
             if (!querySnapshot.empty) {
-                const promises = querySnapshot.docs.map(async (doc) => {
-                    const orderData = doc.data();
+                // Orders were found
+                console.log(`Found ${querySnapshot.size} orders for Branch ID: ${branchId}`);
+
+                // Clear the existing orders to avoid duplicate cards
+                const ordersContainer = document.querySelector(".new-orders-container");
+                ordersContainer.innerHTML = '';
+
+                // Loop through the orders and display them
+                querySnapshot.forEach(async (doc) => {
                     const orderId = doc.id;
-                    const userEmail = orderData.user_email;
-                    const userDoc = await getUserInfo(userEmail);
+                    const orderData = doc.data();
 
-                    if (userDoc) {
-                        const userData = userDoc.data();
-                        const userFullName = `${userData.firstName} ${userData.lastName}`;
-                        const userPhone = userData.phone;
-                        const userAddress = userData.address;
+                    if(orderData.isNew) {
+                        // Fetch user information from the users collection based on the email
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                            const userPhone = userData.phone;
+                            const userAddress = userData.address;
 
-                        let itemsHTML = "";
-                        for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
-                            itemsHTML += `<p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P${itemDetails.price})</p>`;
+                            // Loop through the items_bought map to display item details
+                            let itemsHTML = "";
+
+                            for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                                itemsHTML += `
+                                    <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P${itemDetails.price})</p>
+                                `;
+                            }
+
+                            // Generate the order card HTML
+                            const orderCardHTML = `
+                            <div class="order-card">
+                                <div class="order-id">Order #${orderId}</div>
+                                
+                                <div class="order-details primary-details">
+                                    ${itemsHTML}
+                                    <hr>
+                                    <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p> <!-- Displaying the calculated total price -->
+                                    <p><b>Status:</b> ${orderData.status}</p>
+                                </div>
+
+                                <div class="order-details hidden additional-details">
+                                    <p><b>Name:</b> ${userFullName}</p>
+                                    <p><b>Email:</b> ${userEmail}</p>
+                                    <p><b>Phone:</b> ${userPhone}</p>
+                                    <p><b>Address:</b> ${userAddress}</p>
+                                </div>
+
+                                <div class="order-actions">
+                                    <button class="btn btn-link view-more view-more-btn">View More</button>
+                                    <button class="btn btn-success confirm-order">✔ Confirm</button>
+                                    <button class="btn btn-danger reject-order">✘ Reject</button>
+                                </div>
+                            </div>
+                            `;
+
+                            // Append the order card to the container
+                            ordersContainer.innerHTML += orderCardHTML;
                         }
+                    } else if (orderData.isAccepted && orderData.isFinished === false) {
 
-                        if (orderData.isNew) {
-                            hasNewOrders = true;
-                            ordersContainer.innerHTML += `
-                                <div class="order-card">
-                                    <div class="order-id">Order #${orderId}</div>
-                                    <div class="order-details primary-details">
+                        // Empty the finished orders container before adding new content
+                        const pendingOrdersContainer = document.getElementById('pendingOrdersAccordion');
+                        pendingOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
+                         // Generate the accordion item for accepted orders
+                         const userEmail = orderData.user_email; // Assuming user_email field in order
+                         const userDoc = await getUserInfo(userEmail);
+                         
+                        
+                         if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                            const userPhone = userData.phone;
+                            const userAddress = userData.address;
+
+                            // Loop through the items_bought map to display item details
+                            let itemsHTML = "";
+                            for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                                itemsHTML += `
+                                    <p>- ${itemDetails.name} (x${itemDetails.quantity})</p>
+                                `;
+                            }
+
+                            // Generate the accordion item HTML
+                            const accordionItemHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="pending-order-id accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="acceptedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
+                                    <div class="accordion-body">
+                                        <p><b>Name:</b> ${userFullName}</p>
+                                        <p><b>Email:</b> ${userEmail}</p>
+                                        <p><b>Phone:</b> ${userPhone}</p>
+                                        <p><b>Address:</b> ${userAddress}</p>
+                                        <p><b>Items:</b></p>
+                        
                                         ${itemsHTML}
-                                        <hr>
-                                        <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p>
+                                        <hr style="border: 1px solid white; width: 100%">
+
+                                        <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
+                                        <p><b>Estimated Time:</b> ${orderData.estimatedTime} minutes</span></p>
+                                        <p><b>Status:</b> <span id="orderStatus${orderId}">${orderData.status}</span></p>
+                                        <div class="change-status-btns">
+                                            <button class="btn btn-secondary undo-status" id="undoStatus${orderId}" style="display: none;"><i class="fa fa-arrow-left"></i></button> <!-- Undo button, initially hidden -->
+                                            <button class="btn btn-warning" id="toggleStatus${orderId}">Change Status</button> <!-- Status toggle button -->
+                                        </div>
+                                        <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            `;
+
+                            // Append the accordion item to the accordion container
+                            pendingOrdersAccordion.innerHTML += accordionItemHTML;
+                                                    
+                        } 
+                    } else if (orderData.isFinished) {
+                        console.log("ISFINISHED");
+                    
+                        // Empty the finished orders container before adding new content
+                        const finishedOrdersContainer = document.getElementById('finishedOrdersAccordion');
+                        finishedOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
+                    
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                    
+                            // Generate the finished order HTML with feedback
+                            const finishedOrderHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" aria-controls="finishedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                                    <div class="accordion-body feedback-status">
+                                        <p><b>Name:</b> ${userFullName}</p>
                                         <p><b>Status:</b> ${orderData.status}</p>
-                                    </div>
-                                    <div class="order-actions">
-                                        <button class="btn btn-success confirm-order">✔ Confirm</button>
-                                        <button class="btn btn-danger reject-order">✘ Reject</button>
+                                        <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
                                     </div>
                                 </div>
+                            </div>
+                            <br>
                             `;
-                        } else if (orderData.isAccepted && !orderData.isFinished) {
-                            hasPendingOrders = true;
-                            pendingOrdersContainer.innerHTML += `
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="pending-order-id accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
-                                            ORDER ID: ${orderId}
-                                        </button>
-                                    </h2>
-                                    <div id="acceptedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                                        <div class="accordion-body">
-                                            <p><b>Name:</b> ${userFullName}</p>
-                                            <p><b>Email:</b> ${userEmail}</p>
-                                            <p><b>Phone:</b> ${userPhone}</p>
-                                            <p><b>Address:</b> ${userAddress}</p>
-                                            <p><b>Items:</b></p>
-                                            ${itemsHTML}
-                                            <hr>
-                                            <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
-                                            <button class="btn btn-success finish-the-order">Finish Order</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                            `;
-                        } else if (orderData.isFinished) {
-                            hasFinishedOrders = true;
-                            finishedOrdersContainer.innerHTML += `
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" aria-controls="finishedOrder${orderId}">
-                                            ORDER ID: ${orderId}
-                                        </button>
-                                    </h2>
-                                    <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                                        <div class="accordion-body">
-                                            <p><b>Name:</b> ${userFullName}</p>
-                                            <p><b>Status:</b> ${orderData.status}</p>
-                                            <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                            `;
+                    
+                            // Append the finished order to the finished orders container
+                            finishedOrdersContainer.innerHTML += finishedOrderHTML;
                         }
                     }
+                    
+ 
+
                 });
-
-                await Promise.all(promises);
+            } else {
+                console.log("No orders found for this branch.");
             }
-
-            // ✅ Show or hide messages correctly
-            noNewOrdersMessage.style.display = hasNewOrders ? "none" : "block";
-            noPendingOrdersMessage.style.display = hasPendingOrders ? "none" : "block";
-            noFinishedOrdersMessage.style.display = hasFinishedOrders ? "none" : "block";
         });
+
+
 
     } catch (error) {
         console.error("Error fetching orders:", error);
@@ -387,70 +596,77 @@ document.addEventListener('click', async function(event) {
 });
 
 
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("view-more-btn")) {
+        console.log("View More clicked");
+
+        // Find the closest order-card
+        const orderCard = event.target.closest(".order-card");
+        if (!orderCard) return;
+
+        // Select the additional details section
+        const additionalDetails = orderCard.querySelector(".order-details.hidden") || 
+                                  orderCard.querySelector(".order-details:not(.primary-details)");
+
+        if (additionalDetails) {
+            additionalDetails.classList.toggle("hidden"); // Toggle visibility
+
+            // Change button text
+            event.target.textContent = additionalDetails.classList.contains("hidden") ? "View More" : "View Less";
+        }
+    } else if (event.target.classList.contains("reject-order")) {
+        const orderCard = event.target.closest(".order-card"); // Get the specific order card
+        const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
+        rejectOrder(orderId);
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
-    const newOrdersContainer = document.querySelector(".new-orders-container");
-    const confirmationModal = document.getElementById("confirmationModal");
-
-    newOrdersContainer.addEventListener("click", function (event) {
+    // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
+    document.querySelector(".new-orders-container").addEventListener("click", function (event) {
         if (event.target.classList.contains("confirm-order")) {
-            showConfirmation("Are you sure you want to confirm this order?", async function () {
-                const orderCard = event.target.closest(".order-card"); // Get the specific order card
-                const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
-                const modal = document.getElementById("order-time-modal");
-                const inputMinutes = document.getElementById("input-minutes");
+            const orderCard = event.target.closest(".order-card"); // Get the specific order card
+            const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1]; // Extract order ID
+            const modal = document.getElementById("order-time-modal");
+            const inputMinutes = document.getElementById("input-minutes");
 
-                modal.style.display = "flex";
+            modal.style.display = "flex";
 
-                // Ensure event listeners are not duplicated
-                document.getElementById("cancel-modal").onclick = () => {
-                    modal.style.display = "none";
-                };
-
-                // Handle Minute Buttons
-                document.querySelectorAll(".btn-minute").forEach((button) => {
-                    button.onclick = (e) => {
-                        inputMinutes.value = e.target.dataset.minutes;
-                    };
-                });
-
-                // Confirm Button Action
-                document.getElementById("confirm-modal").onclick = () => {
-                    const minutes = inputMinutes.value;
-                    if (minutes) {
-                        console.log(`Order confirmed with an estimated time of ${minutes} minutes.`);
-                        showModal(`Order confirmed with an estimated time of ${minutes} minutes.`, true);
-                        modal.style.display = "none";
-                        confirmOrder(orderId, minutes, orderCard, modal);
-                    } else {
-                        showModal("Please input or select an estimated time.", false);
-                    }
-                };
+        // Close Modal
+        document.getElementById("cancel-modal").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+        
+        // Handle Minute Buttons
+        document.querySelectorAll(".btn-minute").forEach((button) => {
+            button.addEventListener("click", (e) => {
+                inputMinutes.value = e.target.dataset.minutes;
             });
-        } 
+        });
 
-        if (event.target.classList.contains("reject-order")) {
-            showConfirmation("Are you sure you want to reject this order?", async function () {
-                const orderCard = event.target.closest(".order-card");
-                const orderId = orderCard.querySelector(".order-id").textContent.split("#")[1];
-                rejectOrder(orderId);
-            });
+         // Confirm Button Action
+        document.getElementById("confirm-modal").addEventListener("click", () => {
+            const minutes = inputMinutes.value;
+            if (minutes) {
+                console.log(`Order confirmed with an estimated time of ${minutes} minutes.`);
+                showModal(`Order confirmed with an estimated time of ${minutes} minutes.`, true);
+                modal.style.display = "none";
+                confirmOrder(orderId, minutes, orderCard, modal);
+            } else {
+                showModal("Please input or select an estimated time.", false);
+            }
+        });
+
         }
     });
 
-    // Ensure modal is properly removed on cancel
-    confirmationModal.addEventListener("hidden.bs.modal", function () {
-        document.body.classList.remove("modal-open");
-        document.querySelector(".modal-backdrop")?.remove();
-    });
 });
-
 
 document.addEventListener("DOMContentLoaded", () => {
     // Event delegation to attach event listeners to dynamically generated "Confirm" buttons
     document.querySelector(".accordion").addEventListener("click", function (event) {
         if (event.target.classList.contains("finish-the-order")) {
-            showConfirmation("Are you sure you this order is finished?", async function () { 
-                showModal("Order is delivered.", true);
+           showModal("Order is delivered.", true);
           // Find the closest accordion item
           const accordionItem = event.target.closest(".accordion-item");
 
@@ -485,7 +701,6 @@ document.addEventListener("DOMContentLoaded", () => {
           finishOrder(branchId, orderId);
           // Call refreshOrders to reload the orders section
           refreshOrders();
-            });
         }
     });
 
@@ -598,8 +813,10 @@ async function finishOrder(branchId, orderId) {
                status: "Paid",
                didFeedback: false
            });
+
+           showModal(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
        } else {
-           showModal(`Order ${orderId} not found.`, false);
+           alert(`Order ${orderId} not found.`, true);
        }
     } catch (error) {
         console.error("Error updating order:", error);

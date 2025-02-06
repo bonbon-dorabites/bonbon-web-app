@@ -311,12 +311,6 @@
                 <p class="branch-alert">
                     You are the admin of <b>THIS branch</b>. You cannot choose other branches.
                 </p>
-            </div><br><div class="dashboard-line"></div>
-            <div class="col1">
-                <div class="dropdown">
-                    <a href="/menus/dashboards/staff.html" type="button" class="btn btn-secondary">Stock Update</a>
-                    <a href="/menus/dashboards/staff-order.html" type="button" class="btn btn-secondary">Order Management</a>
-                </div>
             </div>
         </div>
 
@@ -328,18 +322,83 @@
         <section class="stock-update mt-4">
             <h2>Stock Update</h2>
             <h3>Sizes (Dorayaki Bites & Walnutella)</h3>
-            <div class="dorabites-container"></div>
+            <ul class="stock-list" id="size-dorayaki-container">
+                <li>
+                    {doc.name}
+                    <div class="dash-buttons">
+                        <button data-item-id="${doc.id}" class="btn btn-success available-size">Available</button>
+                        <button class="btn btn-danger unavailable-size">Sold-Out</button>
+                    </div>
+                </li>
+            </ul>
         
             <h3>Flavors (Dorayaki Bites)</h3>
-            <div class="flavors-container"></div>
+            <ul class="stock-list" id="flavor-dorayaki-bites">
+            </ul>
         
             <h3>Flavors (Boncoin)</h3>
-            <div class="boncoin-container"></div>
+            <ul class="stock-list" id="boncoin-flavors-container">
+                
+            </ul>
         
             <h3>Drinks</h3>
-            <div class="drinks-container"></div>
+            <ul class="stock-list" id="drinks-stocks-container">
+                <li>
+                    {doc.item_name}
+                    <div class="dash-buttons">
+                        <button data-item-id="${doc.id}" class="btn btn-success available-drinks">Available</button>
+                        <button data-item-id="${doc.id}"class="btn btn-danger unavailable-drinks">Sold-Out</button>                        
+                    </div>
+                </li>
+                <li>
+                    Hot Coffee (12oz)
+                    <div class="dash-buttons">
+                        <button onclick="hasHotcof()" class="btn btn-success">Available</button>
+                        <button onclick="hasNoHotcof()" class="btn btn-danger">Sold-Out</button>                       
+                    </div>
+                </li>
+                <li>
+                    Iced Coffee (12oz)
+                    <div class="dash-buttons">
+                        <button onclick="hasIcedcof()" class="btn btn-success">Available</button>
+                        <button onclick="hasNoIcedcof()" class="btn btn-danger">Sold-Out</button>                        
+                    </div>
+                </li>
+            </ul>
         </section>
 
+        <div class="dashboard-line"></div>
+        <!-- New Orders Section -->
+        <section class="new-orders mt-4">
+            <h2>New Orders</h2>
+            <div class="new-orders-container mt-4"></div>
+            
+        </section>
+        <div class="dashboard-line"></div>
+        
+        <!-- Pending Orders Section -->
+        <section class="pending-orders mt-4">
+            <h2>Pending Orders</h2>
+            <div class="accordion" id="pendingOrdersAccordion"></div> 
+            <br>
+        </section>
+
+
+        <div class="dashboard-line"></div>
+
+        <!-- Finished Orders Section -->
+        <section class="finished-orders mt-4">
+            <h2>Finished Orders</h2>
+            <div class="accordion" id="finishedOrdersAccordion"></div>
+
+
+        </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="small-footer">
+        <p>In Partial Fulfillment for subject Web Development</p>
+    </footer>
     
     <!-- Modal HTML -->
     <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
@@ -388,7 +447,7 @@
                     <p id="confirmationMessage">Are you sure you want to proceed?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancelActionBtn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirm</button>
                 </div>
             </div>
@@ -426,52 +485,13 @@
     </div>
 
 
-        <!-- Modal HTML -->
-    <div id="gifModal" class="modal gifmodal fade" tabindex="-1" role="dialog" 
-    aria-labelledby="gifLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="gifmodal modal-content">
-                <div class="gifmodal modal-body">
-                    <div style="text-align: center;">
-                        <img src="/img/bonbon-gif.gif" class="loadBonbonGif" alt="Loading...">
-                    </div>
-                    <div style="text-align: center;">
-                        <img src="/img/loading.gif" class="loadDots" alt="Loading...">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- <footer class="small-footer">
+    <!-- Footer -->
+    <footer class="small-footer">
         <p>In Partial Fulfillment for subject Web Development</p>
-    </footer> -->
+    </footer>
     
-    
-    <script>
-        /*window.addEventListener("DOMContentLoaded", function() {
-            const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
-                backdrop: 'static',
-                keyboard: false
-            });
-
-            // Set the modal state in localStorage
-            localStorage.setItem('showModal', 'true');
-
-            setTimeout(() => {
-                const modalElement = document.getElementById('gifModal');
-                modalElement.style.display = 'block';
-                loadingModal.show();
-            }, 300);
-
-            setTimeout(() => {
-                loadingModal.hide();
-                localStorage.removeItem('showModal'); // Clear state after hiding
-            }, 3000);
-        });*/
-    </script>
     <script type="module" src="/hi.js" defer></script>
-    <script type="module" src="/menus/dashboards/js/toggle.js" defer></script>
+    <script type="module" src="/menus/dashboards/js/staff.js" defer></script>
     <script src="/main.js"></script>
 </body>
 </html>
