@@ -276,7 +276,22 @@
 </div>
 <!-- Modal HTML --><!-- Modal HTML -->
 
-  
+  <!-- Modal HTML -->
+  <div id="gifModal" class="gifmodal modal fade" tabindex="-1" role="dialog" 
+  aria-labelledby="gifLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="gifmodal modal-content">
+              <div class="gifmodal modal-body">
+                  <div style="text-align: center;">
+                      <img src="/img/bonbon-gif.gif" class="loadBonbonGif" alt="Loading...">
+                  </div>
+                  <div style="text-align: center;">
+                      <img src="/img/loading.gif" class="loadDots" alt="Loading...">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 <script>
   function showLoadingModal() {
       window.addEventListener("DOMContentLoaded", function() {
@@ -297,7 +312,7 @@
           setTimeout(() => {
               loadingModal.hide();
               localStorage.removeItem('showModal'); // Clear state after hiding
-          }, 5000);
+          }, 1000);
       });
   }
 
