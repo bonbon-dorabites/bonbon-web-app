@@ -172,7 +172,7 @@ async function handleLogin(event) {
                         return;
                     } else {
                         // If the user has access, or their role is not Manager or Staff, redirect to index.html
-                        showModal("Redirecting to your diary booklet...", true);
+                        showModal("Welcome to BonBon. Cravings satisfied.", true);
                         setTimeout(() => {
                             window.location.href = "/index.html";
                         }, 2000);
