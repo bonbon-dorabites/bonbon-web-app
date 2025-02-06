@@ -16,7 +16,10 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Function to search users based on the fields (first name, last name, email, phone)
-document.getElementById('search2').addEventListener('input', searchUsers);
+document.getElementById('search5').addEventListener('input', searchUsers);
+
+// Call fetchData when the page loads
+document.addEventListener("DOMContentLoaded", fetchData);
 
 async function fetchData() {
   const tableBody = document.querySelector("#user-table tbody");
@@ -80,7 +83,7 @@ async function fetchData() {
     console.log("Rows populated: ", window.allRows);
 
     // After data is fetched, activate search functionality
-    document.getElementById('search').addEventListener('input', searchUsers);
+    document.getElementById('search5').addEventListener('input', searchUsers);
 
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -90,7 +93,7 @@ async function fetchData() {
 // Search function to filter table rows based on the input
 function searchUsers() {
   console.log("Search triggered!");
-  const searchTerm = document.getElementById('search').value.toLowerCase();
+  const searchTerm = document.getElementById('search5').value.toLowerCase();
 
   // Log to check the search term
   console.log("Search Term: ", searchTerm);
@@ -113,16 +116,5 @@ function searchUsers() {
   // Show only filtered rows
   filteredRows.forEach(row => row.style.display = '');
 
-  // Show the "Clear Search" button
-  document.getElementById('clearSearchBtn').style.display = 'inline-block';
 }
 
-// Function to clear the search and reset table to original state
-function clearSearch() {
-  document.getElementById('search').value = ''; // Clear search input
-  window.allRows.forEach(row => row.style.display = ''); // Show all rows
-  document.getElementById('clearSearchBtn').style.display = 'none'; // Hide "Clear Search" button
-}
-
-// Call fetchData when the page loads
-document.addEventListener("DOMContentLoaded", fetchData);
