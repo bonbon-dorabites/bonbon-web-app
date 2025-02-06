@@ -50,6 +50,8 @@ function closeEditMenuModal() {
     editItemModal.style.display = "none";
 }
 
+// Store the items and rows globally for later search reference
+let menuItems = [];
 
 // Function to fetch and display items
 async function fetchItems() {
@@ -61,6 +63,9 @@ async function fetchItems() {
     menuTableBody.innerHTML = ""; // Clear existing table rows
     let index = 1; // Product numbering
 
+    // Clear the global menuItems array
+    menuItems = [];
+
     itemsSnapshot.forEach((docSnap) => {
         const data = docSnap.data();
 
@@ -71,10 +76,8 @@ async function fetchItems() {
 
         const row = document.createElement("tr");
 
-         // Set the doc.id as a custom attribute on the row for later access
-         row.setAttribute("data-menu-id", docSnap.id); // Store doc.id in data-id attribute
-         console.log("ITEM PRICE: " + data.item_name);
-         console.log("ITEM PRICE: " + data.item_price);
+        // Set the doc.id as a custom attribute on the row for later access
+        row.setAttribute("data-menu-id", docSnap.id); // Store doc.id in data-id attribute
 
         row.innerHTML = `
             <td>${index}</td>
@@ -95,6 +98,7 @@ async function fetchItems() {
         `;
 
         menuTableBody.appendChild(row);
+        menuItems.push({ row, data });
         index++;
     });
 
@@ -116,6 +120,28 @@ async function fetchItems() {
         });
     });
 }
+
+// Search functionality for filtering the table based on user input
+document.getElementById("search-product").addEventListener("input", function () {
+    const searchQuery = this.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+
+    // Loop through all items in the menuItems array
+    menuItems.forEach(item => {
+        const { row, data } = item;
+        const { item_name, category, size, item_price } = data;
+
+        // Check if any part of the row matches the search query
+        const matchesSearch =
+            item_name.toLowerCase().includes(searchQuery) ||
+            category.toLowerCase().includes(searchQuery) ||
+            (size && size.toLowerCase().includes(searchQuery)) ||
+            item_price.toString().includes(searchQuery);
+
+        // Show or hide the row based on the match
+        row.style.display = matchesSearch ? "" : "none";
+    });
+});
+
 
 async function addItems() {
     // Get values from the form
@@ -456,9 +482,11 @@ function showModal(message, isSuccess) {
 }
 
 
+
 // Event listener for the save button
 document.getElementById("save-menu").addEventListener("click", addItems);
 document.getElementById("save-edit-menu").addEventListener("click", editItems);
 
-  // Fetch items on page load
-  window.onload = fetchItems;
+// Fetch items on page load
+window.onload = fetchItems;
+
