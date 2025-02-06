@@ -597,8 +597,8 @@ document.addEventListener('click', async function(event) {
 
         // Toggle between statuses
         if (currentStatus === 'Accepted') {
-            newStatus = 'Making';
-        } else if (currentStatus === 'Making') {
+            newStatus = 'Preparing';
+        } else if (currentStatus === 'Preparing') {
             newStatus = 'Out for Delivery';
         } else if (currentStatus === 'Out for Delivery') {
             newStatus = 'Accepted';
