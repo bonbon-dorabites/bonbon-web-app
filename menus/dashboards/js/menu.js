@@ -347,16 +347,27 @@ async function deleteMenu(button) {
 
             console.log("Menu deleted successfully!");
 
+            // Get all branches
+            const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+            // Iterate over all branches and delete the item from each branch's "items" subcollection
+            for (const branchDoc of branchesSnapshot.docs) {
+                const branchId = branchDoc.id;
+
+                // Reference to the specific branch's item document in the "items" subcollection
+                const branchItemRef = doc(db, "branches", branchId, "items", itemId);
+
+                // Delete the item for the branch
+                await deleteDoc(branchItemRef);
+
+                console.log(`Item deleted in branch ${branchId}`);
+            }
+
             // Remove the row from the UI
             row.remove();
 
             // Show success message
             showModal("Menu deleted successfully!", true);
-
-            // Optionally reload the page after a short delay
-            setTimeout(() => {
-                location.reload();
-            }, 1500);
 
         } catch (error) {
             console.error("Error deleting menu item:", error.message);
