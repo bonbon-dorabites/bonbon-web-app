@@ -33,25 +33,7 @@ const itemMap = {
     "dorabite_oishi": ["#oishi-flavors-show", "#oishi-flavors-none"],
     "dorabite_sugoi": ["#sugoi-flavors-show", "#sugoi-flavors-none"],
     "dorabite_bonbon": ["#box-flavors-show", "#box-flavors-none"],
-    "dorabite_oishi_choco": ["#choco-oishi-instock", "#choco-oishi-sold"],
-    "dorabite_sugoi_choco": ["#choco-sugoi-instock", "#choco-sugoi-sold"],
-    "dorabite_bonbon_choco": ["#choco-bonbon-instock", "#choco-bonbon-sold"],
-    "dorabite_oishi_dulce": ["#dulce-oishi-instock", "#dulce-oishi-sold"],
-    "dorabite_sugoi_dulce": ["#dulce-sugoi-instock", "#dulce-sugoi-sold"],
-    "dorabite_bonbon_dulce": ["#dulce-bonbon-instock", "#dulce-bonbon-sold"],
-    "dorabite_oishi_cheese": ["#cheese-oishi-instock", "#cheese-oishi-sold"],
-    "dorabite_sugoi_cheese": ["#cheese-sugoi-instock", "#cheese-sugoi-sold"],
-    "dorabite_bonbon_cheese": ["#cheese-bonbon-instock", "#cheese-bonbon-sold"],
-    "dorabite_walnutella_oishi": ["#walnutella-oishi-instock", "#walnutella-oishi-sold"],
-    "dorabite_walnutella_sugoi": ["#walnutella-sugoi-instock", "#walnutella-sugoi-sold"],
-    "dorabite_walnutella_bonbon": ["#walnutella-bonbon-instock", "#walnutella-bonbon-sold"],
-    "boncoin_nutella": ["#bc-nutella-instock", "#bc-nutella-sold"],
-    "boncoin_hamcheese": ["#bc-hamcheese-instock", "#bc-hamcheese-sold"],
-    "boncoin_mozarella": ["#bc-mozarella-instock", "#bc-mozarella-sold"],
-    "boncoin_oreocream": ["#bc-oreocream-instock", "#bc-oreocream-sold"],
-    "chocold": ["#chocold-instock", "#chocold-sold"],
-    "hot_coffee": ["#hot_coffee-instock", "#hot_coffee-sold"],
-    "iced_coffee": ["#iced_coffee-instock", "#iced_coffee-sold"]
+
 };
 
 function updateItemDisplay(branch) {
@@ -129,26 +111,6 @@ function listenToMenuItems() {
                     }
                     break;
 
-                case "dorabite_oishi_choco":
-                    document.querySelectorAll(".flavor-choco").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#choco-oishi-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_oishi_dulce":
-                    document.querySelectorAll(".flavor-dulce").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#dulce-oishi-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_oishi_cheese":
-                    document.querySelectorAll(".flavor-cheese").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#cheese-oishi-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_walnutella_oishi":
-                    document.querySelectorAll(".flavor-walnutella").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#walnutella-oishi-price", formatPrice(data.item_price));
-                    break;
-
                 case "dorabite_sugoi":
                     setTextContent("#sugoi-title", data.item_name);
                     // Create the <span> element for the toggle icon
@@ -163,26 +125,6 @@ function listenToMenuItems() {
                     }
                     break;
 
-                case "dorabite_sugoi_choco":
-                    document.querySelectorAll(".flavor-choco").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#choco-sugoi-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_sugoi_dulce":
-                    document.querySelectorAll(".flavor-dulce").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#dulce-sugoi-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_sugoi_cheese":
-                    document.querySelectorAll(".flavor-cheese").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#cheese-sugoi-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_walnutella_sugoi":
-                    document.querySelectorAll(".flavor-walnutella").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#walnutella-sugoi-price", formatPrice(data.item_price));
-                    break;
-
                 case "dorabite_bonbon":
                     setTextContent("#bonbox-title", data.item_name);
                     // Create the <span> element for the toggle icon
@@ -195,61 +137,6 @@ function listenToMenuItems() {
                     if (bonbonTitleElement) {
                         bonbonTitleElement.appendChild(toggleIconBonbon);
                     }
-                    break;
-
-                case "dorabite_bonbon_choco":
-                    document.querySelectorAll(".flavor-choco").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#choco-bonbon-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_bonbon_dulce":
-                    document.querySelectorAll(".flavor-dulce").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#dulce-bonbon-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_bonbon_cheese":
-                    document.querySelectorAll(".flavor-cheese").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#cheese-bonbon-price", formatPrice(data.item_price));
-                    break;
-
-                case "dorabite_walnutella_bonbon":
-                    document.querySelectorAll(".flavor-walnutella").forEach(el => el.textContent = data.item_name);
-                    setTextContent("#walnutella-bonbon-price", formatPrice(data.item_price));
-                    break;
-
-                case "boncoin_nutella":
-                    setTextContent("#nutella-title", data.item_name);
-                    setTextContent("#bc-nutella-price", formatPrice(data.item_price));
-                    break;
-
-                case "boncoin_hamcheese":
-                    setTextContent("#hamcheese-title", data.item_name);
-                    setTextContent("#bc-hamcheese-price", formatPrice(data.item_price));
-                    break;
-
-                case "boncoin_mozarella":
-                    setTextContent("#mozza-title", data.item_name);
-                    setTextContent("#bc-mozarella-price", formatPrice(data.item_price));
-                    break;
-
-                case "boncoin_oreocream":
-                    setTextContent("#oreocream-title", data.item_name);
-                    setTextContent("#bc-oreocream-price", formatPrice(data.item_price));
-                    break;
-
-                case "chocold":
-                    setTextContent("#chocold-title", data.item_name);
-                    setTextContent("#chocold-price", formatPrice(data.item_price));
-                    break;
-
-                case "hot_coffee":
-                    setTextContent("#hot_coffee-title", data.item_name);
-                    setTextContent("#hot_coffee-price", formatPrice(data.item_price));
-                    break;
-
-                case "iced_coffee":
-                    setTextContent("#iced_coffee-title", data.item_name);
-                    setTextContent("#iced_coffee-price", formatPrice(data.item_price));
                     break;
 
                 default:

@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, collection, doc, updateDoc, where, getDocs, getDoc, setDoc, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collection, doc, updateDoc, where, getDocs, getDoc, setDoc, query, onSnapshot, writeBatch} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -79,6 +79,7 @@ async function fetchUserBranch(userEmail) {
 
             // Wait for DOM update and then call setupStockUpdate
             setTimeout(() => {
+                loadDorayakiItems(branchId);
                 setupStockUpdate(branchId);
             }, 0);
         } else {
@@ -100,6 +101,211 @@ window.onload = () => {
         }
     });
 };
+
+
+// Function to fetch and display items based on category and categ
+async function loadDorayakiItems(branchId) {
+    try {
+        const itemsRef = collection(db, "branches", branchId, "items");
+
+        // Query for items
+        const querySnapshot = await getDocs(itemsRef);
+
+        const sizeContainer = document.getElementById("size-dorayaki-container");
+        const flavorContainer = document.getElementById("flavor-dorayaki-bites");
+        const boncoinContainer = document.getElementById("boncoin-flavors-container");
+        const drinksContainer = document.getElementById("drinks-stocks-container");
+
+        sizeContainer.innerHTML = "";  // Clear size list
+        flavorContainer.innerHTML = "";  // Clear dorayaki bites list
+        boncoinContainer.innerHTML = "";  // Clear Boncoin list
+        drinksContainer.innerHTML = "";  // Clear Drinks list
+
+        const displayedDorayakiNames = new Set();  // Set to track displayed Dorayaki Bites names
+        const displayedBoncoinNames = new Set();  // Set to track displayed Boncoin names
+        const displayedDrinksNames = new Set();  // Set to track displayed Drinks names
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const listItem = document.createElement("li");
+
+            // Check if the category is size1, size2, size3
+            if (data.category && ["size1", "size2", "size3"].includes(data.category)) {
+                listItem.innerHTML = `
+                    ${data.item_name} 
+                    <div class="dash-buttons">
+                        <button data-item-id="${doc.id}" class="btn btn-success available-size" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                        <button data-item-id="${doc.id}" class="btn btn-danger unavailable-size" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                    </div>
+                `;
+                sizeContainer.appendChild(listItem);
+            }
+
+            // Check if the categ field exists and matches "Dorayaki Bites"
+            if (data.categ && data.categ === "Dorayaki Bites") {
+                // Only display the item if the item_name hasn't been shown yet
+                if (!displayedDorayakiNames.has(data.item_name)) {
+                    listItem.innerHTML = `
+                        
+                        <p class="dorayaki-name">${data.item_name}</p>
+                        <div class="dash-buttons">
+                            <button data-item-id="${doc.id}" class="btn btn-success available-dorayaki" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                            <button data-item-id="${doc.id}" class="btn btn-danger unavailable-dorayaki" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                        </div>
+                    `;
+                    flavorContainer.appendChild(listItem);
+                    displayedDorayakiNames.add(data.item_name);  // Add item_name to the set
+                }
+            }
+
+            // Check if the categ field exists and matches "Boncoin"
+            if (data.categ && data.categ === "Boncoin") {
+                // Only display the item if the item_name hasn't been shown yet
+                if (!displayedBoncoinNames.has(data.item_name)) {
+                    listItem.innerHTML = `
+                        ${data.item_name}
+                        <div class="dash-buttons">
+                            <button data-item-id="${doc.id}" class="btn btn-success available-boncoin" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                            <button data-item-id="${doc.id}" class="btn btn-danger unavailable-boncoin" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                        </div>
+                    `;
+                    boncoinContainer.appendChild(listItem);
+                    displayedBoncoinNames.add(data.item_name);  // Add item_name to the set
+                }
+            }
+
+            // Check if the categ field exists and matches "Drinks"
+            if (data.categ && data.categ === "Drinks") {
+                // Only display the item if the item_name hasn't been shown yet
+                if (!displayedDrinksNames.has(data.item_name)) {
+                    listItem.innerHTML = `
+                        ${data.item_name}
+                        <div class="dash-buttons">
+                            <button data-item-id="${doc.id}" class="btn btn-success available-drinks" ${!data.isSoldOut ? "disabled" : ""}>Available</button>
+                            <button data-item-id="${doc.id}" class="btn btn-danger unavailable-drinks" ${data.isSoldOut ? "disabled" : ""}>Sold-Out</button>
+                        </div>
+                    `;
+                    drinksContainer.appendChild(listItem);
+                    displayedDrinksNames.add(data.item_name);  // Add item_name to the set
+                }
+            }
+        });
+
+        // Add event listeners for available and unavailable buttons
+        document.querySelectorAll(".available-size, .unavailable-size").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                const itemId = e.target.getAttribute("data-item-id");
+                const isAvailable = e.target.classList.contains("available-size");
+
+                // Update isSoldOut field based on the button clicked
+                const itemRef = doc(db, "branches", branchId, "items", itemId);
+                await updateDoc(itemRef, {
+                    isSoldOut: !isAvailable  // If it's available, set to false, otherwise true
+                });
+
+                // Toggle button states
+                e.target.disabled = true;
+                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                otherButton.disabled = false;
+            });
+        });
+
+        
+        // Add event listeners for available-dorayaki and unavailable-dorayaki buttons
+        document.querySelectorAll(".available-dorayaki, .unavailable-dorayaki").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                console.log("nagbabago");
+
+                const itemId = e.target.getAttribute("data-item-id");
+                const itemName = e.target.closest('li').querySelector('.dorayaki-name').textContent;  // Get the item_name from the parent <li>
+                console.log("ITEM NAME: " + itemName);
+                const isAvailable = e.target.classList.contains("available-dorayaki");
+
+                // Get reference to the collection of items
+                const itemsRef = collection(db, "branches", branchId, "items");
+
+                try {
+                    // Query for all items with the same item_name
+                    const querySnapshot = await getDocs(itemsRef);
+                    const batch = writeBatch(db); // Use batch to update multiple documents at once
+
+                    querySnapshot.forEach((docSnapshot) => {
+                        const data = docSnapshot.data();  // Get the data from the document snapshot
+                        console.log("COMPARE: " + data.item_name + "::" + itemName);
+
+                        if (data.item_name === itemName) {
+                            const itemRef = doc(db, "branches", branchId, "items", docSnapshot.id);  // Correct way to reference document
+                            // Add the update operation to the batch
+                            batch.update(itemRef, {
+                                isSoldOut: !isAvailable  // If it's available, set to false, otherwise true
+                            });
+                        }
+                    });
+
+                    // Commit the batch update
+                    await batch.commit();
+
+                    // Toggle button states for this specific item
+                    e.target.disabled = true;
+                    const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                    otherButton.disabled = false;
+                } catch (error) {
+                    console.error("Error updating items:", error);
+                }
+            });
+        });
+
+
+
+        // Add event listeners for available-boncoin and unavailable-boncoin buttons
+        document.querySelectorAll(".available-boncoin, .unavailable-boncoin").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
+                const isAvailable = e.target.classList.contains("available-boncoin");
+
+                // Reference the specific item using the itemId
+                const itemRef = doc(db, "branches", branchId, "items", itemId);
+                
+                // Update the isSoldOut field for the specific item
+                await updateDoc(itemRef, {
+                    isSoldOut: !isAvailable  // If it's available, set to false; otherwise, true
+                });
+
+                // Toggle button states for this specific item
+                e.target.disabled = true;
+                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                otherButton.disabled = false;
+            });
+        });
+
+                // Add event listeners for available-drinks and unavailable-drinks buttons
+        document.querySelectorAll(".available-drinks, .unavailable-drinks").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
+                const isAvailable = e.target.classList.contains("available-drinks");
+
+                // Reference the specific item using the itemId
+                const itemRef = doc(db, "branches", branchId, "items", itemId);
+                
+                // Update the isSoldOut field for the specific item
+                await updateDoc(itemRef, {
+                    isSoldOut: !isAvailable  // If it's available, set to false; otherwise, true
+                });
+
+                // Toggle button states for this specific item
+                e.target.disabled = true;
+                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                otherButton.disabled = false;
+            });
+        });
+
+    } catch (error) {
+        console.error("Error loading dorayaki items:", error);
+    }
+}
+
+
+
 
 let toggleStock;  // Declare toggleStock globally
 
@@ -125,13 +331,6 @@ const setupStockUpdate = (branchId) => {
             });
     };
 
-    // Attach event listeners to buttons that toggle stock availability
-    const setStockStatus = (itemName, isSoldOut) => {
-        return () => {
-            console.log(`Button clicked for item: ${itemName}, Sold-Out: ${isSoldOut}`);
-            toggleStock(itemName, isSoldOut);
-        };
-    };
 
     // Attach event listeners to each menu item in the stock update section
     document.querySelectorAll('.dash-buttons button').forEach(button => {
@@ -153,14 +352,6 @@ const updateMultipleStocks = (items, isSoldOut) => {
     });
 };
 
-// Ensure the functions like hasOishi are globally available
-window.hasOishi = () => toggleStock('dorabite_oishi', false);
-window.hasNoOishi = () => toggleStock('dorabite_oishi', true);
-window.hasSugoi = () => toggleStock('dorabite_sugoi', false);
-window.hasNoSugoi = () => toggleStock('dorabite_sugoi', true);
-window.hasBonBox = () => toggleStock('dorabite_bonbon', false);
-window.hasNoBonBox = () => toggleStock('dorabite_bonbon', true);
-
 // Grouped stock updates (choco, dulce, cheese, walnut)
 window.hasChoco = () => updateMultipleStocks(['dorabite_oishi_choco', 'dorabite_sugoi_choco', 'dorabite_bonbon_choco'], false);
 window.hasNoChoco = () => updateMultipleStocks(['dorabite_oishi_choco', 'dorabite_sugoi_choco', 'dorabite_bonbon_choco'], true);
@@ -171,21 +362,6 @@ window.hasNoCheese = () => updateMultipleStocks(['dorabite_oishi_cheese', 'dorab
 window.hasWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'dorabite_walnutella_sugoi', 'dorabite_walnutella_bonbon'], false);
 window.hasNoWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'dorabite_walnutella_sugoi', 'dorabite_walnutella_bonbon'], true);
 
-// Individual stock updates
-window.hasNutella = () => toggleStock('boncoin_nutella', false);
-window.hasNoNutella = () => toggleStock('boncoin_nutella', true);
-window.hasHamCheese = () => toggleStock('boncoin_hamcheese', false);
-window.hasNoHamCheese = () => toggleStock('boncoin_hamcheese', true);
-window.hasMozzarella = () => toggleStock('boncoin_mozarella', false);
-window.hasNoMozzarella = () => toggleStock('boncoin_mozarella', true);
-window.hasOreoCream = () => toggleStock('boncoin_oreocream', false);
-window.hasNoOreoCream = () => toggleStock('boncoin_oreocream', true);
-window.hasChocold = () => toggleStock('chocold', false);
-window.hasNoChocold = () => toggleStock('chocold', true);
-window.hasHotcof = () => toggleStock('hot_coffee', false);
-window.hasNoHotcof = () => toggleStock('hot_coffee', true);
-window.hasIcedcof = () => toggleStock('iced_coffee', false);
-window.hasNoIcedcof = () => toggleStock('iced_coffee', true);
 
 // Main fetchOrders function that accepts the branchContent as an argument
 async function fetchOrders(branchId) {

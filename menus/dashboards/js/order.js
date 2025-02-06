@@ -249,7 +249,7 @@ async function fetchCartItems(user) {
 
             // Add item to table content with spinner
             tableContent += `
-                <tr>
+                <tr id="row-${itemId}">
                     <th scope="row">
                         <i class="fas fa-minus-circle fa-lg text-danger delete-icon" 
                             id="delete-item-${itemId}"
@@ -342,85 +342,47 @@ async function updateQuantity(itemId, newQuantity) {
 async function deleteItem(itemId) {
     const user = auth.currentUser;
     if (!user) {
-         console.error("User not authenticated.");
-         return;
+        console.error("User not authenticated.");
+        return;
     }
     const userId = user.uid;
-    console.log("USER ID: " + userId);
     const branchId = localStorage.getItem("selectedBranch");
-    console.log("BRANCH ID: " + branchId);
- 
-     if (!branchId) {
-         console.error("No branch selected.");
-         return;
-     }
- 
-     const cartRef = doc(db, "branches", branchId, "carts", userId);
-     try {
-         await runTransaction(db, async (transaction) => {
-             const cartDoc = await transaction.get(cartRef);
-             if (!cartDoc.exists()) {
-                 console.error("Cart does not exist.");
-                 return;
-             }
- 
-             let cartData = cartDoc.data();
-             delete cartData.items_inCart[itemId]; // Remove the item from the map
- 
-             // Update Firestore with the modified cart
-             transaction.update(cartRef, { items_inCart: cartData.items_inCart });
-         });
- 
-         console.log(`Item ${itemId} removed successfully.`);
-     } catch (error) {
-         console.error("Error removing item:", error);
-     }
- 
-     // Set up real-time listener to automatically update the UI after the deletion
-     const unsubscribe = onSnapshot(cartRef, (cartDoc) => {
-         if (cartDoc.exists()) {
-             const cartData = cartDoc.data();
-             const itemsInCart = cartData.items_inCart;
-             console.log("Updated Cart Data:", itemsInCart); // Logs the updated cart items
- 
-             // Clear the cart items table
-             let tableContent = '';
-             const itemIds = Object.keys(itemsInCart);
-             
-             if (itemIds.length === 0) {
-                 tableContent = `
-                     <tr>
-                         <td colspan="4">You don't have anything in your cart right now.</td>
-                     </tr>
-                 `;
-             } else {
-                 itemIds.forEach(itemId => {
-                     const item = itemsInCart[itemId];
-                     tableContent += `
-                         <tr>
-                             <th scope="row">
-                                 <i class="fas fa-minus-circle fa-lg text-danger delete-icon" 
-                                     id="delete-item-${itemId}"
-                                     style="cursor: pointer;"></i>
-                             </th>
-                             <td>${item.name}</td>
-                             <td>${item.quantity}</td>
-                             <td>P${item.price.toFixed(2)}</td>
-                         </tr>
-                     `;
-                 });
-             }
- 
-             document.getElementById("cart-items-body").innerHTML = tableContent;
-         } else {
-             console.error("No cart found.");
-         }
-     });
- 
-     
-     // unsubscribe();
- }
- 
+
+    if (!branchId) {
+        console.error("No branch selected.");
+        return;
+    }
+
+    const cartRef = doc(db, "branches", branchId, "carts", userId);
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const cartDoc = await transaction.get(cartRef);
+            if (!cartDoc.exists()) {
+                console.error("Cart does not exist.");
+                return;
+            }
+
+            let cartData = cartDoc.data();
+            delete cartData.items_inCart[itemId]; // Remove the item from the map
+
+            // Update Firestore with the modified cart
+            transaction.update(cartRef, { items_inCart: cartData.items_inCart });
+        });
+
+        console.log(`Item ${itemId} removed successfully.`);
+
+        // Remove the row from the table instantly
+        const rowElement = document.getElementById(`row-${itemId}`);
+        if (rowElement) {
+            rowElement.remove();
+        }
+
+    } catch (error) {
+        console.error("Error removing item:", error);
+    }
+}
+
 
  document.addEventListener("DOMContentLoaded", function() {
     const checkoutBtn = document.getElementById("checkoutBtn");

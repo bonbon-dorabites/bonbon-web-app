@@ -43,6 +43,14 @@ const sizeMapping = {
 };
 
 
+const itemModal = document.getElementById("menuModal");
+const editItemModal = document.getElementById("editMenuModal");
+
+function closeEditMenuModal() {
+    editItemModal.style.display = "none";
+}
+
+
 // Function to fetch and display items
 async function fetchItems() {
     console.log("Fetching items...");
@@ -111,79 +119,146 @@ async function addItems() {
     // Get values from the form
     const itemName = document.getElementById("menu_name").value;
     const menuCategory = document.getElementById("menu-category").value;
-    const size = document.getElementById("dorayaki-size").value;
-    const price = parseFloat(document.getElementById("menu_price").value);
-    let nameDisplay = itemName + " " + size;
+    let nameDisplay = itemName;
 
     if(menuCategory === "Boncoin") {
         nameDisplay = menuCategory + " " + itemName;
     }
     
     // Validate input
-    if (!itemName || !menuCategory || !price) {
+    if (!itemName || !menuCategory || (menuCategory === "Dorayaki Bites" && (!document.getElementById("price-bonbon") || !document.getElementById("price-oishi") || !document.getElementById("price-sugoi")))) {
         alert("Please fill out all required fields.");
         return;
     }
 
-    // Generate document ID using getFormattedId
-    const docId = getFormattedId(menuCategory, itemName, size);
-    console.log("DOC ID: " + docId);
+    // Handle adding sizes and prices for Dorayaki Bites category
+    if (menuCategory === "Dorayaki Bites") {
+        // Get prices entered for each size
+        const priceBonbon = parseFloat(document.getElementById("price-bonbon").value);
+        const priceOishi = parseFloat(document.getElementById("price-oishi").value);
+        const priceSugoi = parseFloat(document.getElementById("price-sugoi").value);
 
-    // Prepare item data to add to Firestore
-    const itemData = {
-        item_name: itemName,
-        category: menuCategory,
-        item_price: price,
-        status: true,
-        name_to_show: nameDisplay,
-        created_at: new Date()  // Adding a timestamp for creation
-    };
+        const sizes = [
+            { name: "BONBON Box (16pcs)", price: priceBonbon },
+            { name: "OISHI (8pcs)", price: priceOishi },
+            { name: "SUGOI (12pcs)", price: priceSugoi }
+        ];
 
-    // Only add the size if the category is "Dorayaki Bites"
-    if (menuCategory === "Dorayaki Bites" && size) {
-        itemData.size = size;
-    }
+        // Iterate over each size and add it with the correct price
+        for (let i = 0; i < sizes.length; i++) {
+            const currentSize = sizes[i].name;
+            const itemPrice = sizes[i].price;
+            const docId = getFormattedId(menuCategory, itemName, currentSize);
+            console.log("DOC ID: " + docId);
 
-    try {
-        // Add the item to the Firestore collection using the generated docId
-        await setDoc(doc(db, "items", docId), itemData);
-
-        console.log("Document added with ID: ", docId); // Log the custom docId
-        alert("Item added successfully!");
-
-        // Get all branches
-        const branchesSnapshot = await getDocs(collection(db, "branches"));
-
-        // Iterate over all branches with a proper asynchronous loop
-        for (const branchDoc of branchesSnapshot.docs) {
-            const branchId = branchDoc.id;
-
-            // Define a simpler item data for each branch (with just item_name, isSoldOut, and category)
-            const branchItemData = {
+            // Prepare item data to add to Firestore
+            const itemData = {
                 item_name: itemName,
-                isSoldOut: false,  // Default status for items
-                category: menuCategory
+                category: menuCategory,
+                item_price: itemPrice, // Use the user-inputted price
+                status: true,
+                name_to_show: itemName + " " + currentSize, // Update display name for each size
+                size: currentSize, // Add the size specific to this iteration
+                created_at: new Date()  // Adding a timestamp for creation
             };
 
-            // Create a document reference for the specific branch's "items" subcollection
-            const branchItemRef = doc(db, "branches", branchId, "items", docId);
+            try {
+                // Add the item to the Firestore collection using the generated docId
+                await setDoc(doc(db, "items", docId), itemData);
 
-            // Add the item to the branch's "items" subcollection using the document reference
-            await setDoc(branchItemRef, branchItemData);
-            console.log(`Item added to branch ${branchId} with simplified data`);
+                console.log("Document added with ID: ", docId); // Log the custom docId
+
+                // Get all branches
+                const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+                // Iterate over all branches with a proper asynchronous loop
+                for (const branchDoc of branchesSnapshot.docs) {
+                    const branchId = branchDoc.id;
+
+                    // Define a simpler item data for each branch (with just item_name, isSoldOut, and category)
+                    const branchItemData = {
+                        item_name: itemName,
+                        isSoldOut: false,  // Default status for items
+                        categ: menuCategory,
+                    };
+
+                    // Create a document reference for the specific branch's "items" subcollection
+                    const branchItemRef = doc(db, "branches", branchId, "items", docId);
+
+                    // Add the item to the branch's "items" subcollection using the document reference
+                    await setDoc(branchItemRef, branchItemData);
+                    console.log(`Item added to branch ${branchId} with simplified data`);
+                }
+
+                // Show success message for each item added
+                alert(`Item ${currentSize} added successfully!`);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                alert("Error adding item. Please try again.");
+            }
+        }
+    } else {
+        // If category is not "Dorayaki Bites", proceed as usual for a single item
+        const docId = getFormattedId(menuCategory, itemName, size);
+        console.log("DOC ID: " + docId);
+
+        // Prepare item data to add to Firestore
+        const itemData = {
+            item_name: itemName,
+            category: menuCategory,
+            item_price: price,
+            status: true,
+            name_to_show: nameDisplay,
+            created_at: new Date()  // Adding a timestamp for creation
+        };
+
+        // Add the size only if the category is "Dorayaki Bites"
+        if (menuCategory === "Dorayaki Bites" && size) {
+            itemData.size = size;
         }
 
-        // Show success message
-        alert("Item added to all branches successfully!");
+        try {
+            // Add the item to the Firestore collection using the generated docId
+            await setDoc(doc(db, "items", docId), itemData);
 
-        // Reset the form after adding
-        document.getElementById("addMenuForm").reset();
+            console.log("Document added with ID: ", docId); // Log the custom docId
 
-    } catch (e) {
-        console.error("Error adding document: ", e);
-        alert("Error adding item. Please try again.");
+            // Get all branches
+            const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+            // Iterate over all branches with a proper asynchronous loop
+            for (const branchDoc of branchesSnapshot.docs) {
+                const branchId = branchDoc.id;
+
+                // Define a simpler item data for each branch (with just item_name, isSoldOut, and category)
+                const branchItemData = {
+                    item_name: itemName,
+                    isSoldOut: false,  // Default status for items
+                    categ: menuCategory
+                };
+
+                // Create a document reference for the specific branch's "items" subcollection
+                const branchItemRef = doc(db, "branches", branchId, "items", docId);
+
+                // Add the item to the branch's "items" subcollection using the document reference
+                await setDoc(branchItemRef, branchItemData);
+                console.log(`Item added to branch ${branchId} with simplified data`);
+            }
+
+            // Show success message
+            alert("Item added to all branches successfully!");
+
+            // Reset the form after adding
+            document.getElementById("addMenuForm").reset();
+
+        } catch (e) {
+            console.error("Error adding document: ", e);
+            alert("Error adding item. Please try again.");
+        }
     }
 }
+
+
 
 
 

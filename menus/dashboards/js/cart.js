@@ -155,6 +155,14 @@ const branchMap = {
     "smVal": "SmValenzuela"
 };
 
+const branchSelector = document.getElementById("branch-selector");
+branchSelector.addEventListener("change", (event) => {
+    const selectedBranchValue = event.target.value;  // Get the selected branch ID
+    const selectedBranchId = branchMap[selectedBranchValue];
+    console.log("BRANCH MO: " + selectedBranchId);
+    localStorage.setItem("selectedBranch", selectedBranchId);  // Store the selected branch ID in localStorage
+});
+
 async function addToCart(itemId, itemName, itemPrice) {
     const user = auth.currentUser;
     

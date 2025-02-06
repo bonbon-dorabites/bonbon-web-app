@@ -436,16 +436,18 @@
                       <option value="Drinks">Drinks</option>
                   </select>
 
-                  <select id="dorayaki-size" class="w-100" disabled>
-                    <option value="" disabled selected>Select Size</option>
-                    <option value="BONBON Box (16pcs)">BONBON Box (16pcs)</option>
-                    <option value="SUGOI (12pcs)">SUGOI (12pcs)</option>
-                    <option value="OISHI (8pcs)">OISHI (8pcs)</option>
-                </select>
+                  
+
+                </div>
+
+                <input type="text" id="menu_price" class="w-100" placeholder="Price" required  oninput="validatePrice(this)">
+
+                <div id="price-fields">
+                    
                 </div>
 
 
-                <input type="text" id="menu_price" class="w-100" placeholder="Price" required  oninput="validatePrice(this)">
+                
                 
 
                 <div class="modal-buttons" class="w-100">
