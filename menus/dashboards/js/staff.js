@@ -775,37 +775,6 @@ async function finishOrder(branchId, orderId) {
             
             // Get the total_price from the order
             const totalPrice = orderData.total_price;
-            const createdAt = orderData.created_at.toDate(); // Convert Firestore timestamp to JS Date
-
-            // Get the month and year from the created_at timestamp
-            const month = createdAt.getMonth() + 1;  // getMonth() returns 0-11, so we add 1
-            const year = createdAt.getFullYear();
-
-           // Optional: Log or alert the total price and month-year info
-           console.log(`Order ${orderId} - Total Price: P${totalPrice.toFixed(2)} - Created at: ${createdAt}`);
-
-           // Reference to the sales document for the specific branch, year, and month
-           const salesRef = doc(db, "sales", branchId, String(year), String(month).padStart(2, "0"));
-
-           // Fetch the sales document for the year and month
-           const salesDoc = await getDoc(salesRef);
-
-           if (salesDoc.exists()) {
-               // If the document exists, increment the sales total
-               const currentSales = salesDoc.data().total_sales || 0;
-               await updateDoc(salesRef, {
-                   total_sales: currentSales + totalPrice
-               });
-
-               console.log(`Sales for ${year}-${String(month).padStart(2, "0")} updated. New total: P${(currentSales + totalPrice).toFixed(2)}`);
-           } else {
-               // If the document doesn't exist, create it with the initial sales total
-               await setDoc(salesRef, {
-                   total_sales: totalPrice
-               });
-
-               console.log(`Sales document for ${year}-${String(month).padStart(2, "0")} created with total: P${totalPrice.toFixed(2)}`);
-           }
 
            // Mark the order as finished in the orders collection
            await updateDoc(orderRef, {
@@ -814,7 +783,6 @@ async function finishOrder(branchId, orderId) {
                didFeedback: false
            });
 
-           showModal(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
        } else {
            alert(`Order ${orderId} not found.`, true);
        }
