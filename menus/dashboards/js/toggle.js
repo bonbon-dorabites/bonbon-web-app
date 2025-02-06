@@ -145,7 +145,6 @@ function createSizeRow(itemId, itemData) {
     row.style.borderRadius = "5px"; // Rounded corners
     row.style.backgroundColor = "#f2f2f2"; // Light background color
     row.style.height = "70px"; // Limit the height of each row
-    row.style.width = "900px"; // Limit the height of each row
     row.style.fontSize = "20px"; // Smaller font size for better fit
     row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
 
@@ -201,7 +200,6 @@ function createFlavorRow(itemId, itemData) {
     row.style.borderRadius = "5px"; // Rounded corners
     row.style.backgroundColor = "#f2f2f2"; // Light background color
     row.style.height = "70px"; // Limit the height of each row
-    row.style.width = "900px"; // Limit the height of each row
     row.style.fontSize = "20px"; // Smaller font size for better fit
     row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
 
@@ -257,7 +255,6 @@ function createBoncoinRow(itemId, itemData) {
     row.style.borderRadius = "5px"; // Rounded corners
     row.style.backgroundColor = "#f2f2f2"; // Light background color
     row.style.height = "70px"; // Limit the height of each row
-    row.style.width = "900px"; // Limit the height of each row
     row.style.fontSize = "20px"; // Smaller font size for better fit
     row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
 
@@ -313,7 +310,6 @@ function createDrinkRow(itemId, itemData) {
     row.style.borderRadius = "5px"; // Rounded corners
     row.style.backgroundColor = "#f2f2f2"; // Light background color
     row.style.height = "70px"; // Limit the height of each row
-    row.style.width = "900px"; // Limit the height of each row
     row.style.fontSize = "20px"; // Smaller font size for better fit
     row.style.boxSizing = "border-box"; // Include padding and border in the element's total width and height
 
