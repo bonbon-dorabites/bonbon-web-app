@@ -215,21 +215,10 @@
 
   <div class="browse-hide">
     <div class="d-flex justify-content-center align-items-center text-center">
-      <h1 style="color: black;"><br>PLEASE CHOOSE A BRANCH FIRST!</h1><br><br><br>
+      <h1 style="color: black;"><br>PLEASE CHOOSE A BRANCH FIRST!</h1>
     </div>
   </div>
 
-  <!--<div class="footer-show">
-    <footer class="small-footer">
-      <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
-  </div>
-
-  <div class="footer-fixed">
-    <footer class="small-footer fixed-bottom">
-      <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
-  </div>-->
 
   <!-- Modal HTML -->
   <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
@@ -284,26 +273,12 @@
             </div>
         </div>
     </div>
-  </div>
-  <!-- Modal HTML --><!-- Modal HTML -->
-  <div id="gifModal" class="modal gifmodal fade" tabindex="-1" role="dialog" 
-  aria-labelledby="gifLabel" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="gifmodal modal-content">
-              <div class="gifmodal modal-body">
-                  <div style="text-align: center;">
-                      <img src="/img/bonbon-gif.gif" class="loadBonbonGif" alt="Loading...">
-                  </div>
-                  <div style="text-align: center;">
-                      <img src="/img/loading.gif" class="loadDots" alt="Loading...">
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+</div>
+<!-- Modal HTML --><!-- Modal HTML -->
+
   
 <script>
-  /*function showLoadingModal() {
+  function showLoadingModal() {
       window.addEventListener("DOMContentLoaded", function() {
           const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
               backdrop: 'static',
@@ -317,19 +292,21 @@
               const modalElement = document.getElementById('gifModal');
               modalElement.style.display = 'block';
               loadingModal.show();
-          }, 300); 
+          }, 300);
 
           setTimeout(() => {
               loadingModal.hide();
               localStorage.removeItem('showModal'); // Clear state after hiding
-          }, 2000);
+          }, 5000);
       });
   }
 
   // Call the function when needed
-  showLoadingModal();*/
+  showLoadingModal();
 </script>
   <script src="/main.js"></script>
+  <script src="/loading.js"></script>
+  <script type="module" src="/auth/auth.js" defer></script>
   <script type="module" src="/hi.js" defer></script>
   <script type="module" src="/menus/dashboards/js/cart.js"defer></script>
   <script type="module" src="/menus/dashboards/js/browse.js" defer></script>
