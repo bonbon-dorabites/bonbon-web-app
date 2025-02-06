@@ -20,6 +20,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 auth.languageCode = 'en';
 
+const branchSelector = document.getElementById("branch-selector");
+
+const branchMap = {
+    "oneMallVal": "OneMallVal",
+    "smNorth": "SmNorthEdsa",
+    "smVal": "SmValenzuela"
+};
 
 const nameMapping = {
     "Ham & Cheese": "hamcheese",
@@ -165,6 +172,7 @@ async function fetchItemsAndUpdate() {
 
 }
 
+
 async function updateItemsWithIds(items) {
     // Create an updatedItems array without Firestore storage
     const updatedItems = await Promise.all(items.map(async (item) => {
@@ -189,6 +197,10 @@ async function updateItemsWithIds(items) {
             instockId = generateInstockId(item.category, item.item_name);
             soldId = generateSoldId(item.category, item.item_name);
         }
+
+        // Dynamically update itemMap
+        itemMap[formattedId] = [instockId, soldId];
+        console.log(`Updated itemMap: ${formattedId} => [${instockId}, ${soldId}]`);
 
         // Log each generated ID for inspection
         console.log('Formatted ID:', formattedId);
@@ -297,6 +309,75 @@ function generateSoldId(category, name, size) {
 }
 
 
+const itemMap = {
+    "dorabite_oishi": ["#oishi-flavors-show", "#oishi-flavors-none"],
+    "dorabite_sugoi": ["#sugoi-flavors-show", "#sugoi-flavors-none"],
+    "dorabite_bonbon": ["#box-flavors-show", "#box-flavors-none"],
+
+};
+
+function updateItemDisplay(branch) {
+    if (!branch) {
+        console.log("No branch selected. Exiting function.");
+        return;
+    }
+
+    const branchDoc = branchMap[branch];
+    console.log(`Branch selected: ${branch}, Branch document ID: ${branchDoc}`);
+
+    const itemsRef = collection(db, `branches/${branchDoc}/items`);
+    console.log(`Listening for real-time updates at path: branches/${branchDoc}/items`);
+
+    // Listen for real-time updates
+    onSnapshot(itemsRef, (snapshot) => {
+        console.log("Snapshot received:", snapshot);
+
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            const itemName = doc.id;
+
+            console.log(`Document ID: ${itemName}, Data:`, data);
+
+            if (itemMap[itemName]) {
+                const [instockSelector, soldSelector] = itemMap[itemName];
+                console.log(`Matched itemMap entry for '${itemName}':`, {
+                    instockSelector,
+                    soldSelector
+                });
+
+                const instockElement = document.getElementById(instockSelector);
+                const soldElement = document.getElementById(soldSelector);
+
+                if (instockElement && soldElement) {
+                    console.log(`Instock element found: ${instockSelector}`);
+                    console.log(`Sold element found: ${soldSelector}`);
+
+                    if (data.isSoldOut) {
+                        console.log(`Item '${itemName}' is sold out. Updating display.`);
+                        instockElement.style.display = "none";
+                        soldElement.style.display = "block";
+                    } else {
+                        console.log(`Item '${itemName}' is in stock. Updating display.`);
+                        instockElement.style.display = "block";
+                        soldElement.style.display = "none";
+                    }
+                } else {
+                    console.warn(`Elements not found for '${itemName}':`, {
+                        instockSelector,
+                        soldSelector
+                    });
+                }
+            } else {
+                console.warn(`No entry found in itemMap for '${itemName}'. Skipping.`);
+            }
+        });
+    });
+}
+
+// Event listener for branch selection
+branchSelector.addEventListener("change", (event) => {
+    updateItemDisplay(event.target.value);
+});
 
   // Fetch items on page load
   window.onload = fetchItemsAndUpdate;
