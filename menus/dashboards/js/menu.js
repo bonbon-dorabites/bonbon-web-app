@@ -50,6 +50,8 @@ function closeEditMenuModal() {
     editItemModal.style.display = "none";
 }
 
+// Store the items and rows globally for later search reference
+let menuItems = [];
 
 // Function to fetch and display items
 async function fetchItems() {
@@ -61,18 +63,43 @@ async function fetchItems() {
     menuTableBody.innerHTML = ""; // Clear existing table rows
     let index = 1; // Product numbering
 
+    // Clear the global menuItems array
+    menuItems = [];
+
+    // Convert Firestore snapshot to an array
+    let itemsArray = [];
     itemsSnapshot.forEach((docSnap) => {
         const data = docSnap.data();
+        if (data.item_price !== undefined && data.item_price !== null) {
+            itemsArray.push({ id: docSnap.id, data });
+        }
+    });
 
-        // Skip items that have no price or a null/undefined price
-        if (data.item_price === undefined || data.item_price === null) {
-            return; 
+    // Sort items based on category priority
+    itemsArray.sort((a, b) => {
+        const categoryA = a.data.category || "";
+        const categoryB = b.data.category || "";
+
+        if (categoryA === "Dorayaki Bites" && categoryB !== "Dorayaki Bites") {
+            return -1; // Dorayaki Bites first
+        } 
+        if (categoryA !== "Dorayaki Bites" && categoryB === "Dorayaki Bites") {
+            return 1;
+        } 
+        if (categoryA === "Boncoin the Drinks" && categoryB !== "Boncoin the Drinks") {
+            return -1; // Boncoin the Drinks second
+        } 
+        if (categoryA !== "Boncoin the Drinks" && categoryB === "Boncoin the Drinks") {
+            return 1;
         }
 
-        const row = document.createElement("tr");
+        return 0; // Keep other items in original order
+    });
 
-         // Set the doc.id as a custom attribute on the row for later access
-         row.setAttribute("data-menu-id", docSnap.id); // Store doc.id in data-id attribute
+    // Populate the table
+    itemsArray.forEach(({ id, data }) => {
+        const row = document.createElement("tr");
+        row.setAttribute("data-menu-id", id);
 
         row.innerHTML = `
             <td>${index}</td>
@@ -81,32 +108,17 @@ async function fetchItems() {
             <td>${data.size !== undefined ? data.size : '-'}</td>
             <td>₱${data.item_price.toFixed(2)}</td>
             <td>
-                <label class="switch">
-                    <input type="checkbox" ${data.status ? "checked" : ""} data-id="${docSnap.id}">
-                    <span class="slider round"></span>
-                </label>
-            </td>
-            <td>
                 <button class="action-btn edit" onclick="editMenu(this)"><i class="fas fa-edit"></i></button>
                 <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
             </td>
         `;
 
         menuTableBody.appendChild(row);
+        menuItems.push({ row, data });
         index++;
     });
 
-    // Add event listeners to toggle buttons
-    document.querySelectorAll('.switch input').forEach((toggle) => {
-        toggle.addEventListener("change", async function () {
-            const itemId = this.getAttribute("data-id");
-            const newStatus = this.checked;
-
-            await updateDoc(doc(db, "items", itemId), { status: newStatus });
-            console.log(`Updated ${itemId}: Status ${newStatus}`);
-        });
-    });
-
+    // Attach delete event listeners
     document.querySelectorAll('.delete').forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopImmediatePropagation();
@@ -115,10 +127,34 @@ async function fetchItems() {
     });
 }
 
+// Search functionality for filtering the table based on user input
+document.getElementById("search-product").addEventListener("input", function () {
+    const searchQuery = this.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+
+    // Loop through all items in the menuItems array
+    menuItems.forEach(item => {
+        const { row, data } = item;
+        const { item_name, category, size, item_price } = data;
+
+        // Check if any part of the row matches the search query
+        const matchesSearch =
+            item_name.toLowerCase().includes(searchQuery) ||
+            category.toLowerCase().includes(searchQuery) ||
+            (size && size.toLowerCase().includes(searchQuery)) ||
+            item_price.toString().includes(searchQuery);
+
+        // Show or hide the row based on the match
+        row.style.display = matchesSearch ? "" : "none";
+    });
+});
+
+
 async function addItems() {
     // Get values from the form
     const itemName = document.getElementById("menu_name").value;
     const menuCategory = document.getElementById("menu-category").value;
+    const price = parseFloat(document.getElementById('menu_price').value);
+
     let nameDisplay = itemName;
 
     if(menuCategory === "Boncoin") {
@@ -192,6 +228,9 @@ async function addItems() {
 
                 // Show success message for each item added
                 alert(`Item ${currentSize} added successfully!`);
+                // Reset the form after adding
+                document.getElementById("addMenuForm").reset();
+                closeMenuModal();
             } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("Error adding item. Please try again.");
@@ -199,7 +238,7 @@ async function addItems() {
         }
     } else {
         // If category is not "Dorayaki Bites", proceed as usual for a single item
-        const docId = getFormattedId(menuCategory, itemName, size);
+        const docId = getFormattedId(menuCategory, itemName);
         console.log("DOC ID: " + docId);
 
         // Prepare item data to add to Firestore
@@ -211,11 +250,6 @@ async function addItems() {
             name_to_show: nameDisplay,
             created_at: new Date()  // Adding a timestamp for creation
         };
-
-        // Add the size only if the category is "Dorayaki Bites"
-        if (menuCategory === "Dorayaki Bites" && size) {
-            itemData.size = size;
-        }
 
         try {
             // Add the item to the Firestore collection using the generated docId
@@ -250,7 +284,8 @@ async function addItems() {
 
             // Reset the form after adding
             document.getElementById("addMenuForm").reset();
-
+            closeMenuModal();
+            
         } catch (e) {
             console.error("Error adding document: ", e);
             alert("Error adding item. Please try again.");
@@ -288,6 +323,25 @@ async function editItems() {
         });
 
         console.log("Item successfully updated in Firestore!");
+        
+        // Get all branches
+        const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+        // Iterate over all branches and update the item in each branch's "items" subcollection
+        for (const branchDoc of branchesSnapshot.docs) {
+            const branchId = branchDoc.id;
+
+            // Reference to the specific branch's item document in the "items" subcollection
+            const branchItemRef = doc(db, "branches", branchId, "items", itemId);
+
+            // Update the item for the branch
+            await updateDoc(branchItemRef, {
+                item_name: updatedItemName
+            });
+
+            console.log(`Item updated in branch ${branchId}`);
+        }
+             
         alert("Item updated successfully!");
 
         // Optionally, close the modal after the update
@@ -329,16 +383,27 @@ async function deleteMenu(button) {
 
             console.log("Menu deleted successfully!");
 
+            // Get all branches
+            const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+            // Iterate over all branches and delete the item from each branch's "items" subcollection
+            for (const branchDoc of branchesSnapshot.docs) {
+                const branchId = branchDoc.id;
+
+                // Reference to the specific branch's item document in the "items" subcollection
+                const branchItemRef = doc(db, "branches", branchId, "items", itemId);
+
+                // Delete the item for the branch
+                await deleteDoc(branchItemRef);
+
+                console.log(`Item deleted in branch ${branchId}`);
+            }
+
             // Remove the row from the UI
             row.remove();
 
             // Show success message
             showModal("Menu deleted successfully!", true);
-
-            // Optionally reload the page after a short delay
-            setTimeout(() => {
-                location.reload();
-            }, 1500);
 
         } catch (error) {
             console.error("Error deleting menu item:", error.message);
@@ -423,9 +488,11 @@ function showModal(message, isSuccess) {
 }
 
 
+
 // Event listener for the save button
 document.getElementById("save-menu").addEventListener("click", addItems);
 document.getElementById("save-edit-menu").addEventListener("click", editItems);
 
-  // Fetch items on page load
-  window.onload = fetchItems;
+// Fetch items on page load
+window.onload = fetchItems;
+
