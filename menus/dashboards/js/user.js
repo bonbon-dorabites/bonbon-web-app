@@ -1,4 +1,4 @@
-/*import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getFirestore, collection, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -174,4 +174,3 @@ function clearSearch() {
 
 // Call fetchData when the page loads
 document.addEventListener("DOMContentLoaded", fetchData);
-*/

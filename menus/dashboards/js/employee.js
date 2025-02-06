@@ -1,4 +1,4 @@
-/*import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
 import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
 
 
@@ -491,4 +491,4 @@ async function deleteEmployee(button) {
 
 
 // Call fetchData when the page loads
-document.addEventListener("DOMContentLoaded", fetchData);*/
+document.addEventListener("DOMContentLoaded", fetchData);

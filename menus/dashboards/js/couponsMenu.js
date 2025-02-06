@@ -1,4 +1,4 @@
-/*// Import the functions you need from the SDKs
+// Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, onSnapshot, where, query, getDocs, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDoc, Timestamp, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
@@ -213,4 +213,3 @@ async function fetchClaimedCoupons(user) {
 // Call the function to fetch cart items when the page loads or when needed
 document.addEventListener("DOMContentLoaded", fetchAvailableCoupons);
 document.addEventListener("DOMContentLoaded", fetchClaimedCoupons);
-*/
