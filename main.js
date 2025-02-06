@@ -188,16 +188,34 @@ function editMenu(button) {
   openEditMenuModal();
 }
 
-document.getElementById("menu-category").addEventListener("change", function() {
-  const sizeDropdown = document.getElementById("dorayaki-size");
-  
-  if (this.value === "Dorayaki Bites") {
-      sizeDropdown.removeAttribute("disabled");
-  } else {
-      sizeDropdown.setAttribute("disabled", "disabled");
-      sizeDropdown.selectedIndex = 0; // Reset selection when disabled
-  }
-});
+// Function to dynamically display input fields for the different sizes
+function displayPriceFields() {
+    const menuCategory = document.getElementById("menu-category").value;
+    
+    // Check if the category is Dorayaki Bites
+    if (menuCategory === "Dorayaki Bites") {
+        const priceSection = document.getElementById("price-fields");
+
+        // Create input fields for each size
+        priceSection.innerHTML = `
+            <label for="price-bonbon">Price for BONBON Box (16pcs): </label>
+            <input type="number" id="price-bonbon" class="w-100" name="price-bonbon" required><br>
+            <label for="price-oishi" >Price for OISHI (8pcs): </label>
+            <input type="number" id="price-oishi" class="w-100" name="price-oishi" required><br>
+            <label for="price-sugoi">Price for SUGOI (12pcs): </label>
+            <input type="number" id="price-sugoi" class="w-100" name="price-sugoi" required><br>
+        `;
+
+        const solePrice = document.getElementById("menu_price");
+        solePrice.style.display = "none";
+    } else {
+        // Clear price fields if not Dorayaki Bites
+        document.getElementById("price-fields").innerHTML = "";
+    }
+}
+
+// Call this function whenever the category dropdown changes
+document.getElementById("menu-category").addEventListener("change", displayPriceFields);
 
 // Ensure price input only accepts numbers
 function validatePrice(input) {
