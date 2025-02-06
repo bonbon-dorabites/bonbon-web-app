@@ -86,12 +86,6 @@ async function fetchItems() {
             <td>${data.size !== undefined ? data.size : '-'}</td>
             <td>₱${data.item_price.toFixed(2)}</td>
             <td>
-                <label class="switch">
-                    <input type="checkbox" ${data.status ? "checked" : ""} data-id="${docSnap.id}">
-                    <span class="slider round"></span>
-                </label>
-            </td>
-            <td>
                 <button class="action-btn edit" onclick="editMenu(this)"><i class="fas fa-edit"></i></button>
                 <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
             </td>
@@ -100,17 +94,6 @@ async function fetchItems() {
         menuTableBody.appendChild(row);
         menuItems.push({ row, data });
         index++;
-    });
-
-    // Add event listeners to toggle buttons
-    document.querySelectorAll('.switch input').forEach((toggle) => {
-        toggle.addEventListener("change", async function () {
-            const itemId = this.getAttribute("data-id");
-            const newStatus = this.checked;
-
-            await updateDoc(doc(db, "items", itemId), { status: newStatus });
-            console.log(`Updated ${itemId}: Status ${newStatus}`);
-        });
     });
 
     document.querySelectorAll('.delete').forEach(button => {
