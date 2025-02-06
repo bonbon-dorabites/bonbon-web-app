@@ -72,15 +72,14 @@ function updateDisplay() {
     filteredOrders.forEach(order => {
         const items = Object.values(order.items_bought).map(item => `${item.name} (x${item.quantity})`).join(", ");
         
-        document.getElementById("sales-table").style.display = "block";
+        
         const show = document.querySelectorAll(".hide");
         show.forEach(element => {
             element.style.display = "block";
         });
         document.querySelector(".hidee").style.display = "block";
         document.querySelector(".hidee").style.display = "flex";
-        document.getElementById("employee-table").style.display = "block";
-        document.getElementById("employee-table").style.width = "100vw";
+        
 
         const row = document.createElement("tr");
         row.innerHTML = `
