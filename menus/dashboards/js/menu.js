@@ -287,6 +287,25 @@ async function editItems() {
         });
 
         console.log("Item successfully updated in Firestore!");
+        
+        // Get all branches
+        const branchesSnapshot = await getDocs(collection(db, "branches"));
+
+        // Iterate over all branches and update the item in each branch's "items" subcollection
+        for (const branchDoc of branchesSnapshot.docs) {
+            const branchId = branchDoc.id;
+
+            // Reference to the specific branch's item document in the "items" subcollection
+            const branchItemRef = doc(db, "branches", branchId, "items", itemId);
+
+            // Update the item for the branch
+            await updateDoc(branchItemRef, {
+                item_name: updatedItemName
+            });
+
+            console.log(`Item updated in branch ${branchId}`);
+        }
+             
         alert("Item updated successfully!");
 
         // Optionally, close the modal after the update
