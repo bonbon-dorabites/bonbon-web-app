@@ -196,6 +196,9 @@ async function addItems() {
 
                 // Show success message for each item added
                 alert(`Item ${currentSize} added successfully!`);
+                // Reset the form after adding
+                document.getElementById("addMenuForm").reset();
+                closeMenuModal();
             } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("Error adding item. Please try again.");
@@ -249,6 +252,7 @@ async function addItems() {
 
             // Reset the form after adding
             document.getElementById("addMenuForm").reset();
+            closeMenuModal();
             
         } catch (e) {
             console.error("Error adding document: ", e);
