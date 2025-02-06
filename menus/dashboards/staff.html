@@ -217,6 +217,10 @@
         
             }
         }
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -292,11 +296,11 @@
     </header>
 
     <section class="staff-dashboard">
-        <h1 class="owner-dashboard-title text-center ">Staff Dashboard</h1>
+        <h1 class="owner-dashboard-title text-center hide">Staff Dashboard</h1>
         
 
         <!-- Dropdown Section -->
-        <div class="row12">
+        <div class="row12 hide">
             <div class="col1">
                 <img src="/img/shopping-bag-icon.png" alt="">
                 <div class="dropdown">
@@ -315,64 +319,57 @@
         </div>
 
         <!-- First Horizontal Line -->
-        <div class="dashboard-line"></div>
+        <div class="dashboard-line hide"></div>
         
 
         <!-- Stock Update Section -->
         <section class="stock-update mt-4">
-            <h2>Stock Update</h2>
-            <h3>Sizes (Dorayaki Bites & Walnutella)</h3>
+            <h2 class=" hide">Stock Update</h2>
+            <h3 class="hide">Sizes (Dorayaki Bites & Walnutella)</h3>
             <ul class="stock-list" id="size-dorayaki-container">
             </ul>
         
-            <h3>Flavors (Dorayaki Bites)</h3>
+            <h3 class="hide">Flavors (Dorayaki Bites)</h3>
             <ul class="stock-list" id="flavor-dorayaki-bites">
                
             </ul>
         
-            <h3>Flavors (Boncoin)</h3>
+            <h3 class="hide">Flavors (Boncoin)</h3>
             <ul class="stock-list" id="boncoin-flavors-container">
                 
             </ul>
         
-            <h3>Drinks</h3>
+            <h3 class="hide">Drinks</h3>
             <ul class="stock-list" id="drinks-stocks-container">
               
             </ul>
         </section>
 
-        <div class="dashboard-line"></div>
+        <div class="dashboard-line hide"></div>
         <!-- New Orders Section -->
         <section class="new-orders mt-4">
-            <h2>New Orders</h2>
+            <h2 class="hide">New Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No new orders to show.</h3>
             <div class="new-orders-container mt-4"></div>
-            
         </section>
-        <div class="dashboard-line"></div>
+        <div class="dashboard-line hide"></div>
         
         <!-- Pending Orders Section -->
         <section class="pending-orders mt-4">
-            <h2>Pending Orders</h2>
+            <h2 class="hide">Pending Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No pending orders to show.</h3>
             <div class="accordion" id="pendingOrdersAccordion"></div> 
             <br>
         </section>
-
-
-        <div class="dashboard-line"></div>
+        <div class="dashboard-line hide"></div>
 
         <!-- Finished Orders Section -->
-        <section class="finished-orders mt-4">
-            <h2>Finished Orders</h2>
+        <section class="finished-orders mt-4 hide">
+            <h2 class="hide">Finished Orders</h2>
+            <h3 style="font-style: italic; color: maroon; text-align: center; display: none;">No finished orders to show.</h3>
             <div class="accordion" id="finishedOrdersAccordion"></div>
-
-
         </section>
     </section>
-
-    <!-- Footer -->
-    <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
     
     <!-- Modal HTML -->
     <div id="loadingModal" class="modal fade" tabindex="-1" role="dialog">
@@ -457,12 +454,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Footer -->
-    <footer class="small-footer">
-        <p>In Partial Fulfillment for subject Web Development</p>
-    </footer>
     
     <script type="module" src="/hi.js" defer></script>
     <script type="module" src="/menus/dashboards/js/staff.js" defer></script>
