@@ -66,18 +66,40 @@ async function fetchItems() {
     // Clear the global menuItems array
     menuItems = [];
 
+    // Convert Firestore snapshot to an array
+    let itemsArray = [];
     itemsSnapshot.forEach((docSnap) => {
         const data = docSnap.data();
+        if (data.item_price !== undefined && data.item_price !== null) {
+            itemsArray.push({ id: docSnap.id, data });
+        }
+    });
 
-        // Skip items that have no price or a null/undefined price
-        if (data.item_price === undefined || data.item_price === null) {
-            return; 
+    // Sort items based on category priority
+    itemsArray.sort((a, b) => {
+        const categoryA = a.data.category || "";
+        const categoryB = b.data.category || "";
+
+        if (categoryA === "Dorayaki Bites" && categoryB !== "Dorayaki Bites") {
+            return -1; // Dorayaki Bites first
+        } 
+        if (categoryA !== "Dorayaki Bites" && categoryB === "Dorayaki Bites") {
+            return 1;
+        } 
+        if (categoryA === "Boncoin the Drinks" && categoryB !== "Boncoin the Drinks") {
+            return -1; // Boncoin the Drinks second
+        } 
+        if (categoryA !== "Boncoin the Drinks" && categoryB === "Boncoin the Drinks") {
+            return 1;
         }
 
-        const row = document.createElement("tr");
+        return 0; // Keep other items in original order
+    });
 
-        // Set the doc.id as a custom attribute on the row for later access
-        row.setAttribute("data-menu-id", docSnap.id); // Store doc.id in data-id attribute
+    // Populate the table
+    itemsArray.forEach(({ id, data }) => {
+        const row = document.createElement("tr");
+        row.setAttribute("data-menu-id", id);
 
         row.innerHTML = `
             <td>${index}</td>
@@ -96,6 +118,7 @@ async function fetchItems() {
         index++;
     });
 
+    // Attach delete event listeners
     document.querySelectorAll('.delete').forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopImmediatePropagation();
