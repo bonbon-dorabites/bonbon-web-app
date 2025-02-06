@@ -73,6 +73,8 @@ async function fetchItems() {
 
          // Set the doc.id as a custom attribute on the row for later access
          row.setAttribute("data-menu-id", docSnap.id); // Store doc.id in data-id attribute
+         console.log("ITEM PRICE: " + data.item_name);
+         console.log("ITEM PRICE: " + data.item_price);
 
         row.innerHTML = `
             <td>${index}</td>
@@ -119,6 +121,8 @@ async function addItems() {
     // Get values from the form
     const itemName = document.getElementById("menu_name").value;
     const menuCategory = document.getElementById("menu-category").value;
+    const price = parseFloat(document.getElementById('menu_price').value);
+
     let nameDisplay = itemName;
 
     if(menuCategory === "Boncoin") {
@@ -199,7 +203,7 @@ async function addItems() {
         }
     } else {
         // If category is not "Dorayaki Bites", proceed as usual for a single item
-        const docId = getFormattedId(menuCategory, itemName, size);
+        const docId = getFormattedId(menuCategory, itemName);
         console.log("DOC ID: " + docId);
 
         // Prepare item data to add to Firestore
@@ -211,11 +215,6 @@ async function addItems() {
             name_to_show: nameDisplay,
             created_at: new Date()  // Adding a timestamp for creation
         };
-
-        // Add the size only if the category is "Dorayaki Bites"
-        if (menuCategory === "Dorayaki Bites" && size) {
-            itemData.size = size;
-        }
 
         try {
             // Add the item to the Firestore collection using the generated docId
@@ -250,7 +249,7 @@ async function addItems() {
 
             // Reset the form after adding
             document.getElementById("addMenuForm").reset();
-
+            
         } catch (e) {
             console.error("Error adding document: ", e);
             alert("Error adding item. Please try again.");

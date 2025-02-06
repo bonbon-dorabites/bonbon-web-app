@@ -205,13 +205,17 @@ function displayPriceFields() {
             <label for="price-sugoi">Price for SUGOI (12pcs): </label>
             <input type="number" id="price-sugoi" class="w-100" name="price-sugoi" required><br>
         `;
-
+        
         const solePrice = document.getElementById("menu_price");
         solePrice.style.display = "none";
     } else {
         // Clear price fields if not Dorayaki Bites
+        const solePrice = document.getElementById("menu_price");
+        solePrice.style.display = "block";
         document.getElementById("price-fields").innerHTML = "";
     }
+
+
 }
 
 // Call this function whenever the category dropdown changes
