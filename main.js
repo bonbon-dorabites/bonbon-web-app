@@ -1,30 +1,42 @@
-// Accordion Browse
+// Toggle accordion sections
+const headers = document.querySelectorAll('.accordion-header');
+headers.forEach(header => {
+  header.addEventListener('click', () => {
+    const body = header.nextElementSibling;
+    const toggleIcon = header.querySelector('.toggle-icon');
 
-const accordion = document.getElementsByClassName('sizes');
+    // Toggle display of accordion body
+    if (body.style.display === 'block') {
+      body.style.display = 'none';
+      toggleIcon.textContent = '+';
+    } else {
+      body.style.display = 'block';
+      toggleIcon.textContent = '-';
+    }
+  });
+});
 
-for(i = 0; i < accordion.length; i++) {
-    accordion[i].addEventListener('click', function() {
-        this.classList.toggle('active');
-    })
-}
 
 document.addEventListener("DOMContentLoaded", () => {
-    const checkoutForm = document.getElementById("checkout-form");
-    const orderSection = document.getElementById("order");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-    const backBtn = document.getElementById("backBtn");
-
-    // Show checkout form, hide order section
-    checkoutBtn.addEventListener("click", () => {
-        orderSection.style.display = "none";
-        checkoutForm.style.display = "block";
-    });
-
-    // Show order section, hide checkout form
-    backBtn.addEventListener("click", () => {
-        checkoutForm.style.display = "none";
-        orderSection.style.display = "block";
-    });
+  const checkoutForm = document.getElementById("checkout-form");
+  const orderSection = document.getElementById("order");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  const backBtn = document.getElementById("backBtn");
+  const backBtn2 = document.getElementById("backBtn2");
+  // Show checkout form, hide order section
+  checkoutBtn.addEventListener("click", () => {
+      orderSection.style.display = "none";
+      checkoutForm.style.display = "block";
+  });
+  // Show order section, hide checkout form
+  backBtn.addEventListener("click", () => {
+      checkoutForm.style.display = "none";
+      orderSection.style.display = "block";
+  });
+  backBtn2.addEventListener("click", () => {
+      checkoutForm.style.display = "none";
+      orderSection.style.display = "block";
+  });
 });
 
 document.querySelectorAll('.label').forEach(label => {
@@ -37,3 +49,133 @@ document.querySelectorAll('.label').forEach(label => {
     });
   });
   
+
+// Open Modal
+function openModal() {
+    document.getElementById('employeeModal').style.display = "block";
+}
+
+// Close Modal
+function closeModal() {
+    document.getElementById('employeeModal').style.display = "none";
+}
+
+// Get modal and form elements
+const employeeModal = document.getElementById("employeeModal");
+const addEmployeeForm = document.getElementById("addEmployeeForm");
+
+// Open modal function
+function openModal() {
+  employeeModal.style.display = "block";
+}
+
+// Close modal function
+function closeModal() {
+  employeeModal.style.display = "none";
+}
+
+// Save employee details (placeholder function)
+function saveEmployee() {
+  // Get input values
+  const name = document.getElementById("name").value.trim();
+  const branch = document.getElementById("employee-branch").value;
+  const position = document.getElementById("position").value.trim();
+  const contact = document.getElementById("contact").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const permission = document.querySelector('input[name="permission"]:checked')?.value;
+
+  if (!name || !branch || !position || !contact || !email || !permission) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  // Append a new row to the staff table
+  const tableBody = document.getElementById("staff-table-body");
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <td>${name}</td>
+    <td>${branch}</td>
+    <td>
+      <label>
+        <input type="radio" name="permission-${Date.now()}" value="Allowed" ${permission === "Allowed" ? "checked" : ""} disabled> Allowed
+      </label>
+      <label>
+        <input type="radio" name="permission-${Date.now()}" value="Declined" ${permission === "Declined" ? "checked" : ""} disabled> Declined
+      </label>
+    </td>
+    <td>${position}</td>
+    <td>${contact}</td>
+    <td>${email}</td>
+    <td>
+      <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+      <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+    </td>
+  `;
+  tableBody.appendChild(newRow);
+
+  
+   // Generate initials
+   const initials = name
+   .split(" ")
+   .map((n) => n[0])
+   .join("")
+   .toUpperCase();
+
+ // Generate a random color for the initials
+ const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
+ // Append a new details card
+ const detailsContainer = document.createElement("div");
+ detailsContainer.className = "details";
+ detailsContainer.innerHTML = `
+   <div class="details-card">
+     <div class="initials" style="background-color: ${randomColor};">${initials}</div>
+     <p><strong>Name:</strong> ${name}</p>
+     <p><strong>Branch:</strong> ${branch}</p>
+     <p><strong>Permission:</strong> ${permission}</p>
+     <p><strong>Position:</strong> ${position}</p>
+     <p><strong>Contact:</strong> ${contact}</p>
+     <p><strong>Email:</strong> ${email}</p>
+     <div class="actions">
+       <button class="action-btn edit" onclick="toggleEdit(this)"><i class="fas fa-edit"></i></button>
+       <button class="action-btn delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+     </div>
+   </div>
+ `;
+
+ const detailsSection = document.getElementById("details-section"); // Add this ID to your parent container for details
+ detailsSection.appendChild(detailsContainer);
+
+ // Close the modal
+ closeModal();
+
+ // Reset the form
+ addEmployeeForm.reset();
+}
+
+// Close the modal when clicking outside of it
+window.onclick = function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+};
+
+
+function toggleEdit(button) {
+  const row = button.parentElement.parentElement;
+  const radios = row.querySelectorAll('input[type="radio"]');
+  const isEditing = button.innerHTML === '<i class="fas fa-edit"></i>';
+
+  if (isEditing) {
+      button.textContent = 'Save';
+      radios.forEach(radio => radio.disabled = false);
+  } else {
+      button.innerHTML = '<i class="fas fa-edit"></i>';
+      radios.forEach(radio => radio.disabled = true);
+  }
+}
+
+function deleteRow(button) {
+  const row = button.parentElement.parentElement;
+  row.remove();
+}
