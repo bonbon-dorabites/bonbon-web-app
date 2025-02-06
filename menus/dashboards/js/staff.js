@@ -41,6 +41,29 @@ function hideModal() {
     loadingModal.hide();
 }
 
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
+
 // Mapping of branchId to display text
 const branchMaps = {
     "SmValenzuela": "SM VALENZUELA",
@@ -198,19 +221,21 @@ async function loadDorayakiItems(branchId) {
         // Add event listeners for available and unavailable buttons
         document.querySelectorAll(".available-size, .unavailable-size").forEach((button) => {
             button.addEventListener("click", async (e) => {
-                const itemId = e.target.getAttribute("data-item-id");
-                const isAvailable = e.target.classList.contains("available-size");
+                showConfirmation("Are you sure you wish to perform this operation?", async function () { 
+                    const itemId = e.target.getAttribute("data-item-id");
+                    const isAvailable = e.target.classList.contains("available-size");
 
-                // Update isSoldOut field based on the button clicked
-                const itemRef = doc(db, "branches", branchId, "items", itemId);
-                await updateDoc(itemRef, {
-                    isSoldOut: !isAvailable  // If it's available, set to false, otherwise true
+                    // Update isSoldOut field based on the button clicked
+                    const itemRef = doc(db, "branches", branchId, "items", itemId);
+                    await updateDoc(itemRef, {
+                        isSoldOut: !isAvailable  // If it's available, set to false, otherwise true
+                    });
+
+                    // Toggle button states
+                    e.target.disabled = true;
+                    const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
+                    otherButton.disabled = false;
                 });
-
-                // Toggle button states
-                e.target.disabled = true;
-                const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
-                otherButton.disabled = false;
             });
         });
 
@@ -218,7 +243,8 @@ async function loadDorayakiItems(branchId) {
         // Add event listeners for available-dorayaki and unavailable-dorayaki buttons
         document.querySelectorAll(".available-dorayaki, .unavailable-dorayaki").forEach((button) => {
             button.addEventListener("click", async (e) => {
-                console.log("nagbabago");
+                showConfirmation("Are you sure you wish to perform this operation?", async function () { 
+                    console.log("nagbabago");
 
                 const itemId = e.target.getAttribute("data-item-id");
                 const itemName = e.target.closest('li').querySelector('.dorayaki-name').textContent;  // Get the item_name from the parent <li>
@@ -256,6 +282,7 @@ async function loadDorayakiItems(branchId) {
                 } catch (error) {
                     console.error("Error updating items:", error);
                 }
+                });
             });
         });
 
@@ -264,7 +291,8 @@ async function loadDorayakiItems(branchId) {
         // Add event listeners for available-boncoin and unavailable-boncoin buttons
         document.querySelectorAll(".available-boncoin, .unavailable-boncoin").forEach((button) => {
             button.addEventListener("click", async (e) => {
-                const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
+                showConfirmation("Are you sure you wish to perform this operation?", async function () { 
+                    const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
                 const isAvailable = e.target.classList.contains("available-boncoin");
 
                 // Reference the specific item using the itemId
@@ -279,13 +307,16 @@ async function loadDorayakiItems(branchId) {
                 e.target.disabled = true;
                 const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
                 otherButton.disabled = false;
+                });
+                
             });
         });
 
                 // Add event listeners for available-drinks and unavailable-drinks buttons
         document.querySelectorAll(".available-drinks, .unavailable-drinks").forEach((button) => {
             button.addEventListener("click", async (e) => {
-                const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
+                showConfirmation("Are you sure you wish to perform this operation?", async function () { 
+                    const itemId = e.target.getAttribute("data-item-id");  // Get the item ID
                 const isAvailable = e.target.classList.contains("available-drinks");
 
                 // Reference the specific item using the itemId
@@ -300,6 +331,8 @@ async function loadDorayakiItems(branchId) {
                 e.target.disabled = true;
                 const otherButton = isAvailable ? e.target.nextElementSibling : e.target.previousElementSibling;
                 otherButton.disabled = false;
+                });
+                
             });
         });
 
@@ -307,9 +340,6 @@ async function loadDorayakiItems(branchId) {
         console.error("Error loading dorayaki items:", error);
     }
 }
-
-
-
 
 let toggleStock;  // Declare toggleStock globally
 
@@ -371,117 +401,182 @@ window.hasNoWalnut = () => updateMultipleStocks(['dorabite_walnutella_oishi', 'd
 async function fetchOrders(branchId) {
     console.log("Branch button content:", branchId);
     try {
+        // Reference to the Firestore subcollection of orders inside the branch
         const ordersRef = collection(db, "branches", branchId, "orders");
 
+        // Real-time listener using onSnapshot
         const unsubscribe = onSnapshot(ordersRef, async (querySnapshot) => {
-            const ordersContainer = document.querySelector(".new-orders-container");
-            const pendingOrdersContainer = document.getElementById("pendingOrdersAccordion");
-            const finishedOrdersContainer = document.getElementById("finishedOrdersAccordion");
-
-            const noNewOrdersMessage = document.querySelector(".new-orders h3");
-            const noPendingOrdersMessage = document.querySelector(".pending-orders h3");
-            const noFinishedOrdersMessage = document.querySelector(".finished-orders h3");
-
-            // Clear previous content
-            ordersContainer.innerHTML = "";
-            pendingOrdersContainer.innerHTML = "";
-            finishedOrdersContainer.innerHTML = "";
-
-            let hasNewOrders = false;
-            let hasPendingOrders = false;
-            let hasFinishedOrders = false;
-
             if (!querySnapshot.empty) {
-                const promises = querySnapshot.docs.map(async (doc) => {
-                    const orderData = doc.data();
+                // Orders were found
+                console.log(`Found ${querySnapshot.size} orders for Branch ID: ${branchId}`);
+
+                // Clear the existing orders to avoid duplicate cards
+                const ordersContainer = document.querySelector(".new-orders-container");
+                ordersContainer.innerHTML = '';
+
+                // Loop through the orders and display them
+                querySnapshot.forEach(async (doc) => {
                     const orderId = doc.id;
-                    const userEmail = orderData.user_email;
-                    const userDoc = await getUserInfo(userEmail);
+                    const orderData = doc.data();
 
-                    if (userDoc) {
-                        const userData = userDoc.data();
-                        const userFullName = `${userData.firstName} ${userData.lastName}`;
-                        const userPhone = userData.phone;
-                        const userAddress = userData.address;
+                    if(orderData.isNew) {
+                        // Fetch user information from the users collection based on the email
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                            const userPhone = userData.phone;
+                            const userAddress = userData.address;
 
-                        let itemsHTML = "";
-                        for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
-                            itemsHTML += `<p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P${itemDetails.price})</p>`;
+                            // Loop through the items_bought map to display item details
+                            let itemsHTML = "";
+
+                            for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                                itemsHTML += `
+                                    <p><b>${itemDetails.quantity} x ${itemDetails.name}</b> (P${itemDetails.price})</p>
+                                `;
+                            }
+
+                            // Generate the order card HTML
+                            const orderCardHTML = `
+                            <div class="order-card">
+                                <div class="order-id">Order #${orderId}</div>
+                                
+                                <div class="order-details primary-details">
+                                    ${itemsHTML}
+                                    <hr>
+                                    <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p> <!-- Displaying the calculated total price -->
+                                    <p><b>Status:</b> ${orderData.status}</p>
+                                </div>
+
+                                <div class="order-details hidden additional-details">
+                                    <p><b>Name:</b> ${userFullName}</p>
+                                    <p><b>Email:</b> ${userEmail}</p>
+                                    <p><b>Phone:</b> ${userPhone}</p>
+                                    <p><b>Address:</b> ${userAddress}</p>
+                                </div>
+
+                                <div class="order-actions">
+                                    <button class="btn btn-link view-more view-more-btn">View More</button>
+                                    <button class="btn btn-success confirm-order">✔ Confirm</button>
+                                    <button class="btn btn-danger reject-order">✘ Reject</button>
+                                </div>
+                            </div>
+                            `;
+
+                            // Append the order card to the container
+                            ordersContainer.innerHTML += orderCardHTML;
                         }
+                    } else if (orderData.isAccepted && orderData.isFinished === false) {
 
-                        if (orderData.isNew) {
-                            hasNewOrders = true;
-                            ordersContainer.innerHTML += `
-                                <div class="order-card">
-                                    <div class="order-id">Order #${orderId}</div>
-                                    <div class="order-details primary-details">
+                        // Empty the finished orders container before adding new content
+                        const pendingOrdersContainer = document.getElementById('pendingOrdersAccordion');
+                        pendingOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
+                         // Generate the accordion item for accepted orders
+                         const userEmail = orderData.user_email; // Assuming user_email field in order
+                         const userDoc = await getUserInfo(userEmail);
+                         
+                        
+                         if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                            const userPhone = userData.phone;
+                            const userAddress = userData.address;
+
+                            // Loop through the items_bought map to display item details
+                            let itemsHTML = "";
+                            for (const [itemId, itemDetails] of Object.entries(orderData.items_bought)) {
+                                itemsHTML += `
+                                    <p>- ${itemDetails.name} (x${itemDetails.quantity})</p>
+                                `;
+                            }
+
+                            // Generate the accordion item HTML
+                            const accordionItemHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="pending-order-id accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="acceptedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
+                                    <div class="accordion-body">
+                                        <p><b>Name:</b> ${userFullName}</p>
+                                        <p><b>Email:</b> ${userEmail}</p>
+                                        <p><b>Phone:</b> ${userPhone}</p>
+                                        <p><b>Address:</b> ${userAddress}</p>
+                                        <p><b>Items:</b></p>
+                        
                                         ${itemsHTML}
-                                        <hr>
-                                        <p><b>Total:</b> P${orderData.total_price.toFixed(2)}</p>
+                                        <hr style="border: 1px solid white; width: 100%">
+
+                                        <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
+                                        <p><b>Estimated Time:</b> ${orderData.estimatedTime} minutes</span></p>
+                                        <p><b>Status:</b> <span id="orderStatus${orderId}">${orderData.status}</span></p>
+                                        <div class="change-status-btns">
+                                            <button class="btn btn-secondary undo-status" id="undoStatus${orderId}" style="display: none;"><i class="fa fa-arrow-left"></i></button> <!-- Undo button, initially hidden -->
+                                            <button class="btn btn-warning" id="toggleStatus${orderId}">Change Status</button> <!-- Status toggle button -->
+                                        </div>
+                                        <button class="btn btn-success finish-the-order">Finish Order</button> <!-- Added the Finish Order button -->
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            `;
+
+                            // Append the accordion item to the accordion container
+                            pendingOrdersAccordion.innerHTML += accordionItemHTML;
+                                                    
+                        } 
+                    } else if (orderData.isFinished) {
+                        console.log("ISFINISHED");
+                    
+                        // Empty the finished orders container before adding new content
+                        const finishedOrdersContainer = document.getElementById('finishedOrdersAccordion');
+                        finishedOrdersContainer.innerHTML = '';  // Clear existing orders to avoid duplication
+                    
+                        const userEmail = orderData.user_email; // Assuming user_email field in order
+                        const userDoc = await getUserInfo(userEmail);
+                        
+                        if (userDoc) {
+                            const userData = userDoc.data();
+                            const userFullName = `${userData.firstName} ${userData.lastName}`;
+                    
+                            // Generate the finished order HTML with feedback
+                            const finishedOrderHTML = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" aria-controls="finishedOrder${orderId}">
+                                        ORDER ID: ${orderId}
+                                    </button>
+                                </h2>
+                                <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
+                                    <div class="accordion-body feedback-status">
+                                        <p><b>Name:</b> ${userFullName}</p>
                                         <p><b>Status:</b> ${orderData.status}</p>
-                                    </div>
-                                    <div class="order-actions">
-                                        <button class="btn btn-success confirm-order">✔ Confirm</button>
-                                        <button class="btn btn-danger reject-order">✘ Reject</button>
+                                        <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
                                     </div>
                                 </div>
+                            </div>
+                            <br>
                             `;
-                        } else if (orderData.isAccepted && !orderData.isFinished) {
-                            hasPendingOrders = true;
-                            pendingOrdersContainer.innerHTML += `
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="pending-order-id accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acceptedOrder${orderId}" aria-expanded="false" aria-controls="acceptedOrder${orderId}">
-                                            ORDER ID: ${orderId}
-                                        </button>
-                                    </h2>
-                                    <div id="acceptedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#pendingOrdersAccordion">
-                                        <div class="accordion-body">
-                                            <p><b>Name:</b> ${userFullName}</p>
-                                            <p><b>Email:</b> ${userEmail}</p>
-                                            <p><b>Phone:</b> ${userPhone}</p>
-                                            <p><b>Address:</b> ${userAddress}</p>
-                                            <p><b>Items:</b></p>
-                                            ${itemsHTML}
-                                            <hr>
-                                            <p><b>Total Price:</b> P${orderData.total_price.toFixed(2)}</p>
-                                            <button class="btn btn-success finish-the-order">Finish Order</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                            `;
-                        } else if (orderData.isFinished) {
-                            hasFinishedOrders = true;
-                            finishedOrdersContainer.innerHTML += `
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishedOrder${orderId}" aria-expanded="false" aria-controls="finishedOrder${orderId}">
-                                            ORDER ID: ${orderId}
-                                        </button>
-                                    </h2>
-                                    <div id="finishedOrder${orderId}" class="accordion-collapse collapse" data-bs-parent="#finishedOrdersAccordion">
-                                        <div class="accordion-body">
-                                            <p><b>Name:</b> ${userFullName}</p>
-                                            <p><b>Status:</b> ${orderData.status}</p>
-                                            <p><b>Feedback:</b> ${orderData.feedback || 'No feedback given'}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                            `;
+                    
+                            // Append the finished order to the finished orders container
+                            finishedOrdersContainer.innerHTML += finishedOrderHTML;
                         }
                     }
+                    
+ 
+
                 });
-
-                await Promise.all(promises);
+            } else {
+                console.log("No orders found for this branch.");
             }
-
-            // ✅ Show or hide messages correctly
-            noNewOrdersMessage.style.display = hasNewOrders ? "none" : "block";
-            noPendingOrdersMessage.style.display = hasPendingOrders ? "none" : "block";
-            noFinishedOrdersMessage.style.display = hasFinishedOrders ? "none" : "block";
         });
+
+
 
     } catch (error) {
         console.error("Error fetching orders:", error);
@@ -714,37 +809,6 @@ async function finishOrder(branchId, orderId) {
             
             // Get the total_price from the order
             const totalPrice = orderData.total_price;
-            const createdAt = orderData.created_at.toDate(); // Convert Firestore timestamp to JS Date
-
-            // Get the month and year from the created_at timestamp
-            const month = createdAt.getMonth() + 1;  // getMonth() returns 0-11, so we add 1
-            const year = createdAt.getFullYear();
-
-           // Optional: Log or alert the total price and month-year info
-           console.log(`Order ${orderId} - Total Price: P${totalPrice.toFixed(2)} - Created at: ${createdAt}`);
-
-           // Reference to the sales document for the specific branch, year, and month
-           const salesRef = doc(db, "sales", branchId, String(year), String(month).padStart(2, "0"));
-
-           // Fetch the sales document for the year and month
-           const salesDoc = await getDoc(salesRef);
-
-           if (salesDoc.exists()) {
-               // If the document exists, increment the sales total
-               const currentSales = salesDoc.data().total_sales || 0;
-               await updateDoc(salesRef, {
-                   total_sales: currentSales + totalPrice
-               });
-
-               console.log(`Sales for ${year}-${String(month).padStart(2, "0")} updated. New total: P${(currentSales + totalPrice).toFixed(2)}`);
-           } else {
-               // If the document doesn't exist, create it with the initial sales total
-               await setDoc(salesRef, {
-                   total_sales: totalPrice
-               });
-
-               console.log(`Sales document for ${year}-${String(month).padStart(2, "0")} created with total: P${totalPrice.toFixed(2)}`);
-           }
 
            // Mark the order as finished in the orders collection
            await updateDoc(orderRef, {
@@ -753,7 +817,6 @@ async function finishOrder(branchId, orderId) {
                didFeedback: false
            });
 
-           showModal(`Order ${orderId} has been marked as finished. Total Price: P${totalPrice.toFixed(2)}`);
        } else {
            alert(`Order ${orderId} not found.`, true);
        }
