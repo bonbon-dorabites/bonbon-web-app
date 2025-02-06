@@ -158,8 +158,27 @@
         </div>
     </div>
 
+    <div id="passwordModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter Passcode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="passwordMessage" style="text-align: start !important;">Please enter the owner's passcode:</p>
+                    <input type="password" id="passwordInput" class="form-control" placeholder="Enter passcode">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitPasswordBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        window.addEventListener("DOMContentLoaded", function() {
+        /*window.addEventListener("DOMContentLoaded", function() {
             const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
                 backdrop: 'static',
                 keyboard: false
@@ -178,11 +197,9 @@
                 loadingModal.hide();
                 localStorage.removeItem('showModal'); // Clear state after hiding
             }, 3000);
-        });
+        });*/
     </script>
-    <script src="/main.js"></script>
-    <script type="module" src="/auth/auth.js" defer></script>
-    <script type="module" src="/index.js" defer></script>
+    <script type="module" src="/hi.js" defer></script>
     <script type="module" src="./dashboards/js/couponsMenu.js"></script>
 </body>
 </html>

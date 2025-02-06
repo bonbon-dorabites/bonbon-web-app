@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+/*import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
 import { getFirestore, collectionGroup, collection, updateDoc, deleteDoc, doc, addDoc, getDocs, getDoc, Timestamp, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -648,3 +648,4 @@ function clearSearch() {
         tableBody.appendChild(row); // Append each stored row back to the table
     });
 }
+*/
