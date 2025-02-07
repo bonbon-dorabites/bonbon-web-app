@@ -199,7 +199,6 @@ async function addItems() {
                         item_name: itemName,
                         category: menuCategory,
                         item_price: itemPrice, // Use the user-inputted price
-                        status: true,
                         name_to_show: itemName + " " + currentSize, // Update display name for each size
                         size: currentSize, // Add the size specific to this iteration
                         created_at: new Date()  // Adding a timestamp for creation
@@ -250,7 +249,6 @@ async function addItems() {
                 item_name: itemName,
                 category: menuCategory,
                 item_price: price,
-                status: true,
                 name_to_show: nameDisplay,
                 created_at: new Date()  // Adding a timestamp for creation
             };
