@@ -159,6 +159,48 @@
         }
     }
     
+    .floating-menu {
+        position: fixed;
+        bottom: 10px; /* Adjust the distance from the bottom */
+        left: 50%;
+        transform: translateX(-50%); /* Center the menu horizontally */
+        width: auto; /* Allow the menu to shrink to its content */
+        display: flex;
+        justify-content: center; /* Center the icons inside the menu */
+        background-color: var(--dark-brown);
+        border-radius: 25px; /* Optional: Add rounded corners for a cleaner look */
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px; /* Adjust the padding for a compressed effect */
+        gap: 15px;
+        }
+
+        .menu-item {
+        display: inline-block;
+        padding: 5px;
+        transition: transform 0.3s ease;
+        }
+
+        .menu-item.active {
+        transform: scale(1.2);
+        color: var(--light-brown); /* Active color */
+        }
+
+        .menu1, .menu2 {
+            background-color: var(--brown);
+            border-radius: 100px;
+        }
+
+        .menu1, .menu2, .menu3, .menu4, .menu5, .menu6 {
+            display: flex; /* Or block if needed */
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Move up effect */
+        .move-up {
+            transform: translateY(-20px);
+        }
     </style>
 </head>
 <body>
@@ -231,13 +273,32 @@
             </div>
           </div>
         </nav>
-      </header><br><br>
+      </header><br>
+
+<!-- Floating Navigation Menu -->
+<div class="floating-menu">
+    <div class="menu1">
+        <a href="#finish" class="menu-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="var(--dark-brown)" class="bi bi-coin" viewBox="0 0 16 16">
+                <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
+            </svg>
+        </a>
+    </div>
+    <div class="menu2">
+        <a href="#employee" class="menu-item">
+            <svg fill="#48201a" version="1.1" width="25" height="25" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 197.052 197.052" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M98.526,37.059c-22.734,0-40.717,5.94-60.018,16.978C14.248,69.308,0,91.93,0,109.228c0,14.006,10.562,26.979,29.74,36.532 c18.43,9.179,42.858,14.233,68.786,14.233s50.357-5.055,68.787-14.233c19.178-9.553,29.739-22.526,29.739-36.532 C197.052,80.496,157.755,37.059,98.526,37.059z M97.286,80.5c-6.085-6.323-13.396-11.796-21.851-16.302 c3.13-2.26,6.463-4.403,10.007-6.42c3.932-2.239,7.767-4.109,11.322-5.662c3.844,1.637,8.045,3.652,12.367,6.112 c3.41,1.941,6.626,3.997,9.652,6.162C110.479,68.859,103.285,74.266,97.286,80.5z M77.744,45.771 c0.23,0.106,4.528,1.044,10.258,2.991c-1.865,0.934-3.773,1.943-5.71,3.041c-4.897,2.776-9.453,5.814-13.654,9.089 c-6.741-2.985-12.945-4.906-17.724-6.117C59.299,50.614,68.328,47.578,77.744,45.771z M112.279,52.254 c-2.31-1.31-4.578-2.495-6.78-3.572c6.334-2.218,11.094-3.252,11.321-3.355c10.004,1.678,19.605,4.729,28.498,9.042 c-5.035,1.189-12.062,3.248-19.756,6.689C121.464,57.893,117.033,54.949,112.279,52.254z M99.156,43.815 c-0.788,0.307-1.595,0.63-2.423,0.97c-0.784-0.315-1.551-0.614-2.297-0.897C95.796,43.838,98.946,43.814,99.156,43.815z M164.303,139.717c-17.514,8.724-40.874,13.527-65.777,13.527s-48.263-4.804-65.777-13.527 c-16.765-8.35-25.999-19.179-25.999-30.489c0-12.709,9.641-29.05,24.562-41.632c3.371-2.843,6.939-5.447,10.672-7.807 c3.071,0.501,11.195,2.084,20.857,5.984c-12.093,10.98-20.608,24.221-25.015,39.104c-0.529,1.786,0.49,3.664,2.278,4.193 c0.32,0.096,0.643,0.141,0.96,0.141c1.456,0,2.8-0.951,3.235-2.418C48.68,92,57.153,79.271,69.567,68.777 c0.281,0.138,13.892,5.42,23.291,16.743c-6.729,8.341-11.548,17.934-14.267,28.577c-0.461,1.806,0.628,3.644,2.435,4.104 c0.28,0.072,0.561,0.106,0.838,0.106c1.505,0,2.878-1.016,3.267-2.54C87.53,106.377,91.598,98,97.288,90.67 c5.69,7.328,9.757,15.707,12.157,25.098c0.39,1.526,1.762,2.54,3.267,2.54c0.276,0,0.558-0.034,0.838-0.106 c1.806-0.461,2.896-2.3,2.435-4.104c-2.719-10.643-7.537-20.235-14.266-28.576c6.028-6.341,13.452-11.765,22.254-16.231 c0.232-0.118,0.465-0.23,0.696-0.346c12.597,10.547,21.187,23.37,25.606,38.298c0.435,1.467,1.778,2.417,3.234,2.417 c0.316,0,0.641-0.045,0.96-0.14c1.787-0.529,2.808-2.407,2.278-4.194c-4.449-15.023-13.08-28.375-25.354-39.416 c12.391-5.048,22.94-6.393,23.139-6.456c3.928,2.447,7.676,5.161,11.207,8.14c14.92,12.582,24.562,28.923,24.562,41.632 C190.302,120.538,181.068,131.367,164.303,139.717z"></path> </g> </g></svg>
+        </a>
+    </div>
+  </div> 
 
 
 <section class="manager-dashboard">
     <h1 class="owner-dashboard-title text-center hide">Manager Dashboard</h1>
     <div class="dashboard-line hide"></div>
-
+    
+    <section id="finish"></section> <br><br><br>
     <div class="sales-management-container">
             
         <h2 class="owner-dashboard-section-title hide">Finished Orders</h2>
@@ -299,7 +360,8 @@
             </tfoot>
         </table>
     </div><div class="dashboard-line hide"></div>
-
+    <br>
+    <section id="employee"></section>
 
     <div class="staff-management-container">
         <h2 class="staff-management-title hide">Employee Management</h2>
@@ -416,6 +478,31 @@
                 loadingModal.hide();
                 localStorage.removeItem('showModal'); // Clear state after hiding
             }, 2500);
+        });
+
+        const mainBtn = document.querySelector('.main-btn');
+        const menuContainer = document.querySelector('.floating-menu');
+
+        mainBtn.addEventListener('click', () => {
+            menuContainer.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                let menuDiv = this.parentElement; // Get direct parent
+
+                if (menuDiv.classList.contains("menu1") || 
+                    menuDiv.classList.contains("menu2") ||
+                    menuDiv.classList.contains("menu3")) {
+                    menuDiv.classList.add("move-up");
+
+                    setTimeout(() => {
+                        menuDiv.classList.remove("move-up");
+                    }, 300);
+                }
+            });
         });
     </script>
     <script type="module" src="./js/coupons.js"></script>
