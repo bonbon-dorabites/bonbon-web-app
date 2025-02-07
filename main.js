@@ -198,12 +198,12 @@ function displayPriceFields() {
 
         // Create input fields for each size
         priceSection.innerHTML = `
-            <label for="price-bonbon">Price for BONBON Box (16pcs): </label>
-            <input type="number" id="price-bonbon" class="w-100" name="price-bonbon" required><br>
             <label for="price-oishi" >Price for OISHI (8pcs): </label>
             <input type="number" id="price-oishi" class="w-100" name="price-oishi" required><br>
             <label for="price-sugoi">Price for SUGOI (12pcs): </label>
             <input type="number" id="price-sugoi" class="w-100" name="price-sugoi" required><br>
+            <label for="price-bonbon">Price for BONBON Box (16pcs): </label>
+            <input type="number" id="price-bonbon" class="w-100" name="price-bonbon" required><br>
         `;
         
         const solePrice = document.getElementById("menu_price");

@@ -172,34 +172,86 @@ async function addItems() {
         return;
     }
 
-    // Handle adding sizes and prices for Dorayaki Bites category
-    if (menuCategory === "Dorayaki Bites") {
-        // Get prices entered for each size
-        const priceBonbon = parseFloat(document.getElementById("price-bonbon").value);
-        const priceOishi = parseFloat(document.getElementById("price-oishi").value);
-        const priceSugoi = parseFloat(document.getElementById("price-sugoi").value);
-
-        const sizes = [
-            { name: "BONBON Box (16pcs)", price: priceBonbon },
-            { name: "OISHI (8pcs)", price: priceOishi },
-            { name: "SUGOI (12pcs)", price: priceSugoi }
-        ];
-
-        // Iterate over each size and add it with the correct price
-        for (let i = 0; i < sizes.length; i++) {
-            const currentSize = sizes[i].name;
-            const itemPrice = sizes[i].price;
-            const docId = getFormattedId(menuCategory, itemName, currentSize);
+    showConfirmation("Are you sure you want to delete this menu?", async function () { 
+        // Handle adding sizes and prices for Dorayaki Bites category
+        if (menuCategory === "Dorayaki Bites") {
+            // Get prices entered for each size
+            const priceBonbon = parseFloat(document.getElementById("price-bonbon").value);
+            const priceOishi = parseFloat(document.getElementById("price-oishi").value);
+            const priceSugoi = parseFloat(document.getElementById("price-sugoi").value);
+        
+            const sizes = [
+                { name: "BONBON Box (16pcs)", price: priceBonbon },
+                { name: "OISHI (8pcs)", price: priceOishi },
+                { name: "SUGOI (12pcs)", price: priceSugoi }
+            ];
+        
+            try {
+                // Iterate over each size and add it with the correct price
+                for (let i = 0; i < sizes.length; i++) {
+                    const currentSize = sizes[i].name;
+                    const itemPrice = sizes[i].price;
+                    const docId = getFormattedId(menuCategory, itemName, currentSize);
+                    console.log("DOC ID: " + docId);
+        
+                    // Prepare item data to add to Firestore
+                    const itemData = {
+                        item_name: itemName,
+                        category: menuCategory,
+                        item_price: itemPrice, // Use the user-inputted price
+                        status: true,
+                        name_to_show: itemName + " " + currentSize, // Update display name for each size
+                        size: currentSize, // Add the size specific to this iteration
+                        created_at: new Date()  // Adding a timestamp for creation
+                    };
+        
+                    // Add the item to Firestore
+                    await setDoc(doc(db, "items", docId), itemData);
+                    console.log("Document added with ID: ", docId);
+        
+                    // Get all branches
+                    const branchesSnapshot = await getDocs(collection(db, "branches"));
+        
+                    // Iterate over all branches
+                    for (const branchDoc of branchesSnapshot.docs) {
+                        const branchId = branchDoc.id;
+        
+                        const branchItemData = {
+                            item_name: itemName,
+                            isSoldOut: false,
+                            categ: menuCategory,
+                        };
+        
+                        // Add the item to the branch's "items" subcollection
+                        const branchItemRef = doc(db, "branches", branchId, "items", docId);
+                        await setDoc(branchItemRef, branchItemData);
+                        console.log(`Item added to branch ${branchId}`);
+                    }
+                }
+        
+                // Show success message ONCE after all items are added
+                document.getElementById("addMenuForm").reset();
+                closeMenuModal();
+                showModal(`All sizes of ${itemName} added successfully!`, true);
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                showModal("Error adding item. Please try again.", false);
+            }
+        } else {
+            // If category is not "Dorayaki Bites", proceed as usual for a single item
+            const docId = getFormattedId(menuCategory, itemName);
             console.log("DOC ID: " + docId);
 
             // Prepare item data to add to Firestore
             const itemData = {
                 item_name: itemName,
                 category: menuCategory,
-                item_price: itemPrice, // Use the user-inputted price
+                item_price: price,
                 status: true,
-                name_to_show: itemName + " " + currentSize, // Update display name for each size
-                size: currentSize, // Add the size specific to this iteration
+                name_to_show: nameDisplay,
                 created_at: new Date()  // Adding a timestamp for creation
             };
 
@@ -220,7 +272,7 @@ async function addItems() {
                     const branchItemData = {
                         item_name: itemName,
                         isSoldOut: false,  // Default status for items
-                        categ: menuCategory,
+                        categ: menuCategory
                     };
 
                     // Create a document reference for the specific branch's "items" subcollection
@@ -231,75 +283,21 @@ async function addItems() {
                     console.log(`Item added to branch ${branchId} with simplified data`);
                 }
 
-                // Show success message for each item added
-                // alert(`Item ${currentSize} added successfully!`);
-                showModal(`Item ${currentSize} added successfully!`, true);
+                // Show success message
+                /*alert("Item added to all branches successfully!");*/
+                showModal("Item added to all branches successfully!", true);
+
                 // Reset the form after adding
                 document.getElementById("addMenuForm").reset();
                 closeMenuModal();
+                
             } catch (e) {
                 console.error("Error adding document: ", e);
-                /*alert("Error adding item. Please try again.");*/
+                alert("Error adding item. Please try again.");
                 showModal("Error adding item. Please try again.", false);
             }
         }
-    } else {
-        // If category is not "Dorayaki Bites", proceed as usual for a single item
-        const docId = getFormattedId(menuCategory, itemName);
-        console.log("DOC ID: " + docId);
-
-        // Prepare item data to add to Firestore
-        const itemData = {
-            item_name: itemName,
-            category: menuCategory,
-            item_price: price,
-            status: true,
-            name_to_show: nameDisplay,
-            created_at: new Date()  // Adding a timestamp for creation
-        };
-
-        try {
-            // Add the item to the Firestore collection using the generated docId
-            await setDoc(doc(db, "items", docId), itemData);
-
-            console.log("Document added with ID: ", docId); // Log the custom docId
-
-            // Get all branches
-            const branchesSnapshot = await getDocs(collection(db, "branches"));
-
-            // Iterate over all branches with a proper asynchronous loop
-            for (const branchDoc of branchesSnapshot.docs) {
-                const branchId = branchDoc.id;
-
-                // Define a simpler item data for each branch (with just item_name, isSoldOut, and category)
-                const branchItemData = {
-                    item_name: itemName,
-                    isSoldOut: false,  // Default status for items
-                    categ: menuCategory
-                };
-
-                // Create a document reference for the specific branch's "items" subcollection
-                const branchItemRef = doc(db, "branches", branchId, "items", docId);
-
-                // Add the item to the branch's "items" subcollection using the document reference
-                await setDoc(branchItemRef, branchItemData);
-                console.log(`Item added to branch ${branchId} with simplified data`);
-            }
-
-            // Show success message
-            /*alert("Item added to all branches successfully!");*/
-            showModal("Item added to all branches successfully!", true);
-
-            // Reset the form after adding
-            document.getElementById("addMenuForm").reset();
-            closeMenuModal();
-            
-        } catch (e) {
-            console.error("Error adding document: ", e);
-            alert("Error adding item. Please try again.");
-            showModal("Error adding item. Please try again.", false);
-        }
-    }
+    });
 }
 
 async function editItems() {
