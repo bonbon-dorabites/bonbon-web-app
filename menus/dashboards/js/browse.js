@@ -49,6 +49,8 @@ function updateItemDisplay(branch) {
             const itemName = doc.id;
 
             if (itemMap[itemName]) {
+                const displayy = document.getElementById("show");
+                displayy.style.display = "none";
                 const [instockSelector, soldSelector] = itemMap[itemName];
                 const instockElement = document.querySelector(instockSelector);
                 const soldElement = document.querySelector(soldSelector);
