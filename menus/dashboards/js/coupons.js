@@ -127,7 +127,7 @@ async function fetchData() {
             detailsContainer.className = "details";
             detailsContainer.innerHTML = `
                 <div class="details-card">
-                    <div class="initials" style="background-color: var(--brown);">${coupon.couponId || ""}</div>
+                    <div class="initials" style="background-color: var(--brown); width:100%;">${coupon.couponId || ""}</div>
                     <p><strong>Amount:</strong> Php${coupon.coup_amount || "N/A"}.00</p>
                     <p><strong>Coupon Description:</strong> ${coupon.coup_desc || "N/A"}</p>
                     <p><strong>Status:</strong> ${coupon.status || "N/A"}</p>
