@@ -50,6 +50,10 @@ function closeEditMenuModal() {
     editItemModal.style.display = "none";
 }
 
+function closeMenuModal() {
+    itemModal.style.display = "none";
+}
+
 // Store the items and rows globally for later search reference
 let menuItems = [];
 
@@ -163,7 +167,8 @@ async function addItems() {
     
     // Validate input
     if (!itemName || !menuCategory || (menuCategory === "Dorayaki Bites" && (!document.getElementById("price-bonbon") || !document.getElementById("price-oishi") || !document.getElementById("price-sugoi")))) {
-        alert("Please fill out all required fields.");
+        /*alert("Please fill out all required fields.");*/
+        showModal("Please fill out all required fields.", false);
         return;
     }
 
@@ -227,13 +232,15 @@ async function addItems() {
                 }
 
                 // Show success message for each item added
-                alert(`Item ${currentSize} added successfully!`);
+                // alert(`Item ${currentSize} added successfully!`);
+                showModal(`Item ${currentSize} added successfully!`, true);
                 // Reset the form after adding
                 document.getElementById("addMenuForm").reset();
                 closeMenuModal();
             } catch (e) {
                 console.error("Error adding document: ", e);
-                alert("Error adding item. Please try again.");
+                /*alert("Error adding item. Please try again.");*/
+                showModal("Error adding item. Please try again.", false);
             }
         }
     } else {
@@ -280,7 +287,8 @@ async function addItems() {
             }
 
             // Show success message
-            alert("Item added to all branches successfully!");
+            /*alert("Item added to all branches successfully!");*/
+            showModal("Item added to all branches successfully!", true);
 
             // Reset the form after adding
             document.getElementById("addMenuForm").reset();
@@ -289,13 +297,10 @@ async function addItems() {
         } catch (e) {
             console.error("Error adding document: ", e);
             alert("Error adding item. Please try again.");
+            showModal("Error adding item. Please try again.", false);
         }
     }
 }
-
-
-
-
 
 async function editItems() {
     console.log("ITEM EDITED");
@@ -310,7 +315,8 @@ async function editItems() {
 
     // Validate the input
     if (!updatedItemName || isNaN(updatedPrice)) {
-        alert("Please provide a valid item name and price.");
+        /*alert("Please provide a valid item name and price.");*/
+        showModal("Please provide a valid item name and price.", false);
         return;
     }
 
@@ -342,13 +348,15 @@ async function editItems() {
             console.log(`Item updated in branch ${branchId}`);
         }
              
-        alert("Item updated successfully!");
+        /*alert("Item updated successfully!");*/
+        showModal("Item updated successfully!", true);
 
         // Optionally, close the modal after the update
         closeEditMenuModal();
     } catch (e) {
         console.error("Error updating item: ", e);
-        alert("Error updating item. Please try again.");
+        /*alert("Error updating item. Please try again.");*/
+        showModal("Error updating item. Please try again.", false);
     }
 }
 

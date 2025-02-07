@@ -818,7 +818,8 @@ async function finishOrder(branchId, orderId) {
            });
 
        } else {
-           alert(`Order ${orderId} not found.`, true);
+           /*alert(`Order ${orderId} not found.`, true);*/
+           showModal(`Order ${orderId} not found.`, true);
        }
     } catch (error) {
         console.error("Error updating order:", error);
