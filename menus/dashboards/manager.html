@@ -159,6 +159,48 @@
         }
     }
     
+    .floating-menu {
+        position: fixed;
+        bottom: 10px; /* Adjust the distance from the bottom */
+        left: 50%;
+        transform: translateX(-50%); /* Center the menu horizontally */
+        width: auto; /* Allow the menu to shrink to its content */
+        display: flex;
+        justify-content: center; /* Center the icons inside the menu */
+        background-color: var(--dark-brown);
+        border-radius: 25px; /* Optional: Add rounded corners for a cleaner look */
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px; /* Adjust the padding for a compressed effect */
+        gap: 15px;
+        }
+
+        .menu-item {
+        display: inline-block;
+        padding: 5px;
+        transition: transform 0.3s ease;
+        }
+
+        .menu-item.active {
+        transform: scale(1.2);
+        color: var(--light-brown); /* Active color */
+        }
+
+        .menu1, .menu2 {
+            background-color: var(--brown);
+            border-radius: 100px;
+        }
+
+        .menu1, .menu2, .menu3, .menu4, .menu5, .menu6 {
+            display: flex; /* Or block if needed */
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Move up effect */
+        .move-up {
+            transform: translateY(-20px);
+        }
     </style>
 </head>
 <body>
@@ -231,13 +273,30 @@
             </div>
           </div>
         </nav>
-      </header><br><br>
+      </header><br>
+
+<!-- Floating Navigation Menu -->
+<div class="floating-menu">
+    <div class="menu1">
+        <a href="#finish" class="menu-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="var(--dark-brown)" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>
+        </a>
+    </div>
+    <div class="menu2">
+        <a href="#employee" class="menu-item">
+            <svg fill="#48201a" height="25" width="25" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 278.56 278.56" xml:space="preserve" stroke="#48201a"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M122.16,153h34.24c29.701,0,53.38-24.201,53.38-53.38c0-9.531,0-36.995,0-46.23C209.78,23.951,185.833,0,156.4,0 c-41.724,0-25.524,0-34.24,0C92.726,0,68.78,23.951,68.78,53.39c0,9.649,0,35.362,0,46.23C68.78,128.765,92.409,153,122.16,153z M156.4,15c19.633,0,38.38,15.029,38.38,40.35h-17.27c-23.715,0-43.636-17.179-47.261-40.35H156.4z M83.78,53.39 c0-18.277,13.016-34.176,31.042-37.678c-1.752,17.775-14.279,32.674-31.042,37.757V53.39z M83.78,68.946 c17.039-3.769,31.307-14.962,39.309-29.903c10.912,18.862,31.293,31.307,54.421,31.307h17.27v29.27 c0,21.03-17.077,38.38-38.38,38.38h-34.24c-21.37,0-38.38-17.402-38.38-38.38V68.946z"></path> <path d="M170.109,166.663c-0.003-0.001-0.005-0.002-0.008-0.003c-0.003-0.001-0.007-0.002-0.01-0.003 c-18.722-5.07-42.913-5.069-61.632,0.003c-0.003,0.001-0.005,0.002-0.008,0.003C61.429,179.364,28.59,222.291,28.59,271.06 c0,4.142,3.358,7.5,7.5,7.5c4.472,0,201.908,0,206.38,0c4.142,0,7.5-3.358,7.5-7.5 C249.97,222.269,217.131,179.342,170.109,166.663z M105.773,254.167l11.899,9.393h-73.78 c3.018-37.395,28.402-69.64,64.249-81.168l10.091,10.627l-15.03,53.223C102.378,249.16,103.392,252.288,105.773,254.167z M139.28,261.505l-20.281-16.008l14.829-52.509c0.719-2.546,0.043-5.284-1.779-7.203l-6.74-7.098 c9.083-1.089,18.859-1.09,27.941,0.001l-6.739,7.097c-1.822,1.919-2.499,4.656-1.779,7.203l14.829,52.509L139.28,261.505z M160.888,263.559l11.898-9.392c2.381-1.879,3.395-5.007,2.571-7.925l-15.03-53.223c7.786-8.2,5.478-5.769,10.092-10.629 c35.848,11.511,61.233,43.755,64.248,81.169H160.888z"></path> </g> </g> </g> </g></svg>
+        </a>
+    </div>
+  </div> 
 
 
 <section class="manager-dashboard">
     <h1 class="owner-dashboard-title text-center hide">Manager Dashboard</h1>
     <div class="dashboard-line hide"></div>
-
+    
+    <section id="finish"></section> <br><br><br>
     <div class="sales-management-container">
             
         <h2 class="owner-dashboard-section-title hide">Finished Orders</h2>
@@ -299,7 +358,8 @@
             </tfoot>
         </table>
     </div><div class="dashboard-line hide"></div>
-
+    <br>
+    <section id="employee"></section>
 
     <div class="staff-management-container">
         <h2 class="staff-management-title hide">Employee Management</h2>
@@ -416,6 +476,31 @@
                 loadingModal.hide();
                 localStorage.removeItem('showModal'); // Clear state after hiding
             }, 2500);
+        });
+
+        const mainBtn = document.querySelector('.main-btn');
+        const menuContainer = document.querySelector('.floating-menu');
+
+        mainBtn.addEventListener('click', () => {
+            menuContainer.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                let menuDiv = this.parentElement; // Get direct parent
+
+                if (menuDiv.classList.contains("menu1") || 
+                    menuDiv.classList.contains("menu2") ||
+                    menuDiv.classList.contains("menu3")) {
+                    menuDiv.classList.add("move-up");
+
+                    setTimeout(() => {
+                        menuDiv.classList.remove("move-up");
+                    }, 300);
+                }
+            });
         });
     </script>
     <script type="module" src="./js/coupons.js"></script>

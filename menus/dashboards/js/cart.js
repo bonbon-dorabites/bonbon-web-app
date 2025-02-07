@@ -199,7 +199,6 @@ async function addToCart(itemId, itemName, itemPrice) {
                 // Create a new cart document if it doesn't exist
                 transaction.set(cartRef, {
                     created_at: serverTimestamp(),
-                    isCheckedOut: false,
                     items_inCart: {
                         [itemId]: {
                             name: itemName,
