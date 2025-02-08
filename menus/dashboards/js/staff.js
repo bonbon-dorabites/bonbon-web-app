@@ -770,29 +770,23 @@ async function confirmOrder(orderId, minutes, orderCard) {
 // Function to reject an order by setting `isNew` to false
 async function rejectOrder(orderId) {
     // Show a confirmation prompt before rejecting the order
-    const isConfirmed = confirm("Are you sure you want to reject this order?");
+    try {
+        const branchButton = document.getElementById("staff-branch");
+        const branch = branchButton.textContent;
+        const branchId = reversedBranchMaps[branch];
 
-    if (isConfirmed) {
-        try {
-            const branchButton = document.getElementById("staff-branch");
-            const branch = branchButton.textContent;
-            const branchId = reversedBranchMaps[branch];
+        // Firestore reference to the order document
+        const orderRef = doc(db, "branches", branchId, "orders", orderId);
 
-            // Firestore reference to the order document
-            const orderRef = doc(db, "branches", branchId, "orders", orderId);
+        // Update Firestore document to mark the order as not new
+        await updateDoc(orderRef, {
+            isNew: false,
+        });
 
-            // Update Firestore document to mark the order as not new
-            await updateDoc(orderRef, {
-                isNew: false,
-            });
-
-            console.log(`Order ${orderId} has been rejected.`);
-        } catch (error) {
-            console.error("Error rejecting order:", error);
-            showModal("Failed to reject the order. Please try again.", false);
-        }
-    } else {
-        console.log("Order rejection canceled.");
+        console.log(`Order ${orderId} has been rejected.`);
+    } catch (error) {
+        console.error("Error rejecting order:", error);
+        showModal("Failed to reject the order. Please try again.", false);
     }
 }
 
@@ -818,7 +812,8 @@ async function finishOrder(branchId, orderId) {
            });
 
        } else {
-           alert(`Order ${orderId} not found.`, true);
+           /*alert(`Order ${orderId} not found.`, true);*/
+           showModal(`Order ${orderId} not found.`, true);
        }
     } catch (error) {
         console.error("Error updating order:", error);

@@ -28,6 +28,49 @@ const line1 = document.getElementById("c-line1");
 const line2 = document.getElementById("c-line2");
 const line3 = document.getElementById("c-line3");
 
+function showModal(message, isSuccess) {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const modalMessage = document.getElementById('modalMessage');
+  
+    modalMessage.textContent = message;
+  
+    // Change color based on success or error
+    if (isSuccess) {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#d4edda';
+    } else {
+        document.querySelector('#loadingModal .modal-content').style.backgroundColor = '#f8d7da';
+    }
+  
+    loadingModal.show();
+}
+  
+function hideModal() {
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.hide();
+}
+  
+function showConfirmation(message, callback) {
+    const modalElement = document.getElementById('confirmationModal');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    const modalMessage = document.getElementById('confirmationMessage');
+    const confirmButton = document.getElementById('confirmActionBtn');
+  
+    // Set the confirmation message
+    modalMessage.textContent = message;
+  
+    // Remove any previous event listeners to prevent duplicate triggers
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    const newConfirmButton = document.getElementById('confirmActionBtn');
+  
+    // Attach the new event listener
+    newConfirmButton.addEventListener("click", function () {
+        callback(); // Execute the callback function
+        modalInstance.hide();
+    });
+  
+    // Show the modal
+    modalInstance.show();
+}
 
 document.addEventListener("click", function (event) {
     if (event.target.classList.contains("view-more-btn")) {
@@ -57,7 +100,7 @@ document.addEventListener('click', function(event) {
         const orderCard = event.target.closest('.accordion-item');  // Find the closest order card element
         const orderId = orderCard.querySelector('.accordion-button').getAttribute('data-bs-target').replace('#finishedOrder', '');  // Extract orderId from the data-bs-target
         const branchId = orderCard.querySelector('.accordion-button').getAttribute('data-branch-id');  // Extract branchId from data-branch-id
-        alert(branchId);
+        
         // Call submitFeedback with the orderId and branchId
         submitFeedback(orderId, branchId);
     }
@@ -272,7 +315,8 @@ async function submitFeedback(orderId, branchId) {
 
         console.log(`Feedback for Order #${orderId} saved to Firestore!`);
     } else {
-        alert('Please enter feedback before submitting.');
+        /*alert('Please enter feedback before submitting.');*/
+        showModal("Please enter feedback before submitting.", false);
     }
 }
 

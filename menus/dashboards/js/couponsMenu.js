@@ -27,8 +27,78 @@ auth.onAuthStateChanged(async (user) => {
         await fetchClaimedCoupons(user);
     } else {
         console.log("User not authenticated.");
+        await fetchPublicCoupons();
     }
 });
+
+async function fetchPublicCoupons() {
+    const activeCouponsContainer = document.querySelector(".active-coupons");
+    const headTitle = document.getElementById("coupon-head");
+    const noCouponMessage = document.createElement("h2");
+    noCouponMessage.textContent = "No Coupons Available";
+    noCouponMessage.style.textAlign = "center";
+    noCouponMessage.style.marginTop = "10px";
+    noCouponMessage.style.color = "maroon";
+    noCouponMessage.style.fontWeight = "bold";
+    noCouponMessage.style.fontStyle = "italic";
+    noCouponMessage.classList.add("no-coupons-text");
+
+    const unsubscribeCoupons = onSnapshot(collection(db, "coupons"), (querySnapshot) => {
+        activeCouponsContainer.innerHTML = '';
+        document.querySelectorAll(".no-coupons-text").forEach(el => el.remove()); // Remove previous messages
+
+        let hasCoupons = false;
+        let couponArray = [];
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const couponId = doc.id;
+            const isActive = data.coup_isActive;
+            const minOrder = data.min_order || 0;
+
+            if (isActive) {
+                hasCoupons = true;
+
+                const couponDiv = document.createElement("div");
+                couponDiv.classList.add("coupon-page-card");
+
+                const couponText = document.createElement("span");
+                couponText.classList.add("coupon-page-card-text");
+                couponText.textContent = data.coup_desc;
+
+                const extraInfo = document.createElement("div");
+                extraInfo.classList.add("coupon-extra-info");
+                extraInfo.innerHTML = `
+                    <small>Code: <strong>${couponId}</strong></small>
+                    <br>
+                    <small>Discount Amount: ₱${data.coup_amount}</small>
+                    <br>
+                    <small>Minimum Spend: ₱${minOrder}</small>
+                `;
+
+                couponDiv.appendChild(couponText);
+                couponDiv.appendChild(extraInfo);
+                couponArray.push(couponDiv);
+            }
+        });
+
+        // Apply spacing for first and last coupons
+        if (couponArray.length > 0) {
+            couponArray[0].style.marginTop = "15px";
+            couponArray[couponArray.length - 1].style.marginBottom = "15px";
+        }
+
+        couponArray.forEach(coupon => activeCouponsContainer.appendChild(coupon));
+
+        if (!hasCoupons) {
+            activeCouponsContainer.appendChild(noCouponMessage);
+        }
+
+        headTitle.style.display = "block";
+    });
+
+    return unsubscribeCoupons;
+}
 
 
 async function fetchAvailableCoupons(user) {

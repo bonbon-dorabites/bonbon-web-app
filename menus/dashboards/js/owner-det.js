@@ -64,14 +64,34 @@ function showConfirmation(message, callback) {
     modalInstance.show();
 }
 
-// Authenticate user and set up passcode functionality
-onAuthStateChanged(auth, (user) => {
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const editBtn = document.getElementById("password-edit");
+const submitBtn = document.getElementById("password-submit");
+const cancelBtn = document.getElementById("password-cancel");
+
+let originalPassword = ""; // Store original password to restore on cancel
+
+// Fetch Admin Email and Role from Firestore
+onAuthStateChanged(auth, async (user) => {
     if (user) {
-        console.log("User is authenticated:", user);
-        populateBranches(user);
-        
-        // Get the user email from Firebase Authentication
         const userEmail = user.email;
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("email", "==", userEmail));
+
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+                const userData = doc.data();
+                if (userData.role === "Owner") {
+                    emailInput.value = userEmail; // Display email
+                    emailInput.disabled = true;
+                }
+            });
+        } else {
+            console.log("User not found or not an Owner.");
+        }
+
         const passcodeInput = document.getElementById("passcode");
 
         // Handle passcode cancel button click
@@ -81,6 +101,7 @@ onAuthStateChanged(auth, (user) => {
             } else {
                 showModal("Removed all edits.", true);
                 passcodeInput.value = ""; // Clear the input field
+                passcodeInput.disabled = true;
             }
         });
 
@@ -90,154 +111,160 @@ onAuthStateChanged(auth, (user) => {
         });
 
         // Handle passcode submit button click
-        document.getElementById("passcode-submit").addEventListener("click", function() {
+        document.getElementById("passcode-submit").addEventListener("click", function () {
             const passcode = passcodeInput.value.trim(); // Get the passcode entered
 
             if (passcode) {
-                // Hash the original passcode for storage (for security)
-                hashPasscode(passcode).then(hashedPasscode => {
-                    // Query Firestore to find the document based on the user's email
-                    const usersRef = collection(db, "users");
-                    const q = query(usersRef, where("email", "==", userEmail));
+                // Show confirmation modal
+                showConfirmation("Are you sure you want to update the passcode?", async function () {
+                    // Hash the original passcode for storage (for security)
+                    hashPasscode(passcode).then(hashedPasscode => {
+                        // Query Firestore to find the document based on the user's email
+                        const usersRef = collection(db, "users");
+                        const q = query(usersRef, where("email", "==", userEmail));
 
-                    // Get the user document by email
-                    getDocs(q).then((querySnapshot) => {
-                        if (querySnapshot.empty) {
-                            console.log("No user found with that email.");
-                            return;
-                        }
+                        // Get the user document by email
+                        getDocs(q).then((querySnapshot) => {
+                            if (querySnapshot.empty) {
+                                console.log("No user found with that email.");
+                                return;
+                            }
 
-                        // Assuming only one document with the email exists
-                        querySnapshot.forEach((doc) => {
-                            // Store the hashed passcode in Firestore
-                            updateDoc(doc.ref, {
-                                passcode: hashedPasscode
-                            })
-                            .then(() => {
-                                console.log("Passcode updated successfully!");
-                                // Call the verifyPasscode function to verify after storing the passcode
-                                verifyPasscode(userEmail);
-                            })
-                            .catch((error) => {
-                                console.error("Error updating passcode: ", error);
+                            // Assuming only one document with the email exists
+                            querySnapshot.forEach((doc) => {
+                                // Store the hashed passcode in Firestore
+                                updateDoc(doc.ref, {
+                                    passcode: hashedPasscode
+                                })
+                                    .then(() => {
+                                        console.log("Passcode updated successfully!");
+                                        showModal("Passcode updated successfully!", true); 
+                                        passcodeInput.value = ""; // Clear the input field
+                                        passcodeInput.disabled = true;
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error updating passcode: ", error);
+                                    });
                             });
+                        }).catch((error) => {
+                            console.error("Error querying user by email: ", error);
                         });
-                    }).catch((error) => {
-                        console.error("Error querying user by email: ", error);
                     });
                 });
             } else {
-                console.log("Please enter a passcode.");
+                showModal("Please enter a passcode.", false);
             }
         });
     } else {
-        console.log("User is not authenticated.");
+        console.log("No user is logged in.");
     }
 });
 
-function populateBranches(user) {
-    const branchSelect = document.getElementById("branchSelect");
-    const roleSelect = document.getElementById("role");  // Role dropdown
-    const loginEmp = document.querySelector(".login-emp"); // The 'login-emp' class element
-    const emailInput = document.getElementById("branch-email"); // Email input for Staff and Manager
-    const allowRadio = document.getElementById("allow-access");
-    const declineRadio = document.getElementById("decline-access");
-    loginEmp.style.display = 'none';
+// Function to verify passcode (using SHA-256 hash)
+async function verifyPasscode() {
+    const ownerEmail = "owner_bonbon@gmail.com";
 
-    // Fetch branches from Firestore
-    const branchCollection = collection(db, "branches");
+    showPasswordModal("Please enter the owner's passcode to proceed:", function(enteredPasscode) {
+        // Hash the entered passcode for comparison (use SHA-256)
+        hashPasscode(enteredPasscode).then(hashedPasscode => {
+            // Query Firestore to find the owner's document by email
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("email", "==", ownerEmail));
 
-    onSnapshot(branchCollection, (branchesSnapshot) => {
-        // Clear any existing options in the select dropdown
-        branchSelect.innerHTML = '<option value="" disabled selected>Select a branch</option>';
+            // Get the user document by email
+            getDocs(q).then((querySnapshot) => {
+                if (querySnapshot.empty) {
+                    console.log("No user found with that email.");
+                    return;
+                }
 
-        // Iterate through each document in the snapshot
-        branchesSnapshot.forEach((doc) => {
-            const location = doc.data().location; // Get the location field from the document
-            const option = document.createElement("option");
-            option.value = doc.id; // Use the document ID as the value
-            option.textContent = location; // Use the location as the option text
-            branchSelect.appendChild(option);
-        });
+                // Assuming only one document with the email exists
+                querySnapshot.forEach((doc) => {
+                    // Get the stored passcode (hashed)
+                    const storedHashedPasscode = doc.data().passcode;
 
-        console.log("Branches populated successfully.");
-
-        // Add event listener to branch select to enable Role dropdown
-        branchSelect.addEventListener("change", function() {
-            // Enable the role dropdown when a branch is selected
-            roleSelect.disabled = false;
-            // Reset the role to default (this ensures 'Staff' is not selected)
-            roleSelect.value = "";  // Reset role dropdown to default value
-            // Reset the email field and hide the login-emp and pass-emp classes
-            emailInput.value = '';
-            loginEmp.style.display = 'none';
-        });
-
-        // Add event listener to role select to show or hide 'login-emp' for staff
-        roleSelect.addEventListener("change", async function() {
-            if (roleSelect.value === "Staff" || roleSelect.value === "Manager") {
-                // Show login-emp if the role is Staff or Manager
-                loginEmp.style.display = 'block';
-
-                const branchId = branchSelect.value;
-
-                // Fetch the email based on the role selected (Staff or Manager)
-                const branchDoc = await getDoc(doc(db, "branches", branchId));
-                let email = "";
-
-                if (branchDoc.exists()) {
-                    if (roleSelect.value === "Staff") {
-                        email = branchDoc.data().staff_email; // Get the staff email field
-                    } else if (roleSelect.value === "Manager") {
-                        email = branchDoc.data().manager_email; // Get the manager email field
+                    // Compare the entered passcode with the stored hashed passcode
+                    if (hashedPasscode === storedHashedPasscode) {
+                        showModal("Passcode is correct! Access granted.", true)
+                        setTimeout(() => {
+                            console.log("test");
+                            hideModal();
+                            console.log("Redirecting to login...");
+                            window.location.href = "/menus/emp-details.html";
+                        }, 2000);
+                    } else {
+                        showModal("Incorrect passcode! Access denied.", false)
                     }
+                });
+            }).catch((error) => {
+                console.error("Error querying user by email: ", error);
+            });
+        });
+    });
+}
 
-                    emailInput.value = email; // Set the email in the email input field
+// Function to hash the entered passcode securely using SHA-256
+async function hashPasscode(passcode) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(passcode))
+        .then(hashBuffer => {
+            return Array.from(new Uint8Array(hashBuffer))
+                .map(byte => byte.toString(16).padStart(2, '0'))
+                .join('');
+        });
+}
 
-                    // Query Firestore to get the hasAccess field based on the email
-                    const usersRef = collection(db, "users");
-                    const q = query(usersRef, where("email", "==", email));
+// Enable password input on edit click
+editBtn.addEventListener("click", () => {
+    originalPassword = passwordInput.value; // Store old password
+    passwordInput.disabled = false;
+});
 
-                    // Listen to changes in the user document and update the radio button
-                    onSnapshot(q, (querySnapshot) => {
-                        if (!querySnapshot.empty) {
-                            querySnapshot.forEach((doc) => {
-                                const hasAccess = doc.data().hasAccess; // Get the hasAccess field
+// Cancel password edit
+cancelBtn.addEventListener("click", () => {
+    if (passwordInput.value.trim() === "") {
+        showModal("No changes happened. There was nothing to cancel!", false);
+    } else {
+        showConfirmation("Are you sure you wish to perform this operation?", async function () {
+            passwordInput.value = originalPassword; // Restore previous value
+            passwordInput.disabled = true;
+            showModal("Removed all edits.", true);
+        });
+    }
+});
 
-                                // Toggle radio buttons based on the hasAccess field
-                                if (hasAccess === true) {
-                                    allowRadio.checked = true;
-                                    declineRadio.checked = false;
-                                } else {
-                                    allowRadio.checked = false;
-                                    declineRadio.checked = true;
-                                }
+// Update password in Firebase Auth and Firestore
+submitBtn.addEventListener("click", async () => {
+    showConfirmation("Are you sure you wish to perform this operation?", async function () { 
+        const newPassword = passwordInput.value.trim();
 
-                                // Add event listeners to update the hasAccess field when a radio button is clicked
-                                allowRadio.addEventListener("change", async () => {
-                                    if (allowRadio.checked) {
-                                        // Update hasAccess to true in Firestore
-                                        await updateDoc(doc.ref, { hasAccess: true });
-                                    }
-                                });
+        if (newPassword) {
+            const user = auth.currentUser;
+            try {
+                // Update password in Firebase Authentication
+                await updatePassword(user, newPassword);
+                console.log("Password updated in Firebase Authentication.");
 
-                                declineRadio.addEventListener("change", async () => {
-                                    if (declineRadio.checked) {
-                                        // Update hasAccess to false in Firestore
-                                        await updateDoc(doc.ref, { hasAccess: false });
-                                    }
-                                });
-                            });
-                        }
+                // Update password in Firestore (hashed for security)
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("email", "==", user.email));
+
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    querySnapshot.forEach(async (doc) => {
+                        await updateDoc(doc.ref, { passcode: newPassword }); // Store hashed password if needed
+                        showModal("You have changed your password. You need to log-in again.");
+                        setTimeout(() => {
+                            window.location.href = "/auth/login.html";
+                        }, 2000);
                     });
                 }
 
-            } else {
-                // Hide login-emp and pass-emp if the role is not Staff or Manager
-                loginEmp.style.display = 'none';
+                passwordInput.disabled = true; // Lock input again
+            } catch (error) {
+                console.error("Error updating password: ", error);
             }
-        });
-    }, (error) => {
-        console.error("Error listening to branches: ", error);
+        } else {
+            console.log("Please enter a new password.");
+        }
     });
-}
+});
