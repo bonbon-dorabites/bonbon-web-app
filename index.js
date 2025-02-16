@@ -272,7 +272,7 @@ function setupPasswordEditFunctions(user) {
                         console.log("Password successfully updated!");
     
                         setTimeout(() => {
-                            window.location.href = "/auth/login.html"; // Redirect to login
+                            window.location.href = "auth/login.html"; // Redirect to login
                         }, 2500);
     
                         console.log("✅ Password updated successfully.");
@@ -280,7 +280,7 @@ function setupPasswordEditFunctions(user) {
                         if (error.code === 'auth/requires-recent-login') {
                             showModal("You have been logged in for too long. Log-in again.", false);
                             setTimeout(() => {
-                                window.location.href = "/auth/login.html";
+                                window.location.href = "auth/login.html";
                             }, 2500);
                         } 
                         
@@ -341,7 +341,7 @@ async function accountDelete(user) {
                     // Redirect after deletion
                     showModal("Your account has been deleted. Thank you for using our application.", true);
                     setTimeout(() => {
-                        window.location.href = "/auth/signup.html";
+                        window.location.href = "auth/signup.html";
                     }, 2500);
                 } catch (error) {
                     console.error("❌ Error deleting account:", error);
