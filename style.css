@@ -1729,7 +1729,7 @@ textarea.form-control:focus {
     background-color: #3941af;
 }
 
-.action-btn.edit {
+.action-btn.edit,  .action-btn.editt{
     background-color: #28a745;
     color: white;
 }
