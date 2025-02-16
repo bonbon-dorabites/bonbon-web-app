@@ -85,6 +85,49 @@
                 text-align: center;
             }
         }
+        .floating-menu {
+            z-index: 100;
+        position: fixed;
+        bottom: 10px; /* Adjust the distance from the bottom */
+        left: 50%;
+        transform: translateX(-50%); /* Center the menu horizontally */
+        width: auto; /* Allow the menu to shrink to its content */
+        display: flex;
+        justify-content: center; /* Center the icons inside the menu */
+        background-color: var(--dark-brown);
+        border-radius: 25px; /* Optional: Add rounded corners for a cleaner look */
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px; /* Adjust the padding for a compressed effect */
+        gap: 15px;
+        }
+
+        .menu-item {
+        display: inline-block;
+        padding: 5px;
+        transition: transform 0.3s ease;
+        }
+
+        .menu-item.active {
+        transform: scale(1.2);
+        color: var(--light-brown); /* Active color */
+        }
+
+        .menu1, .menu2, .menu3, .menu4 {
+            background-color: var(--brown);
+            border-radius: 100px;
+        }
+
+        .menu1, .menu2, .menu3, .menu4 {
+            display: flex; /* Or block if needed */
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Move up effect */
+        .move-up {
+            transform: translateY(-20px);
+        }
     </style>
 </head>
 <body>
@@ -136,9 +179,6 @@
                       <span id="owner-edit-menu">
                           <li><a class="dropdown-item" href="/menus/owner-details.html">Details</a></li>
                       </span>
-                      <span id="logout-menu">
-                          <li><a class="dropdown-item">Log-out</a></li>
-                      </span>
                       <span id="owner-menu">
                           <li><a class="dropdown-item" href="/menus/dashboards/owner.html">Dashboard</a></li>
                       </span>
@@ -151,6 +191,9 @@
                       <span id="customer-menu">
                           <li><a class="dropdown-item" href="/menus/dashboards/customer.html">Dashboard</a></li>
                       </span>
+                      <span id="logout-menu">
+                          <li><a class="dropdown-item">Log-out</a></li>
+                      </span>
                   </ul>
                 </li>
               </ul>
@@ -159,11 +202,37 @@
         </nav>
     </header>
 
+    <!-- Floating Navigation Menu -->
+    <div class="floating-menu">
+        <div class="menu1">
+            <a href="#new" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="var(--dark-brown)" class="bi bi-cloud-plus-fill" viewBox="0 0 16 16">
+                    <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m.5 4v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+                  </svg>
+            </a>
+        </div>
+        <div class="menu2">
+            <a href="#pending" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="var(--dark-brown)" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                    <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                  </svg>
+            </a>
+        </div>
+        <div class="menu3">
+            <a href="#finished" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="var(--dark-brown)" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                  </svg>
+            </a>
+        </div>
+    </div> 
+    
     <section class="customer-dashboard ">
         <div class="dashboard-header text-center">
             <h1 id="c-title">Customer Dashboard</h1>
         </div>
         <div id="c-line1" class="dashboard-line"></div>
+        <section id="new"></section><br><br>
 
         <!-- New Orders Section -->
         <section class="new-orders mt-4 ">
@@ -172,6 +241,7 @@
             <div class="new-orders-container mt-4"></div><br>
         </section>
         <div id="c-line2" class="dashboard-line"></div>
+        <section id="pending"></section><br><br>
         
         <!-- Pending Orders Section -->
         <section class="pending-orders mt-4">
@@ -180,6 +250,7 @@
             <div class="accordion" id="pendingOrdersAccordion"></div> <br>
         </section>
         <div id="c-line3" class="dashboard-line"></div>
+        <section id="finished"></section><br><br>
 
         <!-- Finished Orders Section -->
         <section class="finished-orders mt-4">
@@ -244,7 +315,7 @@
     </div>
     
     <script>
-        /*window.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener("DOMContentLoaded", function() {
             const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
                 backdrop: 'static',
                 keyboard: false
@@ -263,7 +334,32 @@
                 loadingModal.hide();
                 localStorage.removeItem('showModal'); // Clear state after hiding
             }, 5000);
-        });*/
+        });
+
+        const mainBtn = document.querySelector('.main-btn');
+        const menuContainer = document.querySelector('.floating-menu');
+
+        mainBtn.addEventListener('click', () => {
+            menuContainer.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                let menuDiv = this.parentElement; // Get direct parent
+
+                if (menuDiv.classList.contains("menu1") || 
+                    menuDiv.classList.contains("menu2") ||
+                    menuDiv.classList.contains("menu3") ) {
+                    menuDiv.classList.add("move-up");
+
+                    setTimeout(() => {
+                        menuDiv.classList.remove("move-up");
+                    }, 300);
+                }
+            });
+        });
     </script>
     <script src="/main.js"></script>
     <script type="module" src="/hi.js" defer></script>

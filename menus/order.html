@@ -66,9 +66,6 @@
                   <span id="owner-edit-menu">
                       <li><a class="dropdown-item" href="/menus/owner-details.html">Details</a></li>
                   </span>
-                  <span id="logout-menu">
-                      <li><a class="dropdown-item">Log-out</a></li>
-                  </span>
                   <span id="owner-menu">
                       <li><a class="dropdown-item" href="/menus/dashboards/owner.html">Dashboard</a></li>
                   </span>
@@ -80,6 +77,9 @@
                   </span>
                   <span id="customer-menu">
                       <li><a class="dropdown-item" href="/menus/dashboards/customer.html">Dashboard</a></li>
+                  </span>
+                  <span id="logout-menu">
+                      <li><a class="dropdown-item">Log-out</a></li>
                   </span>
               </ul>
             </li>
@@ -157,22 +157,22 @@
               <div class="col-checkout">
                 <div class="col-c1">
                   <label for="fname"><i class="fa fa-user"></i> First Name</label>
-                  <input type="text" id="fname" name="firstname" placeholder="John" required>
+                  <input type="text" id="fname" name="firstname" placeholder="John" disabled required>
                 </div>
                 <div class="col-c1">
                   <label for="lname"><i class="fa fa-user"></i> Last Name</label>
-                  <input type="text" id="lname" name="lastname" placeholder="Doe" required>
+                  <input type="text" id="lname" name="lastname" placeholder="Doe" disabled required>
                 </div>
               </div>
 
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
-              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+              <input type="email" id="email" name="email" placeholder="john@example.com" disabled required>
 
               <label for="phone"><i class="fa fa-phone"></i> Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+              <input type="tel" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" disabled required>
                           
               <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-              <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
+              <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" disabled required>
 
                 
             </div>
@@ -285,7 +285,7 @@
     </div>
   
     <script>
-      /*window.addEventListener("DOMContentLoaded", function() {
+      window.addEventListener("DOMContentLoaded", function() {
           const loadingModal = new bootstrap.Modal(document.getElementById('gifModal'), {
               backdrop: 'static',
               keyboard: false
@@ -303,8 +303,8 @@
           setTimeout(() => {
               loadingModal.hide();
               localStorage.removeItem('showModal'); // Clear state after hiding
-          }, 4000);
-      });*/
+          }, 3000);
+      });
   </script>
     <script src="/main.js"></script>
     <script type="module" src="/hi.js" defer></script>

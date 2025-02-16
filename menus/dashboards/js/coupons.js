@@ -92,7 +92,7 @@ async function fetchData() {
                         <td>
                             <div style="display: flex !important;">
                                 <button class="action-btn detail"><i class="fas fa-list-alt"></i></button>
-                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn editt"><i class="fas fa-edit"></i></button>
                                 <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
@@ -127,13 +127,13 @@ async function fetchData() {
             detailsContainer.className = "details";
             detailsContainer.innerHTML = `
                 <div class="details-card">
-                    <div class="initials" style="background-color: var(--brown);">${coupon.couponId || ""}</div>
+                    <div class="initials" style="background-color: var(--brown); width:100%;">${coupon.couponId || ""}</div>
                     <p><strong>Amount:</strong> Php${coupon.coup_amount || "N/A"}.00</p>
                     <p><strong>Coupon Description:</strong> ${coupon.coup_desc || "N/A"}</p>
                     <p><strong>Status:</strong> ${coupon.status || "N/A"}</p>
                     <div class="actions">
                         <button class="action-btn detail"><i class="fas fa-list-alt"></i></button>
-                        <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn editt"><i class="fas fa-edit"></i></button>
                         <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
@@ -144,9 +144,10 @@ async function fetchData() {
         });
 
         // Restore event listeners
-        document.querySelectorAll('.edit').forEach(button => {
+        document.querySelectorAll('.editt').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.stopImmediatePropagation();
+                console.log("PIMAPASOK");
                 let couponId;
                 const row = e.currentTarget.closest("tr");
                 const detailsCard = e.currentTarget.closest(".details-card");
