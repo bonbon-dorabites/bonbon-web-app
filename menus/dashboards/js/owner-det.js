@@ -254,7 +254,7 @@ submitBtn.addEventListener("click", async () => {
                         await updateDoc(doc.ref, { passcode: newPassword }); // Store hashed password if needed
                         showModal("You have changed your password. You need to log-in again.");
                         setTimeout(() => {
-                            window.location.href = "../../../../auth/login.html";
+                            window.location.href = "../../../auth/login.html";
                         }, 2000);
                     });
                 }

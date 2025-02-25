@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("test");
                 hideModal();
                 console.log("Redirecting to login...");
-                window.location.href = "../auth/login.html";
+                window.location.href = "../../auth/login.html";
             }, 2000);  // Adjusted timeout to give enough time for the modal to appear
         } catch (error) {
             console.error("Error signing out:", error);
