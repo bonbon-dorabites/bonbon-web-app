@@ -272,7 +272,7 @@ function setupPasswordEditFunctions(user) {
                         console.log("Password successfully updated!");
     
                         setTimeout(() => {
-                            window.location.href = "auth/login.html"; // Redirect to login
+                            window.location.href = "../auth/login.html"; // Redirect to login
                         }, 2500);
     
                         console.log("✅ Password updated successfully.");
