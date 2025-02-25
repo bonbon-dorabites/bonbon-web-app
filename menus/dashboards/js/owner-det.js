@@ -190,7 +190,7 @@ async function verifyPasscode() {
                             console.log("test");
                             hideModal();
                             console.log("Redirecting to login...");
-                            window.location.href = "/menus/emp-details.html";
+                            window.location.href = "../../emp-details.html";
                         }, 2000);
                     } else {
                         showModal("Incorrect passcode! Access denied.", false)
@@ -254,7 +254,7 @@ submitBtn.addEventListener("click", async () => {
                         await updateDoc(doc.ref, { passcode: newPassword }); // Store hashed password if needed
                         showModal("You have changed your password. You need to log-in again.");
                         setTimeout(() => {
-                            window.location.href = "/auth/login.html";
+                            window.location.href = "../../../auth/login.html";
                         }, 2000);
                     });
                 }

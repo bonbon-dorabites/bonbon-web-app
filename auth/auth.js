@@ -109,7 +109,7 @@ async function handleSignup(event) {
         // Show loading modal and redirect after a delay
         showModal("Creating account. Please wait...", true);
         setTimeout(() => {
-            window.location.href = "auth/login.html";
+            window.location.href = "../auth/login.html";
         }, 2000);
     } catch (error) {
         console.error("Signup error: ", error.code, error.message);
@@ -174,7 +174,7 @@ async function handleLogin(event) {
                         // If the user has access, or their role is not Manager or Staff, redirect to index.html
                         showModal("Welcome to BonBon. Cravings satisfied.", true);
                         setTimeout(() => {
-                            window.location.href = "index.html";
+                            window.location.href = "../index.html";
                         }, 2000);
                     }
                 });
