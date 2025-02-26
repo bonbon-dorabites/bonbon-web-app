@@ -186,7 +186,7 @@ async function addToCart(itemId, itemName, itemPrice) {
 
     const cartRef = doc(db, "branches", branchId, "carts", userId); // Reference to user's cart document
 
-    
+    showModal("Item added to cart successfully!", true);
     try {
         await runTransaction(db, async (transaction) => {
             const cartDoc = await transaction.get(cartRef);
@@ -224,7 +224,7 @@ async function addToCart(itemId, itemName, itemPrice) {
             }
         });
 
-        showModal("Item added to cart successfully!", true);
+        
     } catch (error) {
         console.error("Error adding item to cart:", error);
     }
