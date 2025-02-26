@@ -713,7 +713,7 @@ async function checkout() {
 
     console.log("Cart marked as checked out!");
     setTimeout(() => {
-        window.location.href = "../customer.html";
+        window.location.href = "../menus/dashboards/customer.html";
     }, 1500);
     });
 }
