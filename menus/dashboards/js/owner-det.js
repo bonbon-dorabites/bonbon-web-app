@@ -141,6 +141,9 @@ onAuthStateChanged(auth, async (user) => {
                                         showModal("Passcode updated successfully!", true); 
                                         passcodeInput.value = ""; // Clear the input field
                                         passcodeInput.disabled = true;
+                                        setTimeout(() => {
+                                            location.reload();
+                                        }, 2000);
                                     })
                                     .catch((error) => {
                                         console.error("Error updating passcode: ", error);

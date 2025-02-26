@@ -132,12 +132,8 @@ document.addEventListener("click", async (event) => {
             if (docSnap.exists()) {
                 const itemPrice = docSnap.data().item_price;
                 console.log("Item price fetched:", itemPrice);
-
-                // Call function to add item to the cart with the fetched price
-                showConfirmation("Are you sure you want to add this item to you cart?", async function () { 
-                    console.log("showConfirmation triggered. Calling addToCart...");
-                    await addToCart(itemId, itemName, itemPrice);
-                });
+                console.log("showConfirmation triggered. Calling addToCart...");
+                await addToCart(itemId, itemName, itemPrice);
 
             } else {
                 console.error("Item not found in Firestore.");

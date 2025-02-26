@@ -104,7 +104,7 @@ async function fetchItemsAndUpdate() {
                 </div>
                 <div id="${item.soldId}" class="right-side">
                     <button class="cart-btn">
-                        <img src="/img/out-of-stock.png" height="30" width="80" alt="">
+                        <img src="../../../../bonbon-web-app/img/out-of-stock.png" height="30" width="80" alt="">
                     </button>
                 </div>
             `;
@@ -131,7 +131,7 @@ async function fetchItemsAndUpdate() {
                     <div id="${item.soldId}" class="right-side">
                         <div class="d-flex justify-content-center align-items-center">
                             <button class="cart-btn">
-                                <img src="/img/out-of-stock.png" height="30" width="80" alt="">
+                                <img src="../../../../bonbon-web-app/img/out-of-stock.png" height="30" width="80" alt="">
                             </button>
                         </div>
                     </div>
@@ -157,7 +157,7 @@ async function fetchItemsAndUpdate() {
                     <div id="${item.soldId}" class="right-side">
                         <div class="d-flex justify-content-center align-items-center">
                             <button class="cart-btn">
-                            <img src="/img/out-of-stock.png" height="30" width="80" alt="">
+                            <img src="../../../../bonbon-web-app/img/out-of-stock.png" height="30" width="80" alt="">
                             </button>
                         </div>
                     </div>
